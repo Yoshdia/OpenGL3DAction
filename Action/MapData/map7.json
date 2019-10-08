@@ -1,0 +1,29 @@
+{
+  "Obstacles": [
+    {
+      "type": "Obstacle",
+      "x": 1300,
+      "y": 900
+    },
+    {
+      "type": "Obstacle",
+      "x": 900,
+      "y": 900
+    },
+    {
+      "type": "Obstacle",
+      "x": 1100,
+      "y": 900
+    },
+    {
+      "type": "Obstacle",
+      "x": 1500,
+      "y": 900
+    },
+    {
+      "type": "Obstacle",
+      "x": 700,
+      "y": 900
+    }
+  ]
+}
