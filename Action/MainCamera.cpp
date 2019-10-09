@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "SDL.h"
 #include "RotateComponent.h"
-#include "PlayerObject.h"
+#include "PlayerCharacter.h"
 
 MainCamera::MainCamera(GameObject* _owner)
 	:CameraComponent(_owner)
@@ -12,7 +12,7 @@ MainCamera::MainCamera(GameObject* _owner)
 	, springConstant(500.0f)
 	, rotate(nullptr)
 {
-	rotate = (dynamic_cast<PlayerObject*>(_owner)->GetRotate());
+	//rotate = (dynamic_cast<PlayerCharacter*>(_owner)->GetRotate());
 }
 
 void MainCamera::Update(float _deltaTime)
@@ -61,3 +61,5 @@ Vector3 MainCamera::ComputeCameraPos() const
 
     return cameraPos;
 }
+
+

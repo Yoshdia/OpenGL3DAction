@@ -21,7 +21,6 @@ public:
 	*/
 	virtual void ProcessInput(const struct InputState& _state);
 
-    bool CanMove() { return canMove; }
 	Vector3 GetCameraUp() const { return Vector3::Transform(Vector3::UnitZ, cameraQuat); }
 	Vector3 GetCameraForward() const { return Vector3::Transform(Vector3::UnitX, cameraQuat); }
 private:
@@ -37,7 +36,6 @@ private:
     float f;
     float addF;
 	float moveTorque;
-    bool canMove;
     Quaternion rot;
 	Quaternion cameraQuat;
 	Quaternion moveRot;

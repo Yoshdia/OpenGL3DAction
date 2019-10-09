@@ -1,5 +1,6 @@
 #pragma once
 #include "CameraComponent.h"
+#include "GameObject.h"
 
 class RotateComponent;
 class MainCamera : public CameraComponent
@@ -33,4 +34,3 @@ private:
 
 	RotateComponent* rotate;
 };
-

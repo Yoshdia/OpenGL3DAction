@@ -18,5 +18,7 @@ public:
 	void UpdateGameObject(float _deltaTime) override;
 
 private:
+	class SpriteComponent* spriteComponent;
+
 };
 
