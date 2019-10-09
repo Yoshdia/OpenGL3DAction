@@ -145,7 +145,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BoxCollider.cpp" />
-    <ClCompile Include="BoxObject.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CameraObject.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
@@ -167,24 +166,20 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
-    <ClCompile Include="PlaneObject.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
-    <ClCompile Include="SphereObject.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="WallMeshComponent.cpp" />
-    <ClCompile Include="WallObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxCollider.h" />
-    <ClInclude Include="BoxObject.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CameraObject.h" />
     <ClInclude Include="ColliderComponent.h" />
@@ -205,20 +200,17 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="MoveComponent.h" />
     <ClInclude Include="PhysicsWorld.h" />
-    <ClInclude Include="PlaneObject.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="SphereCollider.h" />
-    <ClInclude Include="SphereObject.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="WallMeshComponent.h" />
-    <ClInclude Include="WallObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

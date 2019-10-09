@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "Renderer.h"
 #include "Math.h"
+#include "PlayerGameObject.h"
+
 
 PlayScene::PlayScene()
     :SceneBase()
@@ -13,6 +15,7 @@ PlayScene::PlayScene()
     dir.diffuseColor = Vector3(0.78f, 0.88f, 1.0f);
     dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
+	PlayerGameObject* play= new PlayerGameObject();
 }
 
 

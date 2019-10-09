@@ -12,11 +12,6 @@ struct InputState;
 enum Tag
 {
 	NoneTag,
-	Player,
-	Obstacle,
-	JumpingObstacle,
-	Wall,
-	CheckArea
 };
 
 /**
@@ -54,10 +49,10 @@ public:
 	@brief	ゲームオブジェクトのアップデート
 	@param	最後のフレームを完了するのに要した時間
 	*/
-	virtual void UpdateGameObject(float _deltaTime);
+	virtual void UpdateGameObject(float _deltaTime) ;
 
 	void ProcessInput(const InputState& _keyState);
-	virtual void GameObjectInput(const InputState& _keyState);
+	virtual void GameObjectInput(const InputState& _keyState) ;
 
 	/**
 	@brief	コンポーネントを追加する
@@ -152,9 +147,9 @@ public:
 
 protected:
     std::function<void(GameObject&)> GetOnCollisionFunc() { return std::bind(&GameObject::OnCollision, this, std::placeholders::_1); }
-    virtual void OnCollision(const GameObject& _hitObject) {}
+	virtual void OnCollision(const GameObject& _hitObject);
 
-    virtual void OnTrigger(GameObject& _triggerObject) {}
+	virtual void OnTrigger(GameObject& _triggerObject);
 	//ゲームオブジェクトの状態
 	State state;
 	//ゲームオブジェクトのタグ

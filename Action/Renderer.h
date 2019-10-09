@@ -181,7 +181,6 @@ private:
     Shader* spriteShader;
     VertexArray* spriteVerts;
     Shader* meshShader;
-    Shader* wallShader;
 
     //ƒrƒ…[s—ñ
     Matrix4 view;

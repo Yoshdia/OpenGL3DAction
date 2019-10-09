@@ -45,9 +45,6 @@
     <ClCompile Include="FPS.cpp">
       <Filter>FPS</Filter>
     </ClCompile>
-    <ClCompile Include="PlaneObject.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="InputSystem.cpp">
       <Filter>InputSystem</Filter>
     </ClCompile>
@@ -81,16 +78,10 @@
     <ClCompile Include="FollowCameraObject.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="SphereObject.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="BoxCollider.cpp">
       <Filter>Collider</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectManager.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="BoxObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="PlayScene.cpp">
@@ -104,9 +95,6 @@
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="WallObject.cpp">
-      <Filter>GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -153,9 +141,6 @@
     <ClInclude Include="FPS.h">
       <Filter>FPS</Filter>
     </ClInclude>
-    <ClInclude Include="PlaneObject.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="InputSystem.h">
       <Filter>InputSystem</Filter>
     </ClInclude>
@@ -189,16 +174,10 @@
     <ClInclude Include="FollowCameraObject.h">
       <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="SphereObject.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="BoxCollider.h">
       <Filter>Collider</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectManager.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="BoxObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="PlayScene.h">
@@ -212,9 +191,6 @@
     </ClInclude>
     <ClInclude Include="TitleScene.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="WallObject.h">
-      <Filter>GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

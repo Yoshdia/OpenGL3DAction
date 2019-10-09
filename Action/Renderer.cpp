@@ -14,7 +14,6 @@ Renderer::Renderer()
     : spriteShader(nullptr)
 	, spriteVerts(nullptr)
     , meshShader(nullptr)
-    , wallShader(nullptr)
 	, view(Matrix4::Identity)
 	, projection(Matrix4::Identity)
 	, screenWidth(0)
@@ -128,8 +127,7 @@ void Renderer::Shutdown()
     delete spriteShader;
     meshShader->Unload();
     delete meshShader;
-    wallShader->Unload();
-    delete wallShader;
+  
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
 }
@@ -184,19 +182,6 @@ void Renderer::Draw()
 		{
 			mc->Draw(meshShader);
 		}
-    }
-
-    wallShader->SetActive();
-
-    wallShader->SetMatrixUniform("uViewProj", view * projection);
-
-    SetWallLightUniforms(wallShader);
-    for (auto mc : wallMeshComponents)
-    {
-        if (mc->GetVisible())
-        {
-            mc->Draw(wallShader);
-        }
     }
 
     // スプライトコンポーネントの描画
@@ -378,12 +363,6 @@ bool Renderer::LoadShaders()
         return false;
     }
 
-    wallShader = new Shader();
-    if (!wallShader->Load("Shaders/WallShader.vert", "Shaders/WallShader.frag"))
-    {
-        return false;
-    }
-
     meshShader->SetActive();
     // ビュー行列の設定
     view = Matrix4::CreateLookAt(Vector3::Zero, Vector3::UnitX, Vector3::UnitZ);
@@ -391,8 +370,6 @@ bool Renderer::LoadShaders()
         screenWidth, screenHeight, 25.0f, 10000.0f);
     meshShader->SetMatrixUniform("uViewProj", view * projection);
 
-    wallShader->SetActive();
-    wallShader->SetMatrixUniform("uViewProj", view * projection);
     return true;
 }
 

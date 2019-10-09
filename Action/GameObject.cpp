@@ -57,10 +57,6 @@ void GameObject::UpdateComponents(float _deltaTime)
 	}
 }
 
-/**
-@brief	ゲームオブジェクトのアップデート
-@param	最後のフレームを完了するのに要した時間
-*/
 void GameObject::UpdateGameObject(float _deltaTime)
 {
 }
@@ -78,7 +74,7 @@ void GameObject::ProcessInput(const InputState& _keyState)
 	}
 }
 
-void GameObject::GameObjectInput(const InputState& _keyState)
+void GameObject::GameObjectInput(const InputState & _keyState)
 {
 }
 
@@ -132,4 +128,12 @@ void GameObject::ComputeWorldTransform()
 			itr->OnUpdateWorldTransform();
 		}
 	}
+}
+
+void GameObject::OnCollision(const GameObject & _hitObject)
+{
+}
+
+void GameObject::OnTrigger(GameObject & _triggerObject)
+{
 }
