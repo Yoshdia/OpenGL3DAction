@@ -19,7 +19,7 @@ void FollowCamera::Update(float _deltaTime)
 		float angle = angularSpeed * _deltaTime;
 		// Create quaternion for incremental rotation
 		// (Rotate about up axis)
-		Quaternion inc(Vector3::UnitZ, angle);
+		Quaternion inc(Vector3::UnitY, angle);
 		// Concatenate old and new quaternion
 		rot = Quaternion::Concatenate(rot, inc);
 		owner->SetRotation(rot);
@@ -41,7 +41,7 @@ void FollowCamera::Update(float _deltaTime)
 
 	Vector3 target = owner->GetPosition() + owner->GetForward() * targetDist;
 
-	Matrix4 view = Matrix4::CreateLookAt(actualPos,target,Vector3::UnitZ);
+	Matrix4 view = Matrix4::CreateLookAt(actualPos,target,Vector3::UnitY);
 
 	SetViewMatrix(view);
 }
@@ -85,7 +85,7 @@ void FollowCamera::SnapToIdeal()
 
 	Vector3 target = owner->GetPosition() + owner->GetForward() * targetDist;
 
-	Matrix4 view = Matrix4::CreateLookAt(actualPos,target,Vector3::UnitZ);
+	Matrix4 view = Matrix4::CreateLookAt(actualPos,target,Vector3::UnitY);
 
 	SetViewMatrix(view);
 }
@@ -96,7 +96,7 @@ Vector3 FollowCamera::ComputeCameraPos() const
 
 	cameraPos -= owner->GetForward() * horzDist;
 
-	cameraPos += Vector3::UnitZ * vertDist;
+	cameraPos += Vector3::UnitY * vertDist;
 
 	return cameraPos;
 }

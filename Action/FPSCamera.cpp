@@ -32,7 +32,7 @@ void FPSCamera::Update(float _deltaTime)
 
 		Vector3 target = cameraPos + viewForward * 100.0f;
 
-		Vector3 up = Vector3::Transform(Vector3::UnitZ, q);
+		Vector3 up = Vector3::Transform(Vector3::UnitY, q);
 
 		Matrix4 view = Matrix4::CreateLookAt(cameraPos, target, up);
 
@@ -45,7 +45,7 @@ void FPSCamera::Update(float _deltaTime)
 		float angle = angularSpeed * _deltaTime;
 		// Create quaternion for incremental rotation
 		// (Rotate about up axis)
-		Quaternion inc(Vector3::UnitZ, angle);
+		Quaternion inc(Vector3::UnitY, angle);
 		// Concatenate old and new quaternion
 		rot = Quaternion::Concatenate(rot, inc);
 		owner->SetRotation(rot);

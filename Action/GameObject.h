@@ -141,7 +141,7 @@ public:
 	@brief　オブジェクトの上を表すベクトルを取得する
 	@param	up(Vector3型)
 	*/
-	Vector3 GetUp() const { return Vector3::Transform(Vector3::UnitZ, rotation); }
+	Vector3 GetUp() const { return Vector3::Transform(Vector3::UnitY, rotation); }
 
 	Tag GetTag() const { return tag; }
 

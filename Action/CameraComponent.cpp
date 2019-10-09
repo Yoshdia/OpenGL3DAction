@@ -12,6 +12,7 @@ CameraComponent::CameraComponent(GameObject* _owner, int _updateOrder)
 void CameraComponent::Update(float _deltaTime)
 {
 	Vector3 cameraPos = owner->GetPosition();
+	cameraPos.z += 10;
 
 	Quaternion q(owner->GetRight(), 0.0f);
 
@@ -19,7 +20,7 @@ void CameraComponent::Update(float _deltaTime)
 
 	Vector3 target = cameraPos + viewForward * 100.0f;
 
-	Vector3 up = Vector3::Transform(Vector3::UnitZ, q);
+	Vector3 up = Vector3::Transform(Vector3::UnitY, q);
 
 	Matrix4 view = Matrix4::CreateLookAt(cameraPos, target, up);
 

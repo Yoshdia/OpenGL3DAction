@@ -24,7 +24,7 @@ void CameraObject::UpdateGameObject(float _deltaTime)
 	// このオブジェクトのポジションからビュー行列を計算
     Vector3 cameraPos = GetPosition();
     Vector3 target = GetPosition() + GetForward() * 100.0f;
-    Vector3 up = Vector3::UnitZ;
+    Vector3 up = Vector3::UnitY;
 
     Matrix4 view = Matrix4::CreateLookAt(cameraPos, target, up);
 	RENDERER->SetViewMatrix(view);
