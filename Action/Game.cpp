@@ -79,6 +79,9 @@ bool Game::Initialize()
     //Œ»Ý‚ÌƒV[ƒ“‚Ì‰Šú‰»
     nowScene = SceneBase::StartGame();
 
+	Matrix4 v = Matrix4::CreateLookAt(Vector3(1, 0, -10), Vector3(0, 0, 0),Vector3::UnitY);
+	RENDERER->SetViewMatrix(v);
+
 	return true;
 }
 

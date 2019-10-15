@@ -31,11 +31,11 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 	Vector3 dir = Vector3( 0,0,0 );
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 	{
-		dir.z++;
+		dir.x++;
 	}
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_LEFT))
 	{
-		dir.z--;
+		dir.x--;
 	}
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_UP))
 	{

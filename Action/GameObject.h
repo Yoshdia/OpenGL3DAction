@@ -129,13 +129,13 @@ public:
 	@brief　オブジェクトの前方を表すベクトルを取得する
 	@param	forward(Vector3型)
 	*/
-    Vector3 GetForward() const { return Vector3::Transform(Vector3::UnitX, rotation); }
+    Vector3 GetForward() const { return Vector3::Transform(Vector3::UnitZ, rotation); }
 
 	/**
 	@brief　オブジェクトの右を表すベクトルを取得する
 	@param	right(Vector3型)
 	*/
-	Vector3 GetRight() const { return Vector3::Transform(Vector3::UnitY, rotation); }
+	Vector3 GetRight() const { return Vector3::Transform(Vector3::UnitX, rotation); }
 
 	/**
 	@brief　オブジェクトの上を表すベクトルを取得する
