@@ -14,7 +14,7 @@ public:
 	void GameObjectInput(const InputState & _keyState) override;
 
 private:
-	class SpriteComponent* spriteComponent;
+	class AnimationPlayerComponent* animationComponent;
 	class CameraComponent* camera;
 };
 

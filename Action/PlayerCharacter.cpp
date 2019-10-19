@@ -4,18 +4,15 @@
 #include "CameraComponent.h"
 #include "MeshComponent.h"
 #include "InputSystem.h"
+#include "AnimationPlayerComponent.h"
 
 PlayerCharacter::PlayerCharacter()
 {
-	spriteComponent = new SpriteComponent(this, 100);
-	spriteComponent->SetTexture(Renderer::GetInstance()->GetTexture("Assets/Image/once.png"));
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
 	SetPosition(Vector3(0, 0, 0));
-	MeshComponent* mesh = new MeshComponent(this);
-	mesh->SetMesh(RENDERER->GetMesh("Assets/Bike.gpmesh"));
+	animationComponent = new AnimationPlayerComponent(this, 100);
 	//camera=new CameraComponent(this);
 }
-
 
 PlayerCharacter::~PlayerCharacter()
 {

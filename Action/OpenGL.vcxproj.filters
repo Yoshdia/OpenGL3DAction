@@ -98,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="MainCamera.cpp" />
+    <ClCompile Include="AnimationPlayerComponent.cpp" />
+    <ClCompile Include="AnimationSpriteClip.cpp" />
+    <ClCompile Include="MovePlayerAnimationClip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -194,8 +197,13 @@
     <ClInclude Include="TitleScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="MainCamera.h" />
+    <ClInclude Include="PlayerCharacter.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationPlayerComponent.h" />
+    <ClInclude Include="AnimationSpriteClip.h" />
+    <ClInclude Include="MovePlayerAnimationClip.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
