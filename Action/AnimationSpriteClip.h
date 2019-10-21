@@ -1,6 +1,12 @@
 #pragma once
 class Texture;
 
+struct AnimationKeyFrame
+{
+	Texture* sprite;
+	int waitTimeForNextTexture;
+};
+
 /*
  @file AnimationSpriteClip.h
  @brief Spriteのアニメーションクリップ基底クラス
@@ -11,16 +17,16 @@ public:
 	AnimationSpriteClip();
 	virtual ~AnimationSpriteClip();
 
-	/*
-   @fn Clip内で次のSpriteへ移行する関数
-   @detail AnimationComponent内でのnowSpriteCountが一定数まで増えたので、nowTextureを次のSpriteへ変更し、nowSpriteCountの最大数を変更させこのクラスのnowTextureCountを変更する
-   @return 次描画させるSpriteのアドレス
-  */
-	virtual const Texture* ChangeNextTexture(int& spriteCountMax);
+	void Animation();
+	Texture* GetSprite() { return animation[nowAnimationFrame].sprite; };
+	bool AnimationEnd() { return animationEnd; };
 protected:
+	AnimationKeyFrame* animation;
 	//現在描画中のSprite
 	Texture* nowSprite;
-	int nowSpriteCount;
 
+	int nowAnimationTime;
+	int nowAnimationFrame;
+	bool animationEnd;
 };
 

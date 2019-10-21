@@ -14,9 +14,10 @@ public:
 	MovePlayerAnimationClip();
 	~MovePlayerAnimationClip();
 
-	const Texture* ChangeNextTexture(int& spriteCountMax);
+	//const Texture* ChangeNextTexture(int& spriteCountMax);
 private:
-	std::string fileNameone;
-	std::string fileNametwo;
+
+	////std::string fileNameone;
+	//std::string fileNametwo;
 };
 

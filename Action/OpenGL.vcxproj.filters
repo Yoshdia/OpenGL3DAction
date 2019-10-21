@@ -98,9 +98,15 @@
     </ClCompile>
     <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="MainCamera.cpp" />
-    <ClCompile Include="AnimationPlayerComponent.cpp" />
-    <ClCompile Include="AnimationSpriteClip.cpp" />
-    <ClCompile Include="MovePlayerAnimationClip.cpp" />
+    <ClCompile Include="AnimationPlayerComponent.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationSpriteClip.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="MovePlayerAnimationClip.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -201,9 +207,15 @@
     <ClInclude Include="PlayerCharacter.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationPlayerComponent.h" />
-    <ClInclude Include="AnimationSpriteClip.h" />
-    <ClInclude Include="MovePlayerAnimationClip.h" />
+    <ClInclude Include="AnimationPlayerComponent.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationSpriteClip.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="MovePlayerAnimationClip.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -235,6 +247,9 @@
     </Filter>
     <Filter Include="Math">
       <UniqueIdentifier>{6a202267-f302-460a-bad2-773b2329bbdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{c8e606d2-bf2c-4f01-ad9d-28b803aa7d2a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
