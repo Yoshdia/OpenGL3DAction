@@ -7,7 +7,6 @@ AnimationPlayerComponent::AnimationPlayerComponent(GameObject* _owner, int _upda
 	:Component(_owner, _updateOrder)
 {
 	spriteComponent = new SpriteComponent(_owner, 100);
-	spriteComponent->SetTexture(nullptr);
 
 	nowAnimation = nullptr;
 	idle =new MovePlayerAnimationClip();
@@ -27,4 +26,5 @@ void AnimationPlayerComponent::Update(float _deltaTime)
 	{
 		spriteComponent->SetTexture(nowAnimation->GetSprite());
 	}
+	nowAnimation->Animation();
 }

@@ -3,7 +3,6 @@
 
 AnimationSpriteClip::AnimationSpriteClip()
 {
-	nowSprite = nullptr;
 	nowAnimationFrame = 0;
 	nowAnimationTime = 0;
 	animation = new AnimationKeyFrame[10];
@@ -16,10 +15,6 @@ AnimationSpriteClip::AnimationSpriteClip()
 
 AnimationSpriteClip::~AnimationSpriteClip()
 {
-	if (nowSprite != nullptr)
-	{
-		nowSprite = nullptr;
-	}
 	if (animation != nullptr)
 	{
 		delete[] animation;
@@ -38,7 +33,9 @@ void AnimationSpriteClip::Animation()
 		if (animation[nowAnimationFrame].sprite == nullptr)
 		{
 			animationEnd = true;
+			nowAnimationFrame = 0;
 		}
+
 		nowAnimationTime = 0;
 	}
 }

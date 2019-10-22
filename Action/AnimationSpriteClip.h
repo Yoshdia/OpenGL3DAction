@@ -22,8 +22,6 @@ public:
 	bool AnimationEnd() { return animationEnd; };
 protected:
 	AnimationKeyFrame* animation;
-	//åªç›ï`âÊíÜÇÃSprite
-	Texture* nowSprite;
 
 	int nowAnimationTime;
 	int nowAnimationFrame;
