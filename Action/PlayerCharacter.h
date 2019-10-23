@@ -16,5 +16,8 @@ public:
 private:
 	class AnimationPlayerComponent* animationComponent;
 	class CameraComponent* camera;
+	class AttackPlayerComponent* attack;
+
+	float canNotActionTime;
 };
 

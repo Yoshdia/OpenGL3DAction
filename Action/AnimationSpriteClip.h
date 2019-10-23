@@ -20,6 +20,7 @@ public:
 	void Animation();
 	Texture* GetSprite() { return animation[nowAnimationFrame].sprite; };
 	bool AnimationEnd() { return animationEnd; };
+	void ResetAnimation();
 protected:
 	AnimationKeyFrame* animation;
 

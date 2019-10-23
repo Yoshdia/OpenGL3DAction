@@ -39,3 +39,9 @@ void AnimationSpriteClip::Animation()
 		nowAnimationTime = 0;
 	}
 }
+
+void AnimationSpriteClip::ResetAnimation()
+{
+	nowAnimationFrame = 0;
+	nowAnimationTime = 0;
+}

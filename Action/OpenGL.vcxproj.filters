@@ -107,6 +107,16 @@
     <ClCompile Include="MovePlayerAnimationClip.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
+    <ClCompile Include="IdlePlayerAnimationClip.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackBase.cpp">
+      <Filter>Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackOnce.cpp">
+      <Filter>Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackPlayerComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -216,6 +226,16 @@
     <ClInclude Include="MovePlayerAnimationClip.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="IdlePlayerAnimationClip.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackBase.h">
+      <Filter>Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackOnce.h">
+      <Filter>Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackPlayerComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -250,6 +270,9 @@
     </Filter>
     <Filter Include="Animation">
       <UniqueIdentifier>{c8e606d2-bf2c-4f01-ad9d-28b803aa7d2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Attack">
+      <UniqueIdentifier>{9229dfb7-13a5-4d85-8b35-6747fbb6769a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

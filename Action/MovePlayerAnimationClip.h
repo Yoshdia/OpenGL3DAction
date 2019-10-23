@@ -1,7 +1,6 @@
 #pragma once
 #include "AnimationSpriteClip.h"
 #include <string>
-class Texture;
 
 /*
  @file MovePlayerAnimationClip.h

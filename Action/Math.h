@@ -302,6 +302,44 @@ public:
         return Vector3(_vec.x * _scalar, _vec.y * _scalar, _vec.z * _scalar);
     }
 
+	friend bool operator!=(const Vector3& _vec1, const Vector3& _vec2)
+	{
+		bool clear = false;
+		if (_vec1.x != _vec2.x)
+		{
+			clear=true;
+		}
+		if (_vec1.y != _vec2.y)
+		{
+			clear = true;
+
+		}
+		if (_vec1.z != _vec2.z)
+		{
+			clear = true;
+		}
+		return clear;
+	}
+
+	friend bool operator==(const Vector3& _vec1, const Vector3& _vec2)
+	{
+		bool clear = true;
+		if (_vec1.x != _vec2.x)
+		{
+			clear = false;
+		}
+		if (_vec1.y != _vec2.y)
+		{
+			clear = false;
+
+		}
+		if (_vec1.z != _vec2.z)
+		{
+			clear = false;
+		}
+		return clear;
+	}
+
     // Scalar *=
     Vector3& operator*=(float _scalar)
     {
