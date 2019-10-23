@@ -53,7 +53,6 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 			{
 				moving = true;
 			}
-
 			if (moving)
 			{
 				animationComponent->SetMove();
@@ -62,7 +61,6 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 			{
 				animationComponent->SetIdle();
 			}
-
 			SetPosition(position + dir);
 		}
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE))
