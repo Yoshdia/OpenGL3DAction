@@ -147,6 +147,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="AnimationPlayerComponent.cpp" />
     <ClCompile Include="AnimationSpriteClip.cpp" />
     <ClCompile Include="AttackBase.cpp" />
+    <ClCompile Include="AttackPlayerAnimationClip.cpp" />
     <ClCompile Include="AttackPlayerComponent.cpp" />
     <ClCompile Include="AttackPlayerOnce.cpp" />
     <ClCompile Include="AttackPlayerTwice.cpp" />
@@ -192,6 +193,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="AnimationPlayerComponent.h" />
     <ClInclude Include="AnimationSpriteClip.h" />
     <ClInclude Include="AttackBase.h" />
+    <ClInclude Include="AttackPlayerAnimationClip.h" />
     <ClInclude Include="AttackPlayerComponent.h" />
     <ClInclude Include="AttackPlayerOnce.h" />
     <ClInclude Include="AttackPlayerTwice.h" />

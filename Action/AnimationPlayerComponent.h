@@ -5,6 +5,7 @@ enum PlayerAnimationState
 {
 	Idle,
 	Move,
+	Attack,
 };
 
 class AnimationSpriteClip;
@@ -16,13 +17,13 @@ public:
 	AnimationPlayerComponent(GameObject* _owner, int _updateOrder);
 	~AnimationPlayerComponent();
 	void Update(float _deltaTime)override;
-	void SetMove() { nextAnimation = PlayerAnimationState::Move; }
-	void SetIdle() { nextAnimation = PlayerAnimationState::Idle; };
+	void SetAnimation(const PlayerAnimationState& _state) {nextAnimation = _state;};
 private:
 	class SpriteComponent* spriteComponent;
 	AnimationSpriteClip* nowAnimation;
 	AnimationSpriteClip* idle;
 	AnimationSpriteClip* move;
+	AnimationSpriteClip* attack;
 
 	PlayerAnimationState nextAnimation;
 	PlayerAnimationState beforeAnimation;

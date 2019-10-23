@@ -55,17 +55,18 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 			}
 			if (moving)
 			{
-				animationComponent->SetMove();
+				animationComponent->SetAnimation(PlayerAnimationState::Move);
 			}
 			else
 			{
-				animationComponent->SetIdle();
+				animationComponent->SetAnimation(PlayerAnimationState::Idle);
 			}
 			SetPosition(position + dir);
 		}
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE))
 		{
 			canNotActionTime = attack->Attack();
+			animationComponent->SetAnimation(PlayerAnimationState::Attack);
 		}
 	}
 	else

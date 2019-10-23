@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "MovePlayerAnimationClip.h"
 #include "IdlePlayerAnimationClip.h"
+#include "AttackPlayerAnimationClip.h"
 
 AnimationPlayerComponent::AnimationPlayerComponent(GameObject* _owner, int _updateOrder)
 	:Component(_owner, _updateOrder)
@@ -12,6 +13,7 @@ AnimationPlayerComponent::AnimationPlayerComponent(GameObject* _owner, int _upda
 	nowAnimation = nullptr;
 	idle =new IdlePlayerAnimationClip();
 	move =new MovePlayerAnimationClip();
+	attack = new AttackPlayerAnimationClip();
 
 	nowAnimation = idle;
 	beforeAnimation = PlayerAnimationState::Idle;
@@ -23,6 +25,7 @@ AnimationPlayerComponent::~AnimationPlayerComponent()
 	nowAnimation = nullptr;
 	delete idle;
 	delete move;
+	delete attack;
 }
 
 void AnimationPlayerComponent::Update(float _deltaTime)
@@ -39,6 +42,7 @@ void AnimationPlayerComponent::Update(float _deltaTime)
 		{
 		case (PlayerAnimationState::Idle): nowAnimation = idle; break;
 		case (PlayerAnimationState::Move): nowAnimation = move; break;
+		case (PlayerAnimationState::Attack): nowAnimation = attack; break;
 		}
 		nowAnimation->ResetAnimation();
 	}

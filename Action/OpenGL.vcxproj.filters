@@ -119,7 +119,12 @@
     <ClCompile Include="AttackPlayerOnce.cpp">
       <Filter>Components\Attack</Filter>
     </ClCompile>
-    <ClCompile Include="AttackPlayerTwice.cpp" />
+    <ClCompile Include="AttackPlayerTwice.cpp">
+      <Filter>Components\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackPlayerAnimationClip.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -241,7 +246,12 @@
     <ClInclude Include="AttackPlayerOnce.h">
       <Filter>Components\Attack</Filter>
     </ClInclude>
-    <ClInclude Include="AttackPlayerTwice.h" />
+    <ClInclude Include="AttackPlayerTwice.h">
+      <Filter>Components\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackPlayerAnimationClip.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
