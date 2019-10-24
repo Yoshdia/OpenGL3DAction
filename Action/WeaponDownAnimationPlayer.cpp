@@ -17,15 +17,34 @@ WeaponDownAnimationPlayer::~WeaponDownAnimationPlayer()
 {
 }
 
-const Vector3 corner = Vector3(-5, 0, 0);
+//const Vector3 corner = Vector3(-15, 0, 0);
 
 void WeaponDownAnimationPlayer::UpdateGameObject(float _deltaTime)
 {
-	Vector3 cornerPos = (corner* (GetForward()*-1)) + GetPosition();
+	SetPosition(Vector3::Lerp(Vector3(0, 0, 0), Vector3(10, 10, 10), 0.1));
+	//Vector3 cornerPos = (corner* (GetForward()*-1)) + GetPosition();
 
-	//Matrix4 nowMatrix= /*GetPosition() - cornerPos*/CreateWorldTransForm~~~~;
+	//Matrix4 nowMatrix = Matrix4::CreateScale(GetScale());
+	//nowMatrix *= Matrix4::CreateFromQuaternion(rotation);
+	//nowMatrix *= Matrix4::CreateTranslation(GetPosition() - cornerPos);
 
-	float radian = Math::ToRadians(rad++);
+	////Vector3 matrixPos = Vector3::Transform(Vector3::UnitY, nowMatrix);
+
+	//Quaternion rooo = Quaternion::MatrixToQuaternion(nowMatrix);
+	//float radian = Math::ToRadians(rad+=0.5f);
+	//Quaternion rot = rooo;
+	//Quaternion inc(Vector3::UnitZ, radian);
+	//Quaternion target = Quaternion::Concatenate(rot, inc);
+
+	//nowMatrix = Matrix4::CreateScale(GetScale());
+	//nowMatrix *= Matrix4::CreateFromQuaternion(target);
+	//nowMatrix *= Matrix4::CreateTranslation(-1*(GetPosition() - cornerPos));
+	//rooo = Quaternion::MatrixToQuaternion(nowMatrix);
+	//SetPosition(Vector3::Transform(Vector3::UnitZ, rooo));
+	//SetRotation(rooo);
+	//SetRotation(target);
+
+	float radian = Math::ToRadians(1);
 	Quaternion rot = GetRotation();
 	Quaternion inc(Vector3::UnitZ, radian);
 	Quaternion target = Quaternion::Concatenate(rot, inc);

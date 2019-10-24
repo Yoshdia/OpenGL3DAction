@@ -1045,6 +1045,62 @@ public:
         return retVal;
     }
 
+	//回転行列をクォータニオンにする
+	static Quaternion MatrixToQuaternion(Matrix4 mat) {
+		Quaternion q;
+
+		float s;
+		float tr = mat.mat[0][0] + mat.mat[1][1] + mat.mat[2][2] + 1.0f;
+		if (tr >= 1.0f) {
+			s = 0.5f / sqrt(tr);
+			q.w = 0.25f / s;
+			q.x = (mat.mat[1][2] - mat.mat[2][1]) * s;
+			q.y = (mat.mat[2][0] - mat.mat[0][2]) * s;
+			q.z = (mat.mat[0][1] - mat.mat[1][0]) * s;
+			return q;
+		}
+		else {
+			float max;
+			if (mat.mat[1][1] > mat.mat[2][2]) {
+				max = mat.mat[1][1];
+			}
+			else {
+				max = mat.mat[2][2];
+			}
+
+			if (max < mat.mat[0][0]) {
+				s = sqrt(mat.mat[0][0] - (mat.mat[1][1] + mat.mat[2][2]) + 1.0f);
+				float x = s * 0.5f;
+				s = 0.5f / s;
+				q.x = x;
+				q.y = (mat.mat[0][1] + mat.mat[1][0]) * s;
+				q.z = (mat.mat[2][0] + mat.mat[0][2]) * s;
+				q.w = (mat.mat[1][2] - mat.mat[2][1]) * s;
+				return q;
+			}
+			else if (max == mat.mat[1][1]) {
+				s = sqrt(mat.mat[1][1] - (mat.mat[2][2] + mat.mat[0][0]) + 1.0f);
+				float y = s * 0.5f;
+				s = 0.5f / s;
+				q.x = (mat.mat[0][1] + mat.mat[1][0]) * s;
+				q.y = y;
+				q.z = (mat.mat[1][2] + mat.mat[2][1]) * s;
+				q.w = (mat.mat[2][0] - mat.mat[0][2]) * s;
+				return q;
+			}
+			else {
+				s = sqrt(mat.mat[2][2] - (mat.mat[0][0] + mat.mat[1][1]) + 1.0f);
+				float z = s * 0.5f;
+				s = 0.5f / s;
+				q.x = (mat.mat[2][0] + mat.mat[0][2]) * s;
+				q.y = (mat.mat[1][2] + mat.mat[2][1]) * s;
+				q.z = z;
+				q.w = (mat.mat[0][1] - mat.mat[1][0]) * s;
+				return q;
+			}
+		}
+	}
+
     static const Quaternion Identity;
 };
 
@@ -1061,3 +1117,4 @@ namespace Color
     static const Vector3 LightPink(1.0f, 0.71f, 0.76f);
     static const Vector3 LightGreen(0.56f, 0.93f, 0.56f);
 }
+
