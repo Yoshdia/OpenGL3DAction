@@ -125,6 +125,7 @@
     <ClCompile Include="AttackPlayerAnimationClip.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
+    <ClCompile Include="WeaponDownAnimationPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -252,6 +253,7 @@
     <ClInclude Include="AttackPlayerAnimationClip.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="WeaponDownAnimationPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

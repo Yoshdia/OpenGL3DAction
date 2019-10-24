@@ -7,5 +7,7 @@ class AttackPlayerAnimationClip :
 public:
 	AttackPlayerAnimationClip();
 	~AttackPlayerAnimationClip();
+
+	
 };
 

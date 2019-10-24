@@ -18,6 +18,8 @@ AnimationPlayerComponent::AnimationPlayerComponent(GameObject* _owner, int _upda
 	nowAnimation = idle;
 	beforeAnimation = PlayerAnimationState::Idle;
 	nextAnimation=PlayerAnimationState::Idle;
+
+
 }
 
 AnimationPlayerComponent::~AnimationPlayerComponent()

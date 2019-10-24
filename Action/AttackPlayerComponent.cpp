@@ -1,6 +1,7 @@
 #include "AttackPlayerComponent.h"
 #include "AttackPlayerOnce.h"
 #include "AttackPlayerTwice.h"
+#include "GameObject.h"
 
 AttackPlayerComponent::AttackPlayerComponent(GameObject* _owner, int _updateOrder) :
 	Component(_owner, updateOrder),
@@ -58,7 +59,7 @@ float AttackPlayerComponent::Attack()
 	}
     	if (attackState != PlayerAttackState::EndAttack)
 	{
-		attack->Attack();
+		attack->Attack(owner->GetPosition());
 		playerCanNotMoveTime = attack->GetCanNotActionTime();
 		waitTimeForNextAttack = attack->GetWaitTimeForNextAttack();
 	}

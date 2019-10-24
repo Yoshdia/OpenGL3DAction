@@ -14,7 +14,7 @@ AttackPlayerTwice::~AttackPlayerTwice()
 {
 }
 
-void AttackPlayerTwice::Attack()
+void AttackPlayerTwice::Attack(const Vector3& _ownerPosition)
 {
 	SDL_Log("Success Attack Twice!");
 }

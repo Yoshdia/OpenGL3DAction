@@ -7,6 +7,6 @@ class AttackPlayerOnce :
 public:
 	AttackPlayerOnce();
 	~AttackPlayerOnce();
-	void Attack()override;
+	void Attack(const Vector3& _ownerPosition)override;
 };
 
