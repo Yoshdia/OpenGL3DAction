@@ -21,7 +21,7 @@ WeaponDownAnimationPlayer::~WeaponDownAnimationPlayer()
 
 void WeaponDownAnimationPlayer::UpdateGameObject(float _deltaTime)
 {
-	SetPosition(Vector3::Lerp(Vector3(0, 0, 0), Vector3(10, 10, 10), 0.1));
+	//SetPosition(Vector3::Lerp(Vector3(0, 0, 0), Vector3(10, 10, 10), 0.1));
 	//Vector3 cornerPos = (corner* (GetForward()*-1)) + GetPosition();
 
 	//Matrix4 nowMatrix = Matrix4::CreateScale(GetScale());
@@ -44,7 +44,7 @@ void WeaponDownAnimationPlayer::UpdateGameObject(float _deltaTime)
 	//SetRotation(rooo);
 	//SetRotation(target);
 
-	float radian = Math::ToRadians(1);
+	float radian = Math::ToRadians(50);
 	Quaternion rot = GetRotation();
 	Quaternion inc(Vector3::UnitZ, radian);
 	Quaternion target = Quaternion::Concatenate(rot, inc);

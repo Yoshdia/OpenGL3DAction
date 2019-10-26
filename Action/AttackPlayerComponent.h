@@ -6,6 +6,7 @@ enum PlayerAttackState
 	NoAttack,
 	AttackOnce,
 	AttackTwice,
+	AttackThird,
 	EndAttack,
 };
 

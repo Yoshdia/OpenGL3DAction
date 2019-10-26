@@ -1,6 +1,6 @@
 #include "AttackPlayerOnce.h"
 #include"SDL.h"
-#include "WeaponDownAnimationPlayer.h"
+#include "WeaponRotationAnimationPlayer.h"
 
 AttackPlayerOnce::AttackPlayerOnce() :
 	AttackBase()
@@ -16,6 +16,6 @@ AttackPlayerOnce::~AttackPlayerOnce()
 
 void AttackPlayerOnce::Attack(const Vector3& _ownerPosition)
 {
-	new WeaponDownAnimationPlayer(_ownerPosition);
+	new WeaponRotationAnimationPlayer(_ownerPosition,0);
 	SDL_Log("Success Attack Once!");
 }

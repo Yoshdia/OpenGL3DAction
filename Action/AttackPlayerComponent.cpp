@@ -1,6 +1,7 @@
 #include "AttackPlayerComponent.h"
 #include "AttackPlayerOnce.h"
 #include "AttackPlayerTwice.h"
+#include "AttackPlayerThird.h"
 #include "GameObject.h"
 
 AttackPlayerComponent::AttackPlayerComponent(GameObject* _owner, int _updateOrder) :
@@ -55,9 +56,19 @@ float AttackPlayerComponent::Attack()
 		attackState = PlayerAttackState::AttackTwice;
 		break;
 	case(PlayerAttackState::AttackTwice):
+		if (attack != nullptr)
+		{
+			delete attack;
+		}
+		attack = new AttackPlayerThird();
+		attackState = PlayerAttackState::AttackThird;
+		break;
+	case(PlayerAttackState::AttackThird):
 		attackState = PlayerAttackState::EndAttack;
+		break;
 	}
-    	if (attackState != PlayerAttackState::EndAttack)
+
+	if (attackState != PlayerAttackState::EndAttack)
 	{
 		attack->Attack(owner->GetPosition());
 		playerCanNotMoveTime = attack->GetCanNotActionTime();

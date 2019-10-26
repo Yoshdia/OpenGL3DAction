@@ -126,6 +126,12 @@
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="WeaponDownAnimationPlayer.cpp" />
+    <ClCompile Include="AttackPlayerThird.cpp">
+      <Filter>Components\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponRotationAnimationPlayer.cpp">
+      <Filter>Components\Attack</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -254,6 +260,12 @@
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="WeaponDownAnimationPlayer.h" />
+    <ClInclude Include="AttackPlayerThird.h">
+      <Filter>Components\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponRotationAnimationPlayer.h">
+      <Filter>Components\Attack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

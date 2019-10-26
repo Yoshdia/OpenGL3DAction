@@ -150,6 +150,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="AttackPlayerAnimationClip.cpp" />
     <ClCompile Include="AttackPlayerComponent.cpp" />
     <ClCompile Include="AttackPlayerOnce.cpp" />
+    <ClCompile Include="AttackPlayerThird.cpp" />
     <ClCompile Include="AttackPlayerTwice.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
@@ -189,6 +190,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="WallMeshComponent.cpp" />
     <ClCompile Include="WeaponDownAnimationPlayer.cpp" />
+    <ClCompile Include="WeaponRotationAnimationPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationPlayerComponent.h" />
@@ -197,6 +199,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="AttackPlayerAnimationClip.h" />
     <ClInclude Include="AttackPlayerComponent.h" />
     <ClInclude Include="AttackPlayerOnce.h" />
+    <ClInclude Include="AttackPlayerThird.h" />
     <ClInclude Include="AttackPlayerTwice.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CameraComponent.h" />
@@ -235,6 +238,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="WallMeshComponent.h" />
     <ClInclude Include="WeaponDownAnimationPlayer.h" />
+    <ClInclude Include="WeaponRotationAnimationPlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
