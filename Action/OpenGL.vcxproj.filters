@@ -110,27 +110,27 @@
     <ClCompile Include="IdlePlayerAnimationClip.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="AttackBase.cpp">
-      <Filter>Components\Attack</Filter>
-    </ClCompile>
     <ClCompile Include="AttackPlayerComponent.cpp">
-      <Filter>Components\Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackPlayerOnce.cpp">
-      <Filter>Components\Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackPlayerTwice.cpp">
       <Filter>Components\Attack</Filter>
     </ClCompile>
     <ClCompile Include="AttackPlayerAnimationClip.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="WeaponDownAnimationPlayer.cpp" />
+    <ClCompile Include="AttackPlayerOnce.cpp">
+      <Filter>Components\Attack\Combo</Filter>
+    </ClCompile>
     <ClCompile Include="AttackPlayerThird.cpp">
-      <Filter>Components\Attack</Filter>
+      <Filter>Components\Attack\Combo</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackPlayerTwice.cpp">
+      <Filter>Components\Attack\Combo</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackBase.cpp">
+      <Filter>Components\Attack\Combo</Filter>
     </ClCompile>
     <ClCompile Include="WeaponRotationAnimationPlayer.cpp">
-      <Filter>Components\Attack</Filter>
+      <Filter>Components\Attack\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,27 +244,27 @@
     <ClInclude Include="IdlePlayerAnimationClip.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="AttackBase.h">
-      <Filter>Components\Attack</Filter>
-    </ClInclude>
     <ClInclude Include="AttackPlayerComponent.h">
-      <Filter>Components\Attack</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackPlayerOnce.h">
-      <Filter>Components\Attack</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackPlayerTwice.h">
       <Filter>Components\Attack</Filter>
     </ClInclude>
     <ClInclude Include="AttackPlayerAnimationClip.h">
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="WeaponDownAnimationPlayer.h" />
+    <ClInclude Include="AttackPlayerOnce.h">
+      <Filter>Components\Attack\Combo</Filter>
+    </ClInclude>
     <ClInclude Include="AttackPlayerThird.h">
-      <Filter>Components\Attack</Filter>
+      <Filter>Components\Attack\Combo</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackPlayerTwice.h">
+      <Filter>Components\Attack\Combo</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackBase.h">
+      <Filter>Components\Attack\Combo</Filter>
     </ClInclude>
     <ClInclude Include="WeaponRotationAnimationPlayer.h">
-      <Filter>Components\Attack</Filter>
+      <Filter>Components\Attack\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -303,6 +303,12 @@
     </Filter>
     <Filter Include="Components\Attack">
       <UniqueIdentifier>{9229dfb7-13a5-4d85-8b35-6747fbb6769a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Attack\Combo">
+      <UniqueIdentifier>{0f201be0-ced9-4cb5-b3b0-59854d437aa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Attack\Weapon">
+      <UniqueIdentifier>{91cc7e3d-8a65-457f-b294-9c649e27863e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

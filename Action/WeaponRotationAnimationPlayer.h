@@ -11,6 +11,9 @@ private:
 	void Rotate();
 	class MeshComponent* meshComponent;
 	float rad;
+	float rotateSpeed;
+	float rotateSpeedSub;
 	Vector3 targetPos;
+	
 };
 

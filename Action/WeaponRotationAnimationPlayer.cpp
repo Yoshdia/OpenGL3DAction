@@ -12,11 +12,13 @@ WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& pos,
 	Vector3 addDistance = Vector3(0, 0, 0);
 	switch (moveDistanceStage)
 	{
-	case(0):addDistance.x += 1; break;
-	case(1):addDistance.x += 2; break;
-	case(2):addDistance.x += 3; break;
+	case(0):addDistance.x += 60; break;
+	case(1):addDistance.x += 120; break;
+	case(2):addDistance.x += 180; break;
 	}
 	targetPos = pos + addDistance;
+	rotateSpeed = 50;
+	rotateSpeedSub = 0.45;
 }
 
 
@@ -26,16 +28,25 @@ WeaponRotationAnimationPlayer::~WeaponRotationAnimationPlayer()
 
 void WeaponRotationAnimationPlayer::UpdateGameObject(float _deltaTime)
 {
-	Rotate();
-	Vector3 ad= Vector3::Lerp(position, targetPos, 1);
-	SetPosition(ad + position);
+    Rotate();
+	Vector3 add = Vector3((targetPos.x - position.x) * 0.05f,0,0);
+	SetPosition(position+add);
 }
 
 void WeaponRotationAnimationPlayer::Rotate()
 {
-	float radian = Math::ToRadians(50);
+	float radian = Math::ToRadians(rotateSpeed);
 	Quaternion rot = GetRotation();
 	Quaternion inc(Vector3::UnitZ, radian);
 	Quaternion target = Quaternion::Concatenate(rot, inc);
 	SetRotation(target);
+	if (rotateSpeed < 3)
+	{
+		rotateSpeedSub = 0.1f;
+	}
+	if (rotateSpeed <= 0)
+	{
+		SetState(State::Dead);
+	}
+	rotateSpeed -= rotateSpeedSub;
 }

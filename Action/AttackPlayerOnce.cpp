@@ -11,7 +11,7 @@ AttackPlayerOnce::AttackPlayerOnce() :
 
 
 AttackPlayerOnce::~AttackPlayerOnce()
-{
+{      
 }
 
 void AttackPlayerOnce::Attack(const Vector3& _ownerPosition)
