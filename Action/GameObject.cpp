@@ -5,6 +5,8 @@
 #include "InputSystem.h"
 #include "GameObjectManager.h"
 
+int GameObject::gameObjectId = 0;
+
 /**
 @param	ゲームクラスのポインタ
 */
@@ -15,7 +17,9 @@ GameObject::GameObject()
 	, scale(1.0f)
 	, rotation(Quaternion::Identity)
 	, recomputeWorldTransform(true)
+	, myObjectId(gameObjectId)
 {
+	gameObjectId++;
 	GAME_OBJECT_MANAGER->AddGameObject(this);
 }
 
@@ -128,12 +132,4 @@ void GameObject::ComputeWorldTransform()
 			itr->OnUpdateWorldTransform();
 		}
 	}
-}
-
-void GameObject::OnCollision(const GameObject & _hitObject)
-{
-}
-
-void GameObject::OnTrigger(GameObject & _triggerObject)
-{
 }

@@ -2,6 +2,7 @@
 #include "MeshComponent.h"
 #include "Renderer.h"
 #include "InputSystem.h"
+#include "ColliderComponent.h"
 
 DebugBox::DebugBox()
 {
@@ -9,6 +10,10 @@ DebugBox::DebugBox()
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
 	SetPosition(Vector3(100, 0, 0));
 	SetScale(50);
+	std::function<void(const ColliderComponent*)>  Enter = std::bind(&DebugBox::OnTriggerEnter, this, std::placeholders::_1);
+	std::function<void(const ColliderComponent*)>  Stay = std::bind(&DebugBox::OnTriggerStay, this, std::placeholders::_1);
+	tag = Tag::GroundTag;
+	ColliderComponent* collider = new ColliderComponent(this, 100, Vector3(10, 10, 10), myObjectId,Enter,Stay,tag);
 }
 
 

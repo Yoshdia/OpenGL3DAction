@@ -191,10 +191,11 @@ bool Sphere::Contains(const Vector3 & _point) const
 @param	最小のx,y,zの値のポジション
 @param	最大のx,y,zの値のポジション
 */
-AABB::AABB(const Vector3 & _min, const Vector3 & _max)
-	:min(_min)
-	, max(_max)
+AABB::AABB(const Vector3 & _pos, const Vector3 & _size)
 {
+	Vector3 sub=Vector3(_size.x/2, _size.y/2, _size.z/2);
+	min = _pos - sub;
+	max = _pos + sub;
 }
 
 /**

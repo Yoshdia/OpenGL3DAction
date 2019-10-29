@@ -22,12 +22,6 @@ AttackPlayerComponent::~AttackPlayerComponent()
 
 void AttackPlayerComponent::Update(float _deltaTime)
 {
-}
-
-float AttackPlayerComponent::Attack()
-{
-	float playerCanNotMoveTime = 0.0f;
-
 	if (waitTimeForNextAttack < 0)
 	{
 		attackState = PlayerAttackState::NoAttack;
@@ -36,6 +30,11 @@ float AttackPlayerComponent::Attack()
 	{
 		waitTimeForNextAttack--;
 	}
+}
+
+float AttackPlayerComponent::Attack()
+{
+	float playerCanNotMoveTime = 0.0f;
 
 	switch (attackState)
 	{
@@ -70,7 +69,7 @@ float AttackPlayerComponent::Attack()
 
 	if (attackState != PlayerAttackState::EndAttack)
 	{
-		attack->Attack(owner->GetPosition());
+ 		attack->Attack(owner->GetPosition());
 		playerCanNotMoveTime = attack->GetCanNotActionTime();
 		waitTimeForNextAttack = attack->GetWaitTimeForNextAttack();
 	}

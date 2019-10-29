@@ -1,21 +1,129 @@
 #include "ColliderComponent.h"
 #include "GameObject.h"
-#include "Game.h"
 #include "PhysicsWorld.h"
 
-/**
-@param	アタッチするゲームオブジェクトのポインタ
-@param	コンポーネントの更新順番（数値が小さいほど早く更新される）
-*/
-ColliderComponent::ColliderComponent(GameObject* _owner, int _updateOrder, int _collisionOrder)
-	: Component(_owner, _updateOrder)
-	, isTrigger(false)
-	, collisionOrder(_collisionOrder)
+ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)>TriggerEnter, std::function<void(const ColliderComponent*)>TriggerStay, Tag tag) :
+	Component(owner, updateOrder)
+	, size(size)
+	, colliderPos(Vector3(0,0,0))
+	, parentSpeed(nullptr)
 {
+	OnTriggerEnter = TriggerEnter;
+	OnTriggerStay = TriggerStay;
+	PhysicsWorld::GetInstance()->AddCollider(this);
 }
 
+ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)>TriggerEnter, std::function<void(const ColliderComponent*)> TriggerStay, Tag tag, Vector3 colliderPos) :
+	Component(owner, updateOrder)
+	, size(size)
+	, colliderPos(colliderPos)
+	, parentSpeed(nullptr)
+{
+	OnTriggerEnter = TriggerEnter;
+	OnTriggerStay = TriggerStay;
+	PhysicsWorld::GetInstance()->AddCollider(this);
+}
 
+ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)> TriggerEnter, std::function<void(const ColliderComponent*)> TriggerStay, Vector3* parentSpeed, Tag tag) :
+	Component(owner, updateOrder)
+	, size(size)
+	, colliderPos(colliderPos)
+	, parentSpeed(parentSpeed)
+{
+	OnTriggerEnter = TriggerEnter;
+	OnTriggerStay = TriggerStay;
+	PhysicsWorld::GetInstance()->AddCollider(this);
+}
+
+ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)> TriggerEnter, std::function<void(const ColliderComponent*)> TriggerStay, Vector3* parentSpeed, Tag tag, Vector3 colliderPos) :
+	Component(owner, updateOrder)
+	, size(size)
+	, colliderPos(colliderPos)
+	, parentSpeed(parentSpeed)
+{
+	OnTriggerEnter = TriggerEnter;
+	OnTriggerStay = TriggerStay;
+	PhysicsWorld::GetInstance()->AddCollider(this);
+}
 ColliderComponent::~ColliderComponent()
 {
+	PhysicsWorld::GetInstance()->RemoveCollider(this);
 }
 
+void ColliderComponent::OnCollision(ColliderComponent* colliderParter)
+{
+	CollisionState state = CollisionState::Enter;
+	//前Fで同じオブジェクトと接触していた場合StateをStayへ変更させる
+	auto iter = hadCollision.find(colliderParter);
+	if (iter != hadCollision.end())
+	{
+		state = CollisionState::Stay;
+	}
+	//現Fで接触しているリストに挿入
+	isCollision.emplace(colliderParter, state);
+}
+
+void ColliderComponent::Update(float deltaTime)
+{
+	CollisionReaction(deltaTime);
+
+	hadCollision.clear();
+	hadCollision = isCollision;
+	isCollision.clear();
+
+	PhysicsWorld::GetInstance()->Collision(this);
+}
+
+float ColliderComponent::GetScale()
+{
+	return owner->GetScale();
+}
+
+Vector3 ColliderComponent::GetPosition()
+{
+	return owner->GetPosition() + colliderPos;
+}
+
+int ColliderComponent::GetId()
+{
+	return owner->GetObjectId();
+}
+
+void ColliderComponent::CollisionReaction(float deltaTime)
+{
+	//接触したオブジェクト達との接触状態をもとに親GameObjectのリアクション関数に接触相手のTagを渡す
+	for (auto iter : isCollision)
+	{
+		switch (iter.second)
+		{
+		case(CollisionState::Enter):
+			OnTriggerEnter(iter.first);
+			OnTriggerStay(iter.first);
+			break;
+		case(CollisionState::Stay):
+			OnTriggerStay(iter.first);
+
+			break;
+		}
+	}
+}
+
+Vector3 ColliderComponent::GetMoveSpeed()
+{
+	if (parentSpeed != nullptr)
+	{
+		return *parentSpeed;
+	}
+	else
+	{
+		return Vector3(0, 0, 0);
+	}
+}
+
+void ColliderComponent::FixMoveSpeed(float first)
+{
+	if (parentSpeed != nullptr)
+	{
+		*parentSpeed = *parentSpeed* (first);
+	}
+}

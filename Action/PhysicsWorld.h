@@ -1,52 +1,43 @@
 #pragma once
 
+/*
+ @file PhysicsWorld.h
+ @brief 生成されたColliderComponentへのアドレスを所持し、
+		衝突判定を行いColliderComponentに衝突したことを伝えるクラス
+ */
+
 #include <vector>
-#include <map>
-#include <functional>
 #include "Math.h"
-#include "Collision.h"
 
-#define PHYSICS PhysicsWorld::GetInstance()
-
-class Game;
-class GameObject;
-class BoxCollider;
-class SphereCollider;
 class ColliderComponent;
-
-typedef std::function<void(GameObject&)> onCollisionFunc;
-typedef std::map<ColliderComponent*, std::function<void(GameObject&)>> onCollisionMap;
 
 class PhysicsWorld
 {
 public:
-	static PhysicsWorld* GetInstance() { return physics; }
+	static PhysicsWorld* GetInstance() { return physicsWorld; }
+	//PhysicsWorldシングルトンの生成と解放関数
 	static void CreateInstance();
 	static void DeleteInstance();
 
-	//当たり判定
-    void HitCheck();
-    void HitCheck(BoxCollider* _box);
-    void HitCheck(SphereCollider* _sphere);
-
-    void AddBox(BoxCollider* _box, onCollisionFunc _func);
-    void RemoveBox(BoxCollider* _box);
-	void AddSphere(SphereCollider* _sphere, onCollisionFunc _func);
-	void RemoveSphere(SphereCollider* _sphere);
+	/*
+@fn 生成されたColliderComponentをcollidersへ追加
+*/
+	void AddCollider(ColliderComponent* collider);
+	/*
+   @fn 生成されているColliuderComponentをcollidersから削除
+  */
+	void RemoveCollider(ColliderComponent* collider);
+	/*
+	@fn 衝突判定
+	*/
+	void Collision(ColliderComponent * collider);
 
 private:
-	//コンストラクタの隠蔽
-	PhysicsWorld();
+	PhysicsWorld() {};
+	~PhysicsWorld() {};
+	static PhysicsWorld* physicsWorld;
 
-	static PhysicsWorld* physics;
-
-	void SphereAndSphere();
-	void BoxAndBox();
-	void SphereAndBox();
-
-    std::vector<BoxCollider*> boxes;
-	std::vector<SphereCollider*> spheres;
-	onCollisionMap collisionFunction;
-
+	//生成されたColliderComponent全てのアドレスを記憶
+	std::vector<ColliderComponent*> colliders;
 };
 

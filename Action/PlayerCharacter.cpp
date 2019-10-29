@@ -6,15 +6,27 @@
 #include "InputSystem.h"
 #include "AnimationPlayerComponent.h"
 #include "AttackPlayerComponent.h"
+#include "ColliderComponent.h"
+#include "InputMovePlayerComponent.h"
 
-PlayerCharacter::PlayerCharacter()
+PlayerCharacter::PlayerCharacter() :
+	GameObject(),
+	movement(Vector3(0, 0, 0)),
+	inputDirection(Vector3(0,0,0)),
+	attackBottonInput(false),
+	canNotActionTime(0)
 {
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
+
+	tag = Tag::PlayerTag;
 	SetPosition(Vector3(0, 0, 0));
+
 	animationComponent = new AnimationPlayerComponent(this, 100);
 	attack = new AttackPlayerComponent(this, 100);
-	//camera=new CameraComponent(this);
-	canNotActionTime = 0;
+	std::function<void(const ColliderComponent*)>  Enter = std::bind(&PlayerCharacter::OnTriggerEnter, this, std::placeholders::_1);
+	std::function<void(const ColliderComponent*)>  Stay = std::bind(&PlayerCharacter::OnTriggerStay, this, std::placeholders::_1);
+	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(10, 10, 10), myObjectId, Enter, Stay, &movement, tag, Vector3(0, 0, 0));
+	inputMovePlayerComponent = new InputMovePlayerComponent(this, 100);
 }
 
 PlayerCharacter::~PlayerCharacter()
@@ -23,51 +35,18 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
-	//camera->Update(_deltaTime);
-}
-
-void PlayerCharacter::GameObjectInput(const InputState & _keyState)
-{
-	if (_keyState.Keyboard.GetKeyValue(SDL_SCANCODE_0)==1)
-		printf("\nplayerPosition = {%f,%f,%f}",position.x, position.y, position.z);
-	
-
 	if (canNotActionTime < 0)
 	{
+		if (inputDirection != Vector3::Zero)
 		{
-			Vector3 dir = Vector3(0, 0, 0);
-			bool moving = false;
-			if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
-			{
-				dir.x++;
-			}
-			if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_LEFT))
-			{
-				dir.x--;
-			}
-			if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_UP))
-			{
-				dir.y++;
-			}
-			if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_DOWN))
-			{
-				dir.y--;
-			}
-			if (dir != Vector3::Zero)
-			{
-				moving = true;
-			}
-			if (moving)
-			{
-				animationComponent->SetAnimation(PlayerAnimationState::Move);
-			}
-			else
-			{
-				animationComponent->SetAnimation(PlayerAnimationState::Idle);
-			}
-			SetPosition(position + dir);
+			animationComponent->SetAnimation(PlayerAnimationState::Move);
 		}
-		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE))
+		else
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Idle);
+		}
+
+		if (attackBottonInput==true)
 		{
 			canNotActionTime = attack->Attack();
 			animationComponent->SetAnimation(PlayerAnimationState::Attack);
@@ -77,5 +56,16 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 	{
 		canNotActionTime--;
 	}
+
+	SetPosition(position + inputDirection);
+}
+
+void PlayerCharacter::GameObjectInput(const InputState & _keyState)
+{
+	if (_keyState.Keyboard.GetKeyValue(SDL_SCANCODE_0) == 1)
+		printf("\nplayerPosition = {%f,%f,%f}", position.x, position.y, position.z);
+	inputDirection = inputMovePlayerComponent->InputMoveMent(_keyState);
+
+	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
 }
 

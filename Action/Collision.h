@@ -100,7 +100,7 @@ struct AABB
 	@param	最小のx,y,zの値のポジション
 	@param	最大のx,y,zの値のポジション
 	*/
-    AABB(const Vector3& _min,const Vector3& _max);
+    AABB(const Vector3& _pos,const Vector3& _size);
 
 	/**
 	@brief	最小値と最大値を各成分ごとに更新する

@@ -152,7 +152,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="AttackPlayerOnce.cpp" />
     <ClCompile Include="AttackPlayerThird.cpp" />
     <ClCompile Include="AttackPlayerTwice.cpp" />
-    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CameraObject.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
@@ -168,7 +167,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="IdlePlayerAnimationClip.cpp" />
-    <ClCompile Include="InputComponent.cpp" />
+    <ClCompile Include="InputMovePlayerComponent.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainCamera.cpp" />
@@ -184,13 +183,11 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Ship.cpp" />
-    <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="WallMeshComponent.cpp" />
-    <ClCompile Include="WeaponDownAnimationPlayer.cpp" />
     <ClCompile Include="WeaponRotationAnimationPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -202,7 +199,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="AttackPlayerOnce.h" />
     <ClInclude Include="AttackPlayerThird.h" />
     <ClInclude Include="AttackPlayerTwice.h" />
-    <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CameraObject.h" />
     <ClInclude Include="ColliderComponent.h" />
@@ -218,7 +214,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="IdlePlayerAnimationClip.h" />
-    <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="InputMovePlayerComponent.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Math.h" />
@@ -233,13 +229,11 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Ship.h" />
-    <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="WallMeshComponent.h" />
-    <ClInclude Include="WeaponDownAnimationPlayer.h" />
     <ClInclude Include="WeaponRotationAnimationPlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,41 +1,105 @@
 #pragma once
 #include "Component.h"
-#include "Collision.h"
-
-class GameObject;
-
-class ColliderComponent : public Component
+#include "Math.h"
+#include "GameObject.h"
+#include <map>
+#include<functional>
+/*
+ @file ColliderComponent名.h
+ @brief 衝突機能を所有するオブジェクトに追加させるComponent
+ @detail Colliderクラスによって管理され衝突判定が行われる
+		衝突に必要な座標、向き、大きさなどをGameObjectからColliderクラスへ受け渡すパイプにも使用
+		衝突した相手のObjectTagIdと、それぞれとの接触状態(Enter,Stay,Exit)を記憶しGameObjectへのリアクション関数を呼び出す
+ */
+class ColliderComponent :
+	public Component
 {
 public:
-    /**
-    @param	アタッチするゲームオブジェクトのポインタ
-    @param	コンポーネントの更新順番（数値が小さいほど早く更新される）
-    @param  当たり判定時に、めり込みから動かく処理の優先度を決める数値
-    */
-	ColliderComponent(GameObject* _owner, int _updateOrder = 200,int _collisionOrder = 100);
-	virtual ~ColliderComponent();
+	/*
+   @param owner 親GameObjectへのポインタ
+   @param updateOrder このComponentの更新順番
+   @param size 当たり判定のサイズ(GameObjectのScaleとは異なる)
+   @param objectId GameObjectに振られる静的な識別番号
+   @param tag GameObjectに振られる静的な列挙型
+ */
+	ColliderComponent(GameObject* owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)> TriggerEnter, std::function<void(const ColliderComponent*)> TriggerStay, Tag tag);
+	/*
+	@param colliderPos 衝突判定が存在する中心座標　親GameObjectの座標に足して使用する
+	*/
+	ColliderComponent(GameObject* owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)>TriggerEnter, std::function<void(const ColliderComponent*)>TriggerStay, Tag tag, Vector3 colliderPos);
+	/*
+	@param parentSpeed 親GameObjectの移動速度。衝突した際に衝突時間をこれに掛け移動速度を修正する
+	*/
+	ColliderComponent(GameObject* owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)> TriggerEnter, std::function<void(const ColliderComponent*)> TriggerStay, Vector3* parentSpeed, Tag tag);
+	ColliderComponent(GameObject* owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)>TriggerEnter, std::function<void(const ColliderComponent*)>TriggerStay, Vector3* parentSpeed, Tag tag, Vector3 colliderPos);
 
-	int GetCollisionOrder() const { return collisionOrder; }
+	~ColliderComponent();
 
-	//オブジェクトが球に当たった時にめりこみからずらす処理
-	virtual void ShiftObject(const Sphere& _hirSphere) {}
-	//オブジェクトが平面に当たった時にめりこみからずらす処理
-	virtual void ShiftObject(const Plane& _hitPlane) {}
-	//オブジェクトがAABBに当たった時にめりこみからずらす処理
-	virtual void ShiftObject(const AABB& _hitBox) {}
-	//オブジェクトがカプセルに当たった時にめりこみからずらす処理
-	virtual void ShiftObject(const Capsule& _hitCapsule) {}
+	/*
+   @fn Colliderクラスにて親Objectが衝突したら呼び出される
+   @brief 衝突相手の識別子と相手との衝突状態を記憶する
+   @param colliderParter 衝突相手のColliderComponent
+   @detail Colliderクラスで親Objectが衝突したことを伝えられ、
+		  衝突状態を前Fで衝突していた衝突情報で判断し記憶する関数
+ */
+	void OnCollision(ColliderComponent* colliderParter);
 
-	virtual void CollisionPause() = 0;
-	virtual void CollisionActive() = 0;
+	/*
+	@fn 毎F更新される関数
+	@brief 現在接触しているリストを前フレーム接触していたリストへ移すなどはここで行う
+	*/
+	void Update(float deltaTime) override;
 
+	/*
+	@fn 親Objectのサイズを返す
+	*/
+	float GetScale();
+	/*
+	@fn 親Objectの座標を返す
+	*/
+	Vector3 GetPosition();
+	/*
+	@fn 親Objectの識別番号を返す
+	*/
+	int GetId();
+	/*
+		@fn 当たり判定のサイズ
+	*/
+	Vector3 GetCollisionSize() { return size; };
+
+	Vector3 GetMoveSpeed();
+	void FixMoveSpeed(float first);
 
 private:
-    //実体を伴う当たり判定をするかどうか
-	bool isTrigger;
-	//数値が大きい方を優先してめり込みから動かす処理をする（0以下は動かさない）
-	int collisionOrder;
-    //
 
+	//衝突判定が存在する中心座標　親GameObjectの座標に足して使用する
+	Vector3 colliderPos;
+
+	std::function<void(const ColliderComponent*)> OnTriggerEnter;
+	std::function<void(const ColliderComponent*)> OnTriggerStay;
+
+	//親GameObjectの移動速度。衝突した際に衝突時間をこれに掛け移動速度を修正する
+	Vector3* parentSpeed;
+
+	/*
+	@fn 接触したオブジェクト達との接触状態をもとに親GameObjectのリアクション関数に接触相手のTagを渡す
+	*/
+	void CollisionReaction(float deltaTime);
+	/*
+	@enum 接触状態、ObjectTagIdとともにmapで管理され、この接触状態を基に親Objectのリアクション関数を選択する
+	*/
+	enum CollisionState
+	{
+		//前Fで接触しておらず、接触直後
+		Enter,
+		//前Fでも接触しており、接触中
+		Stay,
+	};
+	// 当たり判定のサイズ(GameObjectのScaleとは異なる)
+	Vector3 size;
+	//現在Fで親Objectと接触している相手Objectと接触状態
+	std::map<const ColliderComponent*, CollisionState> isCollision;
+	//前Fで親Objectと接触していた相手Objectの識別子
+	std::map<const ColliderComponent*, CollisionState> hadCollision;
 };
 

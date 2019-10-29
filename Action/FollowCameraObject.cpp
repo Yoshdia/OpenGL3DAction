@@ -4,7 +4,6 @@
 #include "Renderer.h"
 #include "FollowCamera.h"
 #include "MoveComponent.h"
-#include "SphereCollider.h"
 
 FollowCameraObject::FollowCameraObject()
 	:GameObject()
@@ -26,8 +25,6 @@ FollowCameraObject::FollowCameraObject()
 	mCameraComp->SetLeftKey(SDL_SCANCODE_A);
 	mCameraComp->SnapToIdeal();
 
-	sphereCollider = new SphereCollider(this, GetOnCollisionFunc());
-	sphereCollider->SetObjectSphere(Sphere(Vector3(0.0f, 0.0f, 0.0f), 1.0f));
 }
 
 void FollowCameraObject::SetVisible(bool _visible)

@@ -8,11 +8,7 @@ class Vector3;
 class Matrix4;
 class Component;
 struct InputState;
-
-enum Tag
-{
-	NoneTag,
-};
+class ColliderComponent;
 
 /**
 @brief	ゲームオブジェクトの状態
@@ -22,6 +18,17 @@ enum State
 	Active,
 	Paused,
 	Dead
+};
+
+/*
+	@enum　GameObjectタグ
+	衝突相手を判別するために使用
+*/
+enum Tag
+{
+	PlayerTag,
+	GroundTag,
+	null,
 };
 
 class GameObject
@@ -145,15 +152,18 @@ public:
 
 	Tag GetTag() const { return tag; }
 
+	int GetObjectId() {return myObjectId;};
 protected:
-    std::function<void(GameObject&)> GetOnCollisionFunc() { return std::bind(&GameObject::OnCollision, this, std::placeholders::_1); }
-	virtual void OnCollision(const GameObject& _hitObject);
+	virtual void OnTriggerEnter(const ColliderComponent* colliderPair) {};
+	virtual void OnTriggerStay(const ColliderComponent* colliderPair) {};
 
-	virtual void OnTrigger(GameObject& _triggerObject);
 	//ゲームオブジェクトの状態
 	State state;
 	//ゲームオブジェクトのタグ
 	Tag tag;
+	//ゲームオブジェクトのID
+	static int gameObjectId;
+	int myObjectId;
 
 	//Transform
 	Vector3 position;

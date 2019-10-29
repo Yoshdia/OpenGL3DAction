@@ -5,8 +5,8 @@
 AttackPlayerTwice::AttackPlayerTwice():
 	AttackBase()
 {
-	canNotActionTime = 30;
-	waitTimeForNextAttack = 10;
+	canNotActionTime = 20;
+	waitTimeForNextAttack = 30;
 }
 
 

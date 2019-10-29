@@ -17,7 +17,12 @@ private:
 	class AnimationPlayerComponent* animationComponent;
 	class CameraComponent* camera;
 	class AttackPlayerComponent* attack;
+	class InputMovePlayerComponent* inputMovePlayerComponent;
 
 	float canNotActionTime;
+
+	Vector3 movement;
+	Vector3 inputDirection;
+	bool attackBottonInput;
 };
 
