@@ -27,11 +27,6 @@ public:
 	@param colliderPos 衝突判定が存在する中心座標　親GameObjectの座標に足して使用する
 	*/
 	ColliderComponent(GameObject* owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)>TriggerEnter, std::function<void(const ColliderComponent*)>TriggerStay, Tag tag, Vector3 colliderPos);
-	/*
-	@param parentSpeed 親GameObjectの移動速度。衝突した際に衝突時間をこれに掛け移動速度を修正する
-	*/
-	ColliderComponent(GameObject* owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)> TriggerEnter, std::function<void(const ColliderComponent*)> TriggerStay, Vector3* parentSpeed, Tag tag);
-	ColliderComponent(GameObject* owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)>TriggerEnter, std::function<void(const ColliderComponent*)>TriggerStay, Vector3* parentSpeed, Tag tag, Vector3 colliderPos);
 
 	~ColliderComponent();
 
@@ -67,8 +62,7 @@ public:
 	*/
 	Vector3 GetCollisionSize() { return size; };
 
-	Vector3 GetMoveSpeed();
-	void FixMoveSpeed(float first);
+	Tag GetObjectTag();
 
 private:
 
@@ -77,9 +71,6 @@ private:
 
 	std::function<void(const ColliderComponent*)> OnTriggerEnter;
 	std::function<void(const ColliderComponent*)> OnTriggerStay;
-
-	//親GameObjectの移動速度。衝突した際に衝突時間をこれに掛け移動速度を修正する
-	Vector3* parentSpeed;
 
 	/*
 	@fn 接触したオブジェクト達との接触状態をもとに親GameObjectのリアクション関数に接触相手のTagを渡す

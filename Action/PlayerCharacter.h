@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Collision.h"
 
 struct InputState;
 
@@ -13,6 +14,7 @@ public:
 	void UpdateGameObject(float _deltaTime)override;
 	void GameObjectInput(const InputState & _keyState) override;
 
+	void FixCollision(const AABB& myAABB, const AABB& pairAABB);
 private:
 	class AnimationPlayerComponent* animationComponent;
 	class CameraComponent* camera;

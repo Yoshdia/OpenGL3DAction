@@ -80,7 +80,6 @@
     <ClCompile Include="TitleScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="AnimationPlayerComponent.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
@@ -130,6 +129,9 @@
       <Filter>Components\Collider</Filter>
     </ClCompile>
     <ClCompile Include="InputMovePlayerComponent.cpp" />
+    <ClCompile Include="PlayerCharacter.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">

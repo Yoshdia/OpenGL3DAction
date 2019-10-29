@@ -1,6 +1,6 @@
 #include "PhysicsWorld.h"
 #include "ColliderComponent.h"
-#include "Collision.h"
+#include "PlayerCharacter.h"
 
 PhysicsWorld* PhysicsWorld::physicsWorld = nullptr;
 
@@ -47,8 +47,17 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 
 			hit = Intersect(obj1, obj2);
 
+			Tag obj1Tag = collider->GetObjectTag();
+			Tag obj2Tag = collider2->GetObjectTag();
+
+
 			if (hit > 0)
 			{
+				if (obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::GroundTag)
+				{
+					dynamic_cast<PlayerCharacter*> (collider->GetOwner())->FixCollision(obj1,obj2);
+				}
+
 				printf("\nnice");
 				collider->OnCollision(collider2);
 				collider2->OnCollision(collider);
@@ -60,4 +69,35 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 		}
 
 	}
+}
+
+void calcCollisionFixVec(const AABB & movableBox, const AABB & fixedBox, Vector3 & calcFixVec)
+{
+	calcFixVec = Vector3(0, 0, 0);
+	float dx1 = fixedBox.min.x - movableBox.max.x;
+	float dx2 = fixedBox.max.x - movableBox.min.x;
+	float dy1 = fixedBox.min.y - movableBox.max.y;
+	float dy2 = fixedBox.max.y - movableBox.min.y;
+	float dz1 = fixedBox.min.z - movableBox.max.z;
+	float dz2 = fixedBox.max.z - movableBox.min.z;
+
+	// dx, dy, dz には それぞれ1,2のうち絶対値が小さい方をセットする
+	float dx = (Math::Abs(dx1) < Math::Abs(dx2)) ? dx1 : dx2;
+	float dy = (Math::Abs(dy1) < Math::Abs(dy2)) ? dy1 : dy2;
+	float dz = (Math::Abs(dz1) < Math::Abs(dz2)) ? dz1 : dz2;
+
+	// x, y, zのうち最も差が小さい軸で位置を調整
+	if (Math::Abs(dx) <= Math::Abs(dy) && Math::Abs(dx) <= Math::Abs(dz))
+	{
+		calcFixVec.x = dx;
+	}
+	else if (Math::Abs(dy) <= Math::Abs(dx) && Math::Abs(dy) <= Math::Abs(dz))
+	{
+		calcFixVec.y = dy;
+	}
+	else
+	{
+		calcFixVec.z = dz;
+	}
+
 }

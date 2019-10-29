@@ -6,7 +6,6 @@ ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector
 	Component(owner, updateOrder)
 	, size(size)
 	, colliderPos(Vector3(0,0,0))
-	, parentSpeed(nullptr)
 {
 	OnTriggerEnter = TriggerEnter;
 	OnTriggerStay = TriggerStay;
@@ -17,34 +16,12 @@ ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector
 	Component(owner, updateOrder)
 	, size(size)
 	, colliderPos(colliderPos)
-	, parentSpeed(nullptr)
 {
 	OnTriggerEnter = TriggerEnter;
 	OnTriggerStay = TriggerStay;
 	PhysicsWorld::GetInstance()->AddCollider(this);
 }
 
-ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)> TriggerEnter, std::function<void(const ColliderComponent*)> TriggerStay, Vector3* parentSpeed, Tag tag) :
-	Component(owner, updateOrder)
-	, size(size)
-	, colliderPos(colliderPos)
-	, parentSpeed(parentSpeed)
-{
-	OnTriggerEnter = TriggerEnter;
-	OnTriggerStay = TriggerStay;
-	PhysicsWorld::GetInstance()->AddCollider(this);
-}
-
-ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)> TriggerEnter, std::function<void(const ColliderComponent*)> TriggerStay, Vector3* parentSpeed, Tag tag, Vector3 colliderPos) :
-	Component(owner, updateOrder)
-	, size(size)
-	, colliderPos(colliderPos)
-	, parentSpeed(parentSpeed)
-{
-	OnTriggerEnter = TriggerEnter;
-	OnTriggerStay = TriggerStay;
-	PhysicsWorld::GetInstance()->AddCollider(this);
-}
 ColliderComponent::~ColliderComponent()
 {
 	PhysicsWorld::GetInstance()->RemoveCollider(this);
@@ -108,22 +85,9 @@ void ColliderComponent::CollisionReaction(float deltaTime)
 	}
 }
 
-Vector3 ColliderComponent::GetMoveSpeed()
+Tag ColliderComponent::GetObjectTag()
 {
-	if (parentSpeed != nullptr)
-	{
-		return *parentSpeed;
-	}
-	else
-	{
-		return Vector3(0, 0, 0);
-	}
+	return owner->GetTag();
 }
 
-void ColliderComponent::FixMoveSpeed(float first)
-{
-	if (parentSpeed != nullptr)
-	{
-		*parentSpeed = *parentSpeed* (first);
-	}
-}
+

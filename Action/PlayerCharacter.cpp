@@ -8,10 +8,11 @@
 #include "AttackPlayerComponent.h"
 #include "ColliderComponent.h"
 #include "InputMovePlayerComponent.h"
+#include "PhysicsWorld.h"
 
 PlayerCharacter::PlayerCharacter() :
 	GameObject(),
-	movement(Vector3(0, 0, 0)),
+	movement(Vector3(5, 5, 5)),
 	inputDirection(Vector3(0,0,0)),
 	attackBottonInput(false),
 	canNotActionTime(0)
@@ -25,7 +26,7 @@ PlayerCharacter::PlayerCharacter() :
 	attack = new AttackPlayerComponent(this, 100);
 	std::function<void(const ColliderComponent*)>  Enter = std::bind(&PlayerCharacter::OnTriggerEnter, this, std::placeholders::_1);
 	std::function<void(const ColliderComponent*)>  Stay = std::bind(&PlayerCharacter::OnTriggerStay, this, std::placeholders::_1);
-	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(10, 10, 10), myObjectId, Enter, Stay, &movement, tag, Vector3(0, 0, 0));
+	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(10, 10, 10), myObjectId, Enter, Stay, tag, Vector3(0, 0, 0));
 	inputMovePlayerComponent = new InputMovePlayerComponent(this, 100);
 }
 
@@ -57,7 +58,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		canNotActionTime--;
 	}
 
-	SetPosition(position + inputDirection);
+	SetPosition(position + (inputDirection*movement));
 }
 
 void PlayerCharacter::GameObjectInput(const InputState & _keyState)
@@ -67,5 +68,10 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 	inputDirection = inputMovePlayerComponent->InputMoveMent(_keyState);
 
 	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
+}
+
+void PlayerCharacter::FixCollision(const AABB & myAABB, const AABB & pairAABB)
+{
+	calcCollisionFixVec(myAABB, pairAABB, movement);
 }
 

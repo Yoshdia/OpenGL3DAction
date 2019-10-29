@@ -8,6 +8,7 @@
 
 #include <vector>
 #include "Math.h"
+#include "Collision.h"
 
 class ColliderComponent;
 
@@ -39,5 +40,15 @@ private:
 
 	//生成されたColliderComponent全てのアドレスを記憶
 	std::vector<ColliderComponent*> colliders;
+
+
+
 };
 
+////////////////////////////////////////////////////////////////////
+// 衝突したことが確定したとき、めり込みを戻す関数
+// in    movableBox 移動物体 (ex プレーヤー)
+// in    fixedBox   移動しない物体（ex ブロック）
+// inout calcFixVec 移動物体の補正差分ベクトル
+////////////////////////////////////////////////////////////////////
+void calcCollisionFixVec(const AABB& movableBox, const AABB& fixedBox, Vector3& calcFixVec);
