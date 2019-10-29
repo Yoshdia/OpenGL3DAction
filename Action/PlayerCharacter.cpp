@@ -28,6 +28,10 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 
 void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 {
+	if (_keyState.Keyboard.GetKeyValue(SDL_SCANCODE_0)==1)
+		printf("\nplayerPosition = {%f,%f,%f}",position.x, position.y, position.z);
+	
+
 	if (canNotActionTime < 0)
 	{
 		{

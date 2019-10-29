@@ -158,6 +158,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DebugBox.cpp" />
     <ClCompile Include="FollowCamera.cpp" />
     <ClCompile Include="FollowCameraObject.cpp" />
     <ClCompile Include="FPS.cpp" />
@@ -207,6 +208,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="DebugBox.h" />
     <ClInclude Include="FollowCamera.h" />
     <ClInclude Include="FollowCameraObject.h" />
     <ClInclude Include="FPS.h" />

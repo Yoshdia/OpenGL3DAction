@@ -132,6 +132,7 @@
     <ClCompile Include="WeaponRotationAnimationPlayer.cpp">
       <Filter>Components\Attack\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="DebugBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -266,6 +267,7 @@
     <ClInclude Include="WeaponRotationAnimationPlayer.h">
       <Filter>Components\Attack\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="DebugBox.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

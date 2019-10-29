@@ -4,6 +4,7 @@
 #include "Math.h"
 #include "Ship.h"
 #include "PlayerCharacter.h"
+#include "DebugBox.h"
 
 PlayScene::PlayScene()
     :SceneBase()
@@ -16,6 +17,7 @@ PlayScene::PlayScene()
     dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
 	new PlayerCharacter;
+	new DebugBox;
 }
 
 
