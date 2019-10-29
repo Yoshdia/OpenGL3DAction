@@ -13,7 +13,7 @@ DebugBox::DebugBox()
 	std::function<void(const ColliderComponent*)>  Enter = std::bind(&DebugBox::OnTriggerEnter, this, std::placeholders::_1);
 	std::function<void(const ColliderComponent*)>  Stay = std::bind(&DebugBox::OnTriggerStay, this, std::placeholders::_1);
 	tag = Tag::GroundTag;
-	ColliderComponent* collider = new ColliderComponent(this, 100, Vector3(10, 10, 10), myObjectId,Enter,Stay,tag);
+	ColliderComponent* collider = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId,Enter,Stay,tag);
 }
 
 

@@ -26,7 +26,7 @@ PlayerCharacter::PlayerCharacter() :
 	attack = new AttackPlayerComponent(this, 100);
 	std::function<void(const ColliderComponent*)>  Enter = std::bind(&PlayerCharacter::OnTriggerEnter, this, std::placeholders::_1);
 	std::function<void(const ColliderComponent*)>  Stay = std::bind(&PlayerCharacter::OnTriggerStay, this, std::placeholders::_1);
-	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(10, 10, 10), myObjectId, Enter, Stay, tag, Vector3(0, 0, 0));
+	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, Enter, Stay, tag, Vector3(0, 0, 0));
 	inputMovePlayerComponent = new InputMovePlayerComponent(this, 100);
 }
 
@@ -57,7 +57,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	{
 		canNotActionTime--;
 	}
-
+	 
 	SetPosition(position + (inputDirection*movement));
 }
 
@@ -72,6 +72,8 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 
 void PlayerCharacter::FixCollision(const AABB & myAABB, const AABB & pairAABB)
 {
-	calcCollisionFixVec(myAABB, pairAABB, movement);
+	Vector3 ment = Vector3(0, 0, 0);
+	calcCollisionFixVec(myAABB, pairAABB, ment);
+	SetPosition(position + (ment));
 }
 

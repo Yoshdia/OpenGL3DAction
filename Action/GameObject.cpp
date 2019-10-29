@@ -42,8 +42,8 @@ void GameObject::Update(float _deltaTime)
 	{
 		ComputeWorldTransform();
 
-		UpdateComponents(_deltaTime);
 		UpdateGameObject(_deltaTime);
+		UpdateComponents(_deltaTime);
 
 		ComputeWorldTransform();
 	}
