@@ -58,7 +58,6 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 					dynamic_cast<PlayerCharacter*> (collider->GetOwner())->FixCollision(obj1,obj2);
 				}
 
-				printf("\nnice");
 				collider->OnCollision(collider2);
 				collider2->OnCollision(collider);
 			}

@@ -154,8 +154,8 @@ public:
 
 	int GetObjectId() {return myObjectId;};
 protected:
-	virtual void OnTriggerEnter(const ColliderComponent* colliderPair) {};
-	virtual void OnTriggerStay(const ColliderComponent* colliderPair) {};
+	virtual void OnTriggerEnter( ColliderComponent* colliderPair) {};
+	virtual void OnTriggerStay( ColliderComponent* colliderPair) {};
 
 	//ゲームオブジェクトの状態
 	State state;

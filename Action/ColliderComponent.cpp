@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "PhysicsWorld.h"
 
-ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)>TriggerEnter, std::function<void(const ColliderComponent*)>TriggerStay, Tag tag) :
+ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector3 size, int objectId, std::function<void(ColliderComponent*)>TriggerEnter, std::function<void(ColliderComponent*)>TriggerStay, Tag tag) :
 	Component(owner, updateOrder)
 	, size(size)
 	, colliderPos(Vector3(0,0,0))
@@ -12,7 +12,7 @@ ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector
 	PhysicsWorld::GetInstance()->AddCollider(this);
 }
 
-ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)>TriggerEnter, std::function<void(const ColliderComponent*)> TriggerStay, Tag tag, Vector3 colliderPos) :
+ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector3 size, int objectId, std::function<void(ColliderComponent*)>TriggerEnter, std::function<void(ColliderComponent*)> TriggerStay, Tag tag, Vector3 colliderPos) :
 	Component(owner, updateOrder)
 	, size(size)
 	, colliderPos(colliderPos)

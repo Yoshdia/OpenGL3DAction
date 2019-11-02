@@ -132,6 +132,7 @@
     <ClCompile Include="PlayerCharacter.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="JumpPlayerComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -264,6 +265,7 @@
       <Filter>Components\Collider</Filter>
     </ClInclude>
     <ClInclude Include="InputMovePlayerComponent.h" />
+    <ClInclude Include="JumpPlayerComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

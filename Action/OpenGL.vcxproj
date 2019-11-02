@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{36679240-81E7-4953-B0DE-126EB19FE058}</ProjectGuid>
     <RootNamespace>Space</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>OpenGL</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -169,6 +169,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="IdlePlayerAnimationClip.cpp" />
     <ClCompile Include="InputMovePlayerComponent.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="JumpPlayerComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="Math.cpp" />
@@ -216,6 +217,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="IdlePlayerAnimationClip.h" />
     <ClInclude Include="InputMovePlayerComponent.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="JumpPlayerComponent.h" />
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Mesh.h" />

@@ -22,11 +22,11 @@ public:
    @param objectId GameObjectに振られる静的な識別番号
    @param tag GameObjectに振られる静的な列挙型
  */
-	ColliderComponent(GameObject* owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)> TriggerEnter, std::function<void(const ColliderComponent*)> TriggerStay, Tag tag);
+	ColliderComponent(GameObject* owner, int updateOrder, Vector3 size, int objectId, std::function<void(ColliderComponent*)> TriggerEnter, std::function<void(ColliderComponent*)> TriggerStay, Tag tag);
 	/*
 	@param colliderPos 衝突判定が存在する中心座標　親GameObjectの座標に足して使用する
 	*/
-	ColliderComponent(GameObject* owner, int updateOrder, Vector3 size, int objectId, std::function<void(const ColliderComponent*)>TriggerEnter, std::function<void(const ColliderComponent*)>TriggerStay, Tag tag, Vector3 colliderPos);
+	ColliderComponent(GameObject* owner, int updateOrder, Vector3 size, int objectId, std::function<void(ColliderComponent*)>TriggerEnter, std::function<void(ColliderComponent*)>TriggerStay, Tag tag, Vector3 colliderPos);
 
 	~ColliderComponent();
 
@@ -69,8 +69,8 @@ private:
 	//衝突判定が存在する中心座標　親GameObjectの座標に足して使用する
 	Vector3 colliderPos;
 
-	std::function<void(const ColliderComponent*)> OnTriggerEnter;
-	std::function<void(const ColliderComponent*)> OnTriggerStay;
+	std::function<void(ColliderComponent*)> OnTriggerEnter;
+	std::function<void(ColliderComponent*)> OnTriggerStay;
 
 	/*
 	@fn 接触したオブジェクト達との接触状態をもとに親GameObjectのリアクション関数に接触相手のTagを渡す
@@ -89,8 +89,8 @@ private:
 	// 当たり判定のサイズ(GameObjectのScaleとは異なる)
 	Vector3 size;
 	//現在Fで親Objectと接触している相手Objectと接触状態
-	std::map<const ColliderComponent*, CollisionState> isCollision;
+	std::map< ColliderComponent*, CollisionState> isCollision;
 	//前Fで親Objectと接触していた相手Objectの識別子
-	std::map<const ColliderComponent*, CollisionState> hadCollision;
+	std::map< ColliderComponent*, CollisionState> hadCollision;
 };
 
