@@ -167,6 +167,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GravityComponent.cpp" />
     <ClCompile Include="IdlePlayerAnimationClip.cpp" />
     <ClCompile Include="InputMovePlayerComponent.cpp" />
     <ClCompile Include="InputSystem.cpp" />
@@ -216,6 +217,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GravityComponent.h" />
     <ClInclude Include="IdlePlayerAnimationClip.h" />
     <ClInclude Include="InputMovePlayerComponent.h" />
     <ClInclude Include="InputSystem.h" />

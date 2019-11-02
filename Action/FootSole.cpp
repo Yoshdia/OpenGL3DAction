@@ -6,7 +6,7 @@
 FootSole::FootSole(Vector3 & _playerPosition, bool & _jumped):
 	GameObject()
 {
-	playerPosition = &_playerPosition;
+	parentPosition = &_playerPosition;
 	noLand = &_jumped;
 	footPos = Vector3(0, -25, 0);
 	std::function<void(ColliderComponent*)>  Enter = std::bind(&FootSole::OnTriggerEnter, this, std::placeholders::_1);
@@ -22,7 +22,7 @@ FootSole::~FootSole()
 
 void FootSole::UpdateGameObject(float _deltaTime)
 {
-	Vector3 p = *playerPosition;
+	Vector3 p = *parentPosition;
 	SetPosition(p+footPos);
 }
 

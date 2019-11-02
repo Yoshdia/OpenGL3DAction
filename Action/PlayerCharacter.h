@@ -29,6 +29,10 @@ private:
 	Vector3 inputDirection;
 	bool attackBottonInput;
 
-	bool jumped;
+	//ジャンプ中か
+	bool isJump;
+	//ジャンプ力 
+	//@sa JumpPlayerComponent
+	static const float jumpPower;
 };
 

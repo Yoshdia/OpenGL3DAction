@@ -11,6 +11,9 @@
 #include "PhysicsWorld.h"
 #include "JumpPlayerComponent.h"
 #include "FootSole.h"
+#include "GravityComponent.h"
+
+const float PlayerCharacter::jumpPower = 40;
 
 PlayerCharacter::PlayerCharacter() :
 	GameObject(),
@@ -30,11 +33,11 @@ PlayerCharacter::PlayerCharacter() :
 	std::function<void( ColliderComponent*)>  Stay = std::bind(&PlayerCharacter::OnTriggerStay, this, std::placeholders::_1);
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, Enter, Stay, tag, Vector3(0, 0, 0));
 	inputMovePlayerComponent = new InputMovePlayerComponent(this, 100);
+	GravityComponent* gravityComponent = new GravityComponent(this, 100, 20);
 
-	jumped = false;
-	new FootSole(position, jumped);
-
-	jumpPlayerComponent = new JumpPlayerComponent(this, 100);
+	isJump = false;
+	new FootSole(position, isJump);
+	jumpPlayerComponent = new JumpPlayerComponent(this, 100,jumpPower);
 }
 
 PlayerCharacter::~PlayerCharacter()
@@ -43,8 +46,6 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
-	
-	SetPosition(position + Vector3(0, -20, 0));
 	if (canNotActionTime < 0)
 	{
 		if (inputDirection != Vector3::Zero)
@@ -65,10 +66,6 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	else
 	{
 		canNotActionTime--;
-	}
-	if (jumped)
-	{
-		jumpPlayerComponent->Jumping(_deltaTime);
 	}
 	SetPosition(position + (inputDirection*movement));
 }
@@ -91,11 +88,11 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 
 	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
 
-	if (!jumped)
+	if (!isJump)
 	{
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE))
 		{
-			jumped = true;
+			isJump = true;
 			jumpPlayerComponent->Jump(0);
 		}
 	}

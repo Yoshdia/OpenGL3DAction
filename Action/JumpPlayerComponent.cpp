@@ -1,12 +1,12 @@
 #include "JumpPlayerComponent.h"
 #include "Math.h"
 
-const float JumpPlayerComponent::jumpPowerMax = 40;
 
-JumpPlayerComponent::JumpPlayerComponent(GameObject * _owner, int _updateOrder) :
-	Component(_owner, _updateOrder)
+JumpPlayerComponent::JumpPlayerComponent(GameObject * _owner, int _updateOrder,float _jumpPower) :
+	Component(_owner, _updateOrder),
+	jumpPower(0),
+	jumpPowerMax(_jumpPower)
 {
-	jumpPosition = _owner->GetPosition();
 }
 
 JumpPlayerComponent::~JumpPlayerComponent()
@@ -16,12 +16,9 @@ JumpPlayerComponent::~JumpPlayerComponent()
 void JumpPlayerComponent::Jump(float _deltaTime)
 {
 	jumpPower = jumpPowerMax;
-	//jumpPosition = owner->GetPosition()+Vector3(0,jumpHeight,0);
-	//owner->SetPosition(jumpPosition);
-	printf("Jumped!");
 }
 
-void JumpPlayerComponent::Jumping(float _deltaTime)
+void JumpPlayerComponent::Update(float _deltaTime)
 {
 	if (jumpPower < 0)
 	{
@@ -29,6 +26,4 @@ void JumpPlayerComponent::Jumping(float _deltaTime)
 	}
 	owner->SetPosition(owner->GetPosition() + Vector3(0, jumpPower, 0));
 	jumpPower--;
-	//Vector3 position = Vector3::Lerp(owner->GetPosition(), jumpPosition,jumpPower);
-	//owner->SetPosition(position);
 }

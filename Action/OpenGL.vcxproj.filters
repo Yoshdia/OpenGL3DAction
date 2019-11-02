@@ -140,6 +140,7 @@
     <ClCompile Include="FootSole.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="GravityComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -280,6 +281,7 @@
     <ClInclude Include="FootSole.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="GravityComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
