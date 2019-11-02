@@ -18,6 +18,7 @@ GameObject::GameObject()
 	, rotation(Quaternion::Identity)
 	, recomputeWorldTransform(true)
 	, myObjectId(gameObjectId)
+	,tag(Tag::null)
 {
 	gameObjectId++;
 	GAME_OBJECT_MANAGER->AddGameObject(this);

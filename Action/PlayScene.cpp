@@ -17,7 +17,14 @@ PlayScene::PlayScene()
     dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
 	new PlayerCharacter;
-	new DebugBox;
+	new DebugBox(Vector3(200,100,0));
+	new DebugBox(Vector3(300,200,0));
+	new DebugBox(Vector3(100,0,0));
+	new DebugBox(Vector3(0,-100,0));
+	new DebugBox(Vector3(-100,0,0));
+	new DebugBox(Vector3(-100,+100,0));
+	new DebugBox(Vector3(-100,+200,0));
+	new DebugBox(Vector3(-100,+300,0));
 }
 
 

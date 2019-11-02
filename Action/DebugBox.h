@@ -6,7 +6,7 @@ class DebugBox :
 	public GameObject
 {
 public:
-	DebugBox();
+	DebugBox(Vector3 p);
 	~DebugBox();
 
 	void GameObjectInput(const InputState& _keyState)override;

@@ -4,11 +4,11 @@
 #include "InputSystem.h"
 #include "ColliderComponent.h"
 
-DebugBox::DebugBox()
+DebugBox::DebugBox(Vector3 p)
 {
 	MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
-	SetPosition(Vector3(0, -100, 0));
+	SetPosition(p);
 	SetScale(50);
 	std::function<void( ColliderComponent*)>  Enter = std::bind(&DebugBox::OnTriggerEnter, this, std::placeholders::_1);
 	std::function<void( ColliderComponent*)>  Stay = std::bind(&DebugBox::OnTriggerStay, this, std::placeholders::_1);

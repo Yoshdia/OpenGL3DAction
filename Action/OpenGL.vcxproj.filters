@@ -128,11 +128,18 @@
     <ClCompile Include="ColliderComponent.cpp">
       <Filter>Components\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="InputMovePlayerComponent.cpp" />
     <ClCompile Include="PlayerCharacter.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="JumpPlayerComponent.cpp" />
+    <ClCompile Include="InputMovePlayerComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpPlayerComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FootSole.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -264,8 +271,15 @@
     <ClInclude Include="ColliderComponent.h">
       <Filter>Components\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="InputMovePlayerComponent.h" />
-    <ClInclude Include="JumpPlayerComponent.h" />
+    <ClInclude Include="InputMovePlayerComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpPlayerComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FootSole.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

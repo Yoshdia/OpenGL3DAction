@@ -10,6 +10,7 @@
 #include "InputMovePlayerComponent.h"
 #include "PhysicsWorld.h"
 #include "JumpPlayerComponent.h"
+#include "FootSole.h"
 
 PlayerCharacter::PlayerCharacter() :
 	GameObject(),
@@ -31,6 +32,7 @@ PlayerCharacter::PlayerCharacter() :
 	inputMovePlayerComponent = new InputMovePlayerComponent(this, 100);
 
 	jumped = false;
+	new FootSole(position, jumped);
 
 	jumpPlayerComponent = new JumpPlayerComponent(this, 100);
 }
@@ -41,6 +43,7 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
+	
 	SetPosition(position + Vector3(0, -20, 0));
 	if (canNotActionTime < 0)
 	{
@@ -102,13 +105,9 @@ void PlayerCharacter::FixCollision(const AABB & myAABB, const AABB & pairAABB)
 {
 	Vector3 ment = Vector3(0, 0, 0);
 	calcCollisionFixVec(myAABB, pairAABB, ment);
-	SetPosition(position + (ment));
+	SetPosition(GetPosition() + (ment));
 }
 
 void PlayerCharacter::OnTriggerStay(ColliderComponent * colliderPair)
 {
-	if (colliderPair->GetObjectTag())
-	{
-		jumped = false;
-	}
 }

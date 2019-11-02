@@ -18,6 +18,7 @@ void JumpPlayerComponent::Jump(float _deltaTime)
 	jumpPower = jumpPowerMax;
 	//jumpPosition = owner->GetPosition()+Vector3(0,jumpHeight,0);
 	//owner->SetPosition(jumpPosition);
+	printf("Jumped!");
 }
 
 void JumpPlayerComponent::Jumping(float _deltaTime)
