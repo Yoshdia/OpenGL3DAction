@@ -12,6 +12,7 @@
 #include "JumpPlayerComponent.h"
 #include "FootSole.h"
 #include "GravityComponent.h"
+#include "MeshComponent.h"
 
 const float PlayerCharacter::jumpPower = 40;
 
@@ -25,19 +26,23 @@ PlayerCharacter::PlayerCharacter() :
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
 
 	tag = Tag::PlayerTag;
-	SetPosition(Vector3(0, 0, 0));
+	SetPosition(Vector3(100, 100, 0));
 
-	animationComponent = new AnimationPlayerComponent(this, 100);
-	attack = new AttackPlayerComponent(this, 100);
-	std::function<void( ColliderComponent*)>  Enter = std::bind(&PlayerCharacter::OnTriggerEnter, this, std::placeholders::_1);
-	std::function<void( ColliderComponent*)>  Stay = std::bind(&PlayerCharacter::OnTriggerStay, this, std::placeholders::_1);
+	//animationComponent = new AnimationPlayerComponent(this, 100);
+	//attack = new AttackPlayerComponent(this, 100);
+	std::function<void(ColliderComponent*)>  Enter = std::bind(&PlayerCharacter::OnTriggerEnter, this, std::placeholders::_1);
+	std::function<void(ColliderComponent*)>  Stay = std::bind(&PlayerCharacter::OnTriggerStay, this, std::placeholders::_1);
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, Enter, Stay, tag, Vector3(0, 0, 0));
 	inputMovePlayerComponent = new InputMovePlayerComponent(this, 100);
 	GravityComponent* gravityComponent = new GravityComponent(this, 100, 20);
 
 	isJump = false;
 	new FootSole(position, isJump);
-	jumpPlayerComponent = new JumpPlayerComponent(this, 100,jumpPower);
+	jumpPlayerComponent = new JumpPlayerComponent(this, 100, jumpPower);
+
+	SetScale(25);
+	MeshComponent* meshComponent = new MeshComponent(this);
+	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
 }
 
 PlayerCharacter::~PlayerCharacter()
@@ -50,17 +55,26 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	{
 		if (inputDirection != Vector3::Zero)
 		{
-			animationComponent->SetAnimation(PlayerAnimationState::Move);
+			if (animationComponent != nullptr)
+			{
+				animationComponent->SetAnimation(PlayerAnimationState::Move);
+			}
 		}
 		else
 		{
-			animationComponent->SetAnimation(PlayerAnimationState::Idle);
+			if (animationComponent != nullptr)
+			{
+				animationComponent->SetAnimation(PlayerAnimationState::Idle);
+			}
 		}
 
 		if (attackBottonInput == true)
 		{
 			canNotActionTime = attack->Attack();
-			animationComponent->SetAnimation(PlayerAnimationState::Attack);
+			if (animationComponent != nullptr)
+			{
+				animationComponent->SetAnimation(PlayerAnimationState::Attack);
+			}
 		}
 	}
 	else
@@ -90,7 +104,8 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 
 	if (!isJump)
 	{
-		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE))
+		jumpPlayerComponent->JumpEnd();
+		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE)|| _keyState.Keyboard.GetKeyState(SDL_SCANCODE_L))
 		{
 			isJump = true;
 			jumpPlayerComponent->Jump(0);

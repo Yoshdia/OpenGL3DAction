@@ -20,7 +20,7 @@ void JumpPlayerComponent::Jump(float _deltaTime)
 
 void JumpPlayerComponent::Update(float _deltaTime)
 {
-	if (jumpPower < 0)
+	if (jumpPower <= 0)
 	{
 		return;
 	}

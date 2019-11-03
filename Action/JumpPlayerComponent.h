@@ -25,6 +25,9 @@ public:
   @brief　ジャンプ力を減らし座標を更新させる
 */
 	void Update(float _deltaTime)override;
+
+
+	void JumpEnd() { jumpPower = 0; };
 private:
 	//動的に変化するジャンプ量
 	float jumpPower;
