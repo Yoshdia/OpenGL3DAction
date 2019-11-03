@@ -1,6 +1,7 @@
 #include "WeaponRotationAnimationPlayer.h"
 #include "MeshComponent.h"
 #include "Renderer.h"
+#include "ColliderComponent.h"
 
 WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& pos, const int& moveDistanceStage)
 {
@@ -19,6 +20,10 @@ WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& pos,
 	targetPos = pos + addDistance;
 	rotateSpeed = 50;
 	rotateSpeedSub = 0.45;
+	tag = Tag::PlayerWeaponTag;
+	std::function<void(ColliderComponent*)>  Enter = std::bind(&WeaponRotationAnimationPlayer::OnTriggerEnter, this, std::placeholders::_1);
+	std::function<void(ColliderComponent*)>  Stay = std::bind(&WeaponRotationAnimationPlayer::OnTriggerStay, this, std::placeholders::_1);
+	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, Enter, Stay, tag, Vector3(0, 0, 0));
 }
 
 

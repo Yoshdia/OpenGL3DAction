@@ -17,5 +17,4 @@ AttackPlayerTwice::~AttackPlayerTwice()
 void AttackPlayerTwice::Attack(const Vector3& _ownerPosition)
 {
 	new WeaponRotationAnimationPlayer(_ownerPosition, 1);
-	SDL_Log("Success Attack Twice!");
 }

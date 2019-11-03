@@ -16,5 +16,4 @@ AttackPlayerThird::~AttackPlayerThird()
 void AttackPlayerThird::Attack(const Vector3 & _ownerPosition)
 {
 	new WeaponRotationAnimationPlayer(_ownerPosition, 2);
-	SDL_Log("Success Attack Third!");
 }

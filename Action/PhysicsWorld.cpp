@@ -35,9 +35,18 @@ void PhysicsWorld::RemoveCollider(ColliderComponent * collider)
 
 void PhysicsWorld::Collision(ColliderComponent * collider)
 {
+	if (collider->GetState() == State::Dead)
+	{
+		return;
+	}
+
 	int obj1Id = collider->GetId();
 	for (auto collider2 : colliders)
 	{
+		if (collider2->GetState() == State::Dead)
+		{
+			continue;
+		}
 		int obj2Id = collider2->GetId();
 		if (obj1Id < obj2Id)
 		{
@@ -53,9 +62,10 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 
 			if (hit > 0)
 			{
-				if (obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::GroundTag)
+				if (obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::GroundTag|| obj1Tag == Tag::EnemyTag&&obj2Tag == Tag::GroundTag)
 				{
-					dynamic_cast<PlayerCharacter*> (collider->GetOwner())->FixCollision(obj1,obj2);
+					//dynamic_cast<PlayerCharacter*> (collider->GetOwner())->FixCollision(obj1,obj2);
+					collider->GetOwner()->FixCollision(obj1, obj2);
 				}
 
 				collider->OnCollision(collider2);

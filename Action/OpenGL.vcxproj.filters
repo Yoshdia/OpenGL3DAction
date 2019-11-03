@@ -143,6 +143,12 @@
     <ClCompile Include="GravityComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyBase.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeEnemy.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -286,6 +292,12 @@
     <ClInclude Include="GravityComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyBase.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeEnemy.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -329,6 +341,9 @@
     </Filter>
     <Filter Include="Components\Collider">
       <UniqueIdentifier>{016f7373-9fd9-4a05-bbd3-36e0ad2fe6f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Enemy">
+      <UniqueIdentifier>{cff1a885-7757-46d6-b40f-0b5896f7a770}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

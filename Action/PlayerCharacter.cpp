@@ -8,7 +8,7 @@
 #include "AttackPlayerComponent.h"
 #include "ColliderComponent.h"
 #include "InputMovePlayerComponent.h"
-#include "PhysicsWorld.h"
+//#include "PhysicsWorld.h"
 #include "JumpPlayerComponent.h"
 #include "FootSole.h"
 #include "GravityComponent.h"
@@ -28,8 +28,8 @@ PlayerCharacter::PlayerCharacter() :
 	tag = Tag::PlayerTag;
 	SetPosition(Vector3(100, 100, 0));
 
-	//animationComponent = new AnimationPlayerComponent(this, 100);
-	//attack = new AttackPlayerComponent(this, 100);
+	animationComponent = new AnimationPlayerComponent(this, 100);
+	attack = new AttackPlayerComponent(this, 100);
 	std::function<void(ColliderComponent*)>  Enter = std::bind(&PlayerCharacter::OnTriggerEnter, this, std::placeholders::_1);
 	std::function<void(ColliderComponent*)>  Stay = std::bind(&PlayerCharacter::OnTriggerStay, this, std::placeholders::_1);
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, Enter, Stay, tag, Vector3(0, 0, 0));
@@ -40,7 +40,7 @@ PlayerCharacter::PlayerCharacter() :
 	new FootSole(position, isJump);
 	jumpPlayerComponent = new JumpPlayerComponent(this, 100, jumpPower);
 
-	SetScale(25);
+	//SetScale(25);
 	MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
 }
@@ -113,12 +113,7 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 	}
 }
 
-void PlayerCharacter::FixCollision(const AABB & myAABB, const AABB & pairAABB)
-{
-	Vector3 ment = Vector3(0, 0, 0);
-	calcCollisionFixVec(myAABB, pairAABB, ment);
-	SetPosition(GetPosition() + (ment));
-}
+
 
 void PlayerCharacter::OnTriggerStay(ColliderComponent * colliderPair)
 {

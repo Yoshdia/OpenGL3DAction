@@ -2,6 +2,8 @@
 #include <vector>
 #include <functional>
 #include "Math.h"
+#include "Collision.h"
+
 
 class Game;
 class Vector3;
@@ -27,6 +29,8 @@ enum State
 enum Tag
 {
 	PlayerTag,
+	PlayerWeaponTag,
+	EnemyTag,
 	GroundTag,
 	null,
 };
@@ -153,6 +157,8 @@ public:
 	Tag GetTag() const { return tag; }
 
 	int GetObjectId() {return myObjectId;};
+
+	void FixCollision(const AABB & myAABB, const AABB & pairAABB);
 protected:
 	virtual void OnTriggerEnter( ColliderComponent* colliderPair) {};
 	virtual void OnTriggerStay( ColliderComponent* colliderPair) {};

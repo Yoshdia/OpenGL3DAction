@@ -90,4 +90,9 @@ Tag ColliderComponent::GetObjectTag()
 	return owner->GetTag();
 }
 
+State ColliderComponent::GetState()
+{
+	return owner->GetState();
+}
+
 

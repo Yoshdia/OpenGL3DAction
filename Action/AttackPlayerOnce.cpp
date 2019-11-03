@@ -17,5 +17,4 @@ AttackPlayerOnce::~AttackPlayerOnce()
 void AttackPlayerOnce::Attack(const Vector3& _ownerPosition)
 {
 	new WeaponRotationAnimationPlayer(_ownerPosition,0);
-	SDL_Log("Success Attack Once!");
 }

@@ -5,6 +5,7 @@
 #include "Ship.h"
 #include "PlayerCharacter.h"
 #include "DebugBox.h"
+#include "MeleeEnemy.h"
 
 PlayScene::PlayScene()
     :SceneBase()
@@ -17,6 +18,8 @@ PlayScene::PlayScene()
     dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
 	new PlayerCharacter;
+	new MeleeEnemy();
+
 	new DebugBox(Vector3(0,0,0));
 	new DebugBox(Vector3(0,100,0));
 	new DebugBox(Vector3(0,200,0));

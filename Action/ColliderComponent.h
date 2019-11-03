@@ -64,6 +64,7 @@ public:
 
 	Tag GetObjectTag();
 
+	State GetState();
 private:
 
 	//衝突判定が存在する中心座標　親GameObjectの座標に足して使用する

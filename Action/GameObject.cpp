@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "InputSystem.h"
 #include "GameObjectManager.h"
+#include "PhysicsWorld.h"
 
 int GameObject::gameObjectId = 0;
 
@@ -133,4 +134,11 @@ void GameObject::ComputeWorldTransform()
 			itr->OnUpdateWorldTransform();
 		}
 	}
+}
+
+void GameObject::FixCollision(const AABB & myAABB, const AABB & pairAABB)
+{
+	Vector3 ment = Vector3(0, 0, 0);
+	calcCollisionFixVec(myAABB, pairAABB, ment);
+	SetPosition(GetPosition() + (ment));
 }
