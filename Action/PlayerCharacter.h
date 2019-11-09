@@ -20,7 +20,7 @@ private:
 	class AttackPlayerComponent* attack;
 	class InputMovePlayerComponent* inputMovePlayerComponent;
 	class JumpPlayerComponent* jumpPlayerComponent;
-
+	class GravityComponent* gravityComponent;
 	float canNotActionTime;
 
 	Vector3 movement;

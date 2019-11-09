@@ -11,7 +11,7 @@ EnemyBase::EnemyBase(const std::string & meshName) :
 	tag = Tag::EnemyTag;
 	MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh(meshName));
-	GravityComponent* gravityComponent = new GravityComponent(this, 100, 20);
+	gravityComponent = new GravityComponent(this, 100, 20);
 
 	std::function<void(ColliderComponent*)>  Enter = std::bind(&EnemyBase::OnTriggerEnter, this, std::placeholders::_1);
 	std::function<void(ColliderComponent*)>  Stay = std::bind(&EnemyBase::OnTriggerStay, this, std::placeholders::_1);
@@ -20,6 +20,12 @@ EnemyBase::EnemyBase(const std::string & meshName) :
 
 EnemyBase::~EnemyBase()
 {
+}
+
+void EnemyBase::UpdateGameObject(float _deltaTime)
+{
+	gravityComponent->Gravity();
+	UpdateEnemyObject(_deltaTime);
 }
 
 void EnemyBase::OnTriggerStay(ColliderComponent * colliderPair)

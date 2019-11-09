@@ -8,9 +8,11 @@ class EnemyBase abstract:
 public:
 	EnemyBase(const std::string& meshName);
 	~EnemyBase();
+	void UpdateGameObject(float _deltaTime)override;
 
 private:
 	void OnTriggerStay(ColliderComponent* colliderPair) ;
-
+	virtual void UpdateEnemyObject(float _deltaTime) {};
+	class GravityComponent* gravityComponent;
 };
 

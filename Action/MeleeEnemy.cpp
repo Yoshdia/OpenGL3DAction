@@ -13,3 +13,7 @@ MeleeEnemy::MeleeEnemy():
 MeleeEnemy::~MeleeEnemy()
 {
 }
+
+void MeleeEnemy::UpdateEnemyObject(float _deltaTime)
+{
+}

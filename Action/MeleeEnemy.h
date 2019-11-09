@@ -8,5 +8,7 @@ class MeleeEnemy :
 public:
 	MeleeEnemy();
 	~MeleeEnemy();
+private:
+	void UpdateEnemyObject(float _deltaTime);
 };
 

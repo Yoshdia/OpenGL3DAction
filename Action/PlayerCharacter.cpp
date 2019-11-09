@@ -28,19 +28,19 @@ PlayerCharacter::PlayerCharacter() :
 	tag = Tag::PlayerTag;
 	SetPosition(Vector3(100, 100, 0));
 
-	animationComponent = new AnimationPlayerComponent(this, 100);
+	//animationComponent = new AnimationPlayerComponent(this, 100);
 	attack = new AttackPlayerComponent(this, 100);
 	std::function<void(ColliderComponent*)>  Enter = std::bind(&PlayerCharacter::OnTriggerEnter, this, std::placeholders::_1);
 	std::function<void(ColliderComponent*)>  Stay = std::bind(&PlayerCharacter::OnTriggerStay, this, std::placeholders::_1);
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, Enter, Stay, tag, Vector3(0, 0, 0));
 	inputMovePlayerComponent = new InputMovePlayerComponent(this, 100);
-	GravityComponent* gravityComponent = new GravityComponent(this, 100, 20);
+	 gravityComponent = new GravityComponent(this, 100, 20);
 
 	isJump = false;
 	new FootSole(position, isJump);
 	jumpPlayerComponent = new JumpPlayerComponent(this, 100, jumpPower);
 
-	//SetScale(25);
+	SetScale(25);
 	MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
 }
@@ -111,10 +111,18 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 			jumpPlayerComponent->Jump(0);
 		}
 	}
+	else
+	{
+		gravityComponent->Gravity();
+	}
 }
 
 
 
 void PlayerCharacter::OnTriggerStay(ColliderComponent * colliderPair)
 {
+	if (colliderPair->GetObjectTag() == Tag::EnemyTag)
+	{
+		printf("IYAAAAAAAA\n");
+	}
 }

@@ -20,12 +20,14 @@ void FootSole::UpdateGameObject(float _deltaTime)
 {
 	Vector3 p = *parentPosition;
 	SetPosition(p+footPos);
+	*noLand = true;
 }
 
 void FootSole::OnTriggerStay(ColliderComponent * colliderPair)
 {
-	if (colliderPair->GetObjectTag())
+	if (colliderPair->GetObjectTag()==Tag::GroundTag)
 	{
 		*noLand = false;
 	}
+
 }

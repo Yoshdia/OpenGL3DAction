@@ -18,7 +18,7 @@ public:
 	@brief d—Í
 	*/
 	void Update(float _deltaTime)override;
-
+	void Gravity();
 private:
 	int gravityPower;
 
