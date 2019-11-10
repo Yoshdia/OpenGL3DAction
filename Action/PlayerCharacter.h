@@ -21,6 +21,7 @@ private:
 	class InputMovePlayerComponent* inputMovePlayerComponent;
 	class JumpPlayerComponent* jumpPlayerComponent;
 	class GravityComponent* gravityComponent;
+	class FootSole* footSole;
 	float canNotActionTime;
 
 	Vector3 movement;

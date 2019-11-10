@@ -13,17 +13,18 @@ public:
    @param parentPosition 親になるオブジェクトの座標アドレス
    @param _jumped 親になるオブジェクトのジャンプフラグアドレス。FootSoleがgroundTagと接触したときにfalseにする
  */
-	FootSole(Vector3& parentPosition, bool& _jumped);
+	FootSole(GameObject* _parent);
 	~FootSole();
 
 	void UpdateGameObject(float _deltaTime)override;
+
+	bool GetGroundFlag() { return noGround; }
 private:
 	void OnTriggerStay(ColliderComponent* colliderPair)override;
-	//親オブジェクトの座標
-	Vector3* parentPosition;
-	//groundTagと接触しているか
-	bool *noLand;
+	GameObject* parent;
+	Vector3 parentPos;
 	//自信の座標、parentPositionと足しでpositionにする
 	Vector3 footPos;
+	bool noGround;
 };
 
