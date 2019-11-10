@@ -24,7 +24,7 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::UpdateGameObject(float _deltaTime)
 {
-	gravityComponent->Gravity();
+	//gravityComponent->Gravity();
 	UpdateEnemyObject(_deltaTime);
 }
 
@@ -32,7 +32,15 @@ void EnemyBase::OnTriggerStay(ColliderComponent * colliderPair)
 {
 	if (colliderPair->GetObjectTag() == Tag::PlayerWeaponTag)
 	{
-		printf("\nouti!");
+		//printf("\nouti!");
 	}
 
+}
+
+void EnemyBase::OnTriggerEnter(ColliderComponent * colliderPair)
+{
+	if (colliderPair->GetObjectTag() == Tag::PlayerWeaponTag)
+	{
+		printf("\nouti!");
+	}
 }

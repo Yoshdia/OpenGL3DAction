@@ -11,7 +11,8 @@ public:
 	void UpdateGameObject(float _deltaTime)override;
 
 private:
-	void OnTriggerStay(ColliderComponent* colliderPair) ;
+	void OnTriggerStay(ColliderComponent* colliderPair) override;
+	void OnTriggerEnter(ColliderComponent* colliderPair)override;
 	virtual void UpdateEnemyObject(float _deltaTime) {};
 	class GravityComponent* gravityComponent;
 };
