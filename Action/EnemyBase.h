@@ -2,6 +2,12 @@
 #include "GameObject.h"
 #include <string>
 
+enum EnemyMoveDirection
+{
+	right = 1,
+	left = -1,
+};
+
 class EnemyBase abstract:
 	public GameObject
 {
@@ -16,9 +22,14 @@ private:
 	virtual void UpdateEnemyObject(float _deltaTime) {};
 	class GravityComponent* gravityComponent;
 	class FootSole* footSole;
+	class ForwardGroundCheck* forwardGroundCheck;
 
+	static const float GroundCheckPos;
 	static const float NockBackPower;
 	Vector3 forceVector;
 	void NockBack();
+	EnemyMoveDirection moveDirection;
 };
+
+
 

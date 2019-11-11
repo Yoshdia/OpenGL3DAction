@@ -149,6 +149,7 @@
     <ClCompile Include="MeleeEnemy.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="ForwardGroundCheck.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -298,6 +299,7 @@
     <ClInclude Include="MeleeEnemy.h">
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="ForwardGroundCheck.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

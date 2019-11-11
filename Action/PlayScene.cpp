@@ -20,18 +20,18 @@ PlayScene::PlayScene()
 	new PlayerCharacter;
 	new MeleeEnemy();
 
-	new DebugBox(Vector3(0,0,0));
-	new DebugBox(Vector3(0,100,0));
-	new DebugBox(Vector3(0,200,0));
+	//new DebugBox(Vector3(0,0,0));
+	//new DebugBox(Vector3(0,100,0));
+	//new DebugBox(Vector3(0,200,0));
 
 	new DebugBox(Vector3(100,0,0));
 	new DebugBox(Vector3(200,0,0));
 	new DebugBox(Vector3(300,0,0));
 	new DebugBox(Vector3(400,0,0));
 
-	new DebugBox(Vector3(500,0,0));
-	new DebugBox(Vector3(500,100,0));
-	new DebugBox(Vector3(500,200,0));
+	//new DebugBox(Vector3(500,0,0));
+	//new DebugBox(Vector3(500,100,0));
+	//new DebugBox(Vector3(500,200,0));
 
 }
 
