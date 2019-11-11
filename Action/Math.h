@@ -302,6 +302,11 @@ public:
         return Vector3(_vec.x * _scalar, _vec.y * _scalar, _vec.z * _scalar);
     }
 
+	friend Vector3 operator/(const Vector3& _vec, float _scalar)
+	{
+		return Vector3(_vec.x / _scalar, _vec.y / _scalar, _vec.z / _scalar);
+	}
+
 	friend bool operator!=(const Vector3& _vec1, const Vector3& _vec2)
 	{
 		bool clear = false;

@@ -16,7 +16,7 @@ public:
 private:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	class AnimationPlayerComponent* animationComponent;
-	class CameraComponent* camera;
+	//class CameraComponent* camera;
 	class AttackPlayerComponent* attack;
 	class InputMovePlayerComponent* inputMovePlayerComponent;
 	class JumpPlayerComponent* jumpPlayerComponent;

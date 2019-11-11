@@ -38,7 +38,7 @@ PlayerCharacter::PlayerCharacter() :
 	inputMovePlayerComponent = new InputMovePlayerComponent(this, 100);
 	gravityComponent = new GravityComponent(this, 100, 20);
 
-	footSole= new FootSole(this);
+	footSole = new FootSole(this);
 	jumpPlayerComponent = new JumpPlayerComponent(this, 100, jumpPower);
 
 	MeshComponent* meshComponent = new MeshComponent(this);
@@ -70,7 +70,10 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 
 		if (attackBottonInput == true)
 		{
-			canNotActionTime = attack->Attack();
+			if (attack != nullptr)
+			{
+				canNotActionTime = attack->Attack();
+			}
 			if (animationComponent != nullptr)
 			{
 				animationComponent->SetAnimation(PlayerAnimationState::Attack);
@@ -81,10 +84,10 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	{
 		canNotActionTime--;
 	}
-	SetPosition(position + (inputDirection*movement));
+	SetPosition(position + (inputDirection * movement));
 }
 
-void PlayerCharacter::GameObjectInput(const InputState & _keyState)
+void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 {
 	if (_keyState.Keyboard.GetKeyValue(SDL_SCANCODE_0) == 1)
 		printf("\nplayerPosition = {%f,%f,%f}", position.x, position.y, position.z);
@@ -102,11 +105,11 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 
 	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
 
-	isJump=footSole->GetGroundFlag();
+	isJump = footSole->GetGroundFlag();
 	if (!isJump)
 	{
 		jumpPlayerComponent->JumpEnd();
-		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE)|| _keyState.Keyboard.GetKeyState(SDL_SCANCODE_L))
+		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE) || _keyState.Keyboard.GetKeyState(SDL_SCANCODE_L))
 		{
 			jumpPlayerComponent->Jump(0);
 		}
@@ -119,7 +122,7 @@ void PlayerCharacter::GameObjectInput(const InputState & _keyState)
 
 
 
-void PlayerCharacter::OnTriggerStay(ColliderComponent * colliderPair)
+void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 {
 	if (colliderPair->GetObjectTag() == Tag::EnemyTag)
 	{
