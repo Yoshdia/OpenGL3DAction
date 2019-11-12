@@ -23,7 +23,8 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, Enter, Stay, tag, Vector3(0, 0, 0));
 	footSole = new FootSole(this);
 
-	forwardGroundCheck = new ForwardGroundCheck(this);
+	forwardDownGroundCheck = new ForwardGroundCheck(this, Vector3(GroundCheckPos, -30, 0));
+	forwardGroundCheck = new ForwardGroundCheck(this, Vector3(GroundCheckPos, 0, 0));
 }
 
 EnemyBase::~EnemyBase()
@@ -32,7 +33,7 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::UpdateGameObject(float _deltaTime)
 {
-	SetPosition(Vector3(1 * moveDirection, 0, 0) + position);
+	SetPosition(Vector3(3 * moveDirection, 0, 0) + position);
 	UpdateEnemyObject(_deltaTime);
 
 	if (footSole->GetGroundFlag() == true)
@@ -41,16 +42,18 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 	}
 	NockBack();
 
-	if (forwardGroundCheck->GetGround() == true)
+	if (forwardDownGroundCheck->GetGround() == true|| forwardGroundCheck->GetGroundEnter()==false)
 	{
 		moveDirection = (EnemyMoveDirection)(moveDirection * (EnemyMoveDirection)-1);
-		forwardGroundCheck->ResetGroundFlag(false);
+		forwardDownGroundCheck->ResetGroundFlag(false);
 	}
 	else
 	{
-		forwardGroundCheck->ResetGroundFlag(true);
+		forwardDownGroundCheck->ResetGroundFlag(true); 
+		//forwardGroundCheck->ResetGroundFlag(true);
 	}
-	forwardGroundCheck->SetCheckPos(Vector3(GroundCheckPos * moveDirection, -30, 0));
+	forwardDownGroundCheck->SetCheckPos(Vector3(GroundCheckPos * moveDirection, -30, 0));
+	forwardGroundCheck->SetCheckPos(Vector3(GroundCheckPos * moveDirection, 0, 0));
 }
 
 void EnemyBase::OnTriggerStay(ColliderComponent* colliderPair)

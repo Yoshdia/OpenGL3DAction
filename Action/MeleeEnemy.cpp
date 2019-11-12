@@ -2,11 +2,11 @@
 
 
 
-MeleeEnemy::MeleeEnemy():
+MeleeEnemy::MeleeEnemy(Vector3 _pos):
 	EnemyBase("Assets/Model/untitled.gpmesh")
 {
 	SetScale(25);
-	SetPosition(Vector3(300, 50, 0));
+	SetPosition(_pos);
 }
 
 

@@ -22,7 +22,9 @@ private:
 	virtual void UpdateEnemyObject(float _deltaTime) {};
 	class GravityComponent* gravityComponent;
 	class FootSole* footSole;
+	class ForwardGroundCheck* forwardDownGroundCheck;
 	class ForwardGroundCheck* forwardGroundCheck;
+
 
 	static const float GroundCheckPos;
 	static const float NockBackPower;

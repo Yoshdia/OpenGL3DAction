@@ -62,7 +62,7 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 
 			if (hit > 0)
 			{
-				if (obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::GroundTag|| obj1Tag == Tag::EnemyTag&&obj2Tag == Tag::GroundTag||obj1Tag==Tag::PlayerTag&&obj2Tag==Tag::EnemyTag)
+				if (obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::GroundTag|| obj1Tag == Tag::EnemyTag&&obj2Tag == Tag::GroundTag/*||obj1Tag==Tag::PlayerTag&&obj2Tag==Tag::EnemyTag*/)
 				{
 					//dynamic_cast<PlayerCharacter*> (collider->GetOwner())->FixCollision(obj1,obj2);
 					collider->GetOwner()->FixCollision(obj1, obj2);
