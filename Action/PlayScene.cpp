@@ -19,7 +19,7 @@ PlayScene::PlayScene()
 
 	new PlayerCharacter;
 	new MeleeEnemy(Vector3(300,50,0));
-	new MeleeEnemy(Vector3(0,50,0));
+	new MeleeEnemy(Vector3(0,-125,0));
 	new MeleeEnemy(Vector3(-200,50,0));
 	
 

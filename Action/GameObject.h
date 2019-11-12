@@ -159,6 +159,7 @@ public:
 	int GetObjectId() {return myObjectId;};
 
 	void FixCollision(const AABB & myAABB, const AABB & pairAABB);
+
 protected:
 	virtual void OnTriggerEnter( ColliderComponent* colliderPair) {};
 	virtual void OnTriggerStay( ColliderComponent* colliderPair) {};

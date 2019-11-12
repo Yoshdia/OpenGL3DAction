@@ -20,7 +20,6 @@ private:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair)override;
 	virtual void UpdateEnemyObject(float _deltaTime) {};
-	class GravityComponent* gravityComponent;
 	class FootSole* footSole;
 	class ForwardGroundCheck* forwardDownGroundCheck;
 	class ForwardGroundCheck* forwardGroundCheck;

@@ -19,10 +19,10 @@ private:
 	//class CameraComponent* camera;
 	class AttackPlayerComponent* attack;
 	class InputMovePlayerComponent* inputMovePlayerComponent;
-	class JumpPlayerComponent* jumpPlayerComponent;
-	class GravityComponent* gravityComponent;
 	class FootSole* footSole;
 	float canNotActionTime;
+
+	Vector3 velo;
 
 	Vector3 movement;
 	Vector3 inputDirection;

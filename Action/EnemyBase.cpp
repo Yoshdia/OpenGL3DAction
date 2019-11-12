@@ -1,7 +1,6 @@
 #include "EnemyBase.h"
 #include "MeshComponent.h"
 #include "Renderer.h"
-#include "GravityComponent.h"
 #include "ColliderComponent.h"
 #include "FootSole.h"
 #include "ForwardGroundCheck.h"
@@ -16,7 +15,6 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	tag = Tag::EnemyTag;
 	MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh(meshName));
-	gravityComponent = new GravityComponent(this, 100, 20);
 
 	std::function<void(ColliderComponent*)>  Enter = std::bind(&EnemyBase::OnTriggerEnter, this, std::placeholders::_1);
 	std::function<void(ColliderComponent*)>  Stay = std::bind(&EnemyBase::OnTriggerStay, this, std::placeholders::_1);
@@ -38,7 +36,7 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 
 	if (footSole->GetGroundFlag() == true)
 	{
-		gravityComponent->Gravity(_deltaTime);
+		SetPosition(position + Vector3(0, -2, 0));
 	}
 	NockBack();
 

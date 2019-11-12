@@ -9,13 +9,11 @@
 #include "ColliderComponent.h"
 #include "InputMovePlayerComponent.h"
 //#include "PhysicsWorld.h"
-#include "JumpPlayerComponent.h"
 #include "FootSole.h"
-#include "GravityComponent.h"
 #include "MeshComponent.h"
 
 
-const float PlayerCharacter::jumpPower =60;
+const float PlayerCharacter::jumpPower = 60;
 
 PlayerCharacter::PlayerCharacter() :
 	GameObject(),
@@ -23,7 +21,8 @@ PlayerCharacter::PlayerCharacter() :
 	inputDirection(Vector3(0, 0, 0)),
 	attackBottonInput(false),
 	canNotActionTime(0),
-	isJump(false)
+	isJump(false),
+	velo(Vector3(0, 0, 0))
 {
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
 
@@ -37,10 +36,8 @@ PlayerCharacter::PlayerCharacter() :
 	std::function<void(ColliderComponent*)>  Stay = std::bind(&PlayerCharacter::OnTriggerStay, this, std::placeholders::_1);
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, Enter, Stay, tag, Vector3(0, 0, 0));
 	inputMovePlayerComponent = new InputMovePlayerComponent(this, 100);
-	gravityComponent = new GravityComponent(this, 100, 20);
 
 	footSole = new FootSole(this);
-	jumpPlayerComponent = new JumpPlayerComponent(this, 100, jumpPower);
 
 	MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
@@ -52,7 +49,7 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
-	RENDERER->SetViewMatrixLerpObject(Vector3(0,0,-500), position);
+	RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
 	if (canNotActionTime < 0)
 	{
 		if (inputDirection != Vector3::Zero)
@@ -87,10 +84,6 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		canNotActionTime--;
 	}
 	SetPosition(position + (inputDirection * movement));
-	if (isJump)
-	{
-		gravityComponent->Gravity(_deltaTime);
-	}
 }
 
 void PlayerCharacter::GameObjectInput(const InputState& _keyState)
@@ -114,13 +107,17 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	isJump = footSole->GetGroundFlag();
 	if (!isJump)
 	{
-		jumpPlayerComponent->JumpEnd();
+		velo = Vector3::Zero;
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE) || _keyState.Keyboard.GetKeyState(SDL_SCANCODE_L))
 		{
-			jumpPlayerComponent->Jump(0);
-			gravityComponent->IsGround();
+			velo.y += 35;
 		}
 	}
+	else
+	{
+		velo.y += -2;
+	}
+	SetPosition(position + velo);
 }
 
 

@@ -134,14 +134,8 @@
     <ClCompile Include="InputMovePlayerComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="JumpPlayerComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="FootSole.cpp">
       <Filter>GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="GravityComponent.cpp">
-      <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="EnemyBase.cpp">
       <Filter>GameObjects\Enemy</Filter>
@@ -284,14 +278,8 @@
     <ClInclude Include="InputMovePlayerComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="JumpPlayerComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="FootSole.h">
       <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GravityComponent.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBase.h">
       <Filter>GameObjects\Enemy</Filter>
