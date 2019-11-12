@@ -19,6 +19,10 @@ Renderer::Renderer()
 	, screenWidth(0)
 	, screenHeight(0)
 	, ambientLight(Vector3::Zero)
+	,lerpObject(Vector3(0,0,0))
+	,offsetPos(Vector3(0,0,0))
+	, hasParentObject(false)
+	, cameraPos(Vector3(0,0,0))
 {
     wallDirLight.direction = Vector3(0.0f, -0.7f, -0.7f);
     wallDirLight.diffuseColor = Vector3(0.78f, 0.88f, 1.0f);
@@ -336,6 +340,30 @@ Mesh* Renderer::GetMesh(const std::string &_fileName)
         }
     }
     return m;
+}
+
+void Renderer::SetViewMatrixLerpObject(const Vector3 & _offset, const Vector3 & _parentPos)
+{
+	hasParentObject = true;
+	offsetPos = _offset;
+	lerpObject = _parentPos;
+}
+
+void Renderer::LerpParentPos(float _deltaTime)
+{
+	if (!hasParentObject)
+	{
+		printf("Camera[I don't have parent!]");
+		return;
+	}
+	Vector3 pos = offsetPos + cameraPos;
+	pos.x = lerpObject.x + offsetPos.x;
+	pos.y = lerpObject.y + offsetPos.y;
+	pos.z = lerpObject.z + offsetPos.z;
+	cameraPos = Vector3::Lerp(cameraPos, pos, _deltaTime*5.0f);
+
+	Matrix4 v = Matrix4::CreateLookAt(cameraPos, lerpObject, Vector3::UnitY);
+	RENDERER->SetViewMatrix(v);
 }
 
 /**

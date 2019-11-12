@@ -14,6 +14,7 @@
 #include "GravityComponent.h"
 #include "MeshComponent.h"
 
+
 const float PlayerCharacter::jumpPower = 40;
 
 PlayerCharacter::PlayerCharacter() :
@@ -43,6 +44,9 @@ PlayerCharacter::PlayerCharacter() :
 
 	MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
+
+	objectLerperX = 0;
+	objectLerperY = 0;
 }
 
 PlayerCharacter::~PlayerCharacter()
@@ -51,6 +55,11 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
+	//Vector3 capos = Vector3::Lerp(Vector3(objectLerperX, objectLerperY, -500), Vector3(position.x, position.y, -500), _deltaTime*1.0f);
+	//objectLerperX = capos.x;
+	//objectLerperY = capos.y;
+
+	RENDERER->SetViewMatrixLerpObject(Vector3(0,0,-500), position);
 	if (canNotActionTime < 0)
 	{
 		if (inputDirection != Vector3::Zero)

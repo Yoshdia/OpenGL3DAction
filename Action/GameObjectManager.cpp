@@ -1,6 +1,7 @@
 #include "GameObjectManager.h"
 #include "GameObject.h"
 #include "InputSystem.h"
+#include "Renderer.h"
 
 GameObjectManager* GameObjectManager::manager = nullptr;
 
@@ -26,6 +27,7 @@ void GameObjectManager::DeleteInstance()
 */
 void GameObjectManager::UpdateGameObject(float _deltaTime)
 {
+	RENDERER->LerpParentPos(_deltaTime);
 	updatingGameObject = true;
 	for (auto gameObject : gameObjects)
 	{

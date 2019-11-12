@@ -115,6 +115,7 @@ void Game::GameLoop()
 		UpdateGame();
 		GenerateOutput();
 		fps->Update();
+		
 	}
 }
 

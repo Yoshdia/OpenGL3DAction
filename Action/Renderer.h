@@ -109,6 +109,10 @@ public:
 	*/
     void SetViewMatrix(const Matrix4& _view) { view = _view; }
 
+	void SetViewMatrixLerpObject(const Vector3& offset,const Vector3& _parentPos);
+
+	void LerpParentPos(float _deltaTime);
+
 	/**
 	@brief	環境光を設定する
 	@param	Vector3（環境光を表す）
@@ -137,6 +141,11 @@ private:
 	//コンストラクタ、デストラクタの隠蔽
 	Renderer();
 	~Renderer();
+
+	Vector3 offsetPos;
+	Vector3 lerpObject;
+	Vector3 cameraPos;
+	bool hasParentObject;
 
 	//自分のインスタンス
 	static Renderer* renderer;
