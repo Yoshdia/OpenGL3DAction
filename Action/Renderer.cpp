@@ -360,9 +360,11 @@ void Renderer::LerpParentPos(float _deltaTime)
 	pos.x = lerpObject.x + offsetPos.x;
 	pos.y = lerpObject.y + offsetPos.y;
 	pos.z = lerpObject.z + offsetPos.z;
-	cameraPos = Vector3::Lerp(cameraPos, pos, _deltaTime*5.0f);
+	cameraPos = Vector3::Lerp(cameraPos, pos, _deltaTime*3.0f);
+	Vector3 aa = cameraPos;
+	aa.z = 0;
 
-	Matrix4 v = Matrix4::CreateLookAt(cameraPos, lerpObject, Vector3::UnitY);
+	Matrix4 v = Matrix4::CreateLookAt(cameraPos, aa, Vector3::UnitY);
 	RENDERER->SetViewMatrix(v);
 }
 
