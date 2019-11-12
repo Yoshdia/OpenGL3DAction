@@ -33,8 +33,5 @@ private:
 	//ƒWƒƒƒ“ƒv—Í 
 	//@sa JumpPlayerComponent
 	static const float jumpPower;
-
-	float objectLerperX;
-	float objectLerperY;
 };
 

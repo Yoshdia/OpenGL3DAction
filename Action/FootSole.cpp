@@ -16,7 +16,7 @@ FootSole::FootSole(GameObject* _parent):
 
 	std::function<void(ColliderComponent*)>  Enter = std::bind(&FootSole::OnTriggerEnter, this, std::placeholders::_1);
 	std::function<void(ColliderComponent*)>  Stay = std::bind(&FootSole::OnTriggerStay, this, std::placeholders::_1);
-	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(0.4f, 30, 0.8f), myObjectId, Enter, Stay, tag);
+	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(0.4f, 60, 0.8f), myObjectId, Enter, Stay, tag);
 }
 
 FootSole::~FootSole()
