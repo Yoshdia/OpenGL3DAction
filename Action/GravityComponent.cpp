@@ -4,7 +4,8 @@
 
 GravityComponent::GravityComponent(GameObject* _owner, int _updateOrder, int _gravityPower) :
 	Component(_owner, updateOrder),
-	gravityPower(_gravityPower)
+	gravityPower(_gravityPower),
+	noGroundTime(0)
 {
 }
 
@@ -17,7 +18,14 @@ void GravityComponent::Update(float _deltaTime)
 {
 }
 
-void GravityComponent::Gravity()
+void GravityComponent::Gravity(float _deltaTime)
 {
-	owner->SetPosition(owner->GetPosition() + Vector3(0, (float)-gravityPower, 0));
+	noGroundTime++;
+ 	float power = (_deltaTime*noGroundTime) * -9.8f;
+	owner->SetPosition(owner->GetPosition() + Vector3(0, (float)power, 0));
+}
+
+void GravityComponent::IsGround()
+{
+	noGroundTime = 0;
 }

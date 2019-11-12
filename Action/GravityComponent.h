@@ -18,9 +18,11 @@ public:
 	@brief èdóÕ
 	*/
 	void Update(float _deltaTime)override;
-	void Gravity();
+	void Gravity(float _deltaTime);
+	void IsGround();
+
 private:
 	int gravityPower;
-
+	int noGroundTime;
 };
 

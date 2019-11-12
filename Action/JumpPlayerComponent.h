@@ -27,11 +27,13 @@ public:
 	void Update(float _deltaTime)override;
 
 
-	void JumpEnd() { jumpPower = 0; };
+	void JumpEnd() { jumpPower = 0; noGroundTime = 0; };
 private:
 	//動的に変化するジャンプ量
 	float jumpPower;
 	//ジャンプ力の最大値
 	float jumpPowerMax;
+
+	float noGroundTime;
 };
 

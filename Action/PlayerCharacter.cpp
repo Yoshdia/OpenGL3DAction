@@ -15,7 +15,7 @@
 #include "MeshComponent.h"
 
 
-const float PlayerCharacter::jumpPower = 40;
+const float PlayerCharacter::jumpPower =60;
 
 PlayerCharacter::PlayerCharacter() :
 	GameObject(),
@@ -87,6 +87,10 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		canNotActionTime--;
 	}
 	SetPosition(position + (inputDirection * movement));
+	if (isJump)
+	{
+		gravityComponent->Gravity(_deltaTime);
+	}
 }
 
 void PlayerCharacter::GameObjectInput(const InputState& _keyState)
@@ -114,11 +118,8 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE) || _keyState.Keyboard.GetKeyState(SDL_SCANCODE_L))
 		{
 			jumpPlayerComponent->Jump(0);
+			gravityComponent->IsGround();
 		}
-	}
-	else
-	{
-		gravityComponent->Gravity();
 	}
 }
 

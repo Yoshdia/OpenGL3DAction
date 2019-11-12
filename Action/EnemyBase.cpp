@@ -38,7 +38,7 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 
 	if (footSole->GetGroundFlag() == true)
 	{
-		gravityComponent->Gravity();
+		gravityComponent->Gravity(_deltaTime);
 	}
 	NockBack();
 
