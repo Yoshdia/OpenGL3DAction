@@ -27,7 +27,7 @@ PlayerCharacter::PlayerCharacter() :
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
 
 	tag = Tag::PlayerTag;
-	SetPosition(Vector3(100, 100, 0));
+	SetPosition(Vector3(100, 200, 0));
 	SetScale(25);
 
 	//animationComponent = new AnimationPlayerComponent(this, 100);
@@ -126,6 +126,5 @@ void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 {
 	if (colliderPair->GetObjectTag() == Tag::EnemyTag)
 	{
-		printf("IYAAAAAAAA\n");
 	}
 }
