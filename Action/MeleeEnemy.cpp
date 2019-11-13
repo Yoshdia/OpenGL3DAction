@@ -17,7 +17,7 @@ MeleeEnemy::~MeleeEnemy()
 
 void MeleeEnemy::UpdateEnemyObject(float _deltaTime)
 {
-	float a = Math::Abs(position.x - findingPlayerCheck->GetColliderPairPosition().x) ;
+	float a = Math::Abs(position.x - findingPlayerCheck->GetColliderPairPosition().x);
 	switch (actionName)
 	{
 	case(EnemyActions::walk):
@@ -37,14 +37,18 @@ void MeleeEnemy::UpdateEnemyObject(float _deltaTime)
 	case(EnemyActions::noActive):
 		break;
 	case(EnemyActions::foundMove):
- 		SetPosition(Vector3::Lerp(position, findingPlayerCheck->GetColliderPairPosition(), _deltaTime*0.8));
-		if (a<75)
+		SetPosition(Vector3::Lerp(position, findingPlayerCheck->GetColliderPairPosition(), _deltaTime*0.8));
+		if (a < 75)
 		{
 			actionName = EnemyActions::attack;
 		}
 		break;
 	case(EnemyActions::attack):
-			printf("ATTACK");
+		printf("ATTACK");
+		if (a >= 75)
+		{
+			actionName = EnemyActions::foundMove;
+		}
 		break;
 	}
 }
