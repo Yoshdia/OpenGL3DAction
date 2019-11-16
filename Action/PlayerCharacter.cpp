@@ -1,16 +1,17 @@
 #include "PlayerCharacter.h"
 #include "SpriteComponent.h"
 #include "Renderer.h"
-#include "CameraComponent.h"
 #include "MeshComponent.h"
+#include "CameraComponent.h"
 #include "InputSystem.h"
 #include "AnimationPlayerComponent.h"
 #include "AttackPlayerComponent.h"
 #include "ColliderComponent.h"
 #include "InputMovePlayerComponent.h"
 //#include "PhysicsWorld.h"
-#include "FootSole.h"
+//#include "FootSole.h"
 #include "MeshComponent.h"
+#include "SkeltonObjectChecker.h"
 
 
 const float PlayerCharacter::jumpPower = 60;
@@ -32,12 +33,12 @@ PlayerCharacter::PlayerCharacter() :
 
 	//animationComponent = new AnimationPlayerComponent(this, 100);
 	attack = new AttackPlayerComponent(this, 100);
-	std::function<void(ColliderComponent*)>  Enter = std::bind(&PlayerCharacter::OnTriggerEnter, this, std::placeholders::_1);
-	std::function<void(ColliderComponent*)>  Stay = std::bind(&PlayerCharacter::OnTriggerStay, this, std::placeholders::_1);
-	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, Enter, Stay, tag, Vector3(0, 0, 0));
+
+	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 	inputMovePlayerComponent = new InputMovePlayerComponent(this, 100);
 
-	footSole = new FootSole(this);
+	//footSole = new FootSole(this);
+	footChecker = new SkeltonObjectChecker(this, Vector3(0, -25, 0), Vector3(20, 1, 20), Tag::GroundTag);
 
 	MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
@@ -104,7 +105,8 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 
 	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
 
-	isJump = footSole->GetGroundFlag();
+	//isJump = footSole->GetGroundFlag();
+	isJump = footChecker->GetGround();
 	if (!isJump)
 	{
 		velo = Vector3::Zero;

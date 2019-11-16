@@ -1,16 +1,16 @@
 #pragma once
 #include "GameObject.h"
 
-class ForwardGroundCheck :
+class SkeltonObjectChecker :
 	public GameObject
 {
 public:
-	ForwardGroundCheck(GameObject* _parent,Vector3 _pos,Vector3 _colliderSize,Tag _pairTag);
-	~ForwardGroundCheck();
-	
+	SkeltonObjectChecker(GameObject* _parent, Vector3 _pos, Vector3 _colliderSize, Tag _pairTag);
+	~SkeltonObjectChecker();
+
 	void UpdateGameObject(float _deltaTime)override;
 	bool GetGround() { return noGround; }
-	bool GetGroundEnter() {return noGroundEnter;}
+	bool GetGroundEnter() { return noGroundEnter; }
 	void ResetGroundFlag(bool _flag) { noGround = _flag; }
 	void SetCheckPos(Vector3 _pos) { myPos = _pos; }
 	Vector3 GetColliderPairPosition() { return colliderPairPos; }
@@ -26,5 +26,7 @@ private:
 
 	bool noGround;
 	bool noGroundEnter;
+	bool changed;
 };
+
 

@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{36679240-81E7-4953-B0DE-126EB19FE058}</ProjectGuid>
     <RootNamespace>Space</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>OpenGL</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -162,7 +162,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="FollowCamera.cpp" />
     <ClCompile Include="FollowCameraObject.cpp" />
     <ClCompile Include="FootSole.cpp" />
-    <ClCompile Include="ForwardGroundCheck.cpp" />
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="FPSCamera.cpp" />
     <ClCompile Include="FPSGameObject.cpp" />
@@ -187,6 +186,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="SkeltonObjectChecker.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TitleScene.cpp" />
@@ -213,7 +213,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="FollowCamera.h" />
     <ClInclude Include="FollowCameraObject.h" />
     <ClInclude Include="FootSole.h" />
-    <ClInclude Include="ForwardGroundCheck.h" />
     <ClInclude Include="FPS.h" />
     <ClInclude Include="FPSCamera.h" />
     <ClInclude Include="FPSGameObject.h" />
@@ -237,6 +236,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="SkeltonObjectChecker.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TitleScene.h" />

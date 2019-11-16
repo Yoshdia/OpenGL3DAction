@@ -1,5 +1,5 @@
 #include "MeleeEnemy.h"
-#include "ForwardGroundCheck.h"
+#include "SkeltonObjectChecker.h"
 
 
 MeleeEnemy::MeleeEnemy(Vector3 _pos) :
@@ -21,23 +21,27 @@ void MeleeEnemy::UpdateEnemyObject(float _deltaTime)
 	switch (actionName)
 	{
 	case(EnemyActions::walk):
-		SetPosition(Vector3(0.5*moveDirection, 0, 0) + position);
-		if (forwardDownGroundCheck->GetGround() == true || forwardGroundCheck->GetGroundEnter() == false)
+		SetPosition(Vector3(0.5f*moveDirection, 0, 0) + position);
+		if (footChecker->GetGround())
 		{
-			moveDirection = (EnemyMoveDirection)(moveDirection * (EnemyMoveDirection)-1);
-			forwardDownGroundCheck->ResetGroundFlag(false);
+			SetPosition(position + Vector3(0, -2, 0));
+			if (forwardDownGroundCheck->GetGround() == true /*|| skeltonObjectChecker->GetGroundEnter() == false*/)
+			{
+				moveDirection = (EnemyMoveDirection)(moveDirection * (EnemyMoveDirection)-1);
+				//forwardDownGroundCheck->ResetGroundFlag(false);
+				forwardDownGroundCheck->SetCheckPos(Vector3(GroundCheckPos * moveDirection, -90, 0));
+			}
+			else
+			{
+				//forwardDownGroundCheck->ResetGroundFlag(true);
+			}
 		}
-		else
-		{
-			forwardDownGroundCheck->ResetGroundFlag(true);
-		}
-		forwardDownGroundCheck->SetCheckPos(Vector3(GroundCheckPos * moveDirection, -30, 0));
-		forwardGroundCheck->SetCheckPos(Vector3(GroundCheckPos * moveDirection, 0, 0));
+		//skeltonObjectChecker->SetCheckPos(Vector3(GroundCheckPos * moveDirection, 0, 0));
 		break;
 	case(EnemyActions::noActive):
 		break;
 	case(EnemyActions::foundMove):
-		SetPosition(Vector3::Lerp(position, findingPlayerCheck->GetColliderPairPosition(), _deltaTime*0.8));
+		SetPosition(Vector3::Lerp(position, findingPlayerCheck->GetColliderPairPosition(), _deltaTime*0.8f));
 		if (a < 75)
 		{
 			actionName = EnemyActions::attack;

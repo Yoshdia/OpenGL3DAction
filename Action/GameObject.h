@@ -98,13 +98,14 @@ public:
 	@brief　オブジェクトのスケールを取得する
 	@return	scale
 	*/
-    float GetScale() const { return scale; }
+    Vector3 GetScaleFloat() const { return scale; }
 
 	/**
 	@brief　オブジェクトのスケールを設定する
 	@param	scale
 	*/
-	virtual void SetScale(float _scale) { scale = _scale;  recomputeWorldTransform = true; }
+	void SetScale(float _scale) { scale.x = _scale; scale.y = _scale; scale.z = _scale; recomputeWorldTransform = true; }
+	void SetScale(Vector3 _scale) { scale.x = _scale.x; scale.y = _scale.y; scale.z = _scale.z; recomputeWorldTransform = true; }
 
 	/**
 	@brief　オブジェクトのクォータニオンを取得する
@@ -161,6 +162,9 @@ public:
 	void FixCollision(const AABB & myAABB, const AABB & pairAABB);
 
 protected:
+	std::function<void(ColliderComponent*)> GetTriggerEnterFunc() { return std::bind(&GameObject::OnTriggerEnter, this, std::placeholders::_1); }
+	std::function<void(ColliderComponent*)> GetTriggerStayFunc() { return std::bind(&GameObject::OnTriggerStay, this, std::placeholders::_1); }
+
 	virtual void OnTriggerEnter( ColliderComponent* colliderPair) {};
 	virtual void OnTriggerStay( ColliderComponent* colliderPair) {};
 
@@ -175,7 +179,7 @@ protected:
 	//Transform
 	Vector3 position;
 	Quaternion rotation;	
-	float scale;
+	Vector3 scale;
 	Matrix4 worldTransform;
 	//ワールド変換の処理を行う必要性があるか
 	bool recomputeWorldTransform;

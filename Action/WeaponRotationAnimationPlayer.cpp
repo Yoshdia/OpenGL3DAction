@@ -19,7 +19,7 @@ WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& pos,
 	}
 	targetPos = pos + addDistance;
 	rotateSpeed = 50;
-	rotateSpeedSub = 0.45;
+	rotateSpeedSub = 0.45f;
 	tag = Tag::PlayerWeaponTag;
 	std::function<void(ColliderComponent*)>  Enter = std::bind(&WeaponRotationAnimationPlayer::OnTriggerEnter, this, std::placeholders::_1);
 	std::function<void(ColliderComponent*)>  Stay = std::bind(&WeaponRotationAnimationPlayer::OnTriggerStay, this, std::placeholders::_1);

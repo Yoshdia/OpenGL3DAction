@@ -51,10 +51,10 @@ void ColliderComponent::Update(float deltaTime)
 	PhysicsWorld::GetInstance()->Collision(this);
 }
 
-float ColliderComponent::GetScale()
-{
-	return owner->GetScale();
-}
+//float ColliderComponent::GetScale()
+//{
+//	return owner->GetScale();
+//}
 
 Vector3 ColliderComponent::GetPosition()
 {

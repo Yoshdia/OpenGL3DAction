@@ -143,7 +143,9 @@
     <ClCompile Include="MeleeEnemy.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="ForwardGroundCheck.cpp" />
+    <ClCompile Include="SkeltonObjectChecker.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -287,7 +289,9 @@
     <ClInclude Include="MeleeEnemy.h">
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="ForwardGroundCheck.h" />
+    <ClInclude Include="SkeltonObjectChecker.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

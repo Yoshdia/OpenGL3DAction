@@ -19,7 +19,8 @@ private:
 	//class CameraComponent* camera;
 	class AttackPlayerComponent* attack;
 	class InputMovePlayerComponent* inputMovePlayerComponent;
-	class FootSole* footSole;
+	//class FootSole* footSole;
+	class SkeltonObjectChecker* footChecker;
 	float canNotActionTime;
 
 	Vector3 velo;

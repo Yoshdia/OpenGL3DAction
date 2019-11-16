@@ -28,10 +28,11 @@ protected:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair)override;
 	virtual void UpdateEnemyObject(float _deltaTime) {};
-	class FootSole* footSole;
-	class ForwardGroundCheck* forwardDownGroundCheck;
-	class ForwardGroundCheck* forwardGroundCheck;
-	class ForwardGroundCheck* findingPlayerCheck;
+	//class FootSole* footSole;
+	class SkeltonObjectChecker* footChecker;
+	class SkeltonObjectChecker* forwardDownGroundCheck;
+	class SkeltonObjectChecker* skeltonObjectChecker;
+	class SkeltonObjectChecker* findingPlayerCheck;
 
 	static const float GroundCheckPos;
 	static const float NockBackPower;

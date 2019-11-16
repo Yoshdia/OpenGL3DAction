@@ -48,7 +48,7 @@ public:
 	/*
 	@fn 親Objectのサイズを返す
 	*/
-	float GetScale();
+	//float GetScale();
 	/*
 	@fn 親Objectの座標を返す
 	*/

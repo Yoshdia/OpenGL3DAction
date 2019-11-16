@@ -3,17 +3,18 @@
 #include "Renderer.h"
 #include "ColliderComponent.h"
 #include "FootSole.h"
-#include "ForwardGroundCheck.h"
+#include "SkeltonObjectChecker.h"
 
 const float EnemyBase::NockBackPower = 30;
 const float EnemyBase::GroundCheckPos = 40;
 
 EnemyBase::EnemyBase(const std::string& meshName) :
 	GameObject(),
-	moveDirection(EnemyMoveDirection::right),
 	actionChangeCount(0),
 	defaultCountMax(500),
-	actionChangeCountMax(defaultCountMax)
+	actionChangeCountMax(defaultCountMax),
+	moveDirection(EnemyMoveDirection::left),
+	actionName(EnemyActions::walk)
 {
 	tag = Tag::EnemyTag;
 	MeshComponent* meshComponent = new MeshComponent(this);
@@ -22,11 +23,13 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	std::function<void(ColliderComponent*)>  Enter = std::bind(&EnemyBase::OnTriggerEnter, this, std::placeholders::_1);
 	std::function<void(ColliderComponent*)>  Stay = std::bind(&EnemyBase::OnTriggerStay, this, std::placeholders::_1);
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, Enter, Stay, tag, Vector3(0, 0, 0));
-	footSole = new FootSole(this);
+	//footSole = new FootSole(this);
 
-	forwardDownGroundCheck = new ForwardGroundCheck(this, Vector3(GroundCheckPos, -30, 0),Vector3(1,1,1),Tag::GroundTag);
-	forwardGroundCheck = new ForwardGroundCheck(this, Vector3(GroundCheckPos, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
-	findingPlayerCheck = new ForwardGroundCheck(this, Vector3(100, 1, 0), Vector3(200, 1, 1), Tag::PlayerTag);
+	footChecker= new SkeltonObjectChecker(this, Vector3(0, -25, 0), Vector3(20, 1, 20), Tag::GroundTag);
+
+	forwardDownGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos*moveDirection, -90, 0),Vector3(1,5,5),Tag::GroundTag);
+	//skeltonObjectChecker = new SkeltonObjectChecker(this, Vector3(GroundCheckPos*moveDirection, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
+	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(100, 1, 0), Vector3(200, 1, 1), Tag::PlayerTag);
 }
 
 EnemyBase::~EnemyBase()
@@ -38,20 +41,17 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 	UpdateEnemyObject(_deltaTime);
 	NockBack();
 
-	if (footSole->GetGroundFlag() == true)
-	{
-		SetPosition(position + Vector3(0, -2, 0));
-	}
+	//if (footSole->GetGroundFlag() == true)
 
-	
-	if (!findingPlayerCheck->GetGround())
-	{
-		actionName = EnemyActions::foundMove;
-		findingPlayerCheck->ResetGroundFlag(true);
-	}
-	findingPlayerCheck->SetCheckPos(Vector3(100 * moveDirection, 0, 0));
+
+	//if (!findingPlayerCheck->GetGround())
+	//{
+	//	actionName = EnemyActions::foundMove;
+	//	findingPlayerCheck->ResetGroundFlag(true);
+	//}
+	findingPlayerCheck->SetCheckPos(Vector3((float)100 * moveDirection, 0, 0));
 	actionChangeCount++;
-	ActionChange();
+	//ActionChange();
 }
 
 void EnemyBase::OnTriggerStay(ColliderComponent* colliderPair)
