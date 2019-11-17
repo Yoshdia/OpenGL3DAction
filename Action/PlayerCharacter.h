@@ -3,6 +3,10 @@
 
 struct InputState;
 
+/*
+ @file PlayerCharacter.h
+ @brief プレイヤー
+	*/
 class PlayerCharacter :
 	public GameObject
 {
@@ -12,14 +16,12 @@ public:
 
 	void UpdateGameObject(float _deltaTime)override;
 	void GameObjectInput(const InputState & _keyState) override;
-
 private:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	class AnimationPlayerComponent* animationComponent;
 	//class CameraComponent* camera;
 	class AttackPlayerComponent* attack;
 	class InputMovePlayerComponent* inputMovePlayerComponent;
-	//class FootSole* footSole;
 	class SkeltonObjectChecker* footChecker;
 	float canNotActionTime;
 
@@ -32,7 +34,6 @@ private:
 	//ジャンプ中か
 	bool isJump;
 	//ジャンプ力 
-	//@sa JumpPlayerComponent
 	static const float jumpPower;
 };
 

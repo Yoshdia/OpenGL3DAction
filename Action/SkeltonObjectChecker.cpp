@@ -5,21 +5,21 @@
 
 SkeltonObjectChecker::SkeltonObjectChecker(GameObject* _parent, Vector3 _pos, Vector3 _colliderSize, Tag _pairTag) :
 	GameObject(),
-	myPos(_pos),
+	offset(_pos),
 	parent(_parent),
 	pairTag(_pairTag),
-	noGround(true),
-	noGroundEnter(true),
-	colliderPairPos(Vector3(0, 0, 0))
+	noTargetTouching(true),
+	colliderPairPos(Vector3(0, 0, 0)),
+	changed(false)
 {
-	SetPosition(myPos + parent->GetPosition());
+	SetPosition(offset + parent->GetPosition());
 
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, _colliderSize, myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
+	//Debug
 	MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/collisionMask.gpmesh"));
 	SetScale(_colliderSize);
-	changed = false;
 }
 
 SkeltonObjectChecker::~SkeltonObjectChecker()
@@ -28,28 +28,24 @@ SkeltonObjectChecker::~SkeltonObjectChecker()
 
 void SkeltonObjectChecker::UpdateGameObject(float _deltaTime)
 {
-	SetPosition(myPos + parent->GetPosition());
-	if (!noGround || !noGroundEnter)
-	{
-		colliderPairPos = Vector3(0, 0, 0);
-	}
+	SetPosition(offset + parent->GetPosition());
 
+	//接触した際にフラグをリセットしない
 	if (!changed)
 	{
-		noGround = true;
-		noGroundEnter = true;
+		noTargetTouching = true;
 	}
 	else
 	{
 		changed = false;
-	}	
+	}
 }
 
 void SkeltonObjectChecker::OnTriggerStay(ColliderComponent* colliderPair)
 {
 	if (colliderPair->GetObjectTag() == pairTag)
 	{
-		noGround = false;
+		noTargetTouching = false;
 		changed = true;
 		colliderPairPos = colliderPair->GetPosition();
 	}
@@ -57,10 +53,9 @@ void SkeltonObjectChecker::OnTriggerStay(ColliderComponent* colliderPair)
 
 void SkeltonObjectChecker::OnTriggerEnter(ColliderComponent* colliderPair)
 {
-	if (colliderPair->GetObjectTag() == pairTag)
-	{
-		noGroundEnter = false;
-		changed = true;
-		colliderPairPos = colliderPair->GetPosition();
-	}
+	//if (colliderPair->GetObjectTag() == pairTag)
+	//{
+	//	changed = true;
+	//	colliderPairPos = colliderPair->GetPosition();
+	//}
 }

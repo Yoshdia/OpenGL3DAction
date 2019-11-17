@@ -105,8 +105,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 
 	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
 
-	//isJump = footSole->GetGroundFlag();
-	isJump = footChecker->GetGround();
+	isJump = footChecker->GetNoTouchingFlag();
 	if (!isJump)
 	{
 		velo = Vector3::Zero;

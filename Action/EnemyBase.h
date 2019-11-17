@@ -2,53 +2,125 @@
 #include "GameObject.h"
 #include <string>
 
+class SkeltonObjectChecker;
+
+/*
+	 @enum EnemyMoveDirection
+	 Enemyが移動する方向
+*/
 enum EnemyMoveDirection
 {
 	right = 1,
 	left = -1,
 };
 
+/*
+	 @enum EnemyActions
+	 Enemyの共通アクション
+*/
 enum EnemyActions
 {
+	//歩行
 	walk,
+	//棒立ち
 	noActive,
-	foundMove,
+	//攻撃対象を発見し接近中
+	approach,
+	//攻撃中
 	attack,
 };
 
-class EnemyBase abstract:
+/*
+ @file EnemyBase.h
+ @brief 敵の基底クラス
+	*/
+class EnemyBase abstract :
 	public GameObject
 {
 public:
+	/*
+	@param meshName mesh名
+*/
 	EnemyBase(const std::string& meshName);
 	~EnemyBase();
 	void UpdateGameObject(float _deltaTime)override;
-
 protected:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair)override;
+	/*
+	@fn エネミー固有の関数、継承先で実装
+	*/
 	virtual void UpdateEnemyObject(float _deltaTime) {};
-	//class FootSole* footSole;
-	class SkeltonObjectChecker* footChecker;
-	class SkeltonObjectChecker* forwardDownGroundCheck;
-	class SkeltonObjectChecker* skeltonObjectChecker;
-	class SkeltonObjectChecker* findingPlayerCheck;
 
-	static const float GroundCheckPos;
-	static const float NockBackPower;
-	Vector3 forceVector;
-	void NockBack();
+	//進行方向
 	EnemyMoveDirection moveDirection;
+	//移動方向の反転ディレイカウント、不自然な挙動を制限する
+	int turnWaitCount;
+	//移動方向の反転ディレイカウントの最大数
+	static const int TurnWaitCountMax;
+	//歩行速度
+	static const float WalkSpeed;
+	//攻撃対象への接近速度
+	static const float ApproachSpeedRatio;
+
+	static const Vector3 footPos;
+	//足元に地面があるか
+	SkeltonObjectChecker* footChecker;
+	//エネミーに働く重力の力
+	static const float Gravity;
+
+	//進行方向の足元に地面があるか
+	SkeltonObjectChecker* forwardDownGroundCheck;
+	//forwardDownGroundCheck,forwardGroundCheckのX座標
+	static const float GroundCheckPos;
+
+	//forwardDownGroundCheckのY座標
+	static const float ForwardDownY;
+	//進行方向に壁があるか
+	SkeltonObjectChecker* forwardGroundCheck;
+
+	//発見する範囲
+	static const float SearchRange;
+	//攻撃対象を発見する範囲
+	SkeltonObjectChecker* findingPlayerCheck;
+	//攻撃を開始する射程距離
+	float attackRange;
+
+	/*
+	  @fn ノックバック
+	*/
+	void NockBack();
+	//被弾した際のノックバック距離
+	static const float NockBackPower;
+	//ノックバックの方向、力
+	Vector3 nockBackForce;
+
+	//actionChangeCountMaxの初期値
+	static const int DefaultActionChangeCountMax;
 	//一定数まで行くとアクションが変更されるカウントとその最大数
 	int actionChangeCount;
 	int actionChangeCountMax;
-	int defaultCountMax;
+	//攻撃対象を発見してないとき、移動と棒立ちを切り替える時間の共有カウント
+	int defaultActionChangeCountMax;
 
-
+	//実行中のアクション
 	EnemyActions actionName;
-	void ActionChange() ;
-	virtual void BranchActionChange() { };
-	virtual void ShuffleCountMax() {};
+	/*
+	@fn アクション変更
+	*/
+	void ActionChange();
+	/*
+	@fnアクションごとの処理
+	*/
+	void Action(float _deltaTime);
+	/*
+	@fn 実行アクションが変更される関数
+	*/
+	virtual void BranchActionChange();
+	/*
+	@fn actionChangeCountMaxの変更を行う関数
+	*/
+	virtual void ShuffleCountMax();
 };
 
 

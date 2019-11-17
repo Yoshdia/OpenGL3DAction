@@ -5,7 +5,7 @@
 #include "Game.h"
 
 /*
- @file ファイル名.h
+ @file 名.h
  @brief 簡単な説明
 	*/
 
@@ -36,7 +36,7 @@
 
 /*
 	 @enum Enum
-	 列挙体の説明
+	 説明
 */
 
 
