@@ -12,5 +12,6 @@ private:
 	void UpdateEnemyObject(float _deltaTime);
 	void BranchActionChange()override;
 	void ShuffleCountMax()override;
+	int waitCount;
 };
 

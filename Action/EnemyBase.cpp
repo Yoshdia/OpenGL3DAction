@@ -28,7 +28,7 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	footChecker= new SkeltonObjectChecker(this, Vector3(0, -25, 0), Vector3(20, 1, 20), Tag::GroundTag);
 
 	forwardDownGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos*moveDirection, -90, 0),Vector3(1,5,5),Tag::GroundTag);
-	//skeltonObjectChecker = new SkeltonObjectChecker(this, Vector3(GroundCheckPos*moveDirection, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
+	skeltonObjectChecker = new SkeltonObjectChecker(this, Vector3(GroundCheckPos*moveDirection, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
 	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(100, 1, 0), Vector3(200, 1, 1), Tag::PlayerTag);
 }
 
@@ -40,7 +40,10 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 {
 	UpdateEnemyObject(_deltaTime);
 	NockBack();
-
+	if (footChecker->GetGround())
+	{
+		SetPosition(position + Vector3(0, -2, 0));
+	}
 	//if (footSole->GetGroundFlag() == true)
 
 

@@ -8,6 +8,7 @@ MeleeEnemy::MeleeEnemy(Vector3 _pos) :
 	SetScale(25);
 	SetPosition(_pos);
 	defaultCountMax = 200;
+	waitCount = 0;
 }
 
 
@@ -21,27 +22,31 @@ void MeleeEnemy::UpdateEnemyObject(float _deltaTime)
 	switch (actionName)
 	{
 	case(EnemyActions::walk):
-		SetPosition(Vector3(0.5f*moveDirection, 0, 0) + position);
-		if (footChecker->GetGround())
+		SetPosition(Vector3(2 * moveDirection, 0, 0) + position);
+		if (footChecker->GetGround() == false)
 		{
-			SetPosition(position + Vector3(0, -2, 0));
-			if (forwardDownGroundCheck->GetGround() == true /*|| skeltonObjectChecker->GetGroundEnter() == false*/)
+			if (forwardDownGroundCheck->GetGround() == true || skeltonObjectChecker->GetGroundEnter() == false)
 			{
+				if (waitCount > 10)
+				{
+					waitCount = 0;
 				moveDirection = (EnemyMoveDirection)(moveDirection * (EnemyMoveDirection)-1);
 				//forwardDownGroundCheck->ResetGroundFlag(false);
 				forwardDownGroundCheck->SetCheckPos(Vector3(GroundCheckPos * moveDirection, -90, 0));
+				}
 			}
 			else
 			{
+				waitCount++;
 				//forwardDownGroundCheck->ResetGroundFlag(true);
 			}
 		}
-		//skeltonObjectChecker->SetCheckPos(Vector3(GroundCheckPos * moveDirection, 0, 0));
+		skeltonObjectChecker->SetCheckPos(Vector3(GroundCheckPos * moveDirection, 0, 0));
 		break;
 	case(EnemyActions::noActive):
 		break;
 	case(EnemyActions::foundMove):
-		SetPosition(Vector3::Lerp(position, findingPlayerCheck->GetColliderPairPosition(), _deltaTime*0.8f));
+		SetPosition(Vector3::Lerp(position, findingPlayerCheck->GetColliderPairPosition(), _deltaTime * 0.8f));
 		if (a < 75)
 		{
 			actionName = EnemyActions::attack;

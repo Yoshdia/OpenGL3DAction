@@ -34,15 +34,6 @@ void SkeltonObjectChecker::UpdateGameObject(float _deltaTime)
 		colliderPairPos = Vector3(0, 0, 0);
 	}
 
-	if (changed)
-	{
-		printf("true\n");
-	}
-	else
-	{
-		printf("false\n");
-
-	}
 	if (!changed)
 	{
 		noGround = true;
@@ -51,7 +42,7 @@ void SkeltonObjectChecker::UpdateGameObject(float _deltaTime)
 	else
 	{
 		changed = false;
-	}
+	}	
 }
 
 void SkeltonObjectChecker::OnTriggerStay(ColliderComponent* colliderPair)
