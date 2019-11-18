@@ -121,6 +121,18 @@ protected:
 	@fn actionChangeCountMaxの変更を行う関数
 	*/
 	virtual void ShuffleCountMax();
+
+	//攻撃対象を発見した後追跡する範囲。この範囲から対象が出ると追跡を止め歩行/棒立ちモードに変わる
+	SkeltonObjectChecker* trackingRange;
+	//攻撃態勢かどうか。false=歩行/棒立ちの非戦闘状態
+	bool attackingState;
+	//テレポートまでの時間
+	int teleportChargingTime;
+
+	//攻撃態勢 追跡/攻撃
+	void Attacking(float _deltaTime);
+	//非攻撃態勢 歩行/棒立ち
+	void NoAttacking(float _deltaTime);
 };
 
 

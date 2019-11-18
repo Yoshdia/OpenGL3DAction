@@ -22,24 +22,21 @@ PlayScene::PlayScene()
 
 	//new MeleeEnemy(Vector3(0,-125,0));
 	//new MeleeEnemy(Vector3(-200,50,0));
-	
-
-	new DebugBox(Vector3(-200, 0, 0));
-	new DebugBox(Vector3(-300, 0, 0));
 
 	new DebugBox(Vector3(-100, -200, 0));
 	new DebugBox(Vector3(-100, -100, 0));
-	new DebugBox(Vector3(-100, 0, 0));
 
-	new DebugBox(Vector3(-100, -200, 0));
+	new DebugBox(Vector3(-300, 0, 0));
+	new DebugBox(Vector3(-200, 0, 0));
+	new DebugBox(Vector3(-100, 0, 0));
 
 	new DebugBox(Vector3(0, -200, 0));
 	new DebugBox(Vector3(100, -200, 0));
 	new DebugBox(Vector3(200, -200, 0));
 	new DebugBox(Vector3(300, -200, 0));
 	new DebugBox(Vector3(300, -100, 0));
+		
 	new DebugBox(Vector3(300, 0, 0));
-
 	new DebugBox(Vector3(400, 0, 0));
 	new DebugBox(Vector3(500, 0, 0));
 	new DebugBox(Vector3(600, 0, 0));
@@ -47,6 +44,18 @@ PlayScene::PlayScene()
 	new DebugBox(Vector3(600, 100, 0));
 	new DebugBox(Vector3(600, 200, 0));
 
+	new DebugBox(Vector3(700, 200, 0));
+	new DebugBox(Vector3(800, 200, 0));
+	new DebugBox(Vector3(900, 200, 0));
+	new DebugBox(Vector3(1000, 200, 0));
+	new DebugBox(Vector3(1100, 200, 0));
+
+	new DebugBox(Vector3(1100, 100, 0));
+	new DebugBox(Vector3(1100, 0, 0));
+	new DebugBox(Vector3(1200, 0, 0));
+	new DebugBox(Vector3(1300, 0, 0));
+	new DebugBox(Vector3(1400, 0, 0));
+	new DebugBox(Vector3(1500, 0, 0));
 }
 
 
