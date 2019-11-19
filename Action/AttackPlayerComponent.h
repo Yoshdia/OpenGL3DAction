@@ -1,6 +1,10 @@
 #pragma once
 #include "Component.h"
 
+/*
+	 @enum PlayerAttackState
+	 Playerの近接コンボの状態
+*/
 enum PlayerAttackState
 {
 	NoAttack,
@@ -10,17 +14,10 @@ enum PlayerAttackState
 	EndAttack,
 };
 
-enum PlayerRangeAttackState
-{
-	NoRangeAttack,
-	RangeAttackOnce,
-	RangeAttackTwice,
-	RangeAttackThird,
-	RangeAttackFourth,
-	RangeAttackFifth,
-	EndRangeAttack,
-};
-
+/*
+ @file AttackPlayerComponent.h
+ @brief Playerに近接コンボ、遠距離攻撃を行わせるクラス
+	*/
 class AttackPlayerComponent :
 	public Component
 {
@@ -33,7 +30,7 @@ public:
 	float RangeAttack();
 private:
 	PlayerAttackState attackState;
-	PlayerRangeAttackState rangeAttackState;
+	unsigned int rangeAttackCount;
 	class AttackBase* attack;
 	float waitTimeForNextAttack;
 };

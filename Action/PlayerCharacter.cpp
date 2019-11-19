@@ -23,6 +23,7 @@ PlayerCharacter::PlayerCharacter() :
 	canNotActionTime(0),
 	isJump(false),
 	velo(Vector3(0, 0, 0)),
+	jumpBottonInput(false),
 	rangeAttackBottonInput(false)
 	
 {
@@ -103,7 +104,6 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	if (_keyState.Keyboard.GetKeyValue(SDL_SCANCODE_0) == 1)
 		printf("\nplayerPosition = {%f,%f,%f}", position.x, position.y, position.z);
 
-	//inputDirection = inputMovePlayerComponent->InputMoveMent(_keyState);
 	inputDirection = Vector3::Zero;
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 	{
@@ -121,7 +121,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	if (!isJump)
 	{
 		velo = Vector3::Zero;
-		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE) || _keyState.Keyboard.GetKeyState(SDL_SCANCODE_L))
+		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE))
 		{
 			velo.y += 25.0f;
 		}

@@ -31,6 +31,7 @@ private:
 	Vector3 inputDirection;
 	bool attackBottonInput;
 	bool rangeAttackBottonInput;
+	bool jumpBottonInput;
 
 	//ƒWƒƒƒ“ƒv’†‚©
 	bool isJump;
