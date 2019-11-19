@@ -111,12 +111,12 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		velo = Vector3::Zero;
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE) || _keyState.Keyboard.GetKeyState(SDL_SCANCODE_L))
 		{
-			velo.y += 25;
+			velo.y += 25.0f;
 		}
 	}
 	else
 	{
-		velo.y += -1.2;
+		velo.y += -1.2f;
 	}
 	SetPosition(position + velo);
 }

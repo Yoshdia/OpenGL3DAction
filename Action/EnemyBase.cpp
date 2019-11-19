@@ -8,12 +8,14 @@ const float EnemyBase::NockBackPower = 30;
 const float EnemyBase::GroundCheckPos = 40;
 const int EnemyBase::DefaultActionChangeCountMax = 200;
 const Vector3 EnemyBase::footPos = Vector3(0, -25, 0);
+const Vector3 EnemyBase::TrackingRange = Vector3(1000, 1000, 1000);
 const float EnemyBase::ForwardDownY = -90;
 const float EnemyBase::SearchRange = 200;
 const float EnemyBase::Gravity = -5;
 const float EnemyBase::WalkSpeed = 2;
 const int EnemyBase::TurnWaitCountMax = 5;
 const float EnemyBase::ApproachSpeedRatio = 0.8f;
+const float EnemyBase::AttackRange = 75.0f;
 
 EnemyBase::EnemyBase(const std::string& meshName) :
 	GameObject(),
@@ -24,7 +26,7 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	actionName(EnemyActions::walk),
 	turnWaitCount(0),
 	nockBackForce(Vector3::Zero),
-	attackRange(75),
+	attackRange(AttackRange),
 	attackingState(false),
 	teleportChargingTime(0)
 {
@@ -39,7 +41,7 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	forwardDownGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0), Vector3(1, 1, 1), Tag::GroundTag);
 	forwardGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
 	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(SearchRange, 1, 0), Vector3(SearchRange, 1, 1), Tag::PlayerTag);
-	trackingRange = new SkeltonObjectChecker(this, Vector3::Zero, Vector3(500, 500, 500), Tag::PlayerTag);
+	trackingRange = new SkeltonObjectChecker(this, Vector3::Zero, TrackingRange, Tag::PlayerTag);
 }
 
 EnemyBase::~EnemyBase()
