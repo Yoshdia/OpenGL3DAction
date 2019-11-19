@@ -18,7 +18,7 @@ const float PlayerCharacter::jumpPower = 60;
 
 PlayerCharacter::PlayerCharacter() :
 	GameObject(),
-	movement(Vector3(5, 5, 5)),
+	movement(Vector3(8, 8, 8)),
 	inputDirection(Vector3(0, 0, 0)),
 	attackBottonInput(false),
 	canNotActionTime(0),
@@ -111,12 +111,12 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		velo = Vector3::Zero;
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE) || _keyState.Keyboard.GetKeyState(SDL_SCANCODE_L))
 		{
-			velo.y += 35;
+			velo.y += 25;
 		}
 	}
 	else
 	{
-		velo.y += -2;
+		velo.y += -1.2;
 	}
 	SetPosition(position + velo);
 }
