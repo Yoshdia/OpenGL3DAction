@@ -143,6 +143,15 @@
     <ClCompile Include="SkeltonObjectChecker.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="RangeAttackPlayerAnimationClip.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowWeapon.cpp">
+      <Filter>Components\Attack\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeAttackPlayer.cpp">
+      <Filter>Components\Attack\Combo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -285,6 +294,15 @@
     </ClInclude>
     <ClInclude Include="SkeltonObjectChecker.h">
       <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeAttackPlayerAnimationClip.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowWeapon.h">
+      <Filter>Components\Attack\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeAttackPlayer.h">
+      <Filter>Components\Attack\Combo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

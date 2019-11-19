@@ -2,11 +2,13 @@
 #include "AttackPlayerOnce.h"
 #include "AttackPlayerTwice.h"
 #include "AttackPlayerThird.h"
+#include "RangeAttackPlayer.h"
 #include "GameObject.h"
 
 AttackPlayerComponent::AttackPlayerComponent(GameObject* _owner, int _updateOrder) :
 	Component(_owner, updateOrder),
-	attackState(PlayerAttackState::NoAttack)
+	attackState(PlayerAttackState::NoAttack),
+	rangeAttackState(PlayerRangeAttackState::NoRangeAttack)
 {
 	attack = nullptr;
 }
@@ -25,6 +27,7 @@ void AttackPlayerComponent::Update(float _deltaTime)
 	if (waitTimeForNextAttack < 0)
 	{
 		attackState = PlayerAttackState::NoAttack;
+		rangeAttackState = PlayerRangeAttackState::NoRangeAttack;
 	}
 	else
 	{
@@ -69,9 +72,84 @@ float AttackPlayerComponent::Attack()
 
 	if (attackState != PlayerAttackState::EndAttack)
 	{
- 		attack->Attack(owner->GetPosition());
-		playerCanNotMoveTime = attack->GetCanNotActionTime();
-		waitTimeForNextAttack = attack->GetWaitTimeForNextAttack();
+		if (attack != nullptr)
+		{
+			attack->Attack(owner->GetPosition());
+			playerCanNotMoveTime = attack->GetCanNotActionTime();
+			waitTimeForNextAttack = attack->GetWaitTimeForNextAttack();
+		}
+		else
+		{
+			printf("AttackPlayerComponent[Error! attack don't has instance!!]");
+		}
 	}
+	return playerCanNotMoveTime;
+}
+
+float AttackPlayerComponent::RangeAttack()
+{
+	float playerCanNotMoveTime = 0.0f;
+
+	switch (rangeAttackState)
+	{
+	case(PlayerRangeAttackState::NoRangeAttack):
+		if (attack != nullptr)
+		{
+			delete attack;
+		}
+		attack = new RangeAttackPlayer();
+		rangeAttackState = PlayerRangeAttackState::RangeAttackOnce;
+		break;
+	case(PlayerRangeAttackState::RangeAttackOnce):
+		if (attack != nullptr)
+		{
+			delete attack;
+		}
+		attack = new RangeAttackPlayer();
+		rangeAttackState = PlayerRangeAttackState::RangeAttackTwice;
+		break;
+	case(PlayerRangeAttackState::RangeAttackTwice):
+		if (attack != nullptr)
+		{
+			delete attack;
+		}
+		attack = new RangeAttackPlayer();
+		rangeAttackState = PlayerRangeAttackState::RangeAttackThird;
+		break;
+	case(PlayerRangeAttackState::RangeAttackThird):
+		if (attack != nullptr)
+		{
+			delete attack;
+		}
+		attack = new RangeAttackPlayer();
+		rangeAttackState = PlayerRangeAttackState::RangeAttackFourth;
+		break;
+	case(PlayerRangeAttackState::RangeAttackFourth):
+		if (attack != nullptr)
+		{
+			delete attack;
+		}
+		attack = new RangeAttackPlayer();
+		rangeAttackState = PlayerRangeAttackState::RangeAttackFifth;
+		break;
+	case(PlayerRangeAttackState::RangeAttackFifth):
+		rangeAttackState = PlayerRangeAttackState::EndRangeAttack;
+		break;
+	}
+
+	if (attackState != PlayerRangeAttackState::EndRangeAttack)
+	{
+		if (attack != nullptr)
+		{
+			attack->Attack(owner->GetPosition());
+			playerCanNotMoveTime = attack->GetCanNotActionTime();
+			waitTimeForNextAttack = attack->GetWaitTimeForNextAttack();
+		}
+		else
+		{
+			printf("AttackPlayerComponent[Error! attack don't has instance!!]");
+		}
+	}
+
 	return playerCanNotMoveTime;
 }

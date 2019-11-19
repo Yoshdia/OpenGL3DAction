@@ -9,7 +9,6 @@
 #include "ColliderComponent.h"
 #include "InputMovePlayerComponent.h"
 //#include "PhysicsWorld.h"
-//#include "FootSole.h"
 #include "MeshComponent.h"
 #include "SkeltonObjectChecker.h"
 
@@ -23,7 +22,9 @@ PlayerCharacter::PlayerCharacter() :
 	attackBottonInput(false),
 	canNotActionTime(0),
 	isJump(false),
-	velo(Vector3(0, 0, 0))
+	velo(Vector3(0, 0, 0)),
+	rangeAttackBottonInput(false)
+	
 {
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
 
@@ -37,7 +38,6 @@ PlayerCharacter::PlayerCharacter() :
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 	inputMovePlayerComponent = new InputMovePlayerComponent(this, 100);
 
-	//footSole = new FootSole(this);
 	footChecker = new SkeltonObjectChecker(this, Vector3(0, -25, 0), Vector3(20, 1, 20), Tag::GroundTag);
 
 	MeshComponent* meshComponent = new MeshComponent(this);
@@ -79,6 +79,17 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 				animationComponent->SetAnimation(PlayerAnimationState::Attack);
 			}
 		}
+		else if (rangeAttackBottonInput)
+		{
+			if (attack != nullptr)
+			{
+				canNotActionTime = attack->RangeAttack();
+			}
+			if (animationComponent != nullptr)
+			{
+				animationComponent->SetAnimation(PlayerAnimationState::Range);
+			}
+		}
 	}
 	else
 	{
@@ -104,6 +115,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	}
 
 	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
+	rangeAttackBottonInput= _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S);
 
 	isJump = footChecker->GetNoTouchingFlag();
 	if (!isJump)

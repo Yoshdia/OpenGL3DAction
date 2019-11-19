@@ -6,6 +6,7 @@ enum PlayerAnimationState
 	Idle,
 	Move,
 	Attack,
+	Range,
 };
 
 class AnimationSpriteClip;
@@ -24,6 +25,7 @@ private:
 	AnimationSpriteClip* idle;
 	AnimationSpriteClip* move;
 	AnimationSpriteClip* attack;
+	AnimationSpriteClip* rangeAttack;
 
 	PlayerAnimationState nextAnimation;
 	PlayerAnimationState beforeAnimation;

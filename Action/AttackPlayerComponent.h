@@ -10,6 +10,17 @@ enum PlayerAttackState
 	EndAttack,
 };
 
+enum PlayerRangeAttackState
+{
+	NoRangeAttack,
+	RangeAttackOnce,
+	RangeAttackTwice,
+	RangeAttackThird,
+	RangeAttackFourth,
+	RangeAttackFifth,
+	EndRangeAttack,
+};
+
 class AttackPlayerComponent :
 	public Component
 {
@@ -19,8 +30,10 @@ public:
 
 	void Update(float _deltaTime);
 	float Attack();
+	float RangeAttack();
 private:
 	PlayerAttackState attackState;
+	PlayerRangeAttackState rangeAttackState;
 	class AttackBase* attack;
 	float waitTimeForNextAttack;
 };

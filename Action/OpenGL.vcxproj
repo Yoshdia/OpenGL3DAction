@@ -181,6 +181,8 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="RangeAttackPlayer.cpp" />
+    <ClCompile Include="RangeAttackPlayerAnimationClip.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -188,6 +190,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="SkeltonObjectChecker.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="ThrowWeapon.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="WallMeshComponent.cpp" />
@@ -230,6 +233,8 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="RangeAttackPlayer.h" />
+    <ClInclude Include="RangeAttackPlayerAnimationClip.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Shader.h" />
@@ -237,6 +242,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="SkeltonObjectChecker.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="ThrowWeapon.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="WallMeshComponent.h" />

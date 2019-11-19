@@ -30,6 +30,7 @@ private:
 	Vector3 movement;
 	Vector3 inputDirection;
 	bool attackBottonInput;
+	bool rangeAttackBottonInput;
 
 	//ƒWƒƒƒ“ƒv’†‚©
 	bool isJump;
