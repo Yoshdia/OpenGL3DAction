@@ -2,10 +2,10 @@
 
 
 
-AttackBase::AttackBase()
+AttackBase::AttackBase():
+	canNotActionTime(0),
+	waitTimeForNextAttack(0)
 {
-	canNotActionTime=0;
-	waitTimeForNextAttack=0;
 }
 
 

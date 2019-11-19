@@ -8,9 +8,9 @@
 AttackPlayerComponent::AttackPlayerComponent(GameObject* _owner, int _updateOrder) :
 	Component(_owner, updateOrder),
 	attackState(PlayerAttackState::NoAttack),
-	rangeAttackCount(0)
+	rangeAttackCount(0),
+	attack(nullptr)
 {
-	attack = nullptr;
 }
 
 
@@ -26,6 +26,7 @@ void AttackPlayerComponent::Update(float _deltaTime)
 {
 	if (waitTimeForNextAttack < 0)
 	{
+		//コンボ状態をリセットする
 		attackState = PlayerAttackState::NoAttack;
 		rangeAttackCount = 0;
 	}
@@ -39,6 +40,7 @@ float AttackPlayerComponent::Attack()
 {
 	float playerCanNotMoveTime = 0.0f;
 
+	//stateパターンを使用し入力時のコンボ状態によって攻撃を変更する
 	switch (attackState)
 	{
 	case(PlayerAttackState::NoAttack):
@@ -99,7 +101,8 @@ float AttackPlayerComponent::RangeAttack()
 		attack = new RangeAttackPlayer();
 		rangeAttackCount++;
 	}
-	
+
+	//一定回数まで連射させ、一定以上超えると大きく硬直が生まれる
 	if (rangeAttackCount >= 6)
 	{
 		playerCanNotMoveTime = 60;

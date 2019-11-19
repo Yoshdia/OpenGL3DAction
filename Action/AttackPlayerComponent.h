@@ -26,12 +26,27 @@ public:
 	~AttackPlayerComponent();
 
 	void Update(float _deltaTime);
+	
+	/*
+  @fn 近距離攻撃
+  @brief 入力された際の攻撃を行い、次の攻撃の準備をする
+  @return プレイヤーに付与する行動不可な時間
+*/
 	float Attack();
+	/*
+@fn 遠距離攻撃
+@brief 入力された際の攻撃を行い、次の攻撃の準備をする
+@return プレイヤーに付与する行動不可な時間
+*/
 	float RangeAttack();
 private:
+	//近距離攻撃の状態
 	PlayerAttackState attackState;
-	unsigned int rangeAttackCount;
+	//遠距離攻撃の回数
+	int rangeAttackCount;
+	//攻撃を行うクラスへのアドレス
 	class AttackBase* attack;
+	//近距離攻撃のコンボを次につなげる猶予時間。これが0になるとコンボ状態をリセットする
 	float waitTimeForNextAttack;
 };
 

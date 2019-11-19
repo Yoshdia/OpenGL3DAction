@@ -1,5 +1,10 @@
 #pragma once
 #include "AttackBase.h"
+
+/*
+ @file AttackPlayerTwice.h
+ @brief プレイヤーのコンボ2段目
+	*/
 class AttackPlayerTwice final :
 	public AttackBase
 {
