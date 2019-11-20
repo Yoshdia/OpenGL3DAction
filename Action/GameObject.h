@@ -32,6 +32,7 @@ enum Tag
 	PlayerWeaponTag,
 	EnemyTag,
 	GroundTag,
+	EnemyWeaponTag,
 	null,
 };
 

@@ -79,5 +79,22 @@ private:
 	void Friction();
 	//¶‰E•ûŒü‚Ö‚Ì–€C
 	static const float MoveFriction;
+
+	/*
+	@fn ”í’e
+	@brief HP‚ªŒ¸­‚µ–³“GŠÔ‚ğ’Ç‰Á‚·‚é
+	*/
+	void HitAttack();
+	//–³“G‚©
+	bool invincible;
+	//–³“GŠÔ
+	int invincibleCount;
+	//–³“GŠÔ‚ÌÅ‘å”
+	static const int InvincibleCount;
+	/*
+	@fn –³“GŠÔ‚ÌŠÇ—
+	*/
+	void Invincible();
+
 };
 

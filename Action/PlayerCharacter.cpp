@@ -10,11 +10,11 @@
 #include "MeshComponent.h"
 #include "SkeltonObjectChecker.h"
 
-
 const float PlayerCharacter::JumpPower = 25.0f;
 const float PlayerCharacter::MoveSpeed = 10.0f;
 const float PlayerCharacter::GravityPower = 1.2f;
 const float PlayerCharacter::MoveFriction = 1.1f;
+const int PlayerCharacter::InvincibleCount = 120;
 
 PlayerCharacter::PlayerCharacter() :
 	GameObject(),
@@ -24,7 +24,9 @@ PlayerCharacter::PlayerCharacter() :
 	attackBottonInput(false),
 	jumpBottonInput(false),
 	rangeAttackBottonInput(false),
-	direction(1)
+	direction(1),
+	invincible(false),
+	invincibleCount(0)
 
 {
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
@@ -84,6 +86,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	}
 	Friction();
 	SetPosition(position + velocity);
+	Invincible();
 }
 
 void PlayerCharacter::GameObjectInput(const InputState& _keyState)
@@ -124,6 +127,14 @@ void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 
 void PlayerCharacter::OnTriggerEnter(ColliderComponent * colliderPair)
 {
+	if (colliderPair->GetObjectTag() == Tag::EnemyWeaponTag)
+	{
+		if (!invincible)
+		{
+		HitAttack();
+		printf("Outi!!!!\n");
+		}
+	}
 }
 
 void PlayerCharacter::Attack(PlayerAnimationState _animState)
@@ -197,5 +208,27 @@ void PlayerCharacter::Friction()
 	else
 	{
 		velocity.x /= MoveFriction;
+	}
+}
+
+void PlayerCharacter::HitAttack()
+{
+	invincibleCount = InvincibleCount;
+	invincible = true;
+}
+
+void PlayerCharacter::Invincible()
+{
+	if (!invincible)
+	{
+		return;
+	}
+	if (invincibleCount <= 0)
+	{
+		invincible = false;
+	}
+	else
+	{
+		invincibleCount--;
 	}
 }

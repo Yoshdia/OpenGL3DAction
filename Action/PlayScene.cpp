@@ -56,6 +56,9 @@ PlayScene::PlayScene()
 	new DebugBox(Vector3(1300, 0, 0));
 	new DebugBox(Vector3(1400, 0, 0));
 	new DebugBox(Vector3(1500, 0, 0));
+
+	new DebugBox(Vector3(-200, 100, 0), Tag::EnemyWeaponTag);
+
 }
 
 
