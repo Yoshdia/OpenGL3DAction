@@ -4,7 +4,6 @@
 #include "MeshComponent.h"
 #include "CameraComponent.h"
 #include "InputSystem.h"
-#include "AnimationPlayerComponent.h"
 #include "AttackPlayerComponent.h"
 #include "ColliderComponent.h"
 //#include "PhysicsWorld.h"
@@ -104,6 +103,13 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
 	rangeAttackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S);
 	jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
+
+	if (_keyState.Controller.GetIsConnected())
+	{
+		attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_B);
+		rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
+		jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
+	}
 }
 
 void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
