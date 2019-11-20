@@ -15,30 +15,32 @@ enum PlayerAttackState
 };
 
 /*
- @file AttackPlayerComponent.h
- @brief Playerに近接コンボ、遠距離攻撃を行わせるクラス
-	*/
+@file AttackPlayerComponent.h
+@brief Playerに近接コンボ、遠距離攻撃を行わせるクラス
+*/
 class AttackPlayerComponent :
 	public Component
 {
 public:
-	AttackPlayerComponent(GameObject* _owner, int _updateOrder );
+	AttackPlayerComponent(GameObject* _owner, int _updateOrder);
 	~AttackPlayerComponent();
 
 	void Update(float _deltaTime);
-	
+
 	/*
-  @fn 近距離攻撃
-  @brief 入力された際の攻撃を行い、次の攻撃の準備をする
-  @return プレイヤーに付与する行動不可な時間
-*/
-	float Attack();
+	@fn 近距離攻撃
+	@brief 入力された際の攻撃を行い、次の攻撃の準備をする
+	@param _direction 攻撃時のプレイヤーの向き
+	@return プレイヤーに付与する行動不可な時間
+	*/
+	float Attack(int _direction);
 	/*
-@fn 遠距離攻撃
-@brief 入力された際の攻撃を行い、次の攻撃の準備をする
-@return プレイヤーに付与する行動不可な時間
-*/
-	float RangeAttack();
+	@fn 遠距離攻撃
+	@brief 入力された際の攻撃を行い、次の攻撃の準備をする
+	@param _direction 攻撃時のプレイヤーの向き
+	@return プレイヤーに付与する行動不可な時間
+	*/
+	float RangeAttack(int _direction);
 private:
 	//近距離攻撃の状態
 	PlayerAttackState attackState;

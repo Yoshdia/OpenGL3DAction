@@ -13,7 +13,7 @@ public:
 	@param _pos 生成する座標
 	@param _moveDistance 移動量、範囲は0~2
 	*/
-	WeaponRotationAnimationPlayer(const Vector3& _pos, const int& _moveDistanceStage);
+	WeaponRotationAnimationPlayer(const Vector3& _pos, const int& _direction, const int& _moveDistanceStage);
 	~WeaponRotationAnimationPlayer();
 	void UpdateGameObject(float _deltaTime);
 private:
@@ -29,5 +29,6 @@ private:
 	float rotateSpeedSub;
 	//移動の目標位置、生成時に_moveDistanceStageをもとに決定
 	Vector3 targetPos;
+	int direction;
 };
 

@@ -14,7 +14,7 @@ RangeAttackPlayer::~RangeAttackPlayer()
 {
 }
 
-void RangeAttackPlayer::Attack(const Vector3 & _ownerPosition)
+void RangeAttackPlayer::Attack(const Vector3 & _ownerPosition,const int& _direction)
 {
-	new ThrowWeapon(_ownerPosition);
+	new ThrowWeapon(_ownerPosition, _direction);
 }

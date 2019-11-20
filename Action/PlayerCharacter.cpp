@@ -23,7 +23,8 @@ PlayerCharacter::PlayerCharacter() :
 	velocity(Vector3(0, 0, 0)),
 	attackBottonInput(false),
 	jumpBottonInput(false),
-	rangeAttackBottonInput(false)
+	rangeAttackBottonInput(false),
+	direction(1)
 
 {
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
@@ -93,10 +94,12 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	inputDirection = 0;
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 	{
+		direction = 1;
 		inputDirection++;
 	}
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_LEFT))
 	{
+		direction = -1;
 		inputDirection--;
 	}
 
@@ -130,7 +133,7 @@ void PlayerCharacter::Attack(PlayerAnimationState _animState)
 	case(PlayerAnimationState::Attack):
 		if (attack != nullptr)
 		{
-			canNotActionTime = attack->Attack();
+			canNotActionTime = attack->Attack(direction);
 		}
 		if (animationComponent != nullptr)
 		{
@@ -140,7 +143,7 @@ void PlayerCharacter::Attack(PlayerAnimationState _animState)
 	case(PlayerAnimationState::Range):
 		if (attack != nullptr)
 		{
-			canNotActionTime = attack->RangeAttack();
+			canNotActionTime = attack->RangeAttack(direction);
 		}
 		if (animationComponent != nullptr)
 		{

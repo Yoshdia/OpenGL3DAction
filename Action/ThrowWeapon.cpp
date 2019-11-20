@@ -4,8 +4,9 @@
 #include "ColliderComponent.h"
 
 
-ThrowWeapon::ThrowWeapon(const Vector3& _pos) :
-	lifeCount(240)
+ThrowWeapon::ThrowWeapon(const Vector3& _pos, const int& _direction) :
+	lifeCount(240),
+	direction(_direction)
 {
 	SetPosition(_pos);
 	tag = Tag::PlayerWeaponTag;
@@ -29,6 +30,6 @@ void ThrowWeapon::UpdateGameObject(float _deltaTime)
 	else
 	{
 		lifeCount++;
-		SetPosition(Vector3(position.x += 10, position.y, position.z));
+		SetPosition(Vector3(position.x += (10* direction), position.y, position.z));
 	}
 }

@@ -36,7 +36,7 @@ void AttackPlayerComponent::Update(float _deltaTime)
 	}
 }
 
-float AttackPlayerComponent::Attack()
+float AttackPlayerComponent::Attack(int _direction)
 {
 	float playerCanNotMoveTime = 0.0f;
 
@@ -76,7 +76,7 @@ float AttackPlayerComponent::Attack()
 	{
 		if (attack != nullptr)
 		{
-			attack->Attack(owner->GetPosition());
+			attack->Attack(owner->GetPosition(), _direction);
 			playerCanNotMoveTime = attack->GetCanNotActionTime();
 			waitTimeForNextAttack = attack->GetWaitTimeForNextAttack();
 		}
@@ -88,7 +88,7 @@ float AttackPlayerComponent::Attack()
 	return playerCanNotMoveTime;
 }
 
-float AttackPlayerComponent::RangeAttack()
+float AttackPlayerComponent::RangeAttack(int _direction)
 {
 	float playerCanNotMoveTime = 0.0f;
 
@@ -110,7 +110,7 @@ float AttackPlayerComponent::RangeAttack()
 	}
 	else if (attack != nullptr)
 	{
-		attack->Attack(owner->GetPosition());
+		attack->Attack(owner->GetPosition(), _direction);
 		playerCanNotMoveTime = attack->GetCanNotActionTime();
 		waitTimeForNextAttack = attack->GetWaitTimeForNextAttack();
 	}

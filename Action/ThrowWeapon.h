@@ -12,12 +12,13 @@ public:
 	/*
 	@param _pos ¶¬‚·‚éÀ•W
 */
-	ThrowWeapon(const Vector3& _pos);
+	ThrowWeapon(const Vector3& _pos, const int& _direction);
 	~ThrowWeapon();
 	void UpdateGameObject(float _deltaTime)override;
 private:
 	class MeshComponent* meshComponent;
 	//¶‘¶ŠÔA0‚É‚È‚é‚ÆState‚ğDead‚É‚·‚é
 	int lifeCount;
+	int direction;
 };
 

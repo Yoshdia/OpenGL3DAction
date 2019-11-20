@@ -28,6 +28,9 @@ private:
 	//入力による行動が制限される時間　主にAttackPlayerComponentの攻撃アクションから受け取る
 	float canNotActionTime;
 
+	//向き
+	int direction;
+
 	//移動力
 	Vector3 velocity;
 
@@ -49,7 +52,7 @@ private:
 	*/
 	void Move();
 	//入力方向、左...-1 右...1
-	float inputDirection;
+	int inputDirection;
 	//移動速度
 	static const float MoveSpeed;
 

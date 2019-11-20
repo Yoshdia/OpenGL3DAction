@@ -3,9 +3,10 @@
 #include "Renderer.h"
 #include "ColliderComponent.h"
 
-WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& pos, const int& _moveDistanceStage) :
+WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& pos, const int& _direction, const int& _moveDistanceStage) :
 	rotateSpeed(50),
-	rotateSpeedSub(0.45f)
+	rotateSpeedSub(0.45f),
+	direction(_direction)
 {
 	SetScale(0.8f);
 	SetPosition(pos);
@@ -19,7 +20,7 @@ WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& pos,
 	default:addDistance.x += 180; break;
 
 	}
-	targetPos = pos + addDistance;
+	targetPos = pos + (addDistance*direction);
 
 	meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Bike.gpmesh"));
