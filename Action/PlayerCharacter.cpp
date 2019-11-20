@@ -19,13 +19,13 @@ PlayerCharacter::PlayerCharacter() :
 	GameObject(),
 	movement(Vector3(8, 8, 8)),
 	inputDirection(Vector3(0, 0, 0)),
-	attackBottonInput(false),
 	canNotActionTime(0),
 	isJump(false),
 	velo(Vector3(0, 0, 0)),
+	attackBottonInput(false),
 	jumpBottonInput(false),
 	rangeAttackBottonInput(false)
-	
+
 {
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
 
@@ -52,6 +52,7 @@ PlayerCharacter::~PlayerCharacter()
 void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
 	RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
+	bool isGround = footChecker->GetNoTouchingFlag();
 	if (canNotActionTime < 0)
 	{
 		if (inputDirection != Vector3::Zero)
@@ -66,6 +67,15 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 			if (animationComponent != nullptr)
 			{
 				animationComponent->SetAnimation(PlayerAnimationState::Idle);
+			}
+		}
+
+		if (!isGround)
+		{
+			velo = Vector3::Zero;
+			if (jumpBottonInput)
+			{
+				velo.y += 25.0f;
 			}
 		}
 
@@ -91,12 +101,18 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 				animationComponent->SetAnimation(PlayerAnimationState::Range);
 			}
 		}
+
+		SetPosition(position + (inputDirection * movement));
 	}
 	else
 	{
 		canNotActionTime--;
 	}
-	SetPosition(position + (inputDirection * movement));
+	if (isGround)
+	{
+		velo.y += -1.2f;
+	}
+	SetPosition(position + velo);
 }
 
 void PlayerCharacter::GameObjectInput(const InputState& _keyState)
@@ -115,22 +131,10 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	}
 
 	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
-	rangeAttackBottonInput= _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S);
+	rangeAttackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S);
 
-	isJump = footChecker->GetNoTouchingFlag();
-	if (!isJump)
-	{
-		velo = Vector3::Zero;
-		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE))
-		{
-			velo.y += 25.0f;
-		}
-	}
-	else
-	{
-		velo.y += -1.2f;
-	}
-	SetPosition(position + velo);
+	jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
+
 }
 
 
