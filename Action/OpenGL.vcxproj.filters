@@ -131,9 +131,6 @@
     <ClCompile Include="PlayerCharacter.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="InputMovePlayerComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyBase.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
@@ -282,9 +279,6 @@
     </ClInclude>
     <ClInclude Include="ColliderComponent.h">
       <Filter>Components\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="InputMovePlayerComponent.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBase.h">
       <Filter>GameObjects\Enemy</Filter>

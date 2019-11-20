@@ -7,21 +7,21 @@
 #include "AnimationPlayerComponent.h"
 #include "AttackPlayerComponent.h"
 #include "ColliderComponent.h"
-#include "InputMovePlayerComponent.h"
 //#include "PhysicsWorld.h"
 #include "MeshComponent.h"
 #include "SkeltonObjectChecker.h"
 
 
-const float PlayerCharacter::jumpPower = 60;
+const float PlayerCharacter::JumpPower = 25.0f;
+const float PlayerCharacter::MoveSpeed = 10.0f;
+const float PlayerCharacter::GravityPower = 1.2f;
+const float PlayerCharacter::MoveFriction = 1.1f;
 
 PlayerCharacter::PlayerCharacter() :
 	GameObject(),
-	movement(Vector3(8, 8, 8)),
-	inputDirection(Vector3(0, 0, 0)),
+	inputDirection(0),
 	canNotActionTime(0),
-	isJump(false),
-	velo(Vector3(0, 0, 0)),
+	velocity(Vector3(0, 0, 0)),
 	attackBottonInput(false),
 	jumpBottonInput(false),
 	rangeAttackBottonInput(false)
@@ -31,15 +31,15 @@ PlayerCharacter::PlayerCharacter() :
 
 	tag = Tag::PlayerTag;
 	SetPosition(Vector3(100, 200, 0));
-	SetScale(25);
+	float scaleF = 25.0f;
+	SetScale(scaleF);
 
 	//animationComponent = new AnimationPlayerComponent(this, 100);
 	attack = new AttackPlayerComponent(this, 100);
 
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
-	inputMovePlayerComponent = new InputMovePlayerComponent(this, 100);
 
-	footChecker = new SkeltonObjectChecker(this, Vector3(0, -25, 0), Vector3(20, 1, 20), Tag::GroundTag);
+	footChecker = new SkeltonObjectChecker(this, Vector3(0, -scaleF, 0), Vector3(20, 1, 20), Tag::GroundTag);
 
 	MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
@@ -51,68 +51,39 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
+	//カメラの追跡先をセット
 	RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
-	bool isGround = footChecker->GetNoTouchingFlag();
+	//着地状態
+	bool noGround = footChecker->GetNoTouchingFlag();
+	//入力によるアクションができるか
 	if (canNotActionTime < 0)
 	{
-		if (inputDirection != Vector3::Zero)
+		Move();
+		//着地しているか
+		if (!noGround)
 		{
-			if (animationComponent != nullptr)
-			{
-				animationComponent->SetAnimation(PlayerAnimationState::Move);
-			}
+			Jump();
 		}
-		else
+		if (attackBottonInput)
 		{
-			if (animationComponent != nullptr)
-			{
-				animationComponent->SetAnimation(PlayerAnimationState::Idle);
-			}
-		}
-
-		if (!isGround)
-		{
-			velo = Vector3::Zero;
-			if (jumpBottonInput)
-			{
-				velo.y += 25.0f;
-			}
-		}
-
-		if (attackBottonInput == true)
-		{
-			if (attack != nullptr)
-			{
-				canNotActionTime = attack->Attack();
-			}
-			if (animationComponent != nullptr)
-			{
-				animationComponent->SetAnimation(PlayerAnimationState::Attack);
-			}
+			Attack(PlayerAnimationState::Attack);
 		}
 		else if (rangeAttackBottonInput)
 		{
-			if (attack != nullptr)
-			{
-				canNotActionTime = attack->RangeAttack();
-			}
-			if (animationComponent != nullptr)
-			{
-				animationComponent->SetAnimation(PlayerAnimationState::Range);
-			}
+			Attack(PlayerAnimationState::Range);
 		}
-
-		SetPosition(position + (inputDirection * movement));
 	}
 	else
 	{
 		canNotActionTime--;
 	}
-	if (isGround)
+	//空中なら重力を付与
+	if (noGround)
 	{
-		velo.y += -1.2f;
+		Gravity();
 	}
-	SetPosition(position + velo);
+	Friction();
+	SetPosition(position + velocity);
 }
 
 void PlayerCharacter::GameObjectInput(const InputState& _keyState)
@@ -120,28 +91,102 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	if (_keyState.Keyboard.GetKeyValue(SDL_SCANCODE_0) == 1)
 		printf("\nplayerPosition = {%f,%f,%f}", position.x, position.y, position.z);
 
-	inputDirection = Vector3::Zero;
+	inputDirection = 0;
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 	{
-		inputDirection.x++;
+		inputDirection++;
 	}
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_LEFT))
 	{
-		inputDirection.x--;
+		inputDirection--;
 	}
 
 	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
 	rangeAttackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S);
-
 	jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
-
 }
-
-
 
 void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 {
 	if (colliderPair->GetObjectTag() == Tag::EnemyTag)
 	{
+	}
+}
+
+void PlayerCharacter::OnTriggerEnter(ColliderComponent * colliderPair)
+{
+}
+
+void PlayerCharacter::Attack(PlayerAnimationState _animState)
+{
+	switch (_animState)
+	{
+	case(PlayerAnimationState::Attack):
+		if (attack != nullptr)
+		{
+			canNotActionTime = attack->Attack();
+		}
+		if (animationComponent != nullptr)
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Attack);
+		}
+		break;
+	case(PlayerAnimationState::Range):
+		if (attack != nullptr)
+		{
+			canNotActionTime = attack->RangeAttack();
+		}
+		if (animationComponent != nullptr)
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Range);
+		}
+		break;
+	}
+}
+
+void PlayerCharacter::Move()
+{
+	if (inputDirection != 0)
+	{
+		if (animationComponent != nullptr)
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Move);
+		}
+		velocity.x = inputDirection * MoveSpeed;
+	}
+	else
+	{
+		if (animationComponent != nullptr)
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Idle);
+		}
+	}
+}
+
+void PlayerCharacter::Jump()
+{
+	//上下への移動力をリセット
+	velocity.y = 0;
+	if (jumpBottonInput)
+	{
+		velocity.y += JumpPower;
+	}
+}
+
+void PlayerCharacter::Gravity()
+{
+	velocity.y += -GravityPower;
+}
+
+void PlayerCharacter::Friction()
+{
+	//velocityが一定以下でないなら左右移動へ摩擦を付与
+	if (velocity.x >= 0.1f&&velocity.x <= -0.1f)
+	{
+		velocity.x = 0;
+	}
+	else
+	{
+		velocity.x /= MoveFriction;
 	}
 }
