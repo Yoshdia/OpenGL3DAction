@@ -4,6 +4,7 @@
 
 struct InputState;
 
+
 /*
  @file PlayerCharacter.h
  @brief プレイヤー
@@ -16,7 +17,7 @@ public:
 	~PlayerCharacter();
 
 	void UpdateGameObject(float _deltaTime)override;
-	void GameObjectInput(const InputState & _keyState) override;
+	void GameObjectInput(const InputState& _keyState) override;
 private:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair) override;
@@ -35,6 +36,11 @@ private:
 	Vector3 velocity;
 
 	/*
+	@fn プレイヤーが行うアクション
+	*/
+	void Actions(const bool& _noGround);
+
+	/*
 	@fn 攻撃
 	@param _animState 近接攻撃、遠距離攻撃のどちらを行うか
 	*/
@@ -45,6 +51,15 @@ private:
 	bool attackBottonInput;
 	//遠距離攻撃ボタンの入力フラグ
 	bool rangeAttackBottonInput;
+
+	/*
+	@fn 防御
+	*/
+	void Guard();
+	//防御のための盾の生成、ガード済みの攻撃の管理を行うクラス
+	class GuardPlayerComponent* guardComponent;
+	//ガードボタンの入力フラグ
+	bool guardBottonInput;
 
 	/*
 	@fn 左右移動
@@ -85,16 +100,16 @@ private:
 	@brief HPが減少し無敵時間を追加する
 	*/
 	void HitAttack();
+	/*
+	@fn 無敵時間の管理
+	*/
+	void Invincible();
 	//無敵か
 	bool invincible;
 	//無敵時間
 	int invincibleCount;
 	//無敵時間の最大数
 	static const int InvincibleCount;
-	/*
-	@fn 無敵時間の管理
-	*/
-	void Invincible();
 
 };
 

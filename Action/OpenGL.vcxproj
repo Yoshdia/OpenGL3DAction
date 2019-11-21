@@ -167,6 +167,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GuardPlayerComponent.cpp" />
     <ClCompile Include="IdlePlayerAnimationClip.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
@@ -185,6 +186,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShieldWeapon.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="SkeltonObjectChecker.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
@@ -219,6 +221,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GuardPlayerComponent.h" />
     <ClInclude Include="IdlePlayerAnimationClip.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="MainCamera.h" />
@@ -236,6 +239,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShieldWeapon.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="SkeltonObjectChecker.h" />
     <ClInclude Include="SpriteComponent.h" />

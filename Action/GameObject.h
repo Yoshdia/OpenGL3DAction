@@ -30,6 +30,7 @@ enum Tag
 {
 	PlayerTag,
 	PlayerWeaponTag,
+	PlayerGuardWeaponTag,
 	EnemyTag,
 	GroundTag,
 	EnemyWeaponTag,

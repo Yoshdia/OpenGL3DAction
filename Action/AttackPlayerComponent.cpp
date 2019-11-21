@@ -9,7 +9,8 @@ AttackPlayerComponent::AttackPlayerComponent(GameObject* _owner, int _updateOrde
 	Component(_owner, updateOrder),
 	attackState(PlayerAttackState::NoAttack),
 	rangeAttackCount(0),
-	attack(nullptr)
+	attack(nullptr),
+	waitTimeForNextAttack(0)
 {
 }
 

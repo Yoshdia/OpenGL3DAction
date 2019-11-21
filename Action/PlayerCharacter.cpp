@@ -9,6 +9,7 @@
 //#include "PhysicsWorld.h"
 #include "MeshComponent.h"
 #include "SkeltonObjectChecker.h"
+#include "GuardPlayerComponent.h"
 
 const float PlayerCharacter::JumpPower = 25.0f;
 const float PlayerCharacter::MoveSpeed = 10.0f;
@@ -38,7 +39,7 @@ PlayerCharacter::PlayerCharacter() :
 
 	//animationComponent = new AnimationPlayerComponent(this, 100);
 	attack = new AttackPlayerComponent(this, 100);
-
+	guardComponent = new GuardPlayerComponent(this, 100);
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 	footChecker = new SkeltonObjectChecker(this, Vector3(0, -scaleF, 0), Vector3(20, 1, 20), Tag::GroundTag);
@@ -60,20 +61,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	//“ü—Í‚É‚æ‚éƒAƒNƒVƒ‡ƒ“‚ª‚Å‚«‚é‚©
 	if (canNotActionTime < 0)
 	{
-		Move();
-		//’…’n‚µ‚Ä‚¢‚é‚©
-		if (!noGround)
-		{
-			Jump();
-		}
-		if (attackBottonInput)
-		{
-			Attack(PlayerAnimationState::Attack);
-		}
-		else if (rangeAttackBottonInput)
-		{
-			Attack(PlayerAnimationState::Range);
-		}
+		Actions(noGround);
 	}
 	else
 	{
@@ -108,6 +96,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 
 	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
 	rangeAttackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S);
+	guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_D);
 	jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
 
 	if (_keyState.Controller.GetIsConnected())
@@ -125,15 +114,41 @@ void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 	}
 }
 
-void PlayerCharacter::OnTriggerEnter(ColliderComponent * colliderPair)
+void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 {
 	if (colliderPair->GetObjectTag() == Tag::EnemyWeaponTag)
 	{
 		if (!invincible)
 		{
-		HitAttack();
-		printf("Outi!!!!\n");
+			//Õ“Ë‚µ‚½“G‚ÌUŒ‚‚ªA–hŒäÏ‚Ý‚Å‚È‚¢‚©
+			if (!guardComponent->SearchObjectId(colliderPair->GetId()))
+			{
+			HitAttack();
+			printf("Outi!!!!\n");
+			}
 		}
+	}
+}
+
+void PlayerCharacter::Actions(const bool& _noGround)
+{
+	Move();
+	//’…’n‚µ‚Ä‚¢‚é‚©
+	if (!_noGround)
+	{
+		Jump();
+	}
+	if (attackBottonInput)
+	{
+		Attack(PlayerAnimationState::Attack);
+	}
+	else if (rangeAttackBottonInput)
+	{
+		Attack(PlayerAnimationState::Range);
+	}
+	else if (guardBottonInput)
+	{
+		Guard();
 	}
 }
 
@@ -162,6 +177,11 @@ void PlayerCharacter::Attack(PlayerAnimationState _animState)
 		}
 		break;
 	}
+}
+
+void PlayerCharacter::Guard()
+{
+	canNotActionTime = guardComponent->Guard();
 }
 
 void PlayerCharacter::Move()
@@ -201,7 +221,7 @@ void PlayerCharacter::Gravity()
 void PlayerCharacter::Friction()
 {
 	//velocity‚ªˆê’èˆÈ‰º‚Å‚È‚¢‚È‚ç¶‰EˆÚ“®‚Ö–€ŽC‚ð•t—^
-	if (velocity.x >= 0.1f&&velocity.x <= -0.1f)
+	if (velocity.x >= 0.1f && velocity.x <= -0.1f)
 	{
 		velocity.x = 0;
 	}

@@ -93,25 +93,25 @@
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="AttackPlayerComponent.cpp">
-      <Filter>Components\Attack</Filter>
+      <Filter>PlayerAction\Attack</Filter>
     </ClCompile>
     <ClCompile Include="AttackPlayerAnimationClip.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="AttackPlayerOnce.cpp">
-      <Filter>Components\Attack\Combo</Filter>
+      <Filter>PlayerAction\Attack\Combo</Filter>
     </ClCompile>
     <ClCompile Include="AttackPlayerThird.cpp">
-      <Filter>Components\Attack\Combo</Filter>
+      <Filter>PlayerAction\Attack\Combo</Filter>
     </ClCompile>
     <ClCompile Include="AttackPlayerTwice.cpp">
-      <Filter>Components\Attack\Combo</Filter>
+      <Filter>PlayerAction\Attack\Combo</Filter>
     </ClCompile>
     <ClCompile Include="AttackBase.cpp">
-      <Filter>Components\Attack\Combo</Filter>
+      <Filter>PlayerAction\Attack\Combo</Filter>
     </ClCompile>
     <ClCompile Include="WeaponRotationAnimationPlayer.cpp">
-      <Filter>Components\Attack\Weapon</Filter>
+      <Filter>PlayerAction\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="DebugBox.cpp">
       <Filter>GameObjects</Filter>
@@ -144,10 +144,16 @@
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="ThrowWeapon.cpp">
-      <Filter>Components\Attack\Weapon</Filter>
+      <Filter>PlayerAction\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="RangeAttackPlayer.cpp">
-      <Filter>Components\Attack\Combo</Filter>
+      <Filter>PlayerAction\Attack\Combo</Filter>
+    </ClCompile>
+    <ClCompile Include="ShieldWeapon.cpp">
+      <Filter>PlayerAction\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="GuardPlayerComponent.cpp">
+      <Filter>PlayerAction\Guard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -245,25 +251,25 @@
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="AttackPlayerComponent.h">
-      <Filter>Components\Attack</Filter>
+      <Filter>PlayerAction\Attack</Filter>
     </ClInclude>
     <ClInclude Include="AttackPlayerAnimationClip.h">
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="AttackPlayerOnce.h">
-      <Filter>Components\Attack\Combo</Filter>
+      <Filter>PlayerAction\Attack\Combo</Filter>
     </ClInclude>
     <ClInclude Include="AttackPlayerThird.h">
-      <Filter>Components\Attack\Combo</Filter>
+      <Filter>PlayerAction\Attack\Combo</Filter>
     </ClInclude>
     <ClInclude Include="AttackPlayerTwice.h">
-      <Filter>Components\Attack\Combo</Filter>
+      <Filter>PlayerAction\Attack\Combo</Filter>
     </ClInclude>
     <ClInclude Include="AttackBase.h">
-      <Filter>Components\Attack\Combo</Filter>
+      <Filter>PlayerAction\Attack\Combo</Filter>
     </ClInclude>
     <ClInclude Include="WeaponRotationAnimationPlayer.h">
-      <Filter>Components\Attack\Weapon</Filter>
+      <Filter>PlayerAction\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="DebugBox.h">
       <Filter>GameObjects</Filter>
@@ -293,10 +299,16 @@
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="ThrowWeapon.h">
-      <Filter>Components\Attack\Weapon</Filter>
+      <Filter>PlayerAction\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="RangeAttackPlayer.h">
-      <Filter>Components\Attack\Combo</Filter>
+      <Filter>PlayerAction\Attack\Combo</Filter>
+    </ClInclude>
+    <ClInclude Include="ShieldWeapon.h">
+      <Filter>PlayerAction\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="GuardPlayerComponent.h">
+      <Filter>PlayerAction\Guard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -330,20 +342,26 @@
     <Filter Include="Animation">
       <UniqueIdentifier>{c8e606d2-bf2c-4f01-ad9d-28b803aa7d2a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Components\Attack">
-      <UniqueIdentifier>{9229dfb7-13a5-4d85-8b35-6747fbb6769a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components\Attack\Combo">
-      <UniqueIdentifier>{0f201be0-ced9-4cb5-b3b0-59854d437aa0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components\Attack\Weapon">
-      <UniqueIdentifier>{91cc7e3d-8a65-457f-b294-9c649e27863e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Components\Collider">
       <UniqueIdentifier>{016f7373-9fd9-4a05-bbd3-36e0ad2fe6f6}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObjects\Enemy">
       <UniqueIdentifier>{cff1a885-7757-46d6-b40f-0b5896f7a770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayerAction">
+      <UniqueIdentifier>{a4b86e3b-da00-4e6e-99d4-8907862395c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayerAction\Attack">
+      <UniqueIdentifier>{9229dfb7-13a5-4d85-8b35-6747fbb6769a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayerAction\Attack\Combo">
+      <UniqueIdentifier>{0f201be0-ced9-4cb5-b3b0-59854d437aa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayerAction\Guard">
+      <UniqueIdentifier>{79a0c789-f5b3-4078-9bc0-9d330b979089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayerAction\Weapon">
+      <UniqueIdentifier>{91cc7e3d-8a65-457f-b294-9c649e27863e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
