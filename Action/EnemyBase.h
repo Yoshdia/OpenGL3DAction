@@ -40,7 +40,7 @@ class EnemyBase abstract :
 public:
 	/*
 	@param meshName mesh名
-*/
+	*/
 	EnemyBase(const std::string& meshName);
 	~EnemyBase();
 	void UpdateGameObject(float _deltaTime)override;
@@ -130,6 +130,8 @@ protected:
 	//テレポートまでの時間
 	int teleportChargingTime;
 	static const float AttackRange;
+	int attackIntervalCount;
+	static const int AttackIntervalCount;
 
 	//攻撃態勢 追跡/攻撃
 	void Attacking(float _deltaTime);

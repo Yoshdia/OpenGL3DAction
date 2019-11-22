@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "ColliderComponent.h"
 #include "SkeltonObjectChecker.h"
+#include "ThrowWeapon.h"
 
 const float EnemyBase::NockBackPower = 30;
 const float EnemyBase::GroundCheckPos = 40;
@@ -14,6 +15,7 @@ const float EnemyBase::SearchRange = 200;
 const float EnemyBase::Gravity = -10;
 const float EnemyBase::WalkSpeed = 2;
 const int EnemyBase::TurnWaitCountMax = 5;
+const int EnemyBase::AttackIntervalCount = 60;
 const float EnemyBase::ApproachSpeedRatio = 0.8f;
 const float EnemyBase::AttackRange = 75.0f;
 
@@ -28,7 +30,8 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	nockBackForce(Vector3::Zero),
 	attackRange(AttackRange),
 	attackingState(false),
-	teleportChargingTime(0)
+	teleportChargingTime(0),
+	attackIntervalCount(0)
 {
 	tag = Tag::EnemyTag;
 	MeshComponent* meshComponent = new MeshComponent(this);
@@ -37,7 +40,6 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 	footChecker = new SkeltonObjectChecker(this, footPos, Vector3(1, 1, 1), Tag::GroundTag);
-
 	forwardDownGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0), Vector3(1, 1, 1), Tag::GroundTag);
 	forwardGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
 	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(SearchRange, 1, 0), Vector3(SearchRange, 1, 1), Tag::PlayerTag);
@@ -122,6 +124,7 @@ void EnemyBase::Action(float _deltaTime)
 		NoAttacking(_deltaTime);
 		ActionChange();
 	}
+	attackIntervalCount--;
 }
 
 void EnemyBase::BranchActionChange()
@@ -218,7 +221,7 @@ void EnemyBase::Attacking(float _deltaTime)
 	{
 		//追跡対象と高さの差が10以上ある状態でカウントが100進むと追跡対象から一定以上離れた位置にテレポート
 		float heightDistance = Math::Abs(position.y - target.y);
-		if (heightDistance > 10&& playerDistance>100)
+		if (heightDistance > 10 && playerDistance > 100)
 		{
 			teleportChargingTime++;
 		}
@@ -253,6 +256,11 @@ void EnemyBase::Attacking(float _deltaTime)
 		if (playerDistance >= attackRange)
 		{
 			actionName = EnemyActions::approach;
+		}
+		if (attackIntervalCount <= 0)
+		{
+			attackIntervalCount = AttackIntervalCount;
+			//new ThrowWeapon(position, moveDirection);
 		}
 	}
 }
