@@ -11,10 +11,13 @@
 #include "SkeltonObjectChecker.h"
 #include "GuardPlayerComponent.h"
 
+const float PlayerCharacter::MoveSpeed = 600;
+const float PlayerCharacter::MoveSpeedLimit = 10.0f;
+const float PlayerCharacter::GravityPower = 80;
+const float PlayerCharacter::GravityPowerLimit = 1.2f;
 const float PlayerCharacter::JumpPower = 25.0f;
-const float PlayerCharacter::MoveSpeed = 10.0f;
-const float PlayerCharacter::GravityPower = 1.2f;
-const float PlayerCharacter::MoveFriction = 1.1f;
+const float PlayerCharacter::MoveFriction = 1.2f;
+
 const int PlayerCharacter::InvincibleCount = 120;
 
 PlayerCharacter::PlayerCharacter() :
@@ -25,6 +28,7 @@ PlayerCharacter::PlayerCharacter() :
 	attackBottonInput(false),
 	jumpBottonInput(false),
 	rangeAttackBottonInput(false),
+	guardBottonInput(false),
 	direction(1),
 	invincible(false),
 	invincibleCount(0)
@@ -61,7 +65,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	//“ü—Í‚É‚æ‚éƒAƒNƒVƒ‡ƒ“‚ª‚Å‚«‚é‚©
 	if (canNotActionTime < 0)
 	{
-		Actions(noGround);
+		Actions(_deltaTime,noGround);
 	}
 	else
 	{
@@ -70,10 +74,10 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	//‹ó’†‚È‚çd—Í‚ð•t—^
 	if (noGround)
 	{
-		Gravity();
+		Gravity(_deltaTime);
 	}
 	Friction();
-	SetPosition(position + velocity);
+	SetPosition(position + (velocity));
 	Invincible();
 }
 
@@ -105,6 +109,8 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
 		jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
 	}
+	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_1))
+		RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -200), position);
 }
 
 void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
@@ -123,16 +129,16 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 			//Õ“Ë‚µ‚½“G‚ÌUŒ‚‚ªA–hŒäÏ‚Ý‚Å‚È‚¢‚©
 			if (!guardComponent->SearchObjectId(colliderPair->GetId()))
 			{
-			HitAttack();
-			printf("Outi!!!!\n");
+				HitAttack();
+				printf("Outi!!!!\n");
 			}
 		}
 	}
 }
 
-void PlayerCharacter::Actions(const bool& _noGround)
+void PlayerCharacter::Actions(float _deltaTime,const bool& _noGround)
 {
-	Move();
+	Move(_deltaTime);
 	//’…’n‚µ‚Ä‚¢‚é‚©
 	if (!_noGround)
 	{
@@ -184,7 +190,7 @@ void PlayerCharacter::Guard()
 	canNotActionTime = guardComponent->Guard();
 }
 
-void PlayerCharacter::Move()
+void PlayerCharacter::Move(float _deltaTime)
 {
 	if (inputDirection != 0)
 	{
@@ -192,7 +198,10 @@ void PlayerCharacter::Move()
 		{
 			animationComponent->SetAnimation(PlayerAnimationState::Move);
 		}
-		velocity.x = inputDirection * MoveSpeed;
+		float moveSpeedDelta = (MoveSpeed * _deltaTime) * inputDirection;
+		moveSpeedDelta=	ControlDeltaLimit(moveSpeedDelta, MoveSpeedLimit);
+		moveSpeedDelta=ControlDeltaLimit(moveSpeedDelta, -MoveSpeedLimit);
+		velocity.x = moveSpeedDelta;
 	}
 	else
 	{
@@ -213,9 +222,10 @@ void PlayerCharacter::Jump()
 	}
 }
 
-void PlayerCharacter::Gravity()
+void PlayerCharacter::Gravity(float _deltaTime)
 {
-	velocity.y += -GravityPower;
+	float gravityDelta = ControlDeltaLimit(GravityPower * _deltaTime, GravityPowerLimit);
+	velocity.y += -gravityDelta;
 }
 
 void PlayerCharacter::Friction()

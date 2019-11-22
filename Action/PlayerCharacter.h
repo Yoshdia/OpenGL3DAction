@@ -38,7 +38,7 @@ private:
 	/*
 	@fn プレイヤーが行うアクション
 	*/
-	void Actions(const bool& _noGround);
+	void Actions(float _deltaTime,const bool& _noGround);
 
 	/*
 	@fn 攻撃
@@ -65,11 +65,13 @@ private:
 	@fn 左右移動
 	@brief 左右の入力情報をもとにvelocityへ値を代入しアニメーションを再生する
 	*/
-	void Move();
+	void Move(float _deltaTime);
 	//入力方向、左...-1 右...1
 	int inputDirection;
 	//移動速度
 	static const float MoveSpeed;
+	//移動速度の上限値
+	static const float MoveSpeedLimit;
 
 	/*
 	@fn ジャンプ
@@ -83,9 +85,11 @@ private:
 	/*
 	@fn 重力
 	*/
-	void Gravity();
+	void Gravity(float _deltaTime);
 	//重力
 	static const float GravityPower;
+	//重力の上限値
+	static const float GravityPowerLimit;
 
 	/*
 	@fn 摩擦

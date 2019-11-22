@@ -5,15 +5,18 @@
 #include "SkeltonObjectChecker.h"
 #include "ThrowWeapon.h"
 
-const float EnemyBase::NockBackPower = 30;
+const float EnemyBase::Gravity = 800.0f;
+const float EnemyBase::GravityLimit = 15.5f;
+const float EnemyBase::NockBackPower = 1875.0f;
+const float EnemyBase::WalkSpeed = 125;
+const float EnemyBase::WalkSpeedLimit = 2.0f;
+
 const float EnemyBase::GroundCheckPos = 40;
 const int EnemyBase::DefaultActionChangeCountMax = 200;
 const Vector3 EnemyBase::footPos = Vector3(0, -25, 0);
 const Vector3 EnemyBase::TrackingRange = Vector3(1000, 1000, 1000);
 const float EnemyBase::ForwardDownY = -90;
 const float EnemyBase::SearchRange = 200;
-const float EnemyBase::Gravity = -10;
-const float EnemyBase::WalkSpeed = 2;
 const int EnemyBase::TurnWaitCountMax = 5;
 const int EnemyBase::AttackIntervalCount = 60;
 const float EnemyBase::ApproachSpeedRatio = 0.8f;
@@ -55,10 +58,11 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 	//地面と接触していないとき重力を働かせる
 	if (footChecker->GetNoTouchingFlag())
 	{
-		SetPosition(position + Vector3(0, Gravity, 0));
+		float gravityDelta = ControlDeltaLimit(Gravity * _deltaTime, GravityLimit);
+		SetPosition(position + Vector3(0, -gravityDelta, 0));
 	}
 	UpdateEnemyObject(_deltaTime);
-	NockBack();
+	NockBack(_deltaTime);
 	Action(_deltaTime);
 
 	//移動方向に変更が加わった際にすぐそっちを見るように座標を更新し続ける
@@ -85,16 +89,21 @@ void EnemyBase::OnTriggerEnter(ColliderComponent* colliderPair)
 	}
 }
 
-void EnemyBase::NockBack()
+void EnemyBase::NockBack(float _deltaTime)
 {
 	//nockBackForceの最小数を設定
-	if (nockBackForce.x >= 0.1f && nockBackForce.x <= -0.1f)
+	if (nockBackForce.x <= 0.1f && nockBackForce.x >= -0.1f)
 	{
 		nockBackForce = Vector3::Zero;
 		return;
 	}
 
-	SetPosition(position + nockBackForce);
+	Vector3 nockBackDelta = Vector3::Zero;
+	nockBackDelta.x = ControlDeltaLimit(nockBackForce.x * _deltaTime, 30.0f);
+	nockBackDelta.x = ControlDeltaLimit(nockBackForce.x * _deltaTime, -30.0f);
+	nockBackDelta.z = ControlDeltaLimit(nockBackForce.z * _deltaTime, 30.0f);
+	nockBackDelta.z = ControlDeltaLimit(nockBackForce.z * _deltaTime, -30.0f);
+	SetPosition(position + (nockBackDelta));
 	//nockBackForceを半減
 	nockBackForce = nockBackForce / 2.0f;
 }
@@ -161,7 +170,10 @@ void EnemyBase::NoAttacking(float _deltaTime)
 	if (actionName == EnemyActions::walk)
 	{
 		//歩行
-		SetPosition(Vector3(WalkSpeed * moveDirection, 0, 0) + position);
+		float walkSpeedDelta = (WalkSpeed * _deltaTime) * moveDirection;
+		walkSpeedDelta = ControlDeltaLimit(walkSpeedDelta, WalkSpeedLimit);
+		walkSpeedDelta = ControlDeltaLimit(walkSpeedDelta, -WalkSpeedLimit);
+		SetPosition(Vector3(walkSpeedDelta, 0, 0) + position);
 		//現在空中にいないか
 		if (!footChecker->GetNoTouchingFlag())
 		{

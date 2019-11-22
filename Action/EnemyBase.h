@@ -62,12 +62,16 @@ protected:
 	static const float WalkSpeed;
 	//攻撃対象への接近速度
 	static const float ApproachSpeedRatio;
+	//歩行速度の上限値
+	static const float WalkSpeedLimit;
 
 	static const Vector3 footPos;
 	//足元に地面があるか
 	SkeltonObjectChecker* footChecker;
 	//エネミーに働く重力の力
 	static const float Gravity;
+	//重力の上限値
+	static const float GravityLimit;
 
 	//進行方向の足元に地面があるか
 	SkeltonObjectChecker* forwardDownGroundCheck;
@@ -89,7 +93,7 @@ protected:
 	/*
 	  @fn ノックバック
 	*/
-	void NockBack();
+	void NockBack(float _deltaTime);
 	//被弾した際のノックバック距離
 	static const float NockBackPower;
 	//ノックバックの方向、力
