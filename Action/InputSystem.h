@@ -113,50 +113,35 @@ public:
 	*/
 	ButtonState GetButtonState(SDL_GameControllerButton _button) const;
 
-	/**
-	@brief	左のスティックの入力値を取得する
-	@return	入力値（-1.0~1.0）
-	*/
-	const Vector2& GetLeftStick() const { return leftStick; }
+	///**
+	//@brief	左のスティックの入力値を取得する
+	//@return	入力値（-1.0~1.0）
+	//*/
+	//const Vector2& GetLeftStick() const { return leftStick; }
 
-	/**
-	@brief	右のスティックの入力値を取得する
-	@return	入力値（-1.0~1.0）
-	*/
-	const Vector2& GetRightStick() const { return rightStick; }
+	///**
+	//@brief	右のスティックの入力値を取得する
+	//@return	入力値（-1.0~1.0）
+	//*/
+	//const Vector2& GetRightStick() const { return rightStick; }
 
-	/**
-	@brief	左のトリガーの入力値を取得する
-	@return	入力値（0.0~1.0）
-	*/
-	float GetLeftTrigger() const { return leftTrigger; }
+	///**
+	//@brief	左のトリガーの入力値を取得する
+	//@return	入力値（0.0~1.0）
+	//*/
+	//float GetLeftTrigger() const { return leftTrigger; }
 
-	/**
-	@brief	右のトリガーの入力値を取得する
-	@return	入力値（0.0~1.0）
-	*/
-	float GetRightTrigger() const { return rightTrigger; }
+	///**
+	//@brief	右のトリガーの入力値を取得する
+	//@return	入力値（0.0~1.0）
+	//*/
+	//float GetRightTrigger() const { return rightTrigger; }
 
-	/**
-	@brief	コントローラーが接続されているか
-	@return	true : 接続されている , false : 接続されていない
-	*/
-	bool GetIsConnected() const { return isConnected; }
 private:
 	//現在のボタンの入力状態
 	Uint8 currButtons[SDL_CONTROLLER_BUTTON_MAX];
 	//１フレーム前のボタンの入力状態
 	Uint8 prevButtons[SDL_CONTROLLER_BUTTON_MAX];
-	//左のスティックの入力値
-	Vector2 leftStick;
-	//右のスティックの入力値
-	Vector2 rightStick;
-	//左のトリガーの入力値
-	float leftTrigger;
-	//右のトリガーの入力値
-	float rightTrigger;
-	//コントローラーが接続されているか
-	bool isConnected;
 };
 
 //各入力機器の入力状態をまとめたラッパー構造体

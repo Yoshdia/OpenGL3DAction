@@ -1,6 +1,8 @@
 #include "InputSystem.h"
 #include <SDL.h>
 #include <cstring>
+#include <stdio.h>
+#include <limits.h>
 
 /**
 @brief	現在のキーの入力状態のみを取得する
@@ -143,15 +145,24 @@ bool InputSystem::Initialize()
 	state.Mouse.currButtons = 0;
 	state.Mouse.prevButtons = 0;
 
-	//コントローラーが接続されているなら取得する
+	// パッドの設定ファイル gamecontrollerdb.txt の読み込みと問題が無いかのチェック
+	int iNumOfControllers = SDL_GameControllerAddMappingsFromFile("Assets/GameControllerdb.txt");
+	if (iNumOfControllers == -1)
+	{
+		SDL_LogWarn(SDL_LOG_CATEGORY_INPUT, "Error loading database [%s]", SDL_GetError());
+		return false;
+	}
+
+	//コントローラーを開く
+	controller = nullptr;
 	controller = SDL_GameControllerOpen(0);
-	//コントローラーが接続されているかを記録する
-	state.Controller.isConnected = (controller != nullptr);
-	//現在と１フレーム前のコントローラーの入力状態を初期化する
-	memset(state.Controller.currButtons, 0,
-		SDL_CONTROLLER_BUTTON_MAX);
-	memset(state.Controller.prevButtons, 0,
-		SDL_CONTROLLER_BUTTON_MAX);
+	if (SDL_IsGameController(0))
+	{
+		printf("%c", SDL_GameControllerMapping(controller));
+	}
+
+	// コントローライベントの無視（こちらからフレーム毎に状態を取得するため）
+	SDL_GameControllerEventState(SDL_IGNORE);
 
 	return true;
 }
@@ -161,6 +172,11 @@ bool InputSystem::Initialize()
 */
 void InputSystem::Shutdown()
 {
+	if (!controller)
+	{
+		SDL_GameControllerClose(controller);
+	}
+	controller = nullptr;
 }
 
 /**
@@ -203,7 +219,7 @@ void InputSystem::Update()
 			SDL_GetMouseState(&x, &y);
 	}
 
-	state.Mouse.mousePos.x = static_cast<float>(x) - 1024.0f/2;
+	state.Mouse.mousePos.x = static_cast<float>(x) - 1024.0f / 2;
 	state.Mouse.mousePos.y = 768.0f / 2 - static_cast<float>(y);
 
 	//コントローラー
@@ -215,26 +231,30 @@ void InputSystem::Update()
 				SDL_GameControllerButton(i));
 	}
 
-	//・トリガー
-	state.Controller.leftTrigger =
-		Filter1D(SDL_GameControllerGetAxis(controller,
-			SDL_CONTROLLER_AXIS_TRIGGERLEFT));
-	state.Controller.rightTrigger =
-		Filter1D(SDL_GameControllerGetAxis(controller,
-			SDL_CONTROLLER_AXIS_TRIGGERRIGHT));
 
-	//・スティック
-	x = SDL_GameControllerGetAxis(controller,
-		SDL_CONTROLLER_AXIS_LEFTX);
-	y = -SDL_GameControllerGetAxis(controller,
-		SDL_CONTROLLER_AXIS_LEFTY);
-	state.Controller.leftStick = Filter2D(x, y);
+	// コントローラが無い場合は early exitする
+	if (controller != NULL)
+	{
+		// 前のフレームのコントローラの状態をコピーする
+		memcpy(&state.Controller.prevButtons, &state.Controller.currButtons, sizeof(Uint8)*SDL_CONTROLLER_BUTTON_MAX);
 
-	x = SDL_GameControllerGetAxis(controller,
-		SDL_CONTROLLER_AXIS_RIGHTX);
-	y = -SDL_GameControllerGetAxis(controller,
-		SDL_CONTROLLER_AXIS_RIGHTY);
-	state.Controller.rightStick = Filter2D(x, y);
+		// コントローラの状態を更新する
+		SDL_GameControllerUpdate();
+
+		// 現在のコントローラのボタン状態を保存
+		for (int b = 0; b < SDL_CONTROLLER_BUTTON_MAX; ++b)
+		{
+			state.Controller.currButtons[b] = SDL_GameControllerGetButton(controller, (SDL_GameControllerButton)b);
+		}
+
+
+
+		// しきい値以下を切る
+		//const float padMaxVal = 32767.0f;
+		//mLAxis.x = (fabs(mLAxis.x) < (float)XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) ? 0.0f : mLAxis.x / padMaxVal;
+		//mLAxis.y = (fabs(mLAxis.y) < (float)XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) ? 0.0f : mLAxis.y / padMaxVal;
+
+	}
 }
 
 /**

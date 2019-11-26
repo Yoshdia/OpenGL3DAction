@@ -103,12 +103,12 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_D);
 	jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
 
-	if (_keyState.Controller.GetIsConnected())
-	{
-		attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_B);
-		rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
-		jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
-	}
+	//if (_keyState.Controller.GetIsConnected())
+	//{
+	//	attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_B);
+	//	rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
+	//	jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
+	//}
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_1))
 		RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -200), position);
 }

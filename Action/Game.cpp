@@ -50,6 +50,13 @@ bool Game::Initialize()
 		return false;
 	}
 
+    //入力管理クラスの初期化
+	inputSystem = new InputSystem();
+	if (!inputSystem->Initialize())
+	{
+		SDL_Log("Failed to initialize input system");
+		return false;
+	}
 	//レンダラーの初期化
 	Renderer::CreateInstance();
 	if (!RENDERER->Initialize(1024.0f, 768.0f))
@@ -62,13 +69,6 @@ bool Game::Initialize()
     //当たり判定用クラスの初期化
 	PhysicsWorld::CreateInstance();
 
-    //入力管理クラスの初期化
-	inputSystem = new InputSystem();
-	if (!inputSystem->Initialize())
-	{
-		SDL_Log("Failed to initialize input system");
-		return false;
-	}
 
 	//FPS管理クラスの初期化
 	fps = new FPS();
