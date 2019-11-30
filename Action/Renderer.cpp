@@ -515,7 +515,7 @@ void Renderer::DrawParticle()
 
 	// 全てのパーティクルのビルボード行列をセット
 	Matrix4 tmp;
-	tmp = Matrix4::CreateRotationX(0.5f * 3.14159f);
+	tmp = Matrix4::CreateRotationX(-0.5f * 3.14159f);
 	(*itr)->SetBillboardMat(tmp);
 
 	glEnable(GL_BLEND);

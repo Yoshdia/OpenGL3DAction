@@ -49,6 +49,7 @@ private:
 	bool noTargetTouching;
 	//指定されたタグのオブジェクトと接触した際に建つ。これを参照してフラグのリセットを行うか決める
 	bool changed;
+	class MeshComponent* meshComponent;
 };
 
 

@@ -6,26 +6,21 @@
 Matrix4 ParticleComponent::staticBillboardMat;
 Vector3 ParticleComponent::staticCameraWorldPos;
 
-ParticleComponent::ParticleComponent(GameObject * _owner)
+ParticleComponent::ParticleComponent(GameObject* _owner)
 	:Component(_owner)
-	, position(_owner->GetPosition())
-	, life(0.0f)
+	, position(Vector3(0, 0, 0))
+	, scale(0)
 	, alpha(1.0f)
-	, isFollowing(true)
 {
 	RENDERER->AddParticle(this);
 }
 
-ParticleComponent::ParticleComponent(GameObject * _owner, const Vector3 & _pos, const Vector3 & _v, float _scale, float _alpha, float _life)
+ParticleComponent::ParticleComponent(GameObject* _owner, const Vector3& _pos, float _scale)
 	: Component(_owner)
-	, position(_pos + _owner->GetPosition())
-	, velocity(_v)
+	, position(_pos)
 	, scale(_scale)
-	, life(_life)
-	, alpha(_alpha)
-	, nowTime(0.0)
+	, alpha(1)
 	, blendType(PARTICLE_BLEND_ENUM::PARTICLE_BLEND_ENUM_ALPHA)
-	, isFollowing(true)
 {
 	RENDERER->AddParticle(this);
 }
@@ -36,30 +31,20 @@ ParticleComponent::~ParticleComponent()
 
 void ParticleComponent::Update(float _deltaTime)
 {
-	if (!IsAlive())
-	{
-		owner->RemoveComponent(this);
-	}
-	nowTime += _deltaTime;
-	velocity = velocity + acceleration;
-	position = position + velocity;
-
-	// ŽžŠÔ‚Æ‚Æ‚à‚ÉƒAƒ‹ƒtƒ@”–‚­‚·‚é
-	alpha = (life - nowTime) / life;
 }
 
-void ParticleComponent::Draw(Shader * shader)
+void ParticleComponent::Draw(Shader* shader)
 {
 	Matrix4 mat, matScale;
 	matScale = Matrix4::CreateScale(scale * owner->GetScale());
-	if (isFollowing)
-	{
-		mat = Matrix4::CreateTranslation(position + owner->GetPosition());
-	}
-	else
-	{
-		mat = Matrix4::CreateTranslation(position);
-	}
+	//if (isFollowing)
+	//{
+	mat = Matrix4::CreateTranslation(position + owner->GetPosition());
+	//}
+	//else
+	//{
+		//mat = Matrix4::CreateTranslation(position);
+	//}
 
 	shader->SetMatrixUniform("uWorldTransform", matScale * staticBillboardMat * mat);
 	shader->SetFloatUniform("uAlpha", alpha);
@@ -69,12 +54,7 @@ void ParticleComponent::Draw(Shader * shader)
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 }
 
-bool ParticleComponent::IsAlive() const
-{
-	return nowTime < life;
-}
-
-bool ParticleComponent::operator<(const ParticleComponent & rhs) const
+bool ParticleComponent::operator<(const ParticleComponent& rhs) const
 {
 	float lenThis, lenRhs;
 	lenThis = (staticCameraWorldPos - position).LengthSq();
@@ -82,7 +62,7 @@ bool ParticleComponent::operator<(const ParticleComponent & rhs) const
 	return lenThis < lenRhs;
 }
 
-bool ParticleComponent::operator>(const ParticleComponent & rhs) const
+bool ParticleComponent::operator>(const ParticleComponent& rhs) const
 {
 	float lenThis, lenRhs;
 	lenThis = (staticCameraWorldPos - position).LengthSq();

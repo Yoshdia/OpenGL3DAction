@@ -2,6 +2,8 @@
 #include "ColliderComponent.h"
 #include "Renderer.h"
 #include "MeshComponent.h"
+//debug
+#include "Game.h"
 
 SkeltonObjectChecker::SkeltonObjectChecker(GameObject* _parent, Vector3 _pos, Vector3 _colliderSize, Tag _pairTag) :
 	GameObject(),
@@ -16,9 +18,8 @@ SkeltonObjectChecker::SkeltonObjectChecker(GameObject* _parent, Vector3 _pos, Ve
 
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, _colliderSize, myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
-	//Debug
-	MeshComponent* meshComponent = new MeshComponent(this);
-	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/collisionMask.gpmesh"));
+		meshComponent = new MeshComponent(this);
+		meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/collisionMask.gpmesh"));
 	SetScale(_colliderSize);
 }
 
@@ -28,6 +29,15 @@ SkeltonObjectChecker::~SkeltonObjectChecker()
 
 void SkeltonObjectChecker::UpdateGameObject(float _deltaTime)
 {
+	if (Game::debug)
+	{
+		meshComponent->SetVisible(true);
+	}
+	else
+	{
+		meshComponent->SetVisible(false);
+	}
+
 	SetPosition(offset + parent->GetPosition());
 
 	//接触した際にフラグをリセットしない

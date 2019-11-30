@@ -19,6 +19,8 @@
 #include "GameObjectManager.h"
 #include "SceneBase.h"
 
+int Game::debug = 0;
+
 /**
 @brief  コンストラクタ
 */

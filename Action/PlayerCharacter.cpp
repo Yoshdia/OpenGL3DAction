@@ -12,6 +12,8 @@
 #include "GuardPlayerComponent.h"
 #include "ParticleComponent.h"
 #include "Texture.h"
+//debug
+#include "Game.h"
 
 const float PlayerCharacter::MoveSpeed = 600;
 const float PlayerCharacter::MoveSpeedLimit = 10.0f;
@@ -40,18 +42,18 @@ PlayerCharacter::PlayerCharacter() :
 
 	tag = Tag::PlayerTag;
 	SetPosition(Vector3(100, 200, 0));
-	float scaleF = 25.0f;
+	float scaleF = 60.0f;
 	SetScale(scaleF);
 
-	//animationComponent = new AnimationPlayerComponent(this, 100);
+	animationComponent = new AnimationPlayerComponent(this, 100);
 	attack = new AttackPlayerComponent(this, 100);
 	guardComponent = new GuardPlayerComponent(this, 100);
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
-	footChecker = new SkeltonObjectChecker(this, Vector3(0, -scaleF, 0), Vector3(20, 1, 20), Tag::GroundTag);
+	footChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::GroundTag);
 
-	MeshComponent* meshComponent = new MeshComponent(this);
-	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
+	//MeshComponent* meshComponent = new MeshComponent(this);
+	//meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
 }
 
 PlayerCharacter::~PlayerCharacter()
@@ -60,37 +62,6 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
-	// パーティクルのセット　これはあとでパーティクルエミッタクラス作りたい。
-
-	Vector3 randV((rand() % 100) / 10.0f, (rand() % 100) / 10.0f, (rand() % 100) / 10.0f);
-	Vector3 Velocity = randV * 0.1f;
-	Velocity.x += -0.5f;
-	Velocity.y += -0.5f;
-	Velocity.z += 2.5f;
-
-	// 後にパーティクル発生用クラス作成する
-	// 3フレームに1回　パーティクル発生
-	static int frame = 0;
-	frame++;
-	if (frame % 5 == 0)
-	{
-		for (int i = 0; i < 1; i++)
-		{
-			Vector3 pos;
-			pos = Vector3(-0, 0, 0);
-			pos = pos + randV;
-
-			ParticleComponent* p = new ParticleComponent(this, pos,
-				Velocity,
-				1, 1.0f,
-				randV.x * 0.5f);
-
-			p->SetTextureID((RENDERER->GetTexture("Assets/fire.png"))->GetTextureID());
-			p->SetColor(Vector3(1.0f, 0.5f, 0.2f));
-			p->SetBlendMode(ParticleComponent::PARTICLE_BLEND_ENUM_ADD);
-			p->SetIsFollowing(false);
-		}
-	}
 	//カメラの追跡先をセット
 	RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
 	//着地状態
@@ -98,7 +69,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	//入力によるアクションができるか
 	if (canNotActionTime < 0)
 	{
-		Actions(_deltaTime,noGround);
+		Actions(_deltaTime, noGround);
 	}
 	else
 	{
@@ -144,6 +115,16 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	//}
 	//if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_1))
 		//RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -200), position);
+
+	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_3))
+	{
+		Game::debug = 0;
+	}
+	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_4))
+	{
+		Game::debug=1;
+	}
+	
 }
 
 void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
@@ -169,7 +150,7 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 	}
 }
 
-void PlayerCharacter::Actions(float _deltaTime,const bool& _noGround)
+void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 {
 	Move(_deltaTime);
 	//着地しているか
@@ -232,8 +213,8 @@ void PlayerCharacter::Move(float _deltaTime)
 			animationComponent->SetAnimation(PlayerAnimationState::Move);
 		}
 		float moveSpeedDelta = (MoveSpeed * _deltaTime) * inputDirection;
-		moveSpeedDelta=	ControlDeltaLimit(moveSpeedDelta, MoveSpeedLimit);
-		moveSpeedDelta=ControlDeltaLimit(moveSpeedDelta, -MoveSpeedLimit);
+		moveSpeedDelta = ControlDeltaLimit(moveSpeedDelta, MoveSpeedLimit);
+		moveSpeedDelta = ControlDeltaLimit(moveSpeedDelta, -MoveSpeedLimit);
 		velocity.x = moveSpeedDelta;
 	}
 	else

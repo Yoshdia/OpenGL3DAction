@@ -1,26 +1,27 @@
 #include "AnimationPlayerComponent.h"
-#include "SpriteComponent.h"
+#include "ParticleComponent.h"
 #include "Renderer.h"
 #include "MovePlayerAnimationClip.h"
 #include "IdlePlayerAnimationClip.h"
 #include "AttackPlayerAnimationClip.h"
 #include "RangeAttackPlayerAnimationClip.h"
+#include "Texture.h"
 
 AnimationPlayerComponent::AnimationPlayerComponent(GameObject* _owner, int _updateOrder)
 	:Component(_owner, _updateOrder)
 {
-	spriteComponent = new SpriteComponent(_owner, 100);
+	particleComponent = new ParticleComponent(_owner,Vector3(0,5.0f,0),1);
+	particleComponent->SetColor(Vector3(1.0f, 1.0f, 1.0f));
 
 	nowAnimation = nullptr;
-	idle =new IdlePlayerAnimationClip();
-	move =new MovePlayerAnimationClip();
+	idle = new IdlePlayerAnimationClip();
+	move = new MovePlayerAnimationClip();
 	attack = new AttackPlayerAnimationClip();
 	rangeAttack = new RangeAttackPlayerAnimationClip();
 
 	nowAnimation = idle;
 	beforeAnimation = PlayerAnimationState::Idle;
-	nextAnimation=PlayerAnimationState::Idle;
-
+	nextAnimation = PlayerAnimationState::Idle;
 
 }
 
@@ -30,14 +31,14 @@ AnimationPlayerComponent::~AnimationPlayerComponent()
 	delete idle;
 	delete move;
 	delete attack;
-	delete rangeAttack;	
+	delete rangeAttack;
 }
 
 void AnimationPlayerComponent::Update(float _deltaTime)
 {
 	if (nowAnimation != nullptr)
 	{
-		spriteComponent->SetTexture(nowAnimation->GetSprite());
+		particleComponent->SetTextureID(nowAnimation->GetSprite()->GetTextureID());
 	}
 	nowAnimation->Animation();
 

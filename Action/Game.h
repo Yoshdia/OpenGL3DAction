@@ -51,6 +51,7 @@ public:
 	*/
 	void GameLoop();
 
+	static int debug;
 private:
 //===================== プライベート関数 ======================//
 

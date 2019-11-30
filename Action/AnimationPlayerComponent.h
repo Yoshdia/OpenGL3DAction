@@ -20,7 +20,7 @@ public:
 	void Update(float _deltaTime)override;
 	void SetAnimation(const PlayerAnimationState& _state) {nextAnimation = _state;};
 private:
-	class SpriteComponent* spriteComponent;
+	class ParticleComponent* particleComponent;
 	AnimationSpriteClip* nowAnimation;
 	AnimationSpriteClip* idle;
 	AnimationSpriteClip* move;
