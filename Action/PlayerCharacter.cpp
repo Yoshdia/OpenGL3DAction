@@ -10,6 +10,8 @@
 #include "MeshComponent.h"
 #include "SkeltonObjectChecker.h"
 #include "GuardPlayerComponent.h"
+#include "ParticleComponent.h"
+#include "Texture.h"
 
 const float PlayerCharacter::MoveSpeed = 600;
 const float PlayerCharacter::MoveSpeedLimit = 10.0f;
@@ -58,8 +60,39 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
+	// パーティクルのセット　これはあとでパーティクルエミッタクラス作りたい。
+
+	Vector3 randV((rand() % 100) / 10.0f, (rand() % 100) / 10.0f, (rand() % 100) / 10.0f);
+	Vector3 Velocity = randV * 0.1f;
+	Velocity.x += -0.5f;
+	Velocity.y += -0.5f;
+	Velocity.z += 2.5f;
+
+	// 後にパーティクル発生用クラス作成する
+	// 3フレームに1回　パーティクル発生
+	static int frame = 0;
+	frame++;
+	if (frame % 5 == 0)
+	{
+		for (int i = 0; i < 1; i++)
+		{
+			Vector3 pos;
+			pos = Vector3(-0, 0, 0);
+			pos = pos + randV;
+
+			ParticleComponent* p = new ParticleComponent(this, pos,
+				Velocity,
+				1, 1.0f,
+				randV.x * 0.5f);
+
+			p->SetTextureID((RENDERER->GetTexture("Assets/fire.png"))->GetTextureID());
+			p->SetColor(Vector3(1.0f, 0.5f, 0.2f));
+			p->SetBlendMode(ParticleComponent::PARTICLE_BLEND_ENUM_ADD);
+			p->SetIsFollowing(false);
+		}
+	}
 	//カメラの追跡先をセット
-	RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
+	//RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
 	//着地状態
 	bool noGround = footChecker->GetNoTouchingFlag();
 	//入力によるアクションができるか
@@ -109,8 +142,8 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	//	rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
 	//	jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
 	//}
-	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_1))
-		RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -200), position);
+	//if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_1))
+		//RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -200), position);
 }
 
 void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)

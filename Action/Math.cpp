@@ -237,3 +237,17 @@ Matrix4 Matrix4::CreateFromQuaternion(const class Quaternion& _q)
 
     return Matrix4(mat);
 }
+
+void Matrix4::Transpose()
+{
+	Matrix4 tmp;
+	tmp = *this;
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			mat[i][j] = tmp.mat[j][i];
+		}
+	}
+}

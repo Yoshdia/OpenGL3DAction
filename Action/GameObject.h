@@ -109,6 +109,7 @@ public:
 	void SetScale(float _scale) { scale.x = _scale; scale.y = _scale; scale.z = _scale; recomputeWorldTransform = true; }
 	void SetScale(Vector3 _scale) { scale.x = _scale.x; scale.y = _scale.y; scale.z = _scale.z; recomputeWorldTransform = true; }
 
+	float GetScale() { return scale.x; }
 	/**
 	@brief　オブジェクトのクォータニオンを取得する
 	@return	rotation（Quaternion型）

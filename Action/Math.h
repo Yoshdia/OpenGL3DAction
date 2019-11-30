@@ -889,6 +889,8 @@ public:
 		};
 		return Matrix4(temp);
 	}
+	// “]’us—ñ
+	void Transpose();
 
 	static const Matrix4 Identity;
 };

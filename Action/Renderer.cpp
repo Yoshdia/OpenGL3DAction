@@ -10,9 +10,6 @@
 #include <fstream>
 #include <sstream>
 #include <document.h>
-#include "Font.h"
-#include "UIScreen.h"
-#include "UIManager.h"
 
 Renderer* Renderer::renderer = nullptr;
 
@@ -225,12 +222,6 @@ void Renderer::Draw()
 	for (auto sprite : sprites)
 	{
 		sprite->Draw(spriteShader);
-	}
-
-	// Draw any UI screens
-	for (auto ui : UI_MANAGER->GetUIStack())
-	{
-		ui->Draw(spriteShader);
 	}
 
 	// バッファを交換
@@ -494,7 +485,7 @@ void Renderer::DrawParticle()
 
 	// 全てのパーティクルのビルボード行列をセット
 	Matrix4 tmp;
-	tmp = Matrix4::CreateRotationZ(0.5f * 3.14159f);
+	tmp = Matrix4::CreateRotationX(0.5f * 3.14159f);
 	(*itr)->SetBillboardMat(tmp);
 
 	glEnable(GL_BLEND);
