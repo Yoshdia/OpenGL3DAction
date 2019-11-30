@@ -28,7 +28,7 @@ void GameObjectManager::DeleteInstance()
 void GameObjectManager::UpdateGameObject(float _deltaTime)
 {
 	//_deltaTime /= 3;
-	//RENDERER->LerpParentPos(_deltaTime);
+	RENDERER->LerpParentPos(_deltaTime);
 	updatingGameObject = true;
 	for (auto gameObject : gameObjects)
 	{

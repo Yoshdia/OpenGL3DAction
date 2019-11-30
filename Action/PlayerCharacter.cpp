@@ -92,7 +92,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		}
 	}
 	//カメラの追跡先をセット
-	//RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
+	RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
 	//着地状態
 	bool noGround = footChecker->GetNoTouchingFlag();
 	//入力によるアクションができるか

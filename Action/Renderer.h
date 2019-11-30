@@ -155,10 +155,19 @@ public:
 
 	Matrix4 GetProjectionMatrix() { return projection; }
 
+	void SetViewMatrixLerpObject(const Vector3& offset, const Vector3& _parentPos);
+
+	void LerpParentPos(float _deltaTime);
+
 private:
 	//コンストラクタ、デストラクタの隠蔽
 	Renderer();
 	~Renderer();
+
+	Vector3 offsetPos;
+	Vector3 lerpObject;
+	Vector3 cameraPos;
+	bool hasParentObject;
 
 	//自分のインスタンス
 	static Renderer* renderer;
