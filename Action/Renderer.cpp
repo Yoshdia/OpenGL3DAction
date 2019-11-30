@@ -7,31 +7,36 @@
 #include "SpriteComponent.h"
 #include "MeshComponent.h"
 #include <glew.h>
+#include <fstream>
+#include <sstream>
+#include <document.h>
+#include "Font.h"
+#include "UIScreen.h"
+#include "UIManager.h"
 
 Renderer* Renderer::renderer = nullptr;
 
+void Renderer::SetParticleVertex()
+{
+	particleVertex->SetActive();
+}
+
 Renderer::Renderer()
-    : spriteShader(nullptr)
+	: spriteShader(nullptr)
 	, spriteVerts(nullptr)
-    , meshShader(nullptr)
+	, meshShader(nullptr)
+	, basicShader(nullptr)
+	, particleVertex(nullptr)
 	, view(Matrix4::Identity)
 	, projection(Matrix4::Identity)
 	, screenWidth(0)
 	, screenHeight(0)
 	, ambientLight(Vector3::Zero)
-	,lerpObject(Vector3(0,0,0))
-	,offsetPos(Vector3(0,0,0))
-	, hasParentObject(false)
-	, cameraPos(Vector3(0,0,0))
 {
-    wallDirLight.direction = Vector3(0.0f, -0.7f, -0.7f);
-    wallDirLight.diffuseColor = Vector3(0.78f, 0.88f, 1.0f);
-    wallDirLight.specColor = Vector3(0.8f, 0.8f, 0.8f);
 }
 
 Renderer::~Renderer()
 {
-    SetWallDirLight();
 }
 
 /**
@@ -44,7 +49,6 @@ void Renderer::CreateInstance()
 		renderer = new Renderer();
 	}
 }
-
 
 /**
 @brief  インスタンスを削除する
@@ -64,61 +68,63 @@ void Renderer::DeleteInstance()
 */
 bool Renderer::Initialize(float _screenWidth, float _screenHeight)
 {
-    screenWidth = _screenWidth;
-    screenHeight = _screenHeight;
+	screenWidth = _screenWidth;
+	screenHeight = _screenHeight;
 
-    // OpenGLの各属性を設定する
-    // コアOpenGLプロファイルを使う
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    // OpenGLの使用バージョンを3.3に指定
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-    // RGBA各チャンネル8ビットのカラーバッファを使う
-    SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-    // ダブルバッファを有効にする
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    // ハードウェアアクセラレーションを使う
-    SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+	// OpenGLの各属性を設定する
+	// コアOpenGLプロファイルを使う
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	// OpenGLの使用バージョンを3.3に指定
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	// RGBA各チャンネル8ビットのカラーバッファを使う
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+	// ダブルバッファを有効にする
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	// ハードウェアアクセラレーションを使う
+	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
 	//ウィンドウの作成
-    window = SDL_CreateWindow("OpenGL Game", 100, 100,
-        static_cast<int>(screenWidth), static_cast<int>(screenHeight), SDL_WINDOW_OPENGL);
+	window = SDL_CreateWindow("OpenGL Game", 100, 100,
+		static_cast<int>(screenWidth), static_cast<int>(screenHeight), SDL_WINDOW_OPENGL);
 
-    if (!window)
-    {
-        SDL_Log("Failed to create window: %s", SDL_GetError());
-        return false;
-    }
+	if (!window)
+	{
+		SDL_Log("Failed to create window: %s", SDL_GetError());
+		return false;
+	}
 
-    // OpenGLのコンテキストを作成
-    context = SDL_GL_CreateContext(window);
+	// OpenGLのコンテキストを作成
+	context = SDL_GL_CreateContext(window);
 
-    // GLEWの初期化
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK)
-    {
-        SDL_Log("Failed to initialize GLEW.");
-        return false;
-    }
+	// GLEWの初期化
+	glewExperimental = GL_TRUE;
+	if (glewInit() != GLEW_OK)
+	{
+		SDL_Log("Failed to initialize GLEW.");
+		return false;
+	}
 
-    // 一部のプラットフォームで出る無害なエラーコードをクリアする
-    glGetError();
+	// 一部のプラットフォームで出る無害なエラーコードをクリアする
+	glGetError();
 
-    // シェーダーのロード
-    if (!LoadShaders())
-    {
-        SDL_Log("Failed to load shaders.");
-        return false;
-    }
+	// シェーダーのロード
+	if (!LoadShaders())
+	{
+		SDL_Log("Failed to load shaders.");
+		return false;
+	}
 
-    //スプライト用の頂点配列を作成
-    CreateSpriteVerts();
+	//スプライト用の頂点配列を作成
+	CreateSpriteVerts();
 
-    return true;
+	CreateParticleVerts();
+
+	return true;
 }
 
 /**
@@ -126,14 +132,15 @@ bool Renderer::Initialize(float _screenWidth, float _screenHeight)
 */
 void Renderer::Shutdown()
 {
-    delete spriteVerts;
-    spriteShader->Unload();
-    delete spriteShader;
-    meshShader->Unload();
-    delete meshShader;
-  
-    SDL_GL_DeleteContext(context);
-    SDL_DestroyWindow(window);
+	delete spriteVerts;
+	spriteShader->Unload();
+	delete spriteShader;
+	meshShader->Unload();
+	delete meshShader;
+	basicShader->Unload();
+	delete basicShader;
+	SDL_GL_DeleteContext(context);
+	SDL_DestroyWindow(window);
 }
 
 /**
@@ -141,20 +148,20 @@ void Renderer::Shutdown()
 */
 void Renderer::UnloadData()
 {
-    // すべてのテクスチャのデータを解放
-    for (auto i : textures)
-    {
-        i.second->Unload();
-        delete i.second;
-    }
+	// すべてのテクスチャのデータを解放
+	for (auto i : textures)
+	{
+		i.second->Unload();
+		delete i.second;
+	}
 	textures.clear();
 
-    // すべてのメッシュのデータを解放
-    for (auto i : meshes)
-    {
-        i.second->Unload();
-        delete i.second;
-    }
+	// すべてのメッシュのデータを解放
+	for (auto i : meshes)
+	{
+		i.second->Unload();
+		delete i.second;
+	}
 	meshes.clear();
 }
 
@@ -163,53 +170,73 @@ void Renderer::UnloadData()
 */
 void Renderer::Draw()
 {
-    // クリアカラーを灰色に設定
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    // カラーバッファとデプスバッファをクリア
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// クリアカラーを灰色に設定
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	// カラーバッファとデプスバッファをクリア
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // メッシュコンポーネントの描画
-    // デプスバッファ法を有効にする
-    glEnable(GL_DEPTH_TEST);
+	// メッシュコンポーネントの描画
+	// デプスバッファ法を有効にする
+	glEnable(GL_DEPTH_TEST);
 	//アルファブレンディングを無効にする
-    glDisable(GL_BLEND);
-    // 基本的なメッシュシェーダーをアクティブにする
-    meshShader->SetActive();
-    // ビュー射影行列を更新する
-    meshShader->SetMatrixUniform("uViewProj", view * projection);
-    // シェーダーに渡すライティング情報を更新する
-    SetLightUniforms(meshShader);
+	glDisable(GL_BLEND);
+	// 基本的なメッシュシェーダーをアクティブにする
+	meshShader->SetActive();
+	// ビュー射影行列を更新する
+	meshShader->SetMatrixUniform("uViewProj", view * projection);
+	// シェーダーに渡すライティング情報を更新する
+	SetLightUniforms(meshShader, view);
 	// すべてのメッシュの描画
-    for (auto mc : meshComponents)
-    {
+	for (auto mc : meshComponents)
+	{
 		if (mc->GetVisible())
 		{
 			mc->Draw(meshShader);
 		}
-    }
+	}
 
-    // スプライトコンポーネントの描画
-    // デプスバッファ法を無効にする
-    glDisable(GL_DEPTH_TEST);
-    // アルファブレンディングを有効にする
-    glEnable(GL_BLEND);
+	basicShader->SetActive();
+	basicShader->SetMatrixUniform("uViewProj", view * projection);
+
+	for (auto mc : basicMeshComponents)
+	{
+		if (mc->GetVisible())
+		{
+			mc->Draw(basicShader);
+		}
+	}
+
+	DrawParticle();
+
+	// スプライトコンポーネントの描画
+	// デプスバッファ法を無効にする
+	glDisable(GL_DEPTH_TEST);
+	// アルファブレンディングを有効にする
+	glEnable(GL_BLEND);
 	// RGB成分とα成分のブレンディング方法を別々に設定
-    glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 	// RGB成分とアルファ成分に別々の混合係数を設定
-    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
-    // スプライトシェーダーをアクティブにする/スプライト頂点配列を有効にする
-    spriteShader->SetActive();
-    spriteVerts->SetActive();
+	// スプライトシェーダーをアクティブにする/スプライト頂点配列を有効にする
+	spriteShader->SetActive();
+	spriteVerts->SetActive();
 	// すべてのスプライトの描画
-    for (auto sprite : sprites)
-    {
-        sprite->Draw(spriteShader);
-    }
+	for (auto sprite : sprites)
+	{
+		sprite->Draw(spriteShader);
+	}
 
-    // バッファを交換
-    SDL_GL_SwapWindow(window);
+	// Draw any UI screens
+	for (auto ui : UI_MANAGER->GetUIStack())
+	{
+		ui->Draw(spriteShader);
+	}
+
+	// バッファを交換
+	SDL_GL_SwapWindow(window);
 }
+
 
 /**
 @brief  スプライトの削除
@@ -217,21 +244,21 @@ void Renderer::Draw()
 */
 void Renderer::AddSprite(SpriteComponent* _spriteComponent)
 {
-    // 今あるスプライトから挿入する場所の検索
-    // (DrawOrderが小さい順番に描画するため)
+	// 今あるスプライトから挿入する場所の検索
+	// (DrawOrderが小さい順番に描画するため)
 	int myDrawOrder = _spriteComponent->GetDrawOrder();
-    auto iter = sprites.begin();
-    for (;
-        iter != sprites.end();
-        ++iter)
-    {
-        if (myDrawOrder < (*iter)->GetDrawOrder())
-        {
-            break;
-        }
-    }
+	auto iter = sprites.begin();
+	for (;
+		iter != sprites.end();
+		++iter)
+	{
+		if (myDrawOrder < (*iter)->GetDrawOrder())
+		{
+			break;
+		}
+	}
 
-    // 検索した場所のiterの場所に挿入
+	// 検索した場所のiterの場所に挿入
 	sprites.insert(iter, _spriteComponent);
 }
 
@@ -241,8 +268,19 @@ void Renderer::AddSprite(SpriteComponent* _spriteComponent)
 */
 void Renderer::RemoveSprite(SpriteComponent* _spriteComponent)
 {
-    auto iter = std::find(sprites.begin(), sprites.end(), _spriteComponent);
+	auto iter = std::find(sprites.begin(), sprites.end(), _spriteComponent);
 	sprites.erase(iter);
+}
+
+void Renderer::AddParticle(ParticleComponent * _particleComponent)
+{
+	particles.push_back(_particleComponent);
+}
+
+void Renderer::RemoveParticle(ParticleComponent * _particleComponent)
+{
+	auto iter = std::find(particles.begin(), particles.end(), _particleComponent);
+	particles.erase(iter);
 }
 
 /**
@@ -251,14 +289,14 @@ void Renderer::RemoveSprite(SpriteComponent* _spriteComponent)
 */
 void Renderer::AddMeshComponent(MeshComponent* _meshComponent)
 {
-    if (_meshComponent->GetShaderName() == DEFAULT)
-    {
-        meshComponents.emplace_back(_meshComponent);
-    }
-    else if (_meshComponent->GetShaderName() == WALL)
-    {
-        wallMeshComponents.emplace_back(_meshComponent);
-    }
+	if (_meshComponent->GetShaderName() == DEFAULT)
+	{
+		meshComponents.emplace_back(_meshComponent);
+	}
+	else if (_meshComponent->GetShaderName() == WALL)
+	{
+		basicMeshComponents.emplace_back(_meshComponent);
+	}
 }
 
 /**
@@ -267,16 +305,16 @@ void Renderer::AddMeshComponent(MeshComponent* _meshComponent)
 */
 void Renderer::RemoveMeshComponent(MeshComponent* _meshComponent)
 {
-    if (_meshComponent->GetShaderName() == DEFAULT)
-    {
-        auto iter = std::find(meshComponents.begin(), meshComponents.end(), _meshComponent);
-        meshComponents.erase(iter);
-    }
-    else if (_meshComponent->GetShaderName() == WALL)
-    {
-        auto iter = std::find(wallMeshComponents.begin(), wallMeshComponents.end(), _meshComponent);
-        wallMeshComponents.erase(iter);
-    }
+	if (_meshComponent->GetShaderName() == DEFAULT)
+	{
+		auto iter = std::find(meshComponents.begin(), meshComponents.end(), _meshComponent);
+		meshComponents.erase(iter);
+	}
+	else if (_meshComponent->GetShaderName() == WALL)
+	{
+		auto iter = std::find(basicMeshComponents.begin(), basicMeshComponents.end(), _meshComponent);
+		basicMeshComponents.erase(iter);
+	}
 }
 
 /**
@@ -318,54 +356,28 @@ Texture* Renderer::GetTexture(const std::string& _fileName)
 */
 Mesh* Renderer::GetMesh(const std::string &_fileName)
 {
-    Mesh* m = nullptr;
+	Mesh* m = nullptr;
 	//すでに作成されてないか調べる
-    auto iter = meshes.find(_fileName);
-    if (iter != meshes.end())
-    {
-        m = iter->second;
-    }
-	//作成済みでない場合、新しくメッシュを作成
-    else
-    {
-        m = new Mesh();
-        if (m->Load(_fileName, this))
-        {
-			meshes.emplace(_fileName, m);
-        }
-        else
-        {
-            delete m;
-            m = nullptr;
-        }
-    }
-    return m;
-}
-
-void Renderer::SetViewMatrixLerpObject(const Vector3 & _offset, const Vector3 & _parentPos)
-{
-	hasParentObject = true;
-	offsetPos = _offset;
-	lerpObject = _parentPos;
-}
-
-void Renderer::LerpParentPos(float _deltaTime)
-{
-	if (!hasParentObject)
+	auto iter = meshes.find(_fileName);
+	if (iter != meshes.end())
 	{
-		printf("Camera[I don't have parent!]");
-		return;
+		m = iter->second;
 	}
-	Vector3 pos = offsetPos + cameraPos;
-	pos.x = lerpObject.x + offsetPos.x;
-	pos.y = lerpObject.y + offsetPos.y;
-	pos.z = lerpObject.z + offsetPos.z;
-	cameraPos = Vector3::Lerp(cameraPos, pos, _deltaTime*3.0f);
-	Vector3 aa = cameraPos;
-	aa.z = 0;
-
-	Matrix4 v = Matrix4::CreateLookAt(cameraPos, aa, Vector3::UnitY);
-	RENDERER->SetViewMatrix(v);
+	//作成済みでない場合、新しくメッシュを作成
+	else
+	{
+		m = new Mesh();
+		if (m->Load(_fileName, this))
+		{
+			meshes.emplace(_fileName, m);
+		}
+		else
+		{
+			delete m;
+			m = nullptr;
+		}
+	}
+	return m;
 }
 
 /**
@@ -374,33 +386,47 @@ void Renderer::LerpParentPos(float _deltaTime)
 */
 bool Renderer::LoadShaders()
 {
-    // スプライトシェーダーの作成
-    spriteShader = new Shader();
-    if (!spriteShader->Load("Shaders/Sprite.vert", "Shaders/Sprite.frag"))
-    {
-        return false;
-    }
+	// スプライトシェーダーの作成
+	spriteShader = new Shader();
+	if (!spriteShader->Load("Shaders/Sprite.vert", "Shaders/Sprite.frag"))
+	{
+		return false;
+	}
 
-    spriteShader->SetActive();
-    // ビュー行列の設定
-    Matrix4 viewProj = Matrix4::CreateSimpleViewProj(screenWidth, screenHeight);
-    spriteShader->SetMatrixUniform("uViewProj", viewProj);
+	spriteShader->SetActive();
+	// ビュー行列の設定
+	Matrix4 viewProj = Matrix4::CreateSimpleViewProj(screenWidth, screenHeight);
+	spriteShader->SetMatrixUniform("uViewProj", viewProj);
 
-    // 標準のメッシュシェーダーの作成
-    meshShader = new Shader();
-    if (!meshShader->Load("Shaders/Phong.vert", "Shaders/Phong.frag"))
-    {
-        return false;
-    }
+	// 標準のメッシュシェーダーの作成
+	meshShader = new Shader();
+	if (!meshShader->Load("Shaders/Phong.vert", "Shaders/Phong.frag"))
+	{
+		return false;
+	}
 
-    meshShader->SetActive();
-    // ビュー行列の設定
-    view = Matrix4::CreateLookAt(Vector3::Zero, Vector3::UnitX, Vector3::UnitY);
-    projection = Matrix4::CreatePerspectiveFOV(Math::ToRadians(70.0f),
-        screenWidth, screenHeight, 25.0f, 10000.0f);
-    meshShader->SetMatrixUniform("uViewProj", view * projection);
+	basicShader = new Shader();
+	if (!basicShader->Load("Shaders/BasicMesh.vert", "Shaders/BasicMesh.frag"))
+	{
+		return false;
+	}
 
-    return true;
+	particleShader = new Shader();
+	if (!particleShader->Load("Shaders/Phong.vert", "Shaders/Particle.frag"))
+	{
+		printf("シェーダー読み込み失敗\n");
+	}
+
+	meshShader->SetActive();
+	// ビュー行列の設定
+	view = Matrix4::CreateLookAt(Vector3::Zero, Vector3::UnitX, Vector3::UnitZ);
+	projection = Matrix4::CreatePerspectiveFOV(Math::ToRadians(70.0f),
+		screenWidth, screenHeight, 25.0f, 13000.0f);
+	meshShader->SetMatrixUniform("uViewProj", view * projection);
+
+	basicShader->SetActive();
+	basicShader->SetMatrixUniform("uViewProj", view * projection);
+	return true;
 }
 
 /**
@@ -408,63 +434,199 @@ bool Renderer::LoadShaders()
 */
 void Renderer::CreateSpriteVerts()
 {
-    float vertices[] = {
-        -0.5f, 0.5f, 0.f, 0.f, 0.f, 0.0f, 0.f, 0.f, // 左上
-        0.5f, 0.5f, 0.f, 0.f, 0.f, 0.0f, 1.f, 0.f, // 右上
-        0.5f,-0.5f, 0.f, 0.f, 0.f, 0.0f, 1.f, 1.f, // 右下
-        -0.5f,-0.5f, 0.f, 0.f, 0.f, 0.0f, 0.f, 1.f  // 左下
-    };
+	float vertices[] = {
+		-0.5f, 0.5f, 0.f, 0.f, 0.f, 0.0f, 0.f, 0.f, // 左上
+		0.5f, 0.5f, 0.f, 0.f, 0.f, 0.0f, 1.f, 0.f, // 右上
+		0.5f,-0.5f, 0.f, 0.f, 0.f, 0.0f, 1.f, 1.f, // 右下
+		-0.5f,-0.5f, 0.f, 0.f, 0.f, 0.0f, 0.f, 1.f  // 左下
+	};
 
-    unsigned int indices[] = {
-        0, 1, 2,
-        2, 3, 0
-    };
+	unsigned int indices[] = {
+		0, 1, 2,
+		2, 3, 0
+	};
 
-    spriteVerts = new VertexArray(vertices, 4, indices, 6);
+	spriteVerts = new VertexArray(vertices, 4, indices, 6);
 }
 
+// パーティクル頂点作成
+void Renderer::CreateParticleVerts()
+{
+	float vertices[] = {
+		-0.5f, 0.f, 0.5f, 0.f, 0.f, 0.0f, 0.f, 0.f, // top left
+		 0.5f, 0.f, 0.5f, 0.f, 0.f, 0.0f, 1.f, 0.f, // top right
+		 0.5f, 0.f,-0.5f, 0.f, 0.f, 0.0f, 1.f, 1.f, // bottom right
+		-0.5f, 0.f,-0.5f, 0.f, 0.f, 0.0f, 0.f, 1.f  // bottom left
+	};
+
+	unsigned int indices[] = {
+		0, 2, 1,
+		2, 0, 3
+	};
+	particleVertex = new VertexArray(vertices, 4, VertexArray::PosNormTex, indices, 6);
+}
+
+void Renderer::DrawParticle()
+{
+
+	std::sort(particles.begin(), particles.end(), std::greater<ParticleComponent*>());
+
+	if (particles.size() == 0)
+	{
+		return;
+	}
+	// ブレンドモード初期状態取得
+	ParticleComponent::PARTICLE_BLEND_ENUM blendType, prevType;
+	auto itr = particles.begin();
+	blendType = prevType = (*itr)->GetBlendType();
+
+	// テクスチャID初期状態取得
+	int nowTexture, prevTexture;
+	nowTexture = prevTexture = (*itr)->GetTextureID();
+
+	// ビュープロジェクション行列
+	Matrix4 viewProjectionMat;
+	viewProjectionMat = view * projection;
+
+	// シェーダーON
+	particleShader->SetActive();
+	particleShader->SetMatrixUniform("uViewProj", viewProjectionMat);
+
+	// 全てのパーティクルのビルボード行列をセット
+	Matrix4 tmp;
+	tmp = Matrix4::CreateRotationZ(0.5f * 3.14159f);
+	(*itr)->SetBillboardMat(tmp);
+
+	glEnable(GL_BLEND);
+	glDepthMask(GL_FALSE);
+
+	// すべてのパーティクルを描画
+	ChangeBlendMode(blendType);
+	ChangeTexture(nowTexture);
+
+	for (auto particle : particles)
+	{
+		//ブレンドモード変更が必要なら変更する
+		blendType = particle->GetBlendType();
+		if (blendType != prevType)
+		{
+			ChangeBlendMode(blendType);
+		}
+		// テクスチャ変更が必要なら変更する
+		nowTexture = particle->GetTextureID();
+		if (nowTexture != prevTexture)
+		{
+			ChangeTexture(nowTexture);
+		}
+
+		// パーティクル描画
+		particle->Draw(particleShader);
+
+		// 前回描画状態として保存
+		prevType = blendType;
+		prevTexture = nowTexture;
+	}
+	glDisable(GL_BLEND);
+	glDepthMask(GL_TRUE);
+}
+
+void Renderer::Draw3DScene(unsigned int framebuffer, const Matrix4 & view, const Matrix4 & proj, float viewPortScale, bool lit)
+{
+	// Set the current frame buffer
+	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+	// Set viewport size based on scale
+	glViewport(0, 0,
+		static_cast<int>(screenWidth * viewPortScale),
+		static_cast<int>(screenHeight * viewPortScale)
+	);
+
+	// Clear color buffer/depth buffer
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glDepthMask(GL_TRUE);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// Draw mesh components
+	// Enable depth buffering/disable alpha blend
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+	// Set the mesh shader active
+	meshShader->SetActive();
+	// Update view-projection matrix
+	meshShader->SetMatrixUniform("uViewProj", view * proj);
+	// Update lighting uniforms
+	if (lit)
+	{
+		SetLightUniforms(meshShader, view);
+	}
+	for (auto mc : meshComponents)
+	{
+		if (mc->GetVisible())
+		{
+			mc->Draw(meshShader);
+		}
+	}
+
+}
 
 /**
 @brief  光源情報をシェーダーの変数にセットする
 @param  セットするShaderクラスのポインタ
 */
-void Renderer::SetLightUniforms(Shader* _shader)
+void Renderer::SetLightUniforms(Shader* _shader, const Matrix4& _view)
 {
-	// ビュー行列を転置行列にする
-    Matrix4 invView = view;
-    invView.Invert();
+	// ビュー行列を逆行列にする
+	Matrix4 invView = _view;
+	invView.Invert();
 	_shader->SetVectorUniform("uCameraPos", invView.GetTranslation());
-    // 環境光の設定
+	// 環境光の設定
 	_shader->SetVectorUniform("uAmbientLight", ambientLight);
-    // 平行光源の設定
+	// 平行光源の設定
 	_shader->SetVectorUniform("uDirLight.mDirection",
-        dirLight.direction);
+		dirLight.direction);
 	_shader->SetVectorUniform("uDirLight.mDiffuseColor",
-        dirLight.diffuseColor);
+		dirLight.diffuseColor);
 	_shader->SetVectorUniform("uDirLight.mSpecColor",
-        dirLight.specColor);
+		dirLight.specColor);
 }
 
-void Renderer::SetWallLightUniforms(Shader* _shader)
+void Renderer::ChangeBlendMode(ParticleComponent::PARTICLE_BLEND_ENUM blendType)
 {
-    // ビュー行列を転置行列にする
-    Matrix4 invView = view;
-    invView.Invert();
-	_shader->SetVectorUniform("uCameraPos", invView.GetTranslation());
-    // 環境光の設定
-	_shader->SetVectorUniform("uAmbientLight", ambientLight);
-    // 平行光源の設定
-	_shader->SetVectorUniform("uDirLight.mDirection",
-        wallDirLight.direction);
-	_shader->SetVectorUniform("uDirLight.mDiffuseColor",
-        wallDirLight.diffuseColor);
-	_shader->SetVectorUniform("uDirLight.mSpecColor",
-        wallDirLight.specColor);
+	switch (blendType)
+	{
+	case ParticleComponent::PARTICLE_BLEND_ENUM_ADD:
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE);  //加算合成
+		break;
+	case ParticleComponent::PARTICLE_BLEND_ENUM_ALPHA:
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // アルファブレンド
+		break;
+	case ParticleComponent::PARTICLE_BLEND_ENUM_MULT:
+		glBlendFunc(GL_ZERO, GL_SRC_COLOR); //乗算合成
+		break;
+	default:
+		break;
+	}
 }
 
-void Renderer::SetWallDirLight()
+void Renderer::ChangeTexture(int changeTextureID)
 {
-    wallDirLight.direction = Vector3(0.0f, -0.7f, -0.7f);
-    wallDirLight.diffuseColor = Vector3(0.78f, 0.88f, 1.0f);
-    wallDirLight.specColor = Vector3(0.8f, 0.8f, 0.8f);
+	glBindTexture(GL_TEXTURE_2D, changeTextureID);
+}
+
+Vector3 Renderer::CalcCameraPos()
+{
+	// ビュー行列よりワールドでのカメラ位置算出
+	Matrix4 transMat = view;
+
+	// ビュー行列の移動成分抜き取る
+	Vector3 v;
+	v.x = -1.0f * view.mat[3][0];
+	v.y = -1.0f * view.mat[3][1];
+	v.z = -1.0f * view.mat[3][2];
+
+	//移動成分を取り除いたあと転置して、回転部分の逆変換を作る
+	transMat.mat[3][0] = transMat.mat[3][1] = transMat.mat[3][2] = 0.0f;
+	transMat.Transpose();
+
+	return Vector3(Vector3::Transform(v, transMat));
 }

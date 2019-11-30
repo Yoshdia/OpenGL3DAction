@@ -155,6 +155,7 @@
     <ClCompile Include="GuardPlayerComponent.cpp">
       <Filter>PlayerAction\Guard</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -310,6 +311,7 @@
     <ClInclude Include="GuardPlayerComponent.h">
       <Filter>PlayerAction\Guard</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
