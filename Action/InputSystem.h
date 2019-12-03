@@ -34,11 +34,13 @@ public:
 	@return	ButtonState型の現在の状態
 	*/
 	ButtonState GetKeyState(SDL_Scancode _keyCode) const;
+
 private:
 	//現在のキーボードの入力状態
 	const Uint8* currState;
 	//１フレーム前のキーボードの入力状態
 	Uint8 prevState[SDL_NUM_SCANCODES];
+
 };
 
 //マウスの入力管理クラス
@@ -113,36 +115,27 @@ public:
 	*/
 	ButtonState GetButtonState(SDL_GameControllerButton _button) const;
 
-
-	///**
-	//@brief	左のスティックの入力値を取得する
-	//@return	入力値（-1.0~1.0）
-	//*/
-	//const Vector2& GetLeftStick() const { return leftStick; }
-
-	///**
-	//@brief	右のスティックの入力値を取得する
-	//@return	入力値（-1.0~1.0）
-	//*/
-	//const Vector2& GetRightStick() const { return rightStick; }
-
-	///**
-	//@brief	左のトリガーの入力値を取得する
-	//@return	入力値（0.0~1.0）
-	//*/
-	//float GetLeftTrigger() const { return leftTrigger; }
-
-	///**
-	//@brief	右のトリガーの入力値を取得する
-	//@return	入力値（0.0~1.0）
-	//*/
-	//float GetRightTrigger() const { return rightTrigger; }
-
+	/**
+	@brief スティックの入力を0~32767で返す
+	@param iAxis どのスティックのどの値を取得するか
+		   (左スティックのXを取得...SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX)
+	@return スティックの入力情報
+	*/
+	float GetAxisValue(const SDL_GameControllerAxis iAxis) const;
+	/*
+	@brief スティックの入力を0~1で返す
+	@return スティックの入力情報
+	*/
+	const Vector2& GetLAxisVec() const { return lAxis; }
 private:
 	//現在のボタンの入力状態
 	Uint8 currButtons[SDL_CONTROLLER_BUTTON_MAX];
 	//１フレーム前のボタンの入力状態
 	Uint8 prevButtons[SDL_CONTROLLER_BUTTON_MAX];
+
+	//両スティックの情報
+	float axisValues[SDL_CONTROLLER_AXIS_MAX];
+	Vector2 lAxis;
 };
 
 //各入力機器の入力状態をまとめたラッパー構造体

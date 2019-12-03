@@ -130,6 +130,11 @@ ButtonState ControllerState::GetButtonState(SDL_GameControllerButton _button) co
 	}
 }
 
+float ControllerState::GetAxisValue(const SDL_GameControllerAxis iAxis) const
+{
+	return axisValues[iAxis];
+}
+
 /**
 @brief  初期化処理
 @return true : 成功 , false : 失敗
@@ -142,6 +147,10 @@ bool InputSystem::Initialize()
 	//１フレーム前の入力状態を初期化する
 	memset(state.Keyboard.prevState, 0,
 		SDL_NUM_SCANCODES);
+
+	memset(state.Controller.axisValues, 0,
+		sizeof(float) * SDL_CONTROLLER_AXIS_MAX);
+
 
 	//現在と１フレーム前のマウスの入力状態を初期化する
 	state.Mouse.currButtons = 0;
@@ -253,12 +262,19 @@ void InputSystem::Update()
 			state.Controller.currButtons[b] = SDL_GameControllerGetButton(controller, (SDL_GameControllerButton)b);
 		}
 
+		// 現在のコントローラの軸情報を保存
+		for (int a = 0; a < SDL_CONTROLLER_AXIS_MAX; ++a)
+		{
+			state.Controller.axisValues[a] = SDL_GameControllerGetAxis(controller, (SDL_GameControllerAxis)a);
+		}
 
-
-		// しきい値以下を切る
-		//const float padMaxVal = 32767.0f;
-		//mLAxis.x = (fabs(mLAxis.x) < (float)XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) ? 0.0f : mLAxis.x / padMaxVal;
-		//mLAxis.y = (fabs(mLAxis.y) < (float)XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) ? 0.0f : mLAxis.y / padMaxVal;
+		// LPAD入力をベクトル化する
+		const float maxInput = 32767.0f;
+		state.Controller.lAxis.x = (float)state.Controller.axisValues[SDL_CONTROLLER_AXIS_LEFTX];
+		state.Controller.lAxis.y= (float)state.Controller.axisValues[SDL_CONTROLLER_AXIS_LEFTY];
+		
+		//state.Controller.lAxis.x= (fabs(state.Controller.lAxis.x) < (float)7849) ? 0.0f : state.Controller.lAxis.x / maxInput;
+		//state.Controller.lAxis.y= (fabs(state.Controller.lAxis.y) < (float)8689) ? 0.0f : state.Controller.lAxis.y / maxInput;
 
 	}
 }

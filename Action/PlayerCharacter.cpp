@@ -126,7 +126,6 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	{
 		Game::debug = 1;
 	}
-
 }
 
 void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
