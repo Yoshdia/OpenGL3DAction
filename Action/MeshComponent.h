@@ -12,7 +12,7 @@ public:
 	/**
 	@param	アタッチするゲームオブジェクトのポインタ
 	*/
-    MeshComponent(GameObject* _owner);
+    MeshComponent(GameObject* _owner,bool _skelton=false);
     ~MeshComponent();
 
 	/**
@@ -47,6 +47,7 @@ public:
 	*/
 	bool GetVisible() const { return visible; }
 
+	bool GetIsSkeltal()const { return isSkelton; }
 protected:
 
 	//クラスのポインタ
@@ -56,5 +57,7 @@ protected:
 
 	//描画をするかどうか
 	bool visible;
+
+	bool isSkelton;
 };
 

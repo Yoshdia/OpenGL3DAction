@@ -72,6 +72,13 @@ void Shader::SetMatrixUniform(const char * _name, const Matrix4 & _matrix)
 	glUniformMatrix4fv(loc, 1, GL_TRUE, _matrix.GetAsFloatPtr());
 }
 
+void Shader::SetMatrixUniforms(const char* _name, Matrix4* _matrices, unsigned _count)
+{
+	GLuint loc = glGetUniformLocation(shaderProgram, _name);
+	// 行列配列データをシェーダー変数に送る
+	glUniformMatrix4fv(loc, _count, GL_TRUE, _matrices->GetAsFloatPtr());
+}
+
 /**
 @brief	ベクトルのUniform変数を設定する
 @param	設定するUniform変数名

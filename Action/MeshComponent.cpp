@@ -10,11 +10,12 @@
 /**
 @param	アタッチするゲームオブジェクトのポインタ
 */
-MeshComponent::MeshComponent(GameObject* _owner)
+MeshComponent::MeshComponent(GameObject* _owner, bool _skelton)
 	:Component(_owner)
 	, mMesh(nullptr)
 	, mTextureIndex(0)
 	, visible(true)
+	,isSkelton(_skelton)
 {
 	RENDERER->AddMeshComponent(this);
 }

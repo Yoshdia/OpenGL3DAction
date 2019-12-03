@@ -32,7 +32,7 @@ public:
 	@param	İ’è‚·‚és—ñ
 	*/
 	void SetMatrixUniform(const char* _name , const Matrix4& _matrix);
-
+	void SetMatrixUniforms(const char* _name, Matrix4* _matrices, unsigned _count);
     /**
     @brief	Vector3‚ÌUniform•Ï”‚ğİ’è‚·‚é
     @param	İ’è‚·‚éUniform•Ï”–¼
