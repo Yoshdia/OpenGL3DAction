@@ -51,9 +51,6 @@ PlayerCharacter::PlayerCharacter() :
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 	footChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::GroundTag);
-
-	//MeshComponent* meshComponent = new MeshComponent(this);
-	//meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
 }
 
 PlayerCharacter::~PlayerCharacter()
@@ -91,40 +88,36 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		printf("\nplayerPosition = {%f,%f,%f}", position.x, position.y, position.z);
 
 	inputDirection = 0;
-
-	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
-	{
-		direction = 1;
-		inputDirection++;
-	}
-	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_LEFT))
-	{
-		direction = -1;
-		inputDirection--;
-	}
-
-	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
-	rangeAttackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S);
-	guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_D);
-	jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
-
+	   
+	//コントローラーが接続された場合操作をコントローラーに変更
 	if (InputSystem::GetConnectedController())
 	{
-
 		attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
 		rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
 		guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_B);
 		jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
 		inputDirection = _keyState.Controller.GetLAxisVec().x;
-
-		//direction = inputDirection;
 	}
-		if (direction != inputDirection&&inputDirection!=0)
+	else
+	{
+		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 		{
-			direction = inputDirection;
+			inputDirection++;
 		}
-	//if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_1))
-		//RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -200), position);
+		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_LEFT))
+		{
+			inputDirection--;
+		}
+		attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
+		rangeAttackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S);
+		guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_D);
+		jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
+	}
+	//前Fと入力法が違い、スティックの入力が0でない場合プレイヤーの向きを更新
+	if (direction != inputDirection && inputDirection != 0)
+	{
+		direction = inputDirection;
+	}
 
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_3))
 	{
