@@ -112,6 +112,12 @@ public:
 	*/
 	void RemoveMeshComponent(MeshComponent* _meshComponent);
 
+
+
+
+	const class Skeleton* GetSkeleton(const char* fileName);                       // スケルタルモデルの取得
+	const class Animation* GetAnimation(const char* fileName);                     // スケルタルアニメーションの取得
+
 	/**
 	@brief  メッシュの取得
 	@param	取得したいメッシュのファイル名
@@ -169,6 +175,10 @@ private:
 	Vector3 cameraPos;
 	bool hasParentObject;
 
+	std::unordered_map<std::string, class Skeleton*> mSkeletons; // スケルタルデータ
+	std::unordered_map<std::string, class Animation*> mAnims;    // アニメーションデータ
+	std::vector<class SkeletalMeshComponent*>       mSkeletalMeshes;   // スケルタルメッシュの描画に使われる
+
 	//自分のインスタンス
 	static Renderer* renderer;
 
@@ -215,6 +225,7 @@ private:
 	Shader* spriteShader;
 	VertexArray* spriteVerts;
 	Shader* meshShader;
+	class Shader*  mSkinnedShader;    // スキンメッシュシェーダー
 	Shader* basicShader;
 	Shader* particleShader;
 	VertexArray* particleVertex;   // パーティクル用頂点定義

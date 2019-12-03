@@ -60,8 +60,19 @@ bool Mesh::Load(const std::string & _fileName, Renderer* _renderer)
 
     // Skip the vertex format/shader for now
     // (This is changed in a later chapter's code)
-    size_t vertSize = 8;
+	// 頂点レイアウトとサイズをファイルからセット
+	VertexArray::Layout layout = VertexArray::PosNormTex;
+	size_t vertSize = 8;
 
+	std::string vertexFormat = doc["vertexformat"].GetString();
+	if (vertexFormat == "PosNormSkinTex")
+	{
+		layout = VertexArray::PosNormSkinTex;
+		// This is the number of "Vertex" unions, which is 8 + 2 (for skinning)s　1個の頂点の集合の数　８　＋　２（スキニング分）
+		// 3 (位置xyz) + 3(法線xyz) + 2(Boneと重み）＋　2(UV)  の計　10個分（40byte) 　
+		vertSize = 10;
+	}
+	
     // テクスチャのロード
     const rapidjson::Value& readTextures = doc["textures"];
     if (!readTextures.IsArray() || readTextures.Size() < 1)
@@ -69,7 +80,6 @@ bool Mesh::Load(const std::string & _fileName, Renderer* _renderer)
         SDL_Log("Mesh %s has no textures, there should be at least one", _fileName.c_str());
         return false;
     }
-
 	specPower = static_cast<float>(doc["specularPower"].GetDouble());
 
     for (rapidjson::SizeType i = 0; i < readTextures.Size(); i++)
@@ -110,8 +120,10 @@ bool Mesh::Load(const std::string & _fileName, Renderer* _renderer)
             SDL_Log("Unexpected vertex format for %s", _fileName.c_str());
             return false;
         }
-
-        Vector3 pos(vert[0].GetFloat(), vert[1].GetFloat(), vert[2].GetFloat());
+		///////////////////////////////////////////////////////////////////////////////
+		Vector3 pos(static_cast<float>(vert[0].GetDouble()),
+					static_cast<float>(vert[1].GetDouble()),
+					static_cast<float>(vert[2].GetDouble()));
 		verts.push_back(pos);
 		radius = Math::Max(radius, pos.LengthSq());
 

@@ -11,6 +11,10 @@
 #include <sstream>
 #include <document.h>
 
+#include "Skeleton.h"
+#include "Animation.h"
+#include "SkeletalMeshComponent.h"
+
 Renderer* Renderer::renderer = nullptr;
 
 void Renderer::SetParticleVertex()
@@ -33,6 +37,7 @@ Renderer::Renderer()
 	, offsetPos(Vector3(0, 0, 0))
 	, hasParentObject(false)
 	, cameraPos(Vector3(0, 0, 0))
+	, mSkinnedShader(nullptr)
 {
 }
 
@@ -189,6 +194,17 @@ void Renderer::UnloadData()
 		i.second->Unload();
 		delete i.second;
 	}
+	// Unload skeletons
+	for (auto s : mSkeletons)
+	{
+		delete s.second;
+	}
+	// Unload animations
+	for (auto a : mAnims)
+	{
+		delete a.second;
+	}
+
 	meshes.clear();
 }
 
@@ -224,6 +240,21 @@ void Renderer::Draw()
 
 	basicShader->SetActive();
 	basicShader->SetMatrixUniform("uViewProj", view * projection);
+
+	// Draw any skinned meshes now
+	// Draw any skinned meshes now
+	mSkinnedShader->SetActive();
+	// Update view-projection matrix
+	mSkinnedShader->SetMatrixUniform("uViewProj", view * projection);
+	// Update lighting uniforms
+	SetLightUniforms(mSkinnedShader, view);
+	for (auto sk : mSkeletalMeshes)
+	{
+		if (sk->GetVisible())
+		{
+			sk->Draw(mSkinnedShader);
+		}
+	}
 
 	DrawParticle();
 
@@ -302,7 +333,15 @@ void Renderer::RemoveParticle(ParticleComponent * _particleComponent)
 */
 void Renderer::AddMeshComponent(MeshComponent* _meshComponent)
 {
-	meshComponents.emplace_back(_meshComponent);
+	if (_meshComponent->GetIsSkeltal())
+	{
+		SkeletalMeshComponent* sk = static_cast<SkeletalMeshComponent*>(_meshComponent);
+		mSkeletalMeshes.emplace_back(sk);
+	}
+	else
+	{
+		meshComponents.emplace_back(_meshComponent);
+	}
 }
 
 /**
@@ -311,8 +350,64 @@ void Renderer::AddMeshComponent(MeshComponent* _meshComponent)
 */
 void Renderer::RemoveMeshComponent(MeshComponent* _meshComponent)
 {
-	auto iter = std::find(meshComponents.begin(), meshComponents.end(), _meshComponent);
-	meshComponents.erase(iter);
+	if (_meshComponent->GetIsSkeltal())
+	{
+		SkeletalMeshComponent* sk = static_cast<SkeletalMeshComponent*>(_meshComponent);
+		auto iter = std::find(mSkeletalMeshes.begin(), mSkeletalMeshes.end(), sk);
+		mSkeletalMeshes.erase(iter);
+	}
+	else
+	{
+		auto iter = std::find(meshComponents.begin(), meshComponents.end(), _meshComponent);
+		meshComponents.erase(iter);
+	}
+}
+
+const Skeleton * Renderer::GetSkeleton(const char * fileName)
+{
+	std::string file(fileName);
+	auto iter = mSkeletons.find(file);
+	if (iter != mSkeletons.end())
+	{
+		return iter->second;
+	}
+	else
+	{
+		Skeleton* sk = new Skeleton();
+		if (sk->Load(file))
+		{
+			mSkeletons.emplace(file, sk);
+		}
+		else
+		{
+			delete sk;
+			sk = nullptr;
+		}
+		return sk;
+	}
+}
+
+const Animation * Renderer::GetAnimation(const char * fileName)
+{
+	auto iter = mAnims.find(fileName);
+	if (iter != mAnims.end())
+	{
+		return iter->second;
+	}
+	else
+	{
+		Animation* anim = new Animation();
+		if (anim->Load(fileName))
+		{
+			mAnims.emplace(fileName, anim);
+		}
+		else
+		{
+			delete anim;
+			anim = nullptr;
+		}
+		return anim;
+	}
 }
 
 /**
@@ -414,6 +509,14 @@ bool Renderer::LoadShaders()
 	{
 		printf("シェーダー読み込み失敗\n");
 	}
+
+	mSkinnedShader = new Shader();
+	if (!mSkinnedShader->Load("Shaders/Skinned.vert", "Shaders/Phong.frag"))
+	{
+		return false;
+	}
+	mSkinnedShader->SetActive();
+	mSkinnedShader->SetMatrixUniform("uViewProj", view * projection);
 
 	meshShader->SetActive();
 	// ビュー行列の設定

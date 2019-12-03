@@ -4,6 +4,9 @@
 #include "ColliderComponent.h"
 #include "SkeltonObjectChecker.h"
 #include "ThrowWeapon.h"
+#include "SkeletalMeshComponent.h"
+#include "Animation.h"
+#include "Skeleton.h"
 
 const float EnemyBase::Gravity = 800.0f;
 const float EnemyBase::GravityLimit = 15.5f;
@@ -37,8 +40,16 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	attackIntervalCount(0)
 {
 	tag = Tag::EnemyTag;
-	MeshComponent* meshComponent = new MeshComponent(this);
-	meshComponent->SetMesh(RENDERER->GetMesh(meshName));
+	/*MeshComponent* meshComponent = new MeshComponent(this);
+	meshComponent->SetMesh(RENDERER->GetMesh(meshName));*/
+	SkeletalMeshComponent* mMeshComp = new SkeletalMeshComponent(this);
+	Mesh* m = RENDERER->GetMesh("Assets/SK_Mannequin.gpmesh");
+	const Skeleton* s = RENDERER->GetSkeleton("Assets/SK_Mannequin.gpskel");
+	const Animation* a = RENDERER->GetAnimation("Assets/ThirdPersonRun.gpanim");
+	mMeshComp->SetMesh(m);
+	mMeshComp->SetSkeleton(s);
+	mMeshComp->PlayAnimation(a, 0.125f);
+
 
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
