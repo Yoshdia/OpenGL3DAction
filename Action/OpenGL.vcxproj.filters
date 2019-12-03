@@ -74,9 +74,6 @@
     <ClCompile Include="SceneBase.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="WallMeshComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -230,9 +227,6 @@
     <ClInclude Include="SceneBase.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="WallMeshComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="TitleScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -293,7 +287,6 @@
     <ClInclude Include="GuardPlayerComponent.h">
       <Filter>PlayerAction\Guard</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleComponent.h" />
     <ClInclude Include="AnimationSpriteClip.h">
       <Filter>Animation\Player</Filter>
     </ClInclude>
@@ -310,6 +303,9 @@
       <Filter>Animation\Player</Filter>
     </ClInclude>
     <ClInclude Include="AnimationPlayerComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

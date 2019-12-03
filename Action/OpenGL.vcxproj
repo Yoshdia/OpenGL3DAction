@@ -195,7 +195,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="ThrowWeapon.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="VertexArray.cpp" />
-    <ClCompile Include="WallMeshComponent.cpp" />
     <ClCompile Include="WeaponRotationAnimationPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -249,7 +248,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="ThrowWeapon.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="VertexArray.h" />
-    <ClInclude Include="WallMeshComponent.h" />
     <ClInclude Include="WeaponRotationAnimationPlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -10,12 +10,11 @@
 /**
 @param	アタッチするゲームオブジェクトのポインタ
 */
-MeshComponent::MeshComponent(GameObject* _owner, ShaderType _shaderType)
+MeshComponent::MeshComponent(GameObject* _owner)
 	:Component(_owner)
 	, mMesh(nullptr)
 	, mTextureIndex(0)
 	, visible(true)
-	, shaderName(_shaderType)
 {
 	RENDERER->AddMeshComponent(this);
 }

@@ -225,14 +225,6 @@ void Renderer::Draw()
 	basicShader->SetActive();
 	basicShader->SetMatrixUniform("uViewProj", view * projection);
 
-	for (auto mc : basicMeshComponents)
-	{
-		if (mc->GetVisible())
-		{
-			mc->Draw(basicShader);
-		}
-	}
-
 	DrawParticle();
 
 	// スプライトコンポーネントの描画
@@ -310,14 +302,7 @@ void Renderer::RemoveParticle(ParticleComponent * _particleComponent)
 */
 void Renderer::AddMeshComponent(MeshComponent* _meshComponent)
 {
-	if (_meshComponent->GetShaderName() == DEFAULT)
-	{
-		meshComponents.emplace_back(_meshComponent);
-	}
-	else if (_meshComponent->GetShaderName() == WALL)
-	{
-		basicMeshComponents.emplace_back(_meshComponent);
-	}
+	meshComponents.emplace_back(_meshComponent);
 }
 
 /**
@@ -326,16 +311,8 @@ void Renderer::AddMeshComponent(MeshComponent* _meshComponent)
 */
 void Renderer::RemoveMeshComponent(MeshComponent* _meshComponent)
 {
-	if (_meshComponent->GetShaderName() == DEFAULT)
-	{
-		auto iter = std::find(meshComponents.begin(), meshComponents.end(), _meshComponent);
-		meshComponents.erase(iter);
-	}
-	else if (_meshComponent->GetShaderName() == WALL)
-	{
-		auto iter = std::find(basicMeshComponents.begin(), basicMeshComponents.end(), _meshComponent);
-		basicMeshComponents.erase(iter);
-	}
+	auto iter = std::find(meshComponents.begin(), meshComponents.end(), _meshComponent);
+	meshComponents.erase(iter);
 }
 
 /**

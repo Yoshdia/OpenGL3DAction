@@ -210,12 +210,7 @@ private:
 	std::unordered_map<std::string, Texture*>textures;
 
 
-	//　コンポーネントに追加
-	//std::vector<Particle*> particles;        // パーティクル配列
-
-	std::vector<MeshComponent*> basicMeshComponents;
-
-	//クラスのポインタ
+//クラスのポインタ
 
 	Shader* spriteShader;
 	VertexArray* spriteVerts;
