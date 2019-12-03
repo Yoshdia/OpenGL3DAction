@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <limits.h>
 
+bool InputSystem::controllerConnected = 0;
+
 /**
 @brief	現在のキーの入力状態のみを取得する
 @param	SDL_Scancodeのキーコード
@@ -156,6 +158,10 @@ bool InputSystem::Initialize()
 	//コントローラーを開く
 	controller = nullptr;
 	controller = SDL_GameControllerOpen(0);
+	if (controller != nullptr)
+	{
+		controllerConnected = true;
+	}
 	if (SDL_IsGameController(0))
 	{
 		printf("%c", SDL_GameControllerMapping(controller));
@@ -236,7 +242,7 @@ void InputSystem::Update()
 	if (controller != NULL)
 	{
 		// 前のフレームのコントローラの状態をコピーする
-		memcpy(&state.Controller.prevButtons, &state.Controller.currButtons, sizeof(Uint8)*SDL_CONTROLLER_BUTTON_MAX);
+		memcpy(&state.Controller.prevButtons, &state.Controller.currButtons, sizeof(Uint8) * SDL_CONTROLLER_BUTTON_MAX);
 
 		// コントローラの状態を更新する
 		SDL_GameControllerUpdate();

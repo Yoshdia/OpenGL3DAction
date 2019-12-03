@@ -113,6 +113,7 @@ public:
 	*/
 	ButtonState GetButtonState(SDL_GameControllerButton _button) const;
 
+
 	///**
 	//@brief	左のスティックの入力値を取得する
 	//@return	入力値（-1.0~1.0）
@@ -192,6 +193,8 @@ public:
 	@param	true : 相対モード , false : デフォルトモード
 	*/
 	void SetRelativeMouseMode(bool _value);
+
+	static bool GetConnectedController() { return controllerConnected; }
 private:
 	/**
 	@brief  入力された値（int）をフィルタリングする（範囲内に収めて-1.0~1.0にまとめる）
@@ -212,4 +215,6 @@ private:
 	InputState state;
 	//SDLでコントローラーを認識するためのクラスポインタ
 	SDL_GameController* controller;
+
+	static bool controllerConnected;
 };

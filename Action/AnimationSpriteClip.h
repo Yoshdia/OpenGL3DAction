@@ -21,11 +21,15 @@ public:
 	Texture* GetSprite() { return animation[nowAnimationFrame].sprite; };
 	bool AnimationEnd() { return animationEnd; };
 	void ResetAnimation();
+
+	bool GetLoopFlag() { return loop; }
 protected:
 	AnimationKeyFrame* animation;
 
 	int nowAnimationTime;
 	int nowAnimationFrame;
 	bool animationEnd;
+
+	bool loop;
 };
 

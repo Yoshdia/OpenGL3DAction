@@ -107,11 +107,13 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_D);
 	jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
 
-	//if (_keyState.Controller.GetIsConnected())
+	//if (InputSystem::GetConnectedController())
 	//{
+
 	//	attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_B);
-	//	rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
-	//	jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
+	//	rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
+	//	guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_Y);
+	//	jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
 	//}
 	//if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_1))
 		//RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -200), position);
@@ -122,9 +124,9 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	}
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_4))
 	{
-		Game::debug=1;
+		Game::debug = 1;
 	}
-	
+
 }
 
 void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
@@ -152,23 +154,37 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 
 void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 {
-	Move(_deltaTime);
-	//’…’n‚µ‚Ä‚¢‚é‚©
-	if (!_noGround)
-	{
-		Jump();
-	}
 	if (attackBottonInput)
 	{
 		Attack(PlayerAnimationState::Attack);
+		if (animationComponent != nullptr)
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Attack);
+		}
 	}
 	else if (rangeAttackBottonInput)
 	{
 		Attack(PlayerAnimationState::Range);
+		if (animationComponent != nullptr)
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Range);
+		}
 	}
 	else if (guardBottonInput)
 	{
 		Guard();
+	}
+	else
+	{
+		if (inputDirection != 0)
+		{
+			Move(_deltaTime);
+		}
+		//’…’n‚µ‚Ä‚¢‚é‚©
+		if (!_noGround)
+		{
+			Jump();
+		}
 	}
 }
 
@@ -181,19 +197,11 @@ void PlayerCharacter::Attack(PlayerAnimationState _animState)
 		{
 			canNotActionTime = attack->Attack(direction);
 		}
-		if (animationComponent != nullptr)
-		{
-			animationComponent->SetAnimation(PlayerAnimationState::Attack);
-		}
 		break;
 	case(PlayerAnimationState::Range):
 		if (attack != nullptr)
 		{
 			canNotActionTime = attack->RangeAttack(direction);
-		}
-		if (animationComponent != nullptr)
-		{
-			animationComponent->SetAnimation(PlayerAnimationState::Range);
 		}
 		break;
 	}
@@ -219,10 +227,10 @@ void PlayerCharacter::Move(float _deltaTime)
 	}
 	else
 	{
-		if (animationComponent != nullptr)
-		{
-			animationComponent->SetAnimation(PlayerAnimationState::Idle);
-		}
+		//if (animationComponent != nullptr)
+		//{
+		//	animationComponent->SetAnimation(PlayerAnimationState::Idle);
+		//}
 	}
 }
 

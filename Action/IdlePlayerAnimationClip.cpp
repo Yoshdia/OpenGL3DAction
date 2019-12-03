@@ -11,6 +11,7 @@ IdlePlayerAnimationClip::IdlePlayerAnimationClip()
 	animation[1].waitTimeForNextTexture = 20;
 	animation[2].sprite = RENDERER->GetTexture("Assets/Image/Idle3.png");
 	animation[2].waitTimeForNextTexture = 20;
+	loop = true;
 }
 
 

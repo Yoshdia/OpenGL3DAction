@@ -1,7 +1,11 @@
 #include "AnimationSpriteClip.h"
 #include "Texture.h"
 
-AnimationSpriteClip::AnimationSpriteClip()
+AnimationSpriteClip::AnimationSpriteClip() :
+	nowAnimationFrame(0),
+	nowAnimationTime(0),
+	loop(false),
+	animationEnd(false)
 {
 	nowAnimationFrame = 0;
 	nowAnimationTime = 0;
@@ -23,6 +27,10 @@ AnimationSpriteClip::~AnimationSpriteClip()
 
 void AnimationSpriteClip::Animation()
 {
+	if (animationEnd&&!loop)
+	{
+		return;
+	}
 	if (nowAnimationTime < animation[nowAnimationFrame].waitTimeForNextTexture)
 	{
 		nowAnimationTime++;
@@ -33,7 +41,14 @@ void AnimationSpriteClip::Animation()
 		if (animation[nowAnimationFrame].sprite == nullptr)
 		{
 			animationEnd = true;
-			nowAnimationFrame = 0;
+			if (loop)
+			{
+				nowAnimationFrame = 0;
+			}
+			else
+			{
+				nowAnimationFrame--;
+			}
 		}
 
 		nowAnimationTime = 0;
@@ -44,4 +59,5 @@ void AnimationSpriteClip::ResetAnimation()
 {
 	nowAnimationFrame = 0;
 	nowAnimationTime = 0;
+	animationEnd = false;
 }

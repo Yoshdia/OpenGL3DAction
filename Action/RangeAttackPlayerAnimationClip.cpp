@@ -10,6 +10,7 @@ RangeAttackPlayerAnimationClip::RangeAttackPlayerAnimationClip()
 	animation[1].waitTimeForNextTexture = 10;
 	animation[2].sprite = RENDERER->GetTexture("Assets/Image/range3.png");
 	animation[2].waitTimeForNextTexture = 10;
+	loop = false;
 }
 
 

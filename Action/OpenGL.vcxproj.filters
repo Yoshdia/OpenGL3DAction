@@ -80,23 +80,8 @@
     <ClCompile Include="TitleScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationPlayerComponent.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimationSpriteClip.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="MovePlayerAnimationClip.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="IdlePlayerAnimationClip.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
     <ClCompile Include="AttackPlayerComponent.cpp">
       <Filter>PlayerAction\Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackPlayerAnimationClip.cpp">
-      <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="AttackPlayerOnce.cpp">
       <Filter>PlayerAction\Attack\Combo</Filter>
@@ -140,9 +125,6 @@
     <ClCompile Include="SkeltonObjectChecker.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="RangeAttackPlayerAnimationClip.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
     <ClCompile Include="ThrowWeapon.cpp">
       <Filter>PlayerAction\Weapon</Filter>
     </ClCompile>
@@ -156,6 +138,24 @@
       <Filter>PlayerAction\Guard</Filter>
     </ClCompile>
     <ClCompile Include="ParticleComponent.cpp" />
+    <ClCompile Include="AnimationSpriteClip.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackPlayerAnimationClip.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="IdlePlayerAnimationClip.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MovePlayerAnimationClip.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeAttackPlayerAnimationClip.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationPlayerComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -239,23 +239,8 @@
     <ClInclude Include="PlayerCharacter.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationPlayerComponent.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationSpriteClip.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="MovePlayerAnimationClip.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="IdlePlayerAnimationClip.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
     <ClInclude Include="AttackPlayerComponent.h">
       <Filter>PlayerAction\Attack</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackPlayerAnimationClip.h">
-      <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="AttackPlayerOnce.h">
       <Filter>PlayerAction\Attack\Combo</Filter>
@@ -296,9 +281,6 @@
     <ClInclude Include="SkeltonObjectChecker.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="RangeAttackPlayerAnimationClip.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
     <ClInclude Include="ThrowWeapon.h">
       <Filter>PlayerAction\Weapon</Filter>
     </ClInclude>
@@ -312,6 +294,24 @@
       <Filter>PlayerAction\Guard</Filter>
     </ClInclude>
     <ClInclude Include="ParticleComponent.h" />
+    <ClInclude Include="AnimationSpriteClip.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackPlayerAnimationClip.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="IdlePlayerAnimationClip.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MovePlayerAnimationClip.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeAttackPlayerAnimationClip.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationPlayerComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -364,6 +364,9 @@
     </Filter>
     <Filter Include="PlayerAction\Weapon">
       <UniqueIdentifier>{91cc7e3d-8a65-457f-b294-9c649e27863e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\Player">
+      <UniqueIdentifier>{9af7e7f4-cc20-4f4f-9962-35797026c41d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
