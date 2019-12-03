@@ -111,18 +111,18 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	if (InputSystem::GetConnectedController())
 	{
 
-		attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_B);
-		rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
-		guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_Y);
+		attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
+		rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
+		guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_B);
 		jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
 		inputDirection = _keyState.Controller.GetLAxisVec().x;
 
-		direction = inputDirection;
+		//direction = inputDirection;
 	}
-	if (direction == 0)
-	{
-		direction = 1;
-	}
+		if (direction != inputDirection&&inputDirection!=0)
+		{
+			direction = inputDirection;
+		}
 	//if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_1))
 		//RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -200), position);
 
