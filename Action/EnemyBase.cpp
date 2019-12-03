@@ -50,6 +50,12 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	mMeshComp->SetSkeleton(s);
 	mMeshComp->PlayAnimation(a, 0.125f);
 
+	//‰Šú‚ªZ²‚ğã‚É‚·‚éd—l‚È‚Ì‚Å‰ñ“]‚³‚¹‚é
+	float radian = Math::ToRadians(-90);
+	Quaternion rot = GetRotation();
+	Quaternion inc(Vector3::UnitX, radian);
+	Quaternion target = Quaternion::Concatenate(rot, inc);
+	SetRotation(target);
 
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 

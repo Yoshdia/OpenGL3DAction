@@ -5,7 +5,7 @@
 MeleeEnemy::MeleeEnemy(Vector3 _pos) :
 	EnemyBase("Assets/Model/untitled.gpmesh")
 {
-	SetScale(25);
+	SetScale(1);
 	SetPosition(_pos);
 }
 

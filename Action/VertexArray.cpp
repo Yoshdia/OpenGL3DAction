@@ -56,7 +56,9 @@ VertexArray::VertexArray(const float* _verts, unsigned int _numVerts,
         reinterpret_cast<void*>(sizeof(float) * 6));	//オフセットポインタ
 }
 
-VertexArray::VertexArray(const float * verts, unsigned int numVerts, Layout layout, const unsigned int * indices, unsigned int numIndices)
+VertexArray::VertexArray(const void * verts, unsigned int _numVerts, Layout layout, const unsigned int * indices, unsigned int _numIndices)
+	:numVerts(_numVerts)
+	, numIndices(_numIndices)
 {
 	// 頂点配列の作成
 	glGenVertexArrays(1, &vertexArray);
