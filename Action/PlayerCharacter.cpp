@@ -91,6 +91,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		printf("\nplayerPosition = {%f,%f,%f}", position.x, position.y, position.z);
 
 	inputDirection = 0;
+
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 	{
 		direction = 1;
@@ -107,14 +108,21 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_D);
 	jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
 
-	//if (InputSystem::GetConnectedController())
-	//{
+	if (InputSystem::GetConnectedController())
+	{
 
-	//	attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_B);
-	//	rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
-	//	guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_Y);
-	//	jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
-	//}
+		attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_B);
+		rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
+		guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_Y);
+		jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
+		inputDirection = _keyState.Controller.GetLAxisVec().x;
+
+		direction = inputDirection;
+	}
+	if (direction == 0)
+	{
+		direction = 1;
+	}
 	//if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_1))
 		//RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -200), position);
 
