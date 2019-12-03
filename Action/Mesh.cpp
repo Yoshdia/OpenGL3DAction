@@ -121,7 +121,9 @@ bool Mesh::Load(const std::string & _fileName, Renderer* _renderer)
 	}
 
 	std::vector<Vertex> vertices;
+	std::vector<float> v2;
 	vertices.reserve(vertsJson.Size() * vertSize);
+	v2.reserve(vertsJson.Size() * vertSize);
 	radius = 0.0f;
 	for (rapidjson::SizeType i = 0; i < vertsJson.Size(); i++)
 	{
@@ -147,7 +149,7 @@ bool Mesh::Load(const std::string & _fileName, Renderer* _renderer)
 			for (rapidjson::SizeType j = 0; j < vert.Size(); j++)
 			{
 				v.f = static_cast<float>(vert[j].GetDouble());
-				vertices.emplace_back(v);
+				v2.emplace_back(v.f);
 			}
 		}
 		else
@@ -157,7 +159,7 @@ bool Mesh::Load(const std::string & _fileName, Renderer* _renderer)
 			for (rapidjson::SizeType j = 0; j < 6; j++)
 			{
 				v.f = static_cast<float>(vert[j].GetDouble());
-				vertices.emplace_back(v);
+				v2.emplace_back(v.f);
 			}
 
 			// Add skin information　スキン情報追加（ボーン番号:unsigned charの1バイト分）
@@ -167,14 +169,14 @@ bool Mesh::Load(const std::string & _fileName, Renderer* _renderer)
 				v.b[1] = vert[j + 1].GetUint();
 				v.b[2] = vert[j + 2].GetUint();
 				v.b[3] = vert[j + 3].GetUint();
-				vertices.emplace_back(v);
+				v2.emplace_back(v.f);
 			}
 
 			// Add tex coords　テクスチャ座標
 			for (rapidjson::SizeType j = 14; j < vert.Size(); j++)
 			{
 				v.f = static_cast<float>(vert[j].GetDouble());
-				vertices.emplace_back(v);
+				v2.emplace_back(v.f);
 			}
 		}
 	}
@@ -206,9 +208,20 @@ bool Mesh::Load(const std::string & _fileName, Renderer* _renderer)
 		indices.emplace_back(ind[2].GetUint());
 	}
 
-	// ここでVertexArrayクラスの作成
-	vertexArray = new VertexArray(vertices.data(), static_cast<unsigned>(vertices.size()) / vertSize,
-		layout,indices.data(), static_cast<unsigned>(indices.size()));
+	if (layout == VertexArray::PosNormSkinTex)
+	{
+		vertexArray = new VertexArray(v2.data(), static_cast<unsigned>(v2.size()) / vertSize,
+			layout, indices.data(), static_cast<unsigned>(indices.size()));
+	}
+	else
+	{
+		vertexArray = new VertexArray(v2.data(), static_cast<unsigned>(v2.size()) / vertSize,
+			indices.data(), static_cast<unsigned>(indices.size()));
+	}
+
+	//// ここでVertexArrayクラスの作成
+	//vertexArray = new VertexArray(v2.data(), static_cast<unsigned>(v2.size()) / vertSize,
+	//	layout,indices.data(), static_cast<unsigned>(indices.size()));
 	return true;
 }
 
