@@ -134,7 +134,6 @@
     <ClCompile Include="GuardPlayerComponent.cpp">
       <Filter>PlayerAction\Guard</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleComponent.cpp" />
     <ClCompile Include="AnimationSpriteClip.cpp">
       <Filter>Animation\Player</Filter>
     </ClCompile>
@@ -153,6 +152,13 @@
     <ClCompile Include="AnimationPlayerComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="BoneTransform.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="SkeletalMeshComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -308,6 +314,11 @@
     <ClInclude Include="ParticleComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="BoneTransform.h" />
+    <ClInclude Include="MatrixPalette.h" />
+    <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="SkeletalMeshComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
