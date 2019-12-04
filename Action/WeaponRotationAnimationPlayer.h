@@ -30,5 +30,6 @@ private:
 	//ˆÚ“®‚Ì–Ú•WˆÊ’uA¶¬‚É_moveDistanceStage‚ğ‚à‚Æ‚ÉŒˆ’è
 	Vector3 targetPos;
 	int direction;
+	class RotateComponent* rotateComponent;
 };
 

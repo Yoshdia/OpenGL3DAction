@@ -12,8 +12,10 @@
 #include "GuardPlayerComponent.h"
 #include "ParticleComponent.h"
 #include "Texture.h"
+#include "RotateComponent.h"
 //debug
 #include "Game.h"
+
 
 const float PlayerCharacter::MoveSpeed = 600;
 const float PlayerCharacter::MoveSpeedLimit = 10.0f;
@@ -51,6 +53,8 @@ PlayerCharacter::PlayerCharacter() :
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 	footChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::GroundTag);
+
+	RotateComponent* rota = new RotateComponent(this);
 }
 
 PlayerCharacter::~PlayerCharacter()

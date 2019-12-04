@@ -47,23 +47,8 @@
     <ClCompile Include="InputSystem.cpp">
       <Filter>InputSystem</Filter>
     </ClCompile>
-    <ClCompile Include="CameraComponent.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSCamera.cpp">
-      <Filter>FPSCamera</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSGameObject.cpp">
-      <Filter>FPSCamera</Filter>
-    </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Components\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="FollowCamera.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="FollowCameraObject.cpp">
-      <Filter>Camera</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>GameObjects</Filter>
@@ -96,9 +81,6 @@
       <Filter>PlayerAction\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="DebugBox.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="MainCamera.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -155,10 +137,21 @@
     <ClCompile Include="ParticleComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="BoneTransform.cpp" />
-    <ClCompile Include="Skeleton.cpp" />
-    <ClCompile Include="SkeletalMeshComponent.cpp" />
+    <ClCompile Include="SkeletalMeshComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneTransform.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="RotateComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -206,23 +199,8 @@
     <ClInclude Include="InputSystem.h">
       <Filter>InputSystem</Filter>
     </ClInclude>
-    <ClInclude Include="CameraComponent.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSCamera.h">
-      <Filter>FPSCamera</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSGameObject.h">
-      <Filter>FPSCamera</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Components\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="FollowCamera.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="FollowCameraObject.h">
-      <Filter>Camera</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectManager.h">
       <Filter>GameObjects</Filter>
@@ -258,9 +236,6 @@
       <Filter>PlayerAction\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="DebugBox.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="MainCamera.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -314,11 +289,24 @@
     <ClInclude Include="ParticleComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h" />
-    <ClInclude Include="BoneTransform.h" />
-    <ClInclude Include="MatrixPalette.h" />
-    <ClInclude Include="Skeleton.h" />
-    <ClInclude Include="SkeletalMeshComponent.h" />
+    <ClInclude Include="SkeletalMeshComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneTransform.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixPalette.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -335,12 +323,6 @@
     </Filter>
     <Filter Include="InputSystem">
       <UniqueIdentifier>{86dd1375-242a-47c5-b4ab-8c242a88e640}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Camera">
-      <UniqueIdentifier>{baceb5f2-8168-4a27-a023-a8b9d9ba8383}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FPSCamera">
-      <UniqueIdentifier>{b427765a-6a2f-4bbd-b4b0-d4aa06f05efb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{df0532af-3c8b-4d63-8ea0-ddaca7007ebe}</UniqueIdentifier>

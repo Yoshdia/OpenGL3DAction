@@ -42,13 +42,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -154,18 +154,13 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="AttackPlayerThird.cpp" />
     <ClCompile Include="AttackPlayerTwice.cpp" />
     <ClCompile Include="BoneTransform.cpp" />
-    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CameraObject.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DebugBox.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
-    <ClCompile Include="FollowCamera.cpp" />
-    <ClCompile Include="FollowCameraObject.cpp" />
     <ClCompile Include="FPS.cpp" />
-    <ClCompile Include="FPSCamera.cpp" />
-    <ClCompile Include="FPSGameObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
@@ -173,7 +168,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="IdlePlayerAnimationClip.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -187,6 +181,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="RangeAttackPlayer.cpp" />
     <ClCompile Include="RangeAttackPlayerAnimationClip.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RotateComponent.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShieldWeapon.cpp" />
@@ -212,25 +207,19 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="AttackPlayerThird.h" />
     <ClInclude Include="AttackPlayerTwice.h" />
     <ClInclude Include="BoneTransform.h" />
-    <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CameraObject.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DebugBox.h" />
     <ClInclude Include="EnemyBase.h" />
-    <ClInclude Include="FollowCamera.h" />
-    <ClInclude Include="FollowCameraObject.h" />
     <ClInclude Include="FPS.h" />
-    <ClInclude Include="FPSCamera.h" />
-    <ClInclude Include="FPSGameObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GuardPlayerComponent.h" />
     <ClInclude Include="IdlePlayerAnimationClip.h" />
     <ClInclude Include="InputSystem.h" />
-    <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="MatrixPalette.h" />
     <ClInclude Include="MeleeEnemy.h" />
@@ -245,6 +234,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="RangeAttackPlayer.h" />
     <ClInclude Include="RangeAttackPlayerAnimationClip.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RotateComponent.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShieldWeapon.h" />

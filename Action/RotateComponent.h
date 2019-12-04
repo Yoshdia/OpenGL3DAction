@@ -2,43 +2,13 @@
 #include "Component.h"
 #include "Math.h"
 
-class DrilObject;
-
-class RotateComponent : public Component
+class RotateComponent :
+	public Component
 {
 public:
-	RotateComponent(GameObject* _owner, int _updateOrder = 10);
+	RotateComponent(GameObject* _owner, int _updateOrder=100);
+	~RotateComponent();
 
-	/**
-	@brief	フレーム毎の処理
-	@param	最後のフレームを完了するのに要した時間
-	*/
-	virtual void Update(float _deltaTime);
-
-	/**
-	@brief	入力処理
-	@param	InputState構造体
-	*/
-	virtual void ProcessInput(const struct InputState& _state);
-
-	Vector3 GetCameraUp() const { return Vector3::Transform(Vector3::UnitZ, cameraQuat); }
-	Vector3 GetCameraForward() const { return Vector3::Transform(Vector3::UnitX, cameraQuat); }
-private:
-
-	void MoveWall();
-	void HitRightWall();
-	void HitLeftWall();
-	void HitTopWall();
-	void HitUnderWall();
-
-	bool right;
-    Quaternion target;
-    float f;
-    float addF;
-	float moveTorque;
-    Quaternion rot;
-	Quaternion cameraQuat;
-	Quaternion moveRot;
-	Vector3 ownerPos;
+	void SetRotation(const float& _rotate,const Vector3& _axis);
 };
 

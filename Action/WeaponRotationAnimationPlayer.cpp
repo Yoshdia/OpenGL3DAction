@@ -2,6 +2,7 @@
 #include "MeshComponent.h"
 #include "Renderer.h"
 #include "ColliderComponent.h"
+#include "RotateComponent.h"
 
 WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& pos, const int& _direction, const int& _moveDistanceStage) :
 	rotateSpeed(50),
@@ -25,6 +26,7 @@ WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& pos,
 	meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Bike.gpmesh"));
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
+	rotateComponent = new RotateComponent(this);
 }
 
 
@@ -41,13 +43,7 @@ void WeaponRotationAnimationPlayer::UpdateGameObject(float _deltaTime)
 
 void WeaponRotationAnimationPlayer::Rotate()
 {
-	//‰ñ“]
-	float radian = Math::ToRadians(rotateSpeed);
-	Quaternion rot = GetRotation();
-	Quaternion inc(Vector3::UnitZ, radian);
-	Quaternion target = Quaternion::Concatenate(rot, inc);
-	SetRotation(target);
-
+	rotateComponent->SetRotation(rotateSpeed,Vector3::UnitZ);
 	if (rotateSpeed < 3)
 	{
 		rotateSpeedSub = 0.1f;

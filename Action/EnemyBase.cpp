@@ -7,6 +7,7 @@
 #include "SkeletalMeshComponent.h"
 #include "Animation.h"
 #include "Skeleton.h"
+#include "RotateComponent.h"
 
 const float EnemyBase::Gravity = 800.0f;
 const float EnemyBase::GravityLimit = 15.5f;
@@ -50,13 +51,6 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	mMeshComp->SetSkeleton(s);
 	mMeshComp->PlayAnimation(a, 0.125f);
 
-	//‰Šú‚ªZŽ²‚ðã‚É‚·‚éŽd—l‚È‚Ì‚Å‰ñ“]‚³‚¹‚é
-	float radian = Math::ToRadians(-90);
-	Quaternion rot = GetRotation();
-	Quaternion inc(Vector3::UnitX, radian);
-	Quaternion target = Quaternion::Concatenate(rot, inc);
-	SetRotation(target);
-
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 	footChecker = new SkeltonObjectChecker(this, footPos, Vector3(1, 1, 1), Tag::GroundTag);
@@ -64,6 +58,9 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	forwardGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
 	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(SearchRange, 1, 0), Vector3(SearchRange, 1, 1), Tag::PlayerTag);
 	trackingRange = new SkeltonObjectChecker(this, Vector3::Zero, TrackingRange, Tag::PlayerTag);
+
+	RotateComponent* rotate = new RotateComponent(this);
+	rotate->SetRotation(-90, Vector3::UnitX);
 }
 
 EnemyBase::~EnemyBase()
