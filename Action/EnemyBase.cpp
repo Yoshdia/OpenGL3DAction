@@ -4,10 +4,8 @@
 #include "ColliderComponent.h"
 #include "SkeltonObjectChecker.h"
 #include "ThrowWeapon.h"
-#include "SkeletalMeshComponent.h"
-#include "Animation.h"
-#include "Skeleton.h"
 #include "RotateComponent.h"
+#include "AnimationEnemyComponent.h"
 
 const float EnemyBase::Gravity = 800.0f;
 const float EnemyBase::GravityLimit = 15.5f;
@@ -40,17 +38,10 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	teleportChargingTime(0),
 	attackIntervalCount(0)
 {
+
 	tag = Tag::EnemyTag;
 	/*MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh(meshName));*/
-	SkeletalMeshComponent* mMeshComp = new SkeletalMeshComponent(this);
-	Mesh* m = RENDERER->GetMesh("Assets/SK_Mannequin.gpmesh");
-	const Skeleton* s = RENDERER->GetSkeleton("Assets/SK_Mannequin.gpskel");
-	const Animation* a = RENDERER->GetAnimation("Assets/ThirdPersonRun.gpanim");
-	mMeshComp->SetMesh(m);
-	mMeshComp->SetSkeleton(s);
-	mMeshComp->PlayAnimation(a, 0.125f);
-
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 	footChecker = new SkeltonObjectChecker(this, footPos, Vector3(1, 1, 1), Tag::GroundTag);
@@ -61,6 +52,10 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 
 	RotateComponent* rotate = new RotateComponent(this);
 	rotate->SetRotation(-90, Vector3::UnitX);
+
+	animComponent = new AnimationEnemyComponent(this);
+	animComponent->SetMove(true);
+
 }
 
 EnemyBase::~EnemyBase()
@@ -75,6 +70,7 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 		float gravityDelta = ControlDeltaLimit(Gravity * _deltaTime, GravityLimit);
 		SetPosition(position + Vector3(0, -gravityDelta, 0));
 	}
+
 	UpdateEnemyObject(_deltaTime);
 	NockBack(_deltaTime);
 	Action(_deltaTime);
@@ -154,13 +150,16 @@ void EnemyBase::BranchActionChange()
 {
 	//–_—§‚¿A•às‚ğİ’è‚·‚é—”
 	int ra = rand() % 4;
-	if (ra <= 4)
+	if (ra <= 1)
 	{
 		actionName = EnemyActions::walk;
+		animComponent->SetMove(true);
 	}
 	else
 	{
 		actionName = EnemyActions::noActive;
+		animComponent->SetMove(false);
+
 	}
 	//Œü‚«‚ğƒ‰ƒ“ƒ_ƒ€‚ÅŒˆ’è
 	if ((rand() % 100) < 50)

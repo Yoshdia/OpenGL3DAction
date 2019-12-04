@@ -45,6 +45,7 @@ public:
 	~EnemyBase();
 	void UpdateGameObject(float _deltaTime)override;
 protected:
+	class AnimationEnemyComponent* animComponent;
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair)override;
 	/*
