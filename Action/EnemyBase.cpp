@@ -36,7 +36,8 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	attackRange(AttackRange),
 	attackingState(false),
 	teleportChargingTime(0),
-	attackIntervalCount(0)
+	attackIntervalCount(0),
+	canNotActionTime(0)
 {
 
 	tag = Tag::EnemyTag;
@@ -134,14 +135,22 @@ void EnemyBase::ActionChange()
 
 void EnemyBase::Action(float _deltaTime)
 {
-	if (attackingState)
+	if (canNotActionTime <= 0)
 	{
-		Attacking(_deltaTime);
+		if (attackingState)
+		{
+			Attacking(_deltaTime);
+		}
+		else
+		{
+			NoAttacking(_deltaTime);
+			ActionChange();
+		}
 	}
 	else
 	{
-		NoAttacking(_deltaTime);
-		ActionChange();
+		animComponent->SetAttack(false);
+		canNotActionTime--;
 	}
 	attackIntervalCount--;
 }
@@ -218,6 +227,7 @@ void EnemyBase::NoAttacking(float _deltaTime)
 	{
 		actionName = EnemyActions::approach;
 		attackingState = true;
+		animComponent->SetMove(true);
 	}
 }
 
@@ -272,7 +282,14 @@ void EnemyBase::Attacking(float _deltaTime)
 			if (playerDistance < attackRange)
 			{
 				actionName = EnemyActions::attack;
+				animComponent->SetMove(false);
 			}
+			animComponent->SetMove(true);
+
+		}
+		else
+		{
+			animComponent->SetMove(false);
 		}
 	}
 	else
@@ -281,11 +298,21 @@ void EnemyBase::Attacking(float _deltaTime)
 		if (playerDistance >= attackRange)
 		{
 			actionName = EnemyActions::approach;
+
+			animComponent->SetAttack(false);
+			animComponent->SetMove(true);
+
 		}
 		if (attackIntervalCount <= 0)
 		{
 			attackIntervalCount = AttackIntervalCount;
+			animComponent->SetAttack(true);
+			canNotActionTime = 100;
 			//new ThrowWeapon(position, moveDirection);
+		}
+		else
+		{
+			animComponent->SetAttack(false);
 		}
 	}
 }
