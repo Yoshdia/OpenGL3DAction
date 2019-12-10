@@ -1124,30 +1124,3 @@ namespace Color
 	static const Vector3 LightPink(1.0f, 0.71f, 0.76f);
 	static const Vector3 LightGreen(0.56f, 0.93f, 0.56f);
 }
-
-template<typename T>
-/*
-@fn deltaTimeによる値の変動に上限を付ける
-@param left 上限を設けたい値
-@param limit 上限値
-@return 上限を超えた際は上限値limitを返しそうでないならleftをそのまま返す
-*/
-T ControlDeltaLimit(const T& left, const T& limit)
-{
-	//limitの値がマイナスか
-	if (limit < 0)
-	{
-		if (left < limit)
-		{
-			return limit;
-		}
-	}
-	else
-	{
-		if (left > limit)
-		{
-			return limit;
-		}
-	}
-	return left;
-}

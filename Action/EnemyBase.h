@@ -70,16 +70,12 @@ protected:
 	static const float WalkSpeed;
 	//攻撃対象への接近速度
 	static const float ApproachSpeedRatio;
-	//歩行速度の上限値
-	static const float WalkSpeedLimit;
 
 	static const Vector3 footPos;
 	//足元に地面があるか
 	SkeltonObjectChecker* footChecker;
 	//エネミーに働く重力の力
 	static const float Gravity;
-	//重力の上限値
-	static const float GravityLimit;
 
 	//進行方向の足元に地面があるか
 	SkeltonObjectChecker* forwardDownGroundCheck;

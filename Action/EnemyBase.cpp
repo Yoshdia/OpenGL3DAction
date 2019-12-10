@@ -7,11 +7,9 @@
 #include "RotateComponent.h"
 #include "AnimationEnemyComponent.h"
 
-const float EnemyBase::Gravity = 800.0f;
-const float EnemyBase::GravityLimit = 15.5f;
+const float EnemyBase::Gravity = 500.0f;
 const float EnemyBase::NockBackPower = 1075.0f;
 const float EnemyBase::WalkSpeed = 125;
-const float EnemyBase::WalkSpeedLimit = 2.0f;
 
 const float EnemyBase::GroundCheckPos = 40;
 const int EnemyBase::DefaultActionChangeCountMax = 200;
@@ -67,8 +65,7 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 	//’n–Ê‚ÆÚG‚µ‚Ä‚¢‚È‚¢‚Æ‚«d—Í‚ð“­‚©‚¹‚é
 	if (footChecker->GetNoTouchingFlag())
 	{
-		float gravityDelta = ControlDeltaLimit(Gravity * _deltaTime, GravityLimit);
-		SetPosition(position + Vector3(0, -gravityDelta, 0));
+		SetPosition(position + Vector3(0, -Gravity * _deltaTime, 0));
 	}
 
 	if (!isLive)
@@ -126,13 +123,7 @@ void EnemyBase::NockBack(float _deltaTime)
 		nockBackForce = Vector3::Zero;
 		return;
 	}
-
-	Vector3 nockBackDelta = Vector3::Zero;
-	nockBackDelta.x = ControlDeltaLimit(nockBackForce.x * _deltaTime, 30.0f);
-	nockBackDelta.x = ControlDeltaLimit(nockBackForce.x * _deltaTime, -30.0f);
-	nockBackDelta.z = ControlDeltaLimit(nockBackForce.z * _deltaTime, 30.0f);
-	nockBackDelta.z = ControlDeltaLimit(nockBackForce.z * _deltaTime, -30.0f);
-	SetPosition(position + (nockBackDelta));
+	SetPosition(position + (nockBackForce*_deltaTime));
 	//nockBackForce‚ð”¼Œ¸
 	nockBackForce = nockBackForce / 2.0f;
 }
@@ -210,10 +201,7 @@ void EnemyBase::NoAttacking(float _deltaTime)
 	if (actionName == EnemyActions::walk)
 	{
 		//•às
-		float walkSpeedDelta = (WalkSpeed * _deltaTime) * moveDirection;
-		walkSpeedDelta = ControlDeltaLimit(walkSpeedDelta, WalkSpeedLimit);
-		walkSpeedDelta = ControlDeltaLimit(walkSpeedDelta, -WalkSpeedLimit);
-		SetPosition(Vector3(walkSpeedDelta, 0, 0) + position);
+		SetPosition(Vector3((WalkSpeed * _deltaTime) * moveDirection, 0, 0) + position);
 		//Œ»Ý‹ó’†‚É‚¢‚È‚¢‚©
 		if (!footChecker->GetNoTouchingFlag())
 		{
