@@ -32,7 +32,7 @@ enum EnemyActions
 
 /*
  @file EnemyBase.h
- @brief 敵の基底クラス
+ @brief 敵の基底クラス 敵ごとに決定する変数(体力など)は最下部で宣言
 	*/
 class EnemyBase abstract :
 	public GameObject
@@ -41,22 +41,28 @@ public:
 	/*
 	@param meshName mesh名
 	*/
-	EnemyBase(const std::string& meshName);
+	EnemyBase(Vector3 _pos,const std::string& meshName);
 	~EnemyBase();
 	void UpdateGameObject(float _deltaTime)override;
 protected:
-	//体力　ゼロになると撃破アニメーションと共に消える
-	int hitPoint;
-	//生存フラグ
-	bool isLive;
-	//このカウントが0以下でないと行動ができない。攻撃時や被弾時にカウントが増える
-	int canNotActionTime;
-	class AnimationEnemyComponent* animComponent;
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair)override;
 
+	//このカウントが0以下でないと行動ができない。攻撃時や被弾時にカウントが増える
+	int canNotActionTime;
+
+	//生存フラグ
+	bool isLive;
 	/*
-	@fn エネミー固有の関数、継承先で実装
+	@fn 死亡時のイベント
+	*/
+	virtual void DeadEvent() {};
+
+	//アニメーションを管理するクラス
+	class AnimationEnemyComponent* animComponent;
+
+	/*
+	@fn エネミー固有のUpdate関数、継承先で実装
 	*/
 	virtual void UpdateEnemyObject(float _deltaTime) {};
 
@@ -66,11 +72,7 @@ protected:
 	int turnWaitCount;
 	//移動方向の反転ディレイカウントの最大数
 	static const int TurnWaitCountMax;
-	//歩行速度
-	static const float WalkSpeed;
-	//攻撃対象への接近速度
-	static const float ApproachSpeedRatio;
-
+	//足元の座標
 	static const Vector3 footPos;
 	//足元に地面があるか
 	SkeltonObjectChecker* footChecker;
@@ -87,12 +89,8 @@ protected:
 	//進行方向に壁があるか
 	SkeltonObjectChecker* forwardGroundCheck;
 
-	//発見する範囲
-	static const float SearchRange;
 	//攻撃対象を発見する範囲
 	SkeltonObjectChecker* findingPlayerCheck;
-	//攻撃を開始する射程距離
-	float attackRange;
 
 	/*
 	  @fn ノックバック
@@ -103,13 +101,12 @@ protected:
 	//ノックバックの方向、力
 	Vector3 nockBackForce;
 
-	//actionChangeCountMaxの初期値
-	static const int DefaultActionChangeCountMax;
-	//一定数まで行くとアクションが変更されるカウントとその最大数
+	//一定数まで行くとアクションが変更されるカウン
 	int actionChangeCount;
+	//アクションが変更されるカウントの最大数。ActionChangeCountMax+乱数で決定
 	int actionChangeCountMax;
-	//攻撃対象を発見してないとき、移動と棒立ちを切り替える時間の共有カウント
-	int defaultActionChangeCountMax;
+	//actionChangeCountMaxの初期値
+	static const int ActionChangeCountMax;
 
 	//実行中のアクション
 	EnemyActions actionName;
@@ -137,15 +134,42 @@ protected:
 	bool attackingState;
 	//テレポートまでの時間
 	int teleportChargingTime;
-	static const float AttackRange;
+	//次の攻撃までのインターバル
 	int attackIntervalCount;
-	static const int AttackIntervalCount;
 
 	//攻撃態勢 追跡/攻撃
 	void Attacking(float _deltaTime);
-	virtual void Attack(float _deltaTime);
+	virtual void Attack(float _deltaTime) {};
 	//非攻撃態勢 歩行/棒立ち
 	void NoAttacking(float _deltaTime);
+
+	/**
+	~ 以下継承先で変更が可能 ~(変数の後にある定数は指定がなかった場合のもの) 
+	**/
+	//初期体力　ゼロになると撃破アニメーションと共に消える
+	int hitPoint;
+	static const int HitPointMax;
+	//攻撃時間
+	float attackingTime;
+	static const float AttackingTime;
+	//被弾時間、被弾時にこの定数がcanNotActionTimeに入る
+	float hittingTime;
+	static const float HittingTime;
+	//歩行速度
+	float walkSpeed;
+	static const float WalkSpeed;
+	//攻撃対象への接近速度
+	float approachSpeedRatio;
+	static const float ApproachSpeedRatio;
+	//発見する範囲
+	 float searchRange;
+	static const float SearchRange;
+	//攻撃の射程距離
+	float attackRange;
+	static const float AttackRange;
+	//次の攻撃までのインターバル最大数
+	int attackIntervalCountMax;
+	static const int AttackIntervalCount;
 };
 
 

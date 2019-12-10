@@ -9,8 +9,8 @@ public:
 	MeleeEnemy(Vector3 _pos);
 	~MeleeEnemy();
 private:
-	void UpdateEnemyObject(float _deltaTime);
-	//void BranchActionChange()override;
-	//void ShuffleCountMax()override;
+	void UpdateEnemyObject(float _deltaTime)override {};
+	void DeadEvent()override {};
+	void Attack(float _deltaTime)override {};
 };
 
