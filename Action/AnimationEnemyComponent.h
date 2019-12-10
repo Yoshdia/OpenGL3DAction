@@ -9,6 +9,10 @@ public:
 
 	void UpdateAnimationComponent(float _deltaTime)override;
 
+	/*
+	@fn アニメーションの残り時間を返す
+	*/
+	float GetAnimDuration() { return animDuration; }
 	void SetMove(bool _move) { move = _move; };
 	void SetAttack(bool _attack) { attack = _attack; }
 private:

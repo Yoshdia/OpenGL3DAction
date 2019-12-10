@@ -19,7 +19,6 @@ WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& pos,
 	case(0):addDistance.x += 60; break;
 	case(1):addDistance.x += 120; break;
 	default:addDistance.x += 180; break;
-
 	}
 	targetPos = pos + (addDistance*direction);
 
@@ -28,7 +27,6 @@ WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& pos,
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 	rotateComponent = new RotateComponent(this);
 }
-
 
 WeaponRotationAnimationPlayer::~WeaponRotationAnimationPlayer()
 {
@@ -43,7 +41,7 @@ void WeaponRotationAnimationPlayer::UpdateGameObject(float _deltaTime)
 
 void WeaponRotationAnimationPlayer::Rotate()
 {
-	rotateComponent->SetRotation(rotateSpeed,Vector3::UnitZ);
+	rotateComponent->SetRotation(rotateSpeed, Vector3::UnitZ);
 	if (rotateSpeed < 3)
 	{
 		rotateSpeedSub = 0.1f;

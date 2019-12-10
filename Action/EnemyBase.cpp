@@ -9,7 +9,7 @@
 
 const float EnemyBase::Gravity = 800.0f;
 const float EnemyBase::GravityLimit = 15.5f;
-const float EnemyBase::NockBackPower = 1875.0f;
+const float EnemyBase::NockBackPower = 1075.0f;
 const float EnemyBase::WalkSpeed = 125;
 const float EnemyBase::WalkSpeedLimit = 2.0f;
 
@@ -37,12 +37,11 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 	attackingState(false),
 	teleportChargingTime(0),
 	attackIntervalCount(0),
-	canNotActionTime(0)
+	canNotActionTime(0),
+	hitPoint(3),
+	isLive(false)
 {
-
 	tag = Tag::EnemyTag;
-	/*MeshComponent* meshComponent = new MeshComponent(this);
-	meshComponent->SetMesh(RENDERER->GetMesh(meshName));*/
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 	footChecker = new SkeltonObjectChecker(this, footPos, Vector3(1, 1, 1), Tag::GroundTag);
@@ -56,7 +55,7 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 
 	animComponent = new AnimationEnemyComponent(this);
 	animComponent->SetMove(true);
-
+	isLive = true;
 }
 
 EnemyBase::~EnemyBase()
@@ -72,9 +71,26 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 		SetPosition(position + Vector3(0, -gravityDelta, 0));
 	}
 
+	if (!isLive)
+	{
+		if (animComponent->GetAnimDuration() <= 0)
+		{
+			SetState(State::Dead);
+		}
+		return;
+	}
+	if (hitPoint <= 0)
+	{
+		isLive = false;
+
+		animComponent->SetAttack(true);
+		animComponent->SetMove(false);
+		return;
+	}
 	UpdateEnemyObject(_deltaTime);
 	NockBack(_deltaTime);
 	Action(_deltaTime);
+
 
 	//移動方向に変更が加わった際にすぐそっちを見るように座標を更新し続ける
 	findingPlayerCheck->SetOffset(Vector3((SearchRange)*moveDirection, 0, 0));
@@ -97,6 +113,8 @@ void EnemyBase::OnTriggerEnter(ColliderComponent* colliderPair)
 		double distance = Math::Sqrt((colliderPair->GetPosition().x - position.x) * (colliderPair->GetPosition().x - position.x) + (colliderPair->GetPosition().y - position.y) * (colliderPair->GetPosition().y - position.y));
 		Vector3 force = Vector3::Normalize(Vector3((position.x - colliderPair->GetPosition().x), (position.y - colliderPair->GetPosition().y), (position.z - colliderPair->GetPosition().z)));
 		nockBackForce = force * NockBackPower;
+		canNotActionTime = 40;
+		hitPoint--;
 	}
 }
 
@@ -308,11 +326,17 @@ void EnemyBase::Attacking(float _deltaTime)
 			attackIntervalCount = AttackIntervalCount;
 			animComponent->SetAttack(true);
 			canNotActionTime = 100;
-			//new ThrowWeapon(position, moveDirection);
+			printf("%d[Attack!]\n", gameObjectId);
+			Attack(_deltaTime);
 		}
 		else
 		{
 			animComponent->SetAttack(false);
 		}
 	}
+}
+
+void EnemyBase::Attack(float _deltaTime)
+{
+
 }

@@ -45,10 +45,16 @@ public:
 	~EnemyBase();
 	void UpdateGameObject(float _deltaTime)override;
 protected:
+	//体力　ゼロになると撃破アニメーションと共に消える
+	int hitPoint;
+	//生存フラグ
+	bool isLive;
+	//このカウントが0以下でないと行動ができない。攻撃時や被弾時にカウントが増える
 	int canNotActionTime;
 	class AnimationEnemyComponent* animComponent;
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair)override;
+
 	/*
 	@fn エネミー固有の関数、継承先で実装
 	*/
@@ -122,11 +128,11 @@ protected:
 	/*
 	@fn 実行アクションが変更される関数
 	*/
-	virtual void BranchActionChange();
+	void BranchActionChange();
 	/*
 	@fn actionChangeCountMaxの変更を行う関数
 	*/
-	virtual void ShuffleCountMax();
+	void ShuffleCountMax();
 
 	//攻撃対象を発見した後追跡する範囲。この範囲から対象が出ると追跡を止め歩行/棒立ちモードに変わる
 	SkeltonObjectChecker* trackingRange;
@@ -141,6 +147,7 @@ protected:
 
 	//攻撃態勢 追跡/攻撃
 	void Attacking(float _deltaTime);
+	virtual void Attack(float _deltaTime);
 	//非攻撃態勢 歩行/棒立ち
 	void NoAttacking(float _deltaTime);
 };
