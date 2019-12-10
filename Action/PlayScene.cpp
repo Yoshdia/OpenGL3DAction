@@ -18,7 +18,7 @@ PlayScene::PlayScene()
 	dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
 	new PlayerCharacter;
-	new MeleeEnemy(Vector3(400,45,0));
+	new MeleeEnemy(Vector3(400,80,0));
 
 	//new MeleeEnemy(Vector3(0,-125,0));
 	//new MeleeEnemy(Vector3(-200,50,0));

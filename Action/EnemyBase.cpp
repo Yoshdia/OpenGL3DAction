@@ -9,24 +9,23 @@
 
 const float EnemyBase::Gravity = 500.0f;
 const float EnemyBase::NockBackPower = 1075.0f;
-const float EnemyBase::WalkSpeed = 125;
-
 const float EnemyBase::GroundCheckPos = 40;
 const int EnemyBase::ActionChangeCountMax = 200;
 const Vector3 EnemyBase::footPos = Vector3(0, -25, 0);
 const Vector3 EnemyBase::TrackingRange = Vector3(1000, 1000, 1000);
 const float EnemyBase::ForwardDownY = -90;
-const float EnemyBase::SearchRange = 200;
 const int EnemyBase::TurnWaitCountMax = 5;
-const int EnemyBase::AttackIntervalCount = 60;
+
 const int EnemyBase::HitPointMax = 3;
-const float EnemyBase::ApproachSpeedRatio = 0.8f;
-const float EnemyBase::AttackRange = 75.0f;
-
-const float EnemyBase::HittingTime = 40.0f;
 const float EnemyBase::AttackingTime = 200;
+const float EnemyBase::HittingTime = 40.0f;
+const float EnemyBase::WalkSpeed = 125;
+const float EnemyBase::ApproachSpeedRatio = 0.8f;
+const float EnemyBase::SearchRange = 200;
+const float EnemyBase::AttackRange = 75.0f;
+const int EnemyBase::AttackIntervalCount = 60;
 
-EnemyBase::EnemyBase(Vector3 _pos,const std::string& meshName) :
+EnemyBase::EnemyBase(Vector3 _pos,Vector3 _scale,const std::string& meshName) :
 	GameObject(),
 	actionChangeCount(0),
 	moveDirection(EnemyMoveDirection::right),
@@ -48,6 +47,7 @@ EnemyBase::EnemyBase(Vector3 _pos,const std::string& meshName) :
 	searchRange(SearchRange),
 	attackRange(AttackRange)
 {
+	SetScale(_scale);
 	SetPosition(_pos);
 	tag = Tag::EnemyTag;
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
@@ -212,8 +212,6 @@ void EnemyBase::NoAttacking(float _deltaTime)
 {
 	if (actionName == EnemyActions::walk)
 	{
-		//ï‡çs
-		SetPosition(Vector3((walkSpeed * _deltaTime) * moveDirection, 0, 0) + position);
 		//åªç›ãÛíÜÇ…Ç¢Ç»Ç¢Ç©
 		if (!footChecker->GetNoTouchingFlag())
 		{
@@ -235,6 +233,8 @@ void EnemyBase::NoAttacking(float _deltaTime)
 				turnWaitCount++;
 			}
 		}
+		//ï‡çs
+		SetPosition(Vector3((walkSpeed * _deltaTime) * moveDirection, 0, 0) + position);
 	}
 	else
 	{
