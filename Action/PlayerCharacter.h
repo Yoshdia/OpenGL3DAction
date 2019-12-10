@@ -71,8 +71,6 @@ private:
 	int inputDirection;
 	//移動速度
 	static const float MoveSpeed;
-	//移動速度の上限値
-	static const float MoveSpeedLimit;
 
 	/*
 	@fn ジャンプ
@@ -92,8 +90,6 @@ private:
 	void Gravity(float _deltaTime);
 	//重力
 	static const float GravityPower;
-	//重力の上限値
-	static const float GravityPowerLimit;
 
 	/*
 	@fn 摩擦

@@ -18,7 +18,7 @@ PlayScene::PlayScene()
 	dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
 	new PlayerCharacter;
-	//new MeleeEnemy(Vector3(400,45,0));
+	new MeleeEnemy(Vector3(400,80,0));
 
 	//new MeleeEnemy(Vector3(0,-125,0));
 	//new MeleeEnemy(Vector3(-200,50,0));
@@ -29,10 +29,6 @@ PlayScene::PlayScene()
 	new DebugBox(Vector3(-300, 0, 0));
 	new DebugBox(Vector3(-200, 0, 0));
 	new DebugBox(Vector3(-100, 0, 0));
-
-	new DebugBox(Vector3(100, 200, 0),Tag::GetOverGroundTag);
-	new DebugBox(Vector3(200, 300, 0),Tag::GetOverGroundTag);
-	new DebugBox(Vector3(300, 400, 0),Tag::GetOverGroundTag);
 
 	new DebugBox(Vector3(0, -200, 0));
 	new DebugBox(Vector3(100, -200, 0));

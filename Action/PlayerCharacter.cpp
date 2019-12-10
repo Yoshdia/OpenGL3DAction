@@ -19,9 +19,7 @@
 
 
 const float PlayerCharacter::MoveSpeed = 600;
-const float PlayerCharacter::MoveSpeedLimit = 10.0f;
 const float PlayerCharacter::GravityPower = 80;
-const float PlayerCharacter::GravityPowerLimit = 1.2f;
 const float PlayerCharacter::JumpPower = 25.0f;
 const float PlayerCharacter::MoveFriction = 1.2f;
 
@@ -249,10 +247,7 @@ void PlayerCharacter::Move(float _deltaTime)
 		{
 			animationComponent->SetAnimation(PlayerAnimationState::Move);
 		}
-		float moveSpeedDelta = (MoveSpeed * _deltaTime) * inputDirection;
-		moveSpeedDelta = ControlDeltaLimit(moveSpeedDelta, MoveSpeedLimit);
-		moveSpeedDelta = ControlDeltaLimit(moveSpeedDelta, -MoveSpeedLimit);
-		velocity.x = moveSpeedDelta;
+		velocity.x = (MoveSpeed * _deltaTime) * inputDirection;
 	}
 	else
 	{
@@ -275,8 +270,7 @@ void PlayerCharacter::Jump()
 
 void PlayerCharacter::Gravity(float _deltaTime)
 {
-	float gravityDelta = ControlDeltaLimit(GravityPower * _deltaTime, GravityPowerLimit);
-	velocity.y += -gravityDelta;
+	velocity.y += -GravityPower * _deltaTime;
 }
 
 void PlayerCharacter::Friction()

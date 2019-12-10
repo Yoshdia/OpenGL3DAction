@@ -32,7 +32,7 @@ enum EnemyActions
 
 /*
  @file EnemyBase.h
- @brief 敵の基底クラス
+ @brief 敵の基底クラス 敵ごとに決定する変数(体力など)は最下部で宣言
 	*/
 class EnemyBase abstract :
 	public GameObject
@@ -41,16 +41,90 @@ public:
 	/*
 	@param meshName mesh名
 	*/
-	EnemyBase(const std::string& meshName);
+	EnemyBase(Vector3 _pos, Vector3 _scale, const std::string& meshName);
 	~EnemyBase();
 	void UpdateGameObject(float _deltaTime)override;
 protected:
-	int canNotActionTime;
-	class AnimationEnemyComponent* animComponent;
+	/**
+	~ 以下継承先で変更が可能 ~(private内にある定数は指定がなかった場合のもの)
+	**/
+	//初期体力　ゼロになると撃破アニメーションと共に消える
+	int hitPoint;
+	//攻撃時間
+	float attackingTime;
+	//被弾時間、被弾時にこの定数がcanNotActionTimeに入る
+	float hittingTime;
+	//歩行速度
+	float walkSpeed;
+	//攻撃対象への接近速度
+	float approachSpeedRatio;
+	//発見する範囲
+	float searchRange;
+	//攻撃の射程距離
+	float attackRange;
+	//次の攻撃までのインターバル最大数
+	int attackIntervalCountMax;
+	/**
+	~ コピペ用テンプレート ~
+	**/
+	//.h用
+	/*
+	//初期体力　ゼロになると撃破アニメーションと共に消える
+	static const int HitPointMax;
+	//攻撃時間
+	static const float AttackingTime;
+	//被弾時間、被弾時にこの定数がcanNotActionTimeに入る
+	static const float HittingTime;
+	//歩行速度
+	static const float WalkSpeed;
+	//攻撃対象への接近速度
+	static const float ApproachSpeedRatio;
+	//発見する範囲
+	static const float SearchRange;
+	//攻撃の射程距離
+	static const float AttackRange;
+	//次の攻撃までのインターバル最大数
+	static const int AttackIntervalCount;
+	*/
+	//.cpp用
+	/*
+	const int MeleeEnemy::HitPointMax = 0;
+	const float MeleeEnemy::AttackingTime = 0;
+	const float MeleeEnemy::HittingTime = 0;
+	const float MeleeEnemy::WalkSpeed = 0;
+	const float MeleeEnemy::ApproachSpeedRatio = 0;
+	const float MeleeEnemy::SearchRange = 0;
+	const float MeleeEnemy::AttackRange = 0;
+	const int MeleeEnemy::AttackIntervalCount = 0;
+
+	hitPoint = HitPointMax;
+	attackingTime = AttackingTime;
+	hittingTime = HittingTime;
+	walkSpeed = WalkSpeed;
+	approachSpeedRatio = ApproachSpeedRatio;
+	searchRange = SearchRange;
+	attackRange = AttackRange;
+	attackIntervalCount = AttackIntervalCount;
+	*/
+private:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair)override;
+
+	//このカウントが0以下でないと行動ができない。攻撃時や被弾時にカウントが増える
+	int canNotActionTime;
+
+	//生存フラグ
+	bool isLive;
 	/*
-	@fn エネミー固有の関数、継承先で実装
+	@fn 死亡時のイベント
+	*/
+	virtual void DeadEvent() {};
+
+	//アニメーションを管理するクラス
+	class AnimationEnemyComponent* animComponent;
+
+	/*
+	@fn エネミー固有のUpdate関数、継承先で実装
 	*/
 	virtual void UpdateEnemyObject(float _deltaTime) {};
 
@@ -60,20 +134,12 @@ protected:
 	int turnWaitCount;
 	//移動方向の反転ディレイカウントの最大数
 	static const int TurnWaitCountMax;
-	//歩行速度
-	static const float WalkSpeed;
-	//攻撃対象への接近速度
-	static const float ApproachSpeedRatio;
-	//歩行速度の上限値
-	static const float WalkSpeedLimit;
-
+	//足元の座標
 	static const Vector3 footPos;
 	//足元に地面があるか
 	SkeltonObjectChecker* footChecker;
 	//エネミーに働く重力の力
 	static const float Gravity;
-	//重力の上限値
-	static const float GravityLimit;
 
 	//進行方向の足元に地面があるか
 	SkeltonObjectChecker* forwardDownGroundCheck;
@@ -85,12 +151,8 @@ protected:
 	//進行方向に壁があるか
 	SkeltonObjectChecker* forwardGroundCheck;
 
-	//発見する範囲
-	static const float SearchRange;
 	//攻撃対象を発見する範囲
 	SkeltonObjectChecker* findingPlayerCheck;
-	//攻撃を開始する射程距離
-	float attackRange;
 
 	/*
 	  @fn ノックバック
@@ -101,13 +163,12 @@ protected:
 	//ノックバックの方向、力
 	Vector3 nockBackForce;
 
-	//actionChangeCountMaxの初期値
-	static const int DefaultActionChangeCountMax;
-	//一定数まで行くとアクションが変更されるカウントとその最大数
+	//一定数まで行くとアクションが変更されるカウン
 	int actionChangeCount;
+	//アクションが変更されるカウントの最大数。ActionChangeCountMax+乱数で決定
 	int actionChangeCountMax;
-	//攻撃対象を発見してないとき、移動と棒立ちを切り替える時間の共有カウント
-	int defaultActionChangeCountMax;
+	//actionChangeCountMaxの初期値
+	static const int ActionChangeCountMax;
 
 	//実行中のアクション
 	EnemyActions actionName;
@@ -122,11 +183,11 @@ protected:
 	/*
 	@fn 実行アクションが変更される関数
 	*/
-	virtual void BranchActionChange();
+	void BranchActionChange();
 	/*
 	@fn actionChangeCountMaxの変更を行う関数
 	*/
-	virtual void ShuffleCountMax();
+	void ShuffleCountMax();
 
 	//攻撃対象を発見した後追跡する範囲。この範囲から対象が出ると追跡を止め歩行/棒立ちモードに変わる
 	SkeltonObjectChecker* trackingRange;
@@ -135,14 +196,26 @@ protected:
 	bool attackingState;
 	//テレポートまでの時間
 	int teleportChargingTime;
-	static const float AttackRange;
+	//次の攻撃までのインターバル
 	int attackIntervalCount;
-	static const int AttackIntervalCount;
 
 	//攻撃態勢 追跡/攻撃
 	void Attacking(float _deltaTime);
+	virtual void Attack(float _deltaTime) {};
 	//非攻撃態勢 歩行/棒立ち
 	void NoAttacking(float _deltaTime);
+
+	/**
+	~ protected内の変数に継承先で変更が行われなかった場合の定数 ~
+	**/
+	static const int HitPointMax;
+	static const float AttackingTime;
+	static const float HittingTime;
+	static const float WalkSpeed;
+	static const float ApproachSpeedRatio;
+	static const float SearchRange;
+	static const float AttackRange;
+	static const int AttackIntervalCount;
 };
 
 

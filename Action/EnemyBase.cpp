@@ -7,48 +7,55 @@
 #include "RotateComponent.h"
 #include "AnimationEnemyComponent.h"
 
-const float EnemyBase::Gravity = 800.0f;
-const float EnemyBase::GravityLimit = 15.5f;
-const float EnemyBase::NockBackPower = 1875.0f;
-const float EnemyBase::WalkSpeed = 125;
-const float EnemyBase::WalkSpeedLimit = 2.0f;
-
+const float EnemyBase::Gravity = 500.0f;
+const float EnemyBase::NockBackPower = 1075.0f;
 const float EnemyBase::GroundCheckPos = 40;
-const int EnemyBase::DefaultActionChangeCountMax = 200;
+const int EnemyBase::ActionChangeCountMax = 200;
 const Vector3 EnemyBase::footPos = Vector3(0, -25, 0);
 const Vector3 EnemyBase::TrackingRange = Vector3(1000, 1000, 1000);
 const float EnemyBase::ForwardDownY = -90;
-const float EnemyBase::SearchRange = 200;
 const int EnemyBase::TurnWaitCountMax = 5;
-const int EnemyBase::AttackIntervalCount = 60;
-const float EnemyBase::ApproachSpeedRatio = 0.8f;
-const float EnemyBase::AttackRange = 75.0f;
 
-EnemyBase::EnemyBase(const std::string& meshName) :
+const int EnemyBase::HitPointMax = 3;
+const float EnemyBase::AttackingTime = 200;
+const float EnemyBase::HittingTime = 40.0f;
+const float EnemyBase::WalkSpeed = 125;
+const float EnemyBase::ApproachSpeedRatio = 0.8f;
+const float EnemyBase::SearchRange = 200;
+const float EnemyBase::AttackRange = 75.0f;
+const int EnemyBase::AttackIntervalCount = 60;
+
+EnemyBase::EnemyBase(Vector3 _pos,Vector3 _scale,const std::string& meshName) :
 	GameObject(),
 	actionChangeCount(0),
-	defaultActionChangeCountMax(DefaultActionChangeCountMax),
-	actionChangeCountMax(DefaultActionChangeCountMax),
 	moveDirection(EnemyMoveDirection::right),
 	actionName(EnemyActions::walk),
 	turnWaitCount(0),
 	nockBackForce(Vector3::Zero),
-	attackRange(AttackRange),
 	attackingState(false),
 	teleportChargingTime(0),
 	attackIntervalCount(0),
-	canNotActionTime(0)
+	attackIntervalCountMax(AttackIntervalCount),
+	canNotActionTime(0),
+	hitPoint(HitPointMax),
+	isLive(false),
+	actionChangeCountMax(ActionChangeCountMax),
+	attackingTime(0),
+	hittingTime(HittingTime),
+	walkSpeed(WalkSpeed),
+	approachSpeedRatio(ApproachSpeedRatio),
+	searchRange(SearchRange),
+	attackRange(AttackRange)
 {
-
+	SetScale(_scale);
+	SetPosition(_pos);
 	tag = Tag::EnemyTag;
-	/*MeshComponent* meshComponent = new MeshComponent(this);
-	meshComponent->SetMesh(RENDERER->GetMesh(meshName));*/
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 	footChecker = new SkeltonObjectChecker(this, footPos, Vector3(1, 1, 1), Tag::GroundTag);
 	forwardDownGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0), Vector3(1, 1, 1), Tag::GroundTag);
 	forwardGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
-	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(SearchRange, 1, 0), Vector3(SearchRange, 1, 1), Tag::PlayerTag);
+	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(searchRange, 1, 0), Vector3(searchRange, 1, 1), Tag::PlayerTag);
 	trackingRange = new SkeltonObjectChecker(this, Vector3::Zero, TrackingRange, Tag::PlayerTag);
 
 	RotateComponent* rotate = new RotateComponent(this);
@@ -56,7 +63,7 @@ EnemyBase::EnemyBase(const std::string& meshName) :
 
 	animComponent = new AnimationEnemyComponent(this);
 	animComponent->SetMove(true);
-
+	isLive = true;
 }
 
 EnemyBase::~EnemyBase()
@@ -68,17 +75,35 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 	//地面と接触していないとき重力を働かせる
 	if (footChecker->GetNoTouchingFlag())
 	{
-		float gravityDelta = ControlDeltaLimit(Gravity * _deltaTime, GravityLimit);
-		SetPosition(position + Vector3(0, -gravityDelta, 0));
+		SetPosition(position + Vector3(0, -Gravity * _deltaTime, 0));
 	}
 
+	if (!isLive)
+	{
+		if (animComponent->GetAnimDuration() <= 0)
+		{
+			SetState(State::Dead);
+		}
+		return;
+	}
+	if (hitPoint <= 0)
+	{
+		isLive = false;
+
+		DeadEvent();
+		animComponent->SetAttack(true);
+		animComponent->SetMove(false);
+		return;
+	}
 	UpdateEnemyObject(_deltaTime);
 	NockBack(_deltaTime);
 	Action(_deltaTime);
 
+
 	//移動方向に変更が加わった際にすぐそっちを見るように座標を更新し続ける
-	findingPlayerCheck->SetOffset(Vector3((SearchRange)*moveDirection, 0, 0));
+	findingPlayerCheck->SetOffset(Vector3((searchRange)*moveDirection, 0, 0));
 }
+
 
 void EnemyBase::OnTriggerStay(ColliderComponent* colliderPair)
 {
@@ -97,6 +122,8 @@ void EnemyBase::OnTriggerEnter(ColliderComponent* colliderPair)
 		double distance = Math::Sqrt((colliderPair->GetPosition().x - position.x) * (colliderPair->GetPosition().x - position.x) + (colliderPair->GetPosition().y - position.y) * (colliderPair->GetPosition().y - position.y));
 		Vector3 force = Vector3::Normalize(Vector3((position.x - colliderPair->GetPosition().x), (position.y - colliderPair->GetPosition().y), (position.z - colliderPair->GetPosition().z)));
 		nockBackForce = force * NockBackPower;
+		canNotActionTime = hittingTime;
+		hitPoint--;
 	}
 }
 
@@ -108,13 +135,7 @@ void EnemyBase::NockBack(float _deltaTime)
 		nockBackForce = Vector3::Zero;
 		return;
 	}
-
-	Vector3 nockBackDelta = Vector3::Zero;
-	nockBackDelta.x = ControlDeltaLimit(nockBackForce.x * _deltaTime, 30.0f);
-	nockBackDelta.x = ControlDeltaLimit(nockBackForce.x * _deltaTime, -30.0f);
-	nockBackDelta.z = ControlDeltaLimit(nockBackForce.z * _deltaTime, 30.0f);
-	nockBackDelta.z = ControlDeltaLimit(nockBackForce.z * _deltaTime, -30.0f);
-	SetPosition(position + (nockBackDelta));
+	SetPosition(position + (nockBackForce*_deltaTime));
 	//nockBackForceを半減
 	nockBackForce = nockBackForce / 2.0f;
 }
@@ -184,18 +205,13 @@ void EnemyBase::BranchActionChange()
 void EnemyBase::ShuffleCountMax()
 {
 	//次のアクション変更時間をデフォルト+乱数で決定
-	actionChangeCountMax = defaultActionChangeCountMax + ((rand() % 10) * 100);
+	actionChangeCountMax = ActionChangeCountMax + ((rand() % 10) * 100);
 }
 
 void EnemyBase::NoAttacking(float _deltaTime)
 {
 	if (actionName == EnemyActions::walk)
 	{
-		//歩行
-		float walkSpeedDelta = (WalkSpeed * _deltaTime) * moveDirection;
-		walkSpeedDelta = ControlDeltaLimit(walkSpeedDelta, WalkSpeedLimit);
-		walkSpeedDelta = ControlDeltaLimit(walkSpeedDelta, -WalkSpeedLimit);
-		SetPosition(Vector3(walkSpeedDelta, 0, 0) + position);
 		//現在空中にいないか
 		if (!footChecker->GetNoTouchingFlag())
 		{
@@ -217,6 +233,8 @@ void EnemyBase::NoAttacking(float _deltaTime)
 				turnWaitCount++;
 			}
 		}
+		//歩行
+		SetPosition(Vector3((walkSpeed * _deltaTime) * moveDirection, 0, 0) + position);
 	}
 	else
 	{
@@ -275,7 +293,7 @@ void EnemyBase::Attacking(float _deltaTime)
 		if (!forwardDownGroundCheck->GetNoTouchingFlag() && forwardGroundCheck->GetNoTouchingFlag())
 		{
 			//攻撃対象に接近する 浮遊はできないためy方向には追跡しない
-			SetPosition(Vector3::Lerp(position, Vector3(target.x, position.y, target.z), _deltaTime * ApproachSpeedRatio));
+			SetPosition(Vector3::Lerp(position, Vector3(target.x, position.y, target.z), _deltaTime * approachSpeedRatio));
 
 
 			//攻撃の射程距離まで接近したらアクションを変更する
@@ -305,10 +323,11 @@ void EnemyBase::Attacking(float _deltaTime)
 		}
 		if (attackIntervalCount <= 0)
 		{
-			attackIntervalCount = AttackIntervalCount;
+			attackIntervalCount = attackIntervalCountMax;
 			animComponent->SetAttack(true);
-			canNotActionTime = 100;
-			//new ThrowWeapon(position, moveDirection);
+			canNotActionTime = attackingTime;
+			printf("%d[Attack!]\n", gameObjectId);
+			Attack(_deltaTime);
 		}
 		else
 		{
