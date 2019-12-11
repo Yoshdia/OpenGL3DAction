@@ -15,6 +15,7 @@
 #include "RotateComponent.h"
 //debug
 #include "Game.h"
+#include "PhysicsWorld.h"
 
 
 const float PlayerCharacter::MoveSpeed = 600;
@@ -35,7 +36,8 @@ PlayerCharacter::PlayerCharacter() :
 	guardBottonInput(false),
 	direction(1),
 	invincible(false),
-	invincibleCount(0)
+	invincibleCount(0),
+	isFloating(false)
 
 {
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
@@ -79,6 +81,10 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	{
 		Gravity(_deltaTime);
 	}
+	else
+	{
+
+	}
 	Friction();
 	SetPosition(position + (velocity));
 	Invincible();
@@ -90,17 +96,17 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		printf("\nplayerPosition = {%f,%f,%f}", position.x, position.y, position.z);
 
 	inputDirection = 0;
-	   
+
 	//コントローラーが接続された場合操作をコントローラーに変更
-	if (InputSystem::GetConnectedController())
-	{
-		attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
-		rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
-		guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_B);
-		jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
-		inputDirection = _keyState.Controller.GetLAxisVec().x;
-	}
-	else
+	//if (InputSystem::GetConnectedController())
+	//{
+	//	attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
+	//	rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
+	//	guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_B);
+	//	jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
+	//	inputDirection = _keyState.Controller.GetLAxisVec().x;
+	//}
+	//else
 	{
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 		{
@@ -129,6 +135,13 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	{
 		Game::debug = 1;
 	}
+}
+
+void PlayerCharacter::FixCollision(const AABB& myAABB, const AABB& pairAABB, const Tag& _pairTag)
+{
+	Vector3 ment = Vector3(0, 0, 0);
+	calcCollisionFixVec(myAABB, pairAABB, ment);
+	SetPosition(GetPosition() + (ment));
 }
 
 void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
@@ -186,6 +199,18 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 		if (!_noGround)
 		{
 			Jump();
+			isFloating = false;
+		}
+		else
+		{
+			if (velocity.y <= 0)
+			{
+				isFloating=true;
+			}
+			else
+			{
+
+			}
 		}
 	}
 }
