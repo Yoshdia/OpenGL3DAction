@@ -13,8 +13,8 @@ const float EnemyBase::GroundCheckPos = 40;
 const int EnemyBase::ActionChangeCountMax = 200;
 const Vector3 EnemyBase::footPos = Vector3(0, -25, 0);
 const Vector3 EnemyBase::TrackingRange = Vector3(1000, 1000, 1000);
-const float EnemyBase::ForwardDownY = -90;
 const int EnemyBase::TurnWaitCountMax = 5;
+const float EnemyBase::ForwardDownY = -90;
 
 const int EnemyBase::HitPointMax = 3;
 const float EnemyBase::AttackingTime = 200;

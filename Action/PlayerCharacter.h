@@ -18,7 +18,6 @@ public:
 
 	void UpdateGameObject(float _deltaTime)override;
 	void GameObjectInput(const InputState& _keyState) override;
-	void FixCollision(const AABB& myAABB, const AABB& pairAABB, const Tag& _pairTag = Tag::GroundTag)override;
 private:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair) override;
@@ -80,9 +79,6 @@ private:
 	bool jumpBottonInput;
 	//ƒWƒƒƒ“ƒv—Í 
 	static const float JumpPower;
-
-	bool isFloating;
-
 
 	/*
 	@fn d—Í
