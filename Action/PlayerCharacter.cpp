@@ -23,6 +23,7 @@ const float PlayerCharacter::JumpPower = 25.0f;
 const float PlayerCharacter::MoveFriction = 1.2f;
 
 const int PlayerCharacter::InvincibleCount = 120;
+const int PlayerCharacter::InputUnderCountMax = 30;
 
 PlayerCharacter::PlayerCharacter() :
 	GameObject(),
@@ -37,7 +38,9 @@ PlayerCharacter::PlayerCharacter() :
 	invincible(false),
 	invincibleCount(0),
 	isFloating(false),
-	isThinGroundCollision(false)
+	isThinGroundCollision(false),
+	noInputForUnderDirection(false),
+	doSkeletonThinGround(false)
 
 {
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
@@ -72,7 +75,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	//bool aaaaa = thinChecker->GetNoTouchingFlag();
 	//noGround = noGround && aaaaa;
 	//着地状態のとき上下方向への力をリセットする
-	if (!noGround&&!isFloating)
+	if (!noGround && !isFloating)
 	{
 		velocity.y = 0;
 	}
@@ -86,9 +89,13 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		canNotActionTime--;
 	}
 	//空中なら重力を付与
-	if (noGround)
+	if (noGround||doSkeletonThinGround)
 	{
 		Gravity(_deltaTime);
+		if (inputUnderDirection>0)
+		{
+			doSkeletonThinGround=true;
+		}
 	}
 	//ジャンプにより浮上中か
 	if (velocity.y <= 0)
@@ -102,6 +109,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	Friction();
 	SetPosition(position + (velocity));
 	Invincible();
+	SkeletonThinGround();
 }
 
 void PlayerCharacter::GameObjectInput(const InputState& _keyState)
@@ -110,6 +118,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		printf("\nplayerPosition = {%f,%f,%f}", position.x, position.y, position.z);
 
 	inputDirection = 0;
+	inputUnderDirection = false;
 
 	//コントローラーが接続された場合操作をコントローラーに変更
 	if (InputSystem::GetConnectedController())
@@ -130,6 +139,12 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		{
 			inputDirection--;
 		}
+		//if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_DOWN))
+		//{
+		//	inputUnderDirection = true;
+		//}
+		inputUnderDirection = _keyState.Keyboard.GetKeyValue(SDL_SCANCODE_DOWN);
+
 		attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
 		rangeAttackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S);
 		guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_D);
@@ -156,7 +171,7 @@ void PlayerCharacter::FixCollision(const AABB & myAABB, const AABB & pairAABB, c
 	//浮上中でかつ薄い床にすでに接触している場合はめりこみ補正を行わない
 	if (_pairTag == Tag::ThinGroundFloor)
 	{
-		if (isFloating && isThinGroundCollision)
+		if ((isFloating && isThinGroundCollision)||doSkeletonThinGround)
 		{
 			return;
 		}
@@ -270,6 +285,40 @@ void PlayerCharacter::Move(float _deltaTime)
 	}
 }
 
+void PlayerCharacter::SkeletonThinGround()
+{
+
+	//下方向への入力があるか
+	if (inputUnderDirection > 0)
+	{
+		//薄い床のすり抜け可能な時間のディレイをセット
+		inputUnderCount = InputUnderCountMax;
+	}
+	//下方向への入力があった後ほかに変化がなくカウントが過ぎた場合すべてリセットする
+	if (inputUnderCount <= 0)
+	{
+		inputUnderCount = 0;
+		noInputForUnderDirection = false;
+		doSkeletonThinGround = false;
+	}
+	else
+	{
+		inputUnderCount--;
+		//下方向への入力があったあと1未満の下方向への入力(ニュートラル)があった場合
+		if (inputUnderDirection < 1)
+		{
+			noInputForUnderDirection = true;
+		}
+	}
+	//下方向への入力がありその直後ニュートラルにする等の操作が入ったらすり抜けを実行
+	if (noInputForUnderDirection&&inputUnderDirection > 0)
+	{
+		inputUnderCount = 0;
+		noInputForUnderDirection = false;
+		doSkeletonThinGround = true;
+	}
+}
+
 void PlayerCharacter::Jump()
 {
 	//上下への移動力をリセット
@@ -284,7 +333,7 @@ void PlayerCharacter::Jump()
 	{
 
 	}
-	
+
 }
 
 void PlayerCharacter::Gravity(float _deltaTime)

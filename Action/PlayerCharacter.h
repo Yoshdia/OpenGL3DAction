@@ -76,6 +76,24 @@ private:
 	static const float MoveSpeed;
 
 	/*
+	@fn 薄い床をすり抜ける
+	@brief 下方向への入力の直後ニュートラルにするなどの操作がありまたその直後に下方向への入力があったらフラグをたてる(下・下)
+	*/
+	void SkeletonThinGround();
+
+	//下方向への入力情報、薄い床の上からそれを通り抜ける際に使用
+	float inputUnderDirection;
+	//下方向への入力が行われた直後に下方向への入力が無くなったときに建つフラグ
+	bool noInputForUnderDirection;
+	//薄い床の上からそれを通り抜けるための入力に対するカウント
+	int inputUnderCount;
+	//薄い床の上からそれを通り抜けるための入力に対するカウントのリセット値
+	static const int InputUnderCountMax;
+	//薄い床をすり抜ける実行フラグ
+	bool doSkeletonThinGround;
+
+
+	/*
 	@fn ジャンプ
 	*/
 	void Jump();
