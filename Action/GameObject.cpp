@@ -136,7 +136,7 @@ void GameObject::ComputeWorldTransform()
 	}
 }
 
-void GameObject::FixCollision(const AABB & myAABB, const AABB & pairAABB)
+void GameObject::FixCollision(const AABB & myAABB, const AABB & pairAABB,const Tag& _pairTag)
 {
 	Vector3 ment = Vector3(0, 0, 0);
 	calcCollisionFixVec(myAABB, pairAABB, ment);

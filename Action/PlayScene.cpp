@@ -26,6 +26,7 @@ PlayScene::PlayScene()
 	new DebugBox(Vector3(-100, -200, 0));
 	new DebugBox(Vector3(-100, -100, 0));
 
+	new DebugBox(Vector3(0, 45, 0),Vector3(50,5,50),Tag::ThinGroundFloor);
 	new DebugBox(Vector3(-300, 0, 0));
 	new DebugBox(Vector3(-200, 0, 0));
 	new DebugBox(Vector3(-100, 0, 0));
@@ -62,7 +63,7 @@ PlayScene::PlayScene()
 	new DebugBox(Vector3(1900, 0, 0));
 	new DebugBox(Vector3(2000, 0, 0));
 
-	new DebugBox(Vector3(-200, 100, 0), Tag::EnemyWeaponTag);
+	//new DebugBox(Vector3(-200, 100, 0), Tag::EnemyWeaponTag);
 
 }
 

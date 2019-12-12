@@ -152,8 +152,12 @@
     <ClCompile Include="RotateComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="BoneAnimationBaseComponent.cpp" />
-    <ClCompile Include="AnimationEnemyComponent.cpp" />
+    <ClCompile Include="AnimationEnemyComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneAnimationBaseComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -309,8 +313,12 @@
     <ClInclude Include="MatrixPalette.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="BoneAnimationBaseComponent.h" />
-    <ClInclude Include="AnimationEnemyComponent.h" />
+    <ClInclude Include="AnimationEnemyComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneAnimationBaseComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

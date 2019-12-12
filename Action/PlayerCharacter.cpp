@@ -15,7 +15,7 @@
 #include "RotateComponent.h"
 //debug
 #include "Game.h"
-
+#include "PhysicsWorld.h"
 
 const float PlayerCharacter::MoveSpeed = 600;
 const float PlayerCharacter::GravityPower = 80;
@@ -35,7 +35,9 @@ PlayerCharacter::PlayerCharacter() :
 	guardBottonInput(false),
 	direction(1),
 	invincible(false),
-	invincibleCount(0)
+	invincibleCount(0),
+	isFloating(false),
+	isThinGroundCollision(false)
 
 {
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
@@ -51,6 +53,7 @@ PlayerCharacter::PlayerCharacter() :
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 	footChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::GroundTag);
+	thinChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::ThinGroundFloor);
 
 	RotateComponent* rota = new RotateComponent(this);
 }
@@ -61,10 +64,18 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
+	isThinGroundCollision = false;
 	//カメラの追跡先をセット
 	RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
 	//着地状態
-	bool noGround = footChecker->GetNoTouchingFlag();
+	bool noGround = footChecker->GetNoTouchingFlag() && (thinChecker->GetNoTouchingFlag());
+	//bool aaaaa = thinChecker->GetNoTouchingFlag();
+	//noGround = noGround && aaaaa;
+	//着地状態のとき上下方向への力をリセットする
+	if (!noGround&&!isFloating)
+	{
+		velocity.y = 0;
+	}
 	//入力によるアクションができるか
 	if (canNotActionTime < 0)
 	{
@@ -79,6 +90,15 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	{
 		Gravity(_deltaTime);
 	}
+	//ジャンプにより浮上中か
+	if (velocity.y <= 0)
+	{
+		isFloating = false;
+	}
+	else
+	{
+		isFloating = true;
+	}
 	Friction();
 	SetPosition(position + (velocity));
 	Invincible();
@@ -90,7 +110,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		printf("\nplayerPosition = {%f,%f,%f}", position.x, position.y, position.z);
 
 	inputDirection = 0;
-	   
+
 	//コントローラーが接続された場合操作をコントローラーに変更
 	if (InputSystem::GetConnectedController())
 	{
@@ -131,11 +151,28 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	}
 }
 
+void PlayerCharacter::FixCollision(const AABB & myAABB, const AABB & pairAABB, const Tag & _pairTag)
+{
+	//浮上中でかつ薄い床にすでに接触している場合はめりこみ補正を行わない
+	if (_pairTag == Tag::ThinGroundFloor)
+	{
+		if (isFloating && isThinGroundCollision)
+		{
+			return;
+		}
+	}
+	Vector3 ment = Vector3(0, 0, 0);
+	calcCollisionFixVec(myAABB, pairAABB, ment);
+	SetPosition(GetPosition() + (ment));
+}
+
 void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 {
-	if (colliderPair->GetObjectTag() == Tag::EnemyTag)
+	if (colliderPair->GetObjectTag() == Tag::ThinGroundFloor)
 	{
+		isThinGroundCollision = true;
 	}
+
 }
 
 void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
@@ -236,16 +273,28 @@ void PlayerCharacter::Move(float _deltaTime)
 void PlayerCharacter::Jump()
 {
 	//上下への移動力をリセット
-	velocity.y = 0;
-	if (jumpBottonInput)
+	//if (!isThinGroundCollision)
+	{
+	}
+	if (jumpBottonInput&&velocity.y <= 0)
 	{
 		velocity.y += JumpPower;
 	}
+	else
+	{
+
+	}
+	
 }
 
 void PlayerCharacter::Gravity(float _deltaTime)
 {
 	velocity.y += -GravityPower * _deltaTime;
+
+	if (velocity.y <= -25)
+	{
+		velocity.y = -25;
+	}
 }
 
 void PlayerCharacter::Friction()

@@ -33,6 +33,7 @@ enum Tag
 	PlayerGuardWeaponTag,
 	EnemyTag,
 	GroundTag,
+	ThinGroundFloor,
 	EnemyWeaponTag,
 	null,
 };
@@ -162,7 +163,7 @@ public:
 
 	int GetObjectId() {return myObjectId;};
 
-	void FixCollision(const AABB & myAABB, const AABB & pairAABB);
+	virtual void FixCollision(const AABB & myAABB, const AABB & pairAABB,const Tag& _pairTag);
 
 protected:
 	std::function<void(ColliderComponent*)> GetTriggerEnterFunc() { return std::bind(&GameObject::OnTriggerEnter, this, std::placeholders::_1); }

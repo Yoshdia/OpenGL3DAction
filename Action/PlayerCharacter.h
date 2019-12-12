@@ -18,13 +18,17 @@ public:
 
 	void UpdateGameObject(float _deltaTime)override;
 	void GameObjectInput(const InputState& _keyState) override;
+
+	void FixCollision(const AABB & myAABB, const AABB & pairAABB, const Tag& _pairTag)override;
 private:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair) override;
 	//アニメーション
 	class AnimationPlayerComponent* animationComponent;
-	//足の裏、着地しているかどうかを検知する
+	//足の裏、床(Ground)を対象に着地しているかどうかを検知する
 	class SkeltonObjectChecker* footChecker;
+	//足の裏、薄い床(ThinGround)を対象に着地しているかどうかを検知する
+	class SkeltonObjectChecker* thinChecker;
 
 	//入力による行動が制限される時間　主にAttackPlayerComponentの攻撃アクションから受け取る
 	float canNotActionTime;
@@ -79,6 +83,10 @@ private:
 	bool jumpBottonInput;
 	//ジャンプ力 
 	static const float JumpPower;
+	//ジャンプ後の浮上中か　浮上中のみ接触判定を行わない床があるため使用
+	bool isFloating;
+	//ThinGroundオブジェクトに接触しているか
+	bool isThinGroundCollision;
 
 	/*
 	@fn 重力

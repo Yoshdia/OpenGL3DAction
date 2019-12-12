@@ -4,24 +4,14 @@
 #include "InputSystem.h"
 #include "ColliderComponent.h"
 
-DebugBox::DebugBox(Vector3 p)
+DebugBox::DebugBox(Vector3 p, Vector3 _size, Tag _tag)
 {
 	MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
 	SetPosition(p);
-	SetScale(50);
-	tag = Tag::GroundTag;
-	ColliderComponent* collider = new ColliderComponent(this, 100, Vector3(100, 100, 100), myObjectId,GetTriggerEnterFunc(),GetTriggerStayFunc(),tag);
-}
-
-DebugBox::DebugBox(Vector3 p, Tag _tag)
-{
-	MeshComponent* meshComponent = new MeshComponent(this);
-	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
-	SetPosition(p);
-	SetScale(50);
+	SetScale(_size);
 	tag = _tag;
-	ColliderComponent* collider = new ColliderComponent(this, 100, Vector3(100, 100, 100), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
+	ColliderComponent* collider = new ColliderComponent(this, 100, _size*2, myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 
 }
 
