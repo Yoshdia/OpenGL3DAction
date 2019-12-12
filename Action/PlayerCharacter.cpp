@@ -89,7 +89,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		canNotActionTime--;
 	}
 	//空中なら重力を付与
-	if (noGround||doSkeletonThinGround)
+	if (noGround||(doSkeletonThinGround/*&& !noGround*/))
 	{
 		Gravity(_deltaTime);
 		if (inputUnderDirection>0)
@@ -121,15 +121,15 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	inputUnderDirection = false;
 
 	//コントローラーが接続された場合操作をコントローラーに変更
-	if (InputSystem::GetConnectedController())
-	{
-		attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
-		rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
-		guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_B);
-		jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
-		inputDirection = _keyState.Controller.GetLAxisVec().x;
-	}
-	else
+	//if (InputSystem::GetConnectedController())
+	//{
+	//	attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
+	//	rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
+	//	guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_B);
+	//	jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
+	//	inputDirection = _keyState.Controller.GetLAxisVec().x;
+	//}
+	//else
 	{
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 		{
@@ -239,6 +239,12 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 		{
 			Jump();
 		}
+		//下方向への入力があるか
+		if (inputUnderDirection > 0)
+		{
+			//薄い床のすり抜け可能な時間のディレイをセット
+			inputUnderCount = InputUnderCountMax;
+		}
 	}
 }
 
@@ -287,13 +293,6 @@ void PlayerCharacter::Move(float _deltaTime)
 
 void PlayerCharacter::SkeletonThinGround()
 {
-
-	//下方向への入力があるか
-	if (inputUnderDirection > 0)
-	{
-		//薄い床のすり抜け可能な時間のディレイをセット
-		inputUnderCount = InputUnderCountMax;
-	}
 	//下方向への入力があった後ほかに変化がなくカウントが過ぎた場合すべてリセットする
 	if (inputUnderCount <= 0)
 	{
