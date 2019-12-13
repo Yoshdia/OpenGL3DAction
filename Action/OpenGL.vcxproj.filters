@@ -158,6 +158,7 @@
     <ClCompile Include="BoneAnimationBaseComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -319,6 +320,7 @@
     <ClInclude Include="BoneAnimationBaseComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

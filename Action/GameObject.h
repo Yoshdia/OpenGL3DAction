@@ -32,6 +32,7 @@ enum Tag
 	PlayerWeaponTag,
 	PlayerGuardWeaponTag,
 	EnemyTag,
+	ParticleEffectTag,
 	GroundTag,
 	ThinGroundFloor,
 	EnemyWeaponTag,

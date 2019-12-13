@@ -16,6 +16,7 @@
 //debug
 #include "Game.h"
 #include "PhysicsWorld.h"
+#include "ParticleEffect.h"
 
 const float PlayerCharacter::MoveSpeed = 600;
 const float PlayerCharacter::GravityPower = 80;
@@ -164,6 +165,17 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	{
 		Game::debug = 1;
 	}
+	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_5))
+	{
+		new ParticleEffect(position, Vector3(0,3,0));
+		new ParticleEffect(position, Vector3(3,4,0));
+		new ParticleEffect(position, Vector3(6,3,0));
+		new ParticleEffect(position, Vector3(9,2,0));
+		new ParticleEffect(position, Vector3(0,0,0));
+		new ParticleEffect(position, Vector3(-9,2,0));
+		new ParticleEffect(position, Vector3(-6,3,0));
+		new ParticleEffect(position, Vector3(-3, 4, 0));
+	}
 }
 
 void PlayerCharacter::FixCollision(const AABB & myAABB, const AABB & pairAABB, const Tag & _pairTag)
@@ -187,7 +199,6 @@ void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 	{
 		isThinGroundCollision = true;
 	}
-
 }
 
 void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
