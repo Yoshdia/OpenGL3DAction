@@ -3,7 +3,7 @@
 	"vertexformat":"PosNormSkinTex",
 	"shader":"Skinned",
 	"textures":[
-		"Assets/Model/skeleton_archer.bmp"
+		"Assets/Model/skeleton_archer.png"
 	],
 	"specularPower":100.0,
 	"vertices":[

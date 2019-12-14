@@ -3,7 +3,7 @@
 	"vertexformat":"PosNormSkinTex",
 	"shader":"Skinned",
 	"textures":[
-		"Assets/Model/Skelton_King/skeleton_king_king.bmp"
+		"Assets/Model/Skelton_King/skeleton_king_king.png"
 	],
 	"specularPower":100.0,
 	"vertices":[
