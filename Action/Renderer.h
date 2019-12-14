@@ -165,6 +165,8 @@ public:
 
 	void LerpParentPos(float _deltaTime);
 
+	SDL_Renderer* GetSDLRenderer() { return sdlRenderer; }
+
 private:
 	//コンストラクタ、デストラクタの隠蔽
 	Renderer();
@@ -181,6 +183,8 @@ private:
 
 	//自分のインスタンス
 	static Renderer* renderer;
+
+	SDL_Renderer* sdlRenderer;
 
 	/**
 	@brief  シェーダーの読み込み

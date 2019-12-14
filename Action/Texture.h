@@ -1,6 +1,7 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
+#include <vector>
 
 class Texture
 {
@@ -8,40 +9,58 @@ public:
     Texture();
     ~Texture();
 	/**
-	@brief	ƒeƒNƒXƒ`ƒƒ‚Ìƒ[ƒh
-	@param	ƒeƒNƒXƒ`ƒƒ‚Ìƒtƒ@ƒCƒ‹–¼
-	@return	true : ¬Œ÷ , false : ¸”s
+	@brief	ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ­ãƒ¼ãƒ‰
+	@param	ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ•ã‚¡ã‚¤ãƒ«å
+	@return	true : æˆåŠŸ , false : å¤±æ•—
 	*/
+
 	bool Load(const std::string& _fileName);
 	/**
-	@brief	ƒ[ƒh‚µ‚½ƒeƒNƒXƒ`ƒƒ‚Ì‰ğ•ú
+	@brief	ãƒ­ãƒ¼ãƒ‰ã—ãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è§£æ”¾
 	*/
 	void Unload();
 
+	void CreateFromSurface(struct SDL_Surface* surface);
+
 	/**
-	@brief	ƒeƒNƒXƒ`ƒƒ‚ğƒAƒNƒeƒBƒu‚É‚·‚é
+	@brief	ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ç”¨ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä½œæˆ
+	@param	ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æ¨ªå¹…
+	@param	ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç¸¦å¹…
+	@param	ãƒ”ã‚¯ã‚»ãƒ«ãƒ‡ãƒ¼ã‚¿ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+	*/
+	void CreateForRendering(int width, int height, unsigned int format);
+
+	/**
+	@brief	ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
 	*/
 	void SetActive();
 
 	/**
-	@brief	ƒeƒNƒXƒ`ƒƒ‚Ì‰¡•‚ğæ“¾‚·‚é
-	@return ‰¡•
+	@brief	ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æ¨ªå¹…ã‚’å–å¾—ã™ã‚‹
+	@return æ¨ªå¹…
 	*/
 	int GetWidth() const { return width; }
 
 	/**
-	@brief	ƒeƒNƒXƒ`ƒƒ‚Ìc•‚ğæ“¾‚·‚é
-	@return c•
+	@brief	ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç¸¦å¹…ã‚’å–å¾—ã™ã‚‹
+	@return ç¸¦å¹…
 	*/
 	int GetHeight() const { return height; }
 
-	int GetTextureID() { return textureID; }
+	int GetTextureID() const { return textureID; }
+
+	static bool LoadDiv(
+		 const std::string& _fileName,const unsigned int _allNum
+		,const unsigned int _widthNum, const unsigned int _heightNum
+		,const unsigned int _width, const unsigned int _height
+		,std::vector<Texture*> textures);
+
 private:
 	unsigned int textureID;
 
-	//ƒeƒNƒXƒ`ƒƒ‚Ì‰¡•
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æ¨ªå¹…
 	int width;
-	//ƒeƒNƒXƒ`ƒƒ‚Ìc•
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç¸¦å¹…
 	int height;
 };
 
