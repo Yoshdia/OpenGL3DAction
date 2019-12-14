@@ -5,15 +5,18 @@
 #include "Renderer.h"
 
 AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, int updateOrder) :
-	BoneAnimationBaseComponent(_owner, "Assets/SK_Mannequin.gpmesh", "Assets/SK_Mannequin.gpskel", updateOrder),
+	BoneAnimationBaseComponent(_owner, "Assets/Model/Skelton_King/skeleton_king_king.gpmesh", "Assets/Model/Skelton_King/skeleton_king_king.gpskel", updateOrder),
 	animationName(EnemyAnimationName::Idle),
 	move(false),
 	attack(false),
 	animDuration(0)
 {
-	moveAnim = RENDERER->GetAnimation("Assets/ThirdPersonRun.gpanim");
-	idleAnim = RENDERER->GetAnimation("Assets/ThirdPersonIdle.gpanim");
-	attackAnim = RENDERER->GetAnimation("Assets/ThirdPersonJump_Loop.gpanim");
+	moveAnim = RENDERER->GetAnimation("Assets/Model/Skelton_King/KingRun.gpanim");
+	idleAnim = RENDERER->GetAnimation("Assets/Model/Skelton_King/KingIdle.gpanim");
+	attackAnim = RENDERER->GetAnimation("Assets/Model/Skelton_King/KingAttack1.gpanim");
+	//moveAnim = RENDERER->GetAnimation("Assets/Model/Arun.gpanim");
+	//idleAnim = RENDERER->GetAnimation("Assets/Model/Aidle.gpanim");
+	//attackAnim = RENDERER->GetAnimation("Assets/Model/AchargeShoot.gpanim");
 
 	//デフォルト、Idleとなるアニメーションを最初に再生すること
 	mMeshComp->PlayAnimation(idleAnim, 0.125f);

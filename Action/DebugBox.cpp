@@ -7,7 +7,7 @@
 DebugBox::DebugBox(Vector3 p, Vector3 _size, Tag _tag)
 {
 	MeshComponent* meshComponent = new MeshComponent(this);
-	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/untitled.gpmesh"));
+	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/Stage/untitled.gpmesh"));
 	SetPosition(p);
 	SetScale(_size);
 	tag = _tag;
