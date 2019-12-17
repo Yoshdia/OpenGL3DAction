@@ -87,5 +87,5 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		}
 		break;
 	}
-	animDuration-= 0.007f;
+	animDuration-= 0.020f;
 }

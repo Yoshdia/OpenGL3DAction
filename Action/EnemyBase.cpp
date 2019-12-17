@@ -6,12 +6,13 @@
 #include "ThrowWeapon.h"
 #include "RotateComponent.h"
 #include "AnimationEnemyComponent.h"
+#include "EnemyWeapon.h"
 
 const float EnemyBase::Gravity = 500.0f;
 const float EnemyBase::NockBackPower = 1075.0f;
 const float EnemyBase::GroundCheckPos = 40;
 const int EnemyBase::ActionChangeCountMax = 200;
-const Vector3 EnemyBase::footPos = Vector3(0, -25, 0);
+const Vector3 EnemyBase::footPos = Vector3(0, -15, 0);
 const Vector3 EnemyBase::TrackingRange = Vector3(1000, 1000, 1000);
 const int EnemyBase::TurnWaitCountMax = 5;
 const float EnemyBase::ForwardDownY = -90;
@@ -50,7 +51,7 @@ EnemyBase::EnemyBase(Vector3 _pos,Vector3 _scale,const std::string& meshName) :
 	SetScale(_scale);
 	SetPosition(_pos);
 	tag = Tag::EnemyTag;
-	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
+	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(10, 10, 10), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 	footChecker = new SkeltonObjectChecker(this, footPos, Vector3(1, 1, 1), Tag::GroundTag);
 	forwardDownGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0), Vector3(1, 1, 1), Tag::GroundTag);
@@ -334,4 +335,8 @@ void EnemyBase::Attacking(float _deltaTime)
 			animComponent->SetAttack(false);
 		}
 	}
+}
+
+void EnemyBase::Attack(float _deltaTime)
+{
 }

@@ -11,7 +11,7 @@ public:
 private:
 	void UpdateEnemyObject(float _deltaTime)override {};
 	void DeadEvent()override {};
-	void Attack(float _deltaTime)override {};
+	void Attack(float _deltaTime)override ;
 
 	//初期体力　ゼロになると撃破アニメーションと共に消える
 	static const int HitPointMax;

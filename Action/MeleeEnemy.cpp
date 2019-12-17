@@ -1,5 +1,6 @@
 #include "MeleeEnemy.h"
 #include "SkeltonObjectChecker.h"
+#include "EnemyWeapon.h"
 
  const int MeleeEnemy::HitPointMax=3;
  const float MeleeEnemy::AttackingTime=200;
@@ -11,9 +12,8 @@
  const int MeleeEnemy::AttackIntervalCount=60;
 
 MeleeEnemy::MeleeEnemy(Vector3 _pos) :
-	EnemyBase(_pos,Vector3(1,1,1),"Assets/Model/untitled.gpmesh")
+	EnemyBase(_pos,Vector3(0.5f, 0.5f, 0.5f),"Assets/Model/untitled.gpmesh")
 {
-	SetScale(1);
 	hitPoint = HitPointMax;
 	attackingTime = AttackingTime;
 	hittingTime = HittingTime;
@@ -26,6 +26,14 @@ MeleeEnemy::MeleeEnemy(Vector3 _pos) :
 
 MeleeEnemy::~MeleeEnemy()
 {
+}
+
+void MeleeEnemy::Attack(float _deltaTime)
+{
+	Vector3 ataPos = Vector3::Zero;
+	ataPos.x = moveDirection * 60;
+	ataPos.y += 60;
+	new EnemyWeapon(position+ataPos, Vector3(30,80,20), 60,10);
 }
 
 //void MeleeEnemy::BranchActionChange()

@@ -159,6 +159,7 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="ParticleEffect.cpp" />
+    <ClCompile Include="EnemyWeapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -321,6 +322,7 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="ParticleEffect.h" />
+    <ClInclude Include="EnemyWeapon.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

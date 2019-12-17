@@ -64,6 +64,10 @@ protected:
 	float attackRange;
 	//次の攻撃までのインターバル最大数
 	int attackIntervalCountMax;
+
+	//進行方向
+	EnemyMoveDirection moveDirection;
+
 	/**
 	~ コピペ用テンプレート ~
 	**/
@@ -128,8 +132,7 @@ private:
 	*/
 	virtual void UpdateEnemyObject(float _deltaTime) {};
 
-	//進行方向
-	EnemyMoveDirection moveDirection;
+
 	//移動方向の反転ディレイカウント、不自然な挙動を制限する
 	int turnWaitCount;
 	//移動方向の反転ディレイカウントの最大数
@@ -201,7 +204,7 @@ private:
 
 	//攻撃態勢 追跡/攻撃
 	void Attacking(float _deltaTime);
-	virtual void Attack(float _deltaTime) {};
+	virtual void Attack(float _deltaTime) ;
 	//非攻撃態勢 歩行/棒立ち
 	void NoAttacking(float _deltaTime);
 

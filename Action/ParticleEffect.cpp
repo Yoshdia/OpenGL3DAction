@@ -60,7 +60,6 @@ void ParticleEffect::FixCollision(const AABB& myAABB, const AABB& pairAABB, cons
 		Vector3 ment = Vector3(0, 0, 0);
 		calcCollisionFixVec(myAABB, pairAABB, ment);
 		SetPosition(GetPosition() + (ment));
-
 		}
 		isCollision = true;
 	}
