@@ -167,14 +167,8 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	}
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_5))
 	{
-		new ParticleEffect(position, Vector3(0,3,0));
-		new ParticleEffect(position, Vector3(3,4,0));
-		new ParticleEffect(position, Vector3(6,3,0));
-		new ParticleEffect(position, Vector3(9,2,0));
+		//new ParticleEffect(position, Vector3(10,5,0));
 		new ParticleEffect(position, Vector3(0,0,0));
-		new ParticleEffect(position, Vector3(-9,2,0));
-		new ParticleEffect(position, Vector3(-6,3,0));
-		new ParticleEffect(position, Vector3(-3, 4, 0));
 	}
 }
 

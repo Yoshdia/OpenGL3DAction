@@ -9,6 +9,7 @@ void PhysicsWorld::CreateInstance()
 	if (!physicsWorld)
 	{
 		physicsWorld = new PhysicsWorld();
+		physicsWorld->MakeNoCollisionPair();
 	}
 }
 
@@ -50,6 +51,11 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 		int obj2Id = collider2->GetId();
 		if (obj1Id < obj2Id)
 		{
+			if (CheckDontCollisionPair(collider->GetObjectTag(), collider2->GetObjectTag()))
+			{
+				continue;
+			}
+
 			int hit = false;
 			AABB obj1(collider->GetPosition(), collider->GetCollisionSize());
 			AABB obj2(collider2->GetPosition(), collider2->GetCollisionSize());
@@ -62,17 +68,16 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 
 			if (hit > 0)
 			{
-				if (obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::GroundTag||
-					obj1Tag == Tag::EnemyTag&&obj2Tag == Tag::GroundTag||
-					obj1Tag==Tag::PlayerTag&&obj2Tag==Tag::ThinGroundFloor)
+				if (obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::GroundTag ||
+					obj1Tag == Tag::EnemyTag&&obj2Tag == Tag::GroundTag ||
+					obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::ThinGroundFloor)
 				{
-					//dynamic_cast<PlayerCharacter*> (collider->GetOwner())->FixCollision(obj1,obj2);
-					collider->GetOwner()->FixCollision(obj1, obj2,obj2Tag);
+					collider->GetOwner()->FixCollision(obj1, obj2, obj2Tag);
 				}
-				//else if (obj1Tag == Tag::GroundTag && obj2Tag == Tag::ParticleEffectTag)
-				//{
-				//	collider2->GetOwner()->FixCollision(obj1, obj2, obj2Tag);
-				//}
+				else if (obj1Tag == Tag::GroundTag && obj2Tag == Tag::ParticleEffectTag)
+				{
+					collider2->GetOwner()->FixCollision(obj1, obj2, obj2Tag);
+				}
 
 				collider->OnCollision(collider2);
 				collider2->OnCollision(collider);
@@ -84,6 +89,63 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 		}
 
 	}
+}
+
+void PhysicsWorld::MakeNoCollisionPair()
+{
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::PlayerTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::PlayerWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::PlayerGuardWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::EnemyTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::ParticleEffectTag));
+
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::PlayerWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::PlayerGuardWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::ParticleEffectTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::GroundTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::ThinGroundFloor));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::EnemyWeaponTag));
+
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::PlayerGuardWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::EnemyTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::ParticleEffectTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::GroundTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::ThinGroundFloor));
+
+	noCollisionPairs.push_back(std::make_pair(Tag::EnemyTag, Tag::EnemyTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::EnemyTag, Tag::ParticleEffectTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::EnemyTag, Tag::EnemyWeaponTag));
+
+	noCollisionPairs.push_back(std::make_pair(Tag::ParticleEffectTag, Tag::ParticleEffectTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::ParticleEffectTag, Tag::EnemyWeaponTag));
+
+	noCollisionPairs.push_back(std::make_pair(Tag::GroundTag, Tag::GroundTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::GroundTag, Tag::ThinGroundFloor));
+	noCollisionPairs.push_back(std::make_pair(Tag::GroundTag, Tag::EnemyWeaponTag));
+
+	noCollisionPairs.push_back(std::make_pair(Tag::ThinGroundFloor, Tag::ThinGroundFloor));
+	noCollisionPairs.push_back(std::make_pair(Tag::ThinGroundFloor, Tag::EnemyWeaponTag));
+}
+
+bool PhysicsWorld::CheckDontCollisionPair(const Tag & lTag, const Tag & rTag)
+{
+	if (lTag == Tag::null || rTag == Tag::null)
+	{
+		return false;
+	}
+	for (auto pair : noCollisionPairs)
+	{
+		if (lTag == pair.first&&rTag == pair.second)
+		{
+			return true;
+		}
+		else if (rTag == pair.first&& lTag == pair.second)
+		{
+			return true;
+		}
+
+	}
+	return false;
 }
 
 void calcCollisionFixVec(const AABB & movableBox, const AABB & fixedBox, Vector3 & calcFixVec)

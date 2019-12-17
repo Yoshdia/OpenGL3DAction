@@ -15,5 +15,6 @@ private:
 	bool collisionForGround;
 	int direction;
 	int lifeCount;
+	bool isCollision;
 };
 

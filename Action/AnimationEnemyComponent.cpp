@@ -67,7 +67,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			else
 			{
 				animationName = EnemyAnimationName::Move;
-				animDuration = mMeshComp->PlayAnimation(moveAnim, 0.5f);
+				//animDuration = mMeshComp->PlayAnimation(moveAnim, 0.5f);
 			}
 		}
 		break;
@@ -87,5 +87,5 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		}
 		break;
 	}
-	animDuration-= 0.005f;
+	animDuration-= 0.007f;
 }

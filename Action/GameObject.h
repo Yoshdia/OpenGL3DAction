@@ -28,14 +28,14 @@ enum State
 */
 enum Tag
 {
-	PlayerTag,
-	PlayerWeaponTag,
-	PlayerGuardWeaponTag,
-	EnemyTag,
-	ParticleEffectTag,
-	GroundTag,
-	ThinGroundFloor,
-	EnemyWeaponTag,
+	PlayerTag=0,
+	PlayerWeaponTag=1,
+	PlayerGuardWeaponTag=2,
+	EnemyTag=3,
+	ParticleEffectTag=4,
+	GroundTag=5,
+	ThinGroundFloor=6,
+	EnemyWeaponTag=7,
 	null,
 };
 
