@@ -48,40 +48,21 @@ void ParticleEffect::UpdateGameObject(float _deltaTime)
 		{
 			state = Dead;
 		}
-
 	}
-
-
-	if (direction == 0)
-	{
-
-	}
-	else if (direction == 1)
-	{
-		//if (velocity.x >= 2.0f * direction)
-		//{
-		//	velocity.x = velocity.x / (direction * 1.3f);
-		//}
-	}
-	else
-	{
-		//if (velocity.x <= 2.0f * direction)
-		//{
-		//	velocity.x = velocity.x / (-direction * 1.3f);
-		//}
-	}
-
 }
 
 void ParticleEffect::FixCollision(const AABB& myAABB, const AABB& pairAABB, const Tag& _pairTag)
 {
 	if (collisionForGround)
 	{
+		if (!isCollision)
+		{
 		Vector3 ment = Vector3(0, 0, 0);
 		calcCollisionFixVec(myAABB, pairAABB, ment);
-		int i = 0;
-		//SetPosition(GetPosition() + (ment));
-		//velocity += ment;
+		SetPosition(GetPosition() + (ment));
+
+		}
+		isCollision = true;
 	}
 }
 
@@ -89,8 +70,6 @@ void ParticleEffect::OnTriggerEnter(ColliderComponent* colliderPair)
 {
 	if (colliderPair->GetObjectTag() == Tag::GroundTag)
 	{
-		//velocity.y = 0;
 		velocity = Vector3::Zero;
-		isCollision = true;
 	}
 }
