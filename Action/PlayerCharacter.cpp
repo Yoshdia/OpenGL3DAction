@@ -23,7 +23,7 @@ const float PlayerCharacter::GravityPower = 80;
 const float PlayerCharacter::JumpPower = 25.0f;
 const float PlayerCharacter::MoveFriction = 1.2f;
 
-const int PlayerCharacter::InvincibleCount = 120;
+const int PlayerCharacter::InvincibleCount = 20;
 const int PlayerCharacter::InputUnderCountMax = 30;
 
 PlayerCharacter::PlayerCharacter() :
@@ -81,7 +81,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		velocity.y = 0;
 	}
 	//入力によるアクションができるか
-	if (canNotActionTime < 0)
+	if (canNotActionTime < 0&&!invincible)
 	{
 		Actions(_deltaTime, noGround);
 	}
@@ -122,15 +122,15 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	inputUnderDirection = false;
 
 	//コントローラーが接続された場合操作をコントローラーに変更
-	//if (InputSystem::GetConnectedController())
-	//{
-	//	attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
-	//	rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
-	//	guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_B);
-	//	jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
-	//	inputDirection = _keyState.Controller.GetLAxisVec().x;
-	//}
-	//else
+	if (InputSystem::GetConnectedController())
+	{
+		attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
+		rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
+		guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_B);
+		jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
+		inputDirection = _keyState.Controller.GetLAxisVec().x;
+	}
+	else
 	{
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 		{
@@ -167,8 +167,16 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	}
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_5))
 	{
-		//new ParticleEffect(position, Vector3(10,5,0));
-		new ParticleEffect(position, Vector3(0,0,0));
+		new ParticleEffect(position, Vector3(10, 16, 0));
+		new ParticleEffect(position, Vector3(10, 12, 0));
+		new ParticleEffect(position, Vector3(10, 9, 0));
+		new ParticleEffect(position, Vector3(10, 6, 0));
+		new ParticleEffect(position, Vector3(10, 3, 0));
+		new ParticleEffect(position, Vector3(-10, 16, 0));
+		new ParticleEffect(position, Vector3(-10, 12, 0));
+		new ParticleEffect(position, Vector3(-10, 9, 0));
+		new ParticleEffect(position, Vector3(-10, 6, 0));
+		new ParticleEffect(position, Vector3(-10, 3, 0));
 	}
 }
 
@@ -204,6 +212,10 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 			//衝突した敵の攻撃が、防御済みでないか
 			if (!guardComponent->SearchObjectId(colliderPair->GetId()))
 			{
+				//プレイヤーの攻撃の方向を計算しnockBackForceに計算
+				double distance = Math::Sqrt((colliderPair->GetPosition().x - position.x) * (colliderPair->GetPosition().x - position.x) + (colliderPair->GetPosition().y - position.y) * (colliderPair->GetPosition().y - position.y));
+				Vector3 force = Vector3::Normalize(Vector3((position.x - colliderPair->GetPosition().x), 0, (position.z - colliderPair->GetPosition().z)));
+				velocity.x = force.x * 10;
 				HitAttack();
 				printf("Outi!!!!\n");
 			}

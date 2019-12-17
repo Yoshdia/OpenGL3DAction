@@ -65,8 +65,11 @@ public:
 	Tag GetObjectTag();
 
 	State GetState();
-private:
 
+	bool GetDoCollision() {return doCollision;}
+	void SetDoCollision(bool _flag) { doCollision = _flag; }
+private:
+	bool doCollision;
 	//衝突判定が存在する中心座標　親GameObjectの座標に足して使用する
 	Vector3 colliderPos;
 

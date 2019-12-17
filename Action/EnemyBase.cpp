@@ -7,6 +7,7 @@
 #include "RotateComponent.h"
 #include "AnimationEnemyComponent.h"
 #include "EnemyWeapon.h"
+#include "ParticleEffect.h"
 
 const float EnemyBase::Gravity = 500.0f;
 const float EnemyBase::NockBackPower = 1075.0f;
@@ -18,18 +19,19 @@ const int EnemyBase::TurnWaitCountMax = 5;
 const float EnemyBase::ForwardDownY = -90;
 
 const int EnemyBase::HitPointMax = 3;
-const float EnemyBase::AttackingTime = 200;
+const float EnemyBase::AttackingTime = 30;
 const float EnemyBase::HittingTime = 40.0f;
 const float EnemyBase::WalkSpeed = 125;
 const float EnemyBase::ApproachSpeedRatio = 0.8f;
 const float EnemyBase::SearchRange = 200;
 const float EnemyBase::AttackRange = 75.0f;
-const int EnemyBase::AttackIntervalCount = 60;
+const int EnemyBase::AttackIntervalCount = 120;
 
 EnemyBase::EnemyBase(Vector3 _pos,Vector3 _scale,const std::string& meshName) :
 	GameObject(),
 	actionChangeCount(0),
 	moveDirection(EnemyMoveDirection::right),
+	beforeDirection(moveDirection),
 	actionName(EnemyActions::walk),
 	turnWaitCount(0),
 	nockBackForce(Vector3::Zero),
@@ -41,7 +43,7 @@ EnemyBase::EnemyBase(Vector3 _pos,Vector3 _scale,const std::string& meshName) :
 	hitPoint(HitPointMax),
 	isLive(false),
 	actionChangeCountMax(ActionChangeCountMax),
-	attackingTime(0),
+	attackingTime(AttackingTime),
 	hittingTime(HittingTime),
 	walkSpeed(WalkSpeed),
 	approachSpeedRatio(ApproachSpeedRatio),
@@ -59,7 +61,7 @@ EnemyBase::EnemyBase(Vector3 _pos,Vector3 _scale,const std::string& meshName) :
 	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(searchRange, 1, 0), Vector3(searchRange, 1, 1), Tag::PlayerTag);
 	trackingRange = new SkeltonObjectChecker(this, Vector3::Zero, TrackingRange, Tag::PlayerTag);
 
-	RotateComponent* rotate = new RotateComponent(this);
+	 rotate = new RotateComponent(this);
 	rotate->SetRotation(-90, Vector3::UnitX);
 
 	animComponent = new AnimationEnemyComponent(this);
@@ -91,7 +93,7 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 	{
 		isLive = false;
 
-		DeadEvent();
+		DeadCommonEvent();
 		animComponent->SetAttack(true);
 		animComponent->SetMove(false);
 		return;
@@ -100,6 +102,11 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 	NockBack(_deltaTime);
 	Action(_deltaTime);
 
+	if (beforeDirection != moveDirection)
+	{
+		rotate->SetRotation(180, Vector3::UnitY);
+		beforeDirection = moveDirection;
+	}
 
 	//移動方向に変更が加わった際にすぐそっちを見るように座標を更新し続ける
 	findingPlayerCheck->SetOffset(Vector3((searchRange)*moveDirection, 0, 0));
@@ -121,11 +128,30 @@ void EnemyBase::OnTriggerEnter(ColliderComponent* colliderPair)
 	{
 		//プレイヤーの攻撃の方向を計算しnockBackForceに計算
 		double distance = Math::Sqrt((colliderPair->GetPosition().x - position.x) * (colliderPair->GetPosition().x - position.x) + (colliderPair->GetPosition().y - position.y) * (colliderPair->GetPosition().y - position.y));
-		Vector3 force = Vector3::Normalize(Vector3((position.x - colliderPair->GetPosition().x), (position.y - colliderPair->GetPosition().y), (position.z - colliderPair->GetPosition().z)));
+		Vector3 force = Vector3::Normalize(Vector3((position.x - colliderPair->GetPosition().x),0, (position.z - colliderPair->GetPosition().z)));
 		nockBackForce = force * NockBackPower;
 		canNotActionTime = hittingTime;
 		hitPoint--;
 	}
+}
+
+void EnemyBase::DeadCommonEvent()
+{
+	DeadEvent();
+	SetState(Dead);
+	Vector3 effectPos = Vector3(position.x, position.y + 50, position.z);
+	new ParticleEffect(effectPos, Vector3(10, 18, 0));
+	new ParticleEffect(effectPos, Vector3(-10, 18, 0));
+	new ParticleEffect(effectPos, Vector3(10, 16, 0));
+	new ParticleEffect(effectPos, Vector3(10, 12, 0));
+	new ParticleEffect(effectPos, Vector3(10, 9, 0));
+	new ParticleEffect(effectPos, Vector3(10, 6, 0));
+	new ParticleEffect(effectPos, Vector3(10, 3, 0));
+	new ParticleEffect(effectPos, Vector3(-10, 16, 0));
+	new ParticleEffect(effectPos, Vector3(-10, 12, 0));
+	new ParticleEffect(effectPos, Vector3(-10, 9, 0));
+	new ParticleEffect(effectPos, Vector3(-10, 6, 0));
+	new ParticleEffect(effectPos, Vector3(-10, 3, 0));
 }
 
 void EnemyBase::NockBack(float _deltaTime)

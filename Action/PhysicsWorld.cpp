@@ -51,7 +51,8 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 		int obj2Id = collider2->GetId();
 		if (obj1Id < obj2Id)
 		{
-			if (CheckDontCollisionPair(collider->GetObjectTag(), collider2->GetObjectTag()))
+			if (CheckDontCollisionPair(collider->GetObjectTag(), collider2->GetObjectTag())||
+				!collider2->GetDoCollision())
 			{
 				continue;
 			}

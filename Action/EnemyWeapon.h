@@ -16,5 +16,6 @@ private:
 	int waitTime;
 
 	class MeshComponent* meshComponent  ;
+	class ColliderComponent* collisionComp;
 };
 

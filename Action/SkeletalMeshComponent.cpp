@@ -8,6 +8,7 @@
 #include "VertexArray.h"
 #include "Animation.h"
 #include "Skeleton.h"
+#include "GameObject.h"
 
 SkeletalMeshComponent::SkeletalMeshComponent(GameObject* owner)
 	:MeshComponent(owner, true)
@@ -17,44 +18,48 @@ SkeletalMeshComponent::SkeletalMeshComponent(GameObject* owner)
 
 void SkeletalMeshComponent::Draw(Shader* shader)                         // 描画
 {
-	if (mMesh)
+	if (owner->GetState() != State::Dead)
 	{
-		// Set the world transform                                        ワールド変換をセット
-		shader->SetMatrixUniform("uWorldTransform",
-			owner->GetWorldTransform());
-		// Set the matrix palette                                         行列パレットをセット    
-		shader->SetMatrixUniforms("uMatrixPalette", &mPalette.mEntry[0],
-			MAX_SKELETON_BONES);
-		// Set specular power                                             スペキュラー強度をセット
-		shader->SetFloatUniform("uSpecPower", 100);
-		// Set the active texture                                         テクスチャをセット 
-		Texture* t = mMesh->GetTexture(mTextureIndex);
-		if (t)
+		if (mMesh)
 		{
-			t->SetActive();
+			// Set the world transform                                        ワールド変換をセット
+			shader->SetMatrixUniform("uWorldTransform",
+				owner->GetWorldTransform());
+			// Set the matrix palette                                         行列パレットをセット    
+			shader->SetMatrixUniforms("uMatrixPalette", &mPalette.mEntry[0],
+				MAX_SKELETON_BONES);
+			// Set specular power                                             スペキュラー強度をセット
+			shader->SetFloatUniform("uSpecPower", 100);
+			// Set the active texture                                         テクスチャをセット 
+			Texture* t = mMesh->GetTexture(mTextureIndex);
+			if (t)
+			{
+				t->SetActive();
+			}
+			// Set the mesh's vertex array as active                          メッシュの頂点配列をアクティブに
+			VertexArray* va = mMesh->GetVertexArray();
+			va->SetActive();
+			// Draw                                                           描画
+			glDrawElements(GL_TRIANGLES, va->GetNumIndices(), GL_UNSIGNED_INT, nullptr);
 		}
-		// Set the mesh's vertex array as active                          メッシュの頂点配列をアクティブに
-		VertexArray* va = mMesh->GetVertexArray();
-		va->SetActive();
-		// Draw                                                           描画
-		glDrawElements(GL_TRIANGLES, va->GetNumIndices(), GL_UNSIGNED_INT, nullptr);
 	}
 }
 
 void SkeletalMeshComponent::Update(float deltaTime)
 {
-	if (mAnimation && mSkeleton)
-	{
-		mAnimTime += deltaTime * mAnimPlayRate;
-		// Wrap around anim time if past duration                         アニメを巻き戻して再生
-		while (mAnimTime > mAnimation->GetDuration())
+		if (mAnimation && mSkeleton)
 		{
-			mAnimTime -= mAnimation->GetDuration();
-		}
+			mAnimTime += deltaTime * mAnimPlayRate;
+			// Wrap around anim time if past duration                         アニメを巻き戻して再生
+			while (mAnimTime > mAnimation->GetDuration())
+			{
+				mAnimTime -= mAnimation->GetDuration();
+			}
 
-		// Recompute matrix palette                                      行列パレットの再計算
-		ComputeMatrixPalette();
-	}
+			// Recompute matrix palette                                      行列パレットの再計算
+			ComputeMatrixPalette();
+		}
+	
 }
 
 float SkeletalMeshComponent::PlayAnimation(const Animation* anim, float playRate)  // アニメーションの再生
@@ -63,8 +68,8 @@ float SkeletalMeshComponent::PlayAnimation(const Animation* anim, float playRate
 	mAnimTime = 0.0f;
 	mAnimPlayRate = playRate;
 
-	if (!mAnimation) 
-	{ 
+	if (!mAnimation)
+	{
 		return 0.0f;
 	}
 

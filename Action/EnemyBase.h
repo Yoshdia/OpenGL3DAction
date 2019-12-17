@@ -67,6 +67,7 @@ protected:
 
 	//進行方向
 	EnemyMoveDirection moveDirection;
+	EnemyMoveDirection beforeDirection;
 
 	/**
 	~ コピペ用テンプレート ~
@@ -111,9 +112,11 @@ protected:
 	attackIntervalCount = AttackIntervalCount;
 	*/
 private:
+
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair)override;
 
+	class RotateComponent* rotate;
 	//このカウントが0以下でないと行動ができない。攻撃時や被弾時にカウントが増える
 	int canNotActionTime;
 
@@ -123,6 +126,7 @@ private:
 	@fn 死亡時のイベント
 	*/
 	virtual void DeadEvent() {};
+	void DeadCommonEvent();
 
 	//アニメーションを管理するクラス
 	class AnimationEnemyComponent* animComponent;

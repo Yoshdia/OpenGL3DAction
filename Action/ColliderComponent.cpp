@@ -6,6 +6,7 @@ ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector
 	Component(owner, updateOrder)
 	, size(size)
 	, colliderPos(Vector3(0,0,0))
+	, doCollision(true)
 {
 	OnTriggerEnter = TriggerEnter;
 	OnTriggerStay = TriggerStay;
@@ -16,6 +17,7 @@ ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector
 	Component(owner, updateOrder)
 	, size(size)
 	, colliderPos(colliderPos)
+	, doCollision(true)
 {
 	OnTriggerEnter = TriggerEnter;
 	OnTriggerStay = TriggerStay;
@@ -47,8 +49,10 @@ void ColliderComponent::Update(float deltaTime)
 	hadCollision.clear();
 	hadCollision = isCollision;
 	isCollision.clear();
-
+	if (doCollision)
+	{
 	PhysicsWorld::GetInstance()->Collision(this);
+	}
 }
 
 //float ColliderComponent::GetScale()
