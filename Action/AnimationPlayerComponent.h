@@ -7,6 +7,10 @@ enum PlayerAnimationState
 	Move,
 	Attack,
 	Range,
+	Guard,
+	Down,
+	Outi,
+	Jump,
 };
 
 class AnimationSpriteClip;
@@ -26,6 +30,10 @@ private:
 	AnimationSpriteClip* move;
 	AnimationSpriteClip* attack;
 	AnimationSpriteClip* rangeAttack;
+	AnimationSpriteClip* outi;
+	AnimationSpriteClip* guard;
+	AnimationSpriteClip* down;
+	AnimationSpriteClip* jump;
 
 	PlayerAnimationState nextAnimation;
 	PlayerAnimationState beforeAnimation;

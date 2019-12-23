@@ -81,7 +81,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		velocity.y = 0;
 	}
 	//入力によるアクションができるか
-	if (canNotActionTime < 0&&!invincible)
+	if (canNotActionTime < 0 && !invincible)
 	{
 		Actions(_deltaTime, noGround);
 	}
@@ -90,12 +90,12 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		canNotActionTime--;
 	}
 	//空中なら重力を付与
-	if (noGround||(doSkeletonThinGround/*&& !noGround*/))
+	if (noGround || (doSkeletonThinGround/*&& !noGround*/))
 	{
 		Gravity(_deltaTime);
-		if (inputUnderDirection>0)
+		if (inputUnderDirection > 0)
 		{
-			doSkeletonThinGround=true;
+			doSkeletonThinGround = true;
 		}
 	}
 	//ジャンプにより浮上中か
@@ -185,7 +185,7 @@ void PlayerCharacter::FixCollision(const AABB & myAABB, const AABB & pairAABB, c
 	//浮上中でかつ薄い床にすでに接触している場合はめりこみ補正を行わない
 	if (_pairTag == Tag::ThinGroundFloor)
 	{
-		if ((isFloating && isThinGroundCollision)||doSkeletonThinGround)
+		if ((isFloating && isThinGroundCollision) || doSkeletonThinGround)
 		{
 			return;
 		}
@@ -217,7 +217,7 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 				Vector3 force = Vector3::Normalize(Vector3((position.x - colliderPair->GetPosition().x), 0, (position.z - colliderPair->GetPosition().z)));
 				velocity.x = force.x * 10;
 				HitAttack();
-				printf("Outi!!!!\n");
+				animationComponent->SetAnimation(PlayerAnimationState::Outi);
 			}
 		}
 	}
@@ -225,6 +225,7 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 
 void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 {
+	bool actioned = false;
 	if (attackBottonInput)
 	{
 		Attack(PlayerAnimationState::Attack);
@@ -232,6 +233,7 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 		{
 			animationComponent->SetAnimation(PlayerAnimationState::Attack);
 		}
+		actioned = true;
 	}
 	else if (rangeAttackBottonInput)
 	{
@@ -240,21 +242,39 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 		{
 			animationComponent->SetAnimation(PlayerAnimationState::Range);
 		}
+		actioned = true;
 	}
 	else if (guardBottonInput)
 	{
 		Guard();
+		animationComponent->SetAnimation(PlayerAnimationState::Guard);
+
+		actioned = true;
 	}
 	else
 	{
 		if (inputDirection != 0)
 		{
 			Move(_deltaTime);
+			actioned = true;
+		if (velocity.y < 0)
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Jump);
+		}
+		else
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Jump);
+		}
 		}
 		//着地しているか
 		if (!_noGround)
 		{
-			Jump();
+			if (jumpBottonInput)
+			{
+				Jump();
+				actioned = true;
+			}
+			//animationComponent->SetAnimation();
 		}
 		//下方向への入力があるか
 		if (inputUnderDirection > 0)
@@ -262,6 +282,15 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 			//薄い床のすり抜け可能な時間のディレイをセット
 			inputUnderCount = InputUnderCountMax;
 		}
+	}
+	if (!actioned)
+	{
+		if (velocity.y == 0)
+		{
+
+			animationComponent->SetAnimation(PlayerAnimationState::Idle);
+		}
+
 	}
 }
 
@@ -293,7 +322,7 @@ void PlayerCharacter::Move(float _deltaTime)
 {
 	if (inputDirection != 0)
 	{
-		if (animationComponent != nullptr)
+		if (animationComponent != nullptr&&velocity.y == 0)
 		{
 			animationComponent->SetAnimation(PlayerAnimationState::Move);
 		}
@@ -341,7 +370,7 @@ void PlayerCharacter::Jump()
 	//if (!isThinGroundCollision)
 	{
 	}
-	if (jumpBottonInput&&velocity.y <= 0)
+	if (velocity.y <= 0)
 	{
 		velocity.y += JumpPower;
 	}

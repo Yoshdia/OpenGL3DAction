@@ -6,6 +6,10 @@
 #include "AttackPlayerAnimationClip.h"
 #include "RangeAttackPlayerAnimationClip.h"
 #include "Texture.h"
+#include "DownPlayerAnimationClip.h"
+#include "GuardPlayerAnimationClip.h"
+#include "JumpPlayerAnimationClip.h"
+#include "NockBackPlayerAnimationClip.h"
 
 AnimationPlayerComponent::AnimationPlayerComponent(GameObject* _owner, int _updateOrder)
 	:Component(_owner, _updateOrder)
@@ -18,6 +22,10 @@ AnimationPlayerComponent::AnimationPlayerComponent(GameObject* _owner, int _upda
 	move = new MovePlayerAnimationClip();
 	attack = new AttackPlayerAnimationClip();
 	rangeAttack = new RangeAttackPlayerAnimationClip();
+	outi = new NockBackPlayerAnimationClip();
+	guard = new GuardPlayerAnimationClip();
+	down = new DownPlayerAnimationClip();
+	jump = new JumpPlayerAnimationClip();
 
 	nowAnimation = idle;
 	beforeAnimation = PlayerAnimationState::Idle;
@@ -32,6 +40,10 @@ AnimationPlayerComponent::~AnimationPlayerComponent()
 	delete move;
 	delete attack;
 	delete rangeAttack;
+	delete outi;
+	delete guard;
+	delete down;
+	delete jump;
 }
 
 void AnimationPlayerComponent::Update(float _deltaTime)
@@ -50,6 +62,10 @@ void AnimationPlayerComponent::Update(float _deltaTime)
 		case (PlayerAnimationState::Move): nowAnimation = move; break;
 		case (PlayerAnimationState::Attack): nowAnimation = attack; break;
 		case (PlayerAnimationState::Range): nowAnimation = rangeAttack; break;
+		case (PlayerAnimationState::Down): nowAnimation = down; break;
+		case (PlayerAnimationState::Guard): nowAnimation = guard;break;
+		case (PlayerAnimationState::Jump): nowAnimation = jump;break;
+		case (PlayerAnimationState::Outi): nowAnimation = outi; break;
 		}
 		nowAnimation->ResetAnimation();
 	}

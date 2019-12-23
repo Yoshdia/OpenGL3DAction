@@ -160,6 +160,10 @@
     </ClCompile>
     <ClCompile Include="ParticleEffect.cpp" />
     <ClCompile Include="EnemyWeapon.cpp" />
+    <ClCompile Include="GuardPlayerAnimationClip.cpp" />
+    <ClCompile Include="DownPlayerAnimationClip.cpp" />
+    <ClCompile Include="NockBackPlayerAnimationClip.cpp" />
+    <ClCompile Include="JumpPlayerAnimationClip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -323,6 +327,10 @@
     </ClInclude>
     <ClInclude Include="ParticleEffect.h" />
     <ClInclude Include="EnemyWeapon.h" />
+    <ClInclude Include="GuardPlayerAnimationClip.h" />
+    <ClInclude Include="DownPlayerAnimationClip.h" />
+    <ClInclude Include="NockBackPlayerAnimationClip.h" />
+    <ClInclude Include="JumpPlayerAnimationClip.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
