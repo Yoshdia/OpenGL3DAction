@@ -158,12 +158,24 @@
     <ClCompile Include="BoneAnimationBaseComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleEffect.cpp" />
-    <ClCompile Include="EnemyWeapon.cpp" />
-    <ClCompile Include="GuardPlayerAnimationClip.cpp" />
-    <ClCompile Include="DownPlayerAnimationClip.cpp" />
-    <ClCompile Include="NockBackPlayerAnimationClip.cpp" />
-    <ClCompile Include="JumpPlayerAnimationClip.cpp" />
+    <ClCompile Include="DownPlayerAnimationClip.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GuardPlayerAnimationClip.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpPlayerAnimationClip.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="NockBackPlayerAnimationClip.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyWeapon.cpp">
+      <Filter>GameObjects\Enemy\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEffect.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -325,12 +337,24 @@
     <ClInclude Include="BoneAnimationBaseComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleEffect.h" />
-    <ClInclude Include="EnemyWeapon.h" />
-    <ClInclude Include="GuardPlayerAnimationClip.h" />
-    <ClInclude Include="DownPlayerAnimationClip.h" />
-    <ClInclude Include="NockBackPlayerAnimationClip.h" />
-    <ClInclude Include="JumpPlayerAnimationClip.h" />
+    <ClInclude Include="DownPlayerAnimationClip.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GuardPlayerAnimationClip.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpPlayerAnimationClip.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="NockBackPlayerAnimationClip.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyWeapon.h">
+      <Filter>GameObjects\Enemy\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEffect.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -380,6 +404,9 @@
     </Filter>
     <Filter Include="Animation\Player">
       <UniqueIdentifier>{9af7e7f4-cc20-4f4f-9962-35797026c41d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Enemy\Weapon">
+      <UniqueIdentifier>{0e4f0142-ff55-454d-bbeb-108eaaf133de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

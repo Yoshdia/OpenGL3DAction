@@ -22,6 +22,4 @@ DebugBox::~DebugBox()
 
 void DebugBox::GameObjectInput(const InputState & _keyState)
 {
-	if (_keyState.Keyboard.GetKeyValue(SDL_SCANCODE_0)==1)
-		printf("\ndebugBoxPosition = {%f,%f,%f}", position.x, position.y, position.z);
 }

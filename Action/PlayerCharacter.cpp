@@ -97,6 +97,14 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		{
 			doSkeletonThinGround = true;
 		}
+		if (velocity.y < 0)
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Jump);
+		}
+		else
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Jump);
+		}
 	}
 	//ƒWƒƒƒ“ƒv‚É‚æ‚è•‚ã’†‚©
 	if (velocity.y <= 0)
@@ -257,14 +265,7 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 		{
 			Move(_deltaTime);
 			actioned = true;
-		if (velocity.y < 0)
-		{
-			animationComponent->SetAnimation(PlayerAnimationState::Jump);
-		}
-		else
-		{
-			animationComponent->SetAnimation(PlayerAnimationState::Jump);
-		}
+
 		}
 		//’…’n‚µ‚Ä‚¢‚é‚©
 		if (!_noGround)
@@ -287,10 +288,8 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 	{
 		if (velocity.y == 0)
 		{
-
 			animationComponent->SetAnimation(PlayerAnimationState::Idle);
 		}
-
 	}
 }
 
