@@ -13,10 +13,10 @@
 const float EnemyBase::Gravity = 500.0f;
 const float EnemyBase::NockBackPower = 1075.0f;
 const float EnemyBase::GroundCheckPos = 40;
-const int EnemyBase::ActionChangeCountMax = 200;
+const int EnemyBase::ActionChangeCountMax = 100;
 const Vector3 EnemyBase::footPos = Vector3(0, -15, 0);
 const Vector3 EnemyBase::TrackingRange = Vector3(1000, 1000, 1000);
-const int EnemyBase::TurnWaitCountMax = 5;
+const int EnemyBase::TurnWaitCountMax = 2;
 const float EnemyBase::ForwardDownY = -90;
 
 const int EnemyBase::HitPointMax = 3;
@@ -209,7 +209,7 @@ void EnemyBase::Action(float _deltaTime)
 void EnemyBase::BranchActionChange()
 {
 	//棒立ち、歩行を設定する乱数
-	int ra = rand() % 4;
+	int ra = rand() % 6;
 	if (ra <= 1)
 	{
 		actionName = EnemyActions::walk;
@@ -230,12 +230,14 @@ void EnemyBase::BranchActionChange()
 	{
 		moveDirection = EnemyMoveDirection::right;
 	}
+	forwardDownGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, -90, 0));
+	forwardGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, 0, 0));
 }
 
 void EnemyBase::ShuffleCountMax()
 {
 	//次のアクション変更時間をデフォルト+乱数で決定
-	actionChangeCountMax = ActionChangeCountMax + ((rand() % 10) * 100);
+	actionChangeCountMax = ActionChangeCountMax + ((rand() % 5) * 100);
 }
 
 void EnemyBase::NoAttacking(float _deltaTime)
@@ -256,6 +258,7 @@ void EnemyBase::NoAttacking(float _deltaTime)
 					//移動方向が反転したのでそれぞれのoffset座標を更新する
 					forwardDownGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, -90, 0));
 					forwardGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, 0, 0));
+					printf("%f,%f\n",forwardDownGroundCheck->GetPosition().x, forwardGroundCheck->GetPosition().x);
 				}
 			}
 			else

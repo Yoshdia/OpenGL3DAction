@@ -176,7 +176,9 @@
     <ClCompile Include="ParticleEffect.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="MainCameraObject.cpp" />
+    <ClCompile Include="MainCameraObject.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -356,7 +358,9 @@
     <ClInclude Include="ParticleEffect.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="MainCameraObject.h" />
+    <ClInclude Include="MainCameraObject.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
