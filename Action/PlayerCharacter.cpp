@@ -17,6 +17,7 @@
 #include "Game.h"
 #include "PhysicsWorld.h"
 #include "ParticleEffect.h"
+#include "MainCameraObject.h"
 
 const float PlayerCharacter::MoveSpeed = 600;
 const float PlayerCharacter::GravityPower = 80;
@@ -70,7 +71,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
 	isThinGroundCollision = false;
 	//カメラの追跡先をセット
-	RENDERER->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
+	mainCamera->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
 	//着地状態
 	bool noGround = footChecker->GetNoTouchingFlag() && (thinChecker->GetNoTouchingFlag());
 	//bool aaaaa = thinChecker->GetNoTouchingFlag();

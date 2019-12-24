@@ -166,9 +166,12 @@ public:
 
 	virtual void FixCollision(const AABB & myAABB, const AABB & pairAABB,const Tag& _pairTag);
 
+	static void CreateMainCamera();
 protected:
 	std::function<void(ColliderComponent*)> GetTriggerEnterFunc() { return std::bind(&GameObject::OnTriggerEnter, this, std::placeholders::_1); }
 	std::function<void(ColliderComponent*)> GetTriggerStayFunc() { return std::bind(&GameObject::OnTriggerStay, this, std::placeholders::_1); }
+
+	static class MainCameraObject* mainCamera;
 
 	virtual void OnTriggerEnter( ColliderComponent* colliderPair) {};
 	virtual void OnTriggerStay( ColliderComponent* colliderPair) {};

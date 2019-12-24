@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "InputSystem.h"
 #include "Renderer.h"
+#include "MainCameraObject.h"
 
 GameObjectManager* GameObjectManager::manager = nullptr;
 
@@ -10,6 +11,7 @@ void GameObjectManager::CreateInstance()
 	if (manager == nullptr)
 	{
 		manager = new GameObjectManager();
+		GameObject::CreateMainCamera();
 	}
 }
 
@@ -18,7 +20,7 @@ void GameObjectManager::DeleteInstance()
 	if (manager != nullptr)
 	{
 		delete manager;
-        manager = nullptr;
+		manager = nullptr;
 	}
 }
 
@@ -28,7 +30,6 @@ void GameObjectManager::DeleteInstance()
 void GameObjectManager::UpdateGameObject(float _deltaTime)
 {
 	//_deltaTime /= 3;
-	RENDERER->LerpParentPos(_deltaTime);
 	updatingGameObject = true;
 	for (auto gameObject : gameObjects)
 	{
@@ -118,7 +119,7 @@ std::vector<GameObject*> GameObjectManager::FindGameObjects(Tag _tag)
 
 
 GameObjectManager::GameObjectManager()
-: updatingGameObject(false)
+	: updatingGameObject(false)
 {
 }
 

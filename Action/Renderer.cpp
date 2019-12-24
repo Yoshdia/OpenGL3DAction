@@ -33,10 +33,6 @@ Renderer::Renderer()
 	, screenWidth(0)
 	, screenHeight(0)
 	, ambientLight(Vector3::Zero)
-	, lerpObject(Vector3(0, 0, 0))
-	, offsetPos(Vector3(0, 0, 0))
-	, hasParentObject(false)
-	, cameraPos(Vector3(0, 0, 0))
 	, mSkinnedShader(nullptr)
 {
 }
@@ -154,32 +150,6 @@ void Renderer::Shutdown()
 	delete basicShader;
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
-}
-
-void Renderer::SetViewMatrixLerpObject(const Vector3& _offset, const Vector3& _parentPos)
-{
-	hasParentObject = true;
-	offsetPos = _offset;
-	lerpObject = _parentPos;
-}
-
-void Renderer::LerpParentPos(float _deltaTime)
-{
-	if (!hasParentObject)
-	{
-		printf("Camera[I don't have parent!]");
-		return;
-	}
-	Vector3 pos = offsetPos + cameraPos;
-	pos.x = lerpObject.x + offsetPos.x;
-	pos.y = lerpObject.y + offsetPos.y;
-	pos.z = lerpObject.z + offsetPos.z;
-	cameraPos = Vector3::Lerp(cameraPos, pos, _deltaTime * 3.0f);
-	Vector3 aa = cameraPos;
-	aa.z = 0;
-
-	Matrix4 v = Matrix4::CreateLookAt(cameraPos, aa, Vector3::UnitY);
-	RENDERER->SetViewMatrix(v);
 }
 
 /**

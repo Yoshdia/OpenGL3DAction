@@ -5,8 +5,10 @@
 #include "InputSystem.h"
 #include "GameObjectManager.h"
 #include "PhysicsWorld.h"
+#include "MainCameraObject.h"
 
 int GameObject::gameObjectId = 0;
+MainCameraObject* GameObject::mainCamera = nullptr;
 
 /**
 @param	ゲームクラスのポインタ
@@ -23,6 +25,10 @@ GameObject::GameObject()
 {
 	gameObjectId++;
 	GAME_OBJECT_MANAGER->AddGameObject(this);
+	//if (mainCamera == nullptr)
+	//{
+	//	mainCamera = new MainCameraObject();
+	//}
 }
 
 GameObject::~GameObject()
@@ -141,4 +147,9 @@ void GameObject::FixCollision(const AABB & myAABB, const AABB & pairAABB,const T
 	Vector3 ment = Vector3(0, 0, 0);
 	calcCollisionFixVec(myAABB, pairAABB, ment);
 	SetPosition(GetPosition() + (ment));
+}
+
+void GameObject::CreateMainCamera()
+{
+	mainCamera = new MainCameraObject();
 }

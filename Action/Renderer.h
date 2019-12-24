@@ -161,10 +161,6 @@ public:
 
 	Matrix4 GetProjectionMatrix() { return projection; }
 
-	void SetViewMatrixLerpObject(const Vector3& offset, const Vector3& _parentPos);
-
-	void LerpParentPos(float _deltaTime);
-
 	SDL_Renderer* GetSDLRenderer() { return sdlRenderer; }
 
 private:
@@ -172,10 +168,7 @@ private:
 	Renderer();
 	~Renderer();
 
-	Vector3 offsetPos;
-	Vector3 lerpObject;
-	Vector3 cameraPos;
-	bool hasParentObject;
+
 
 	std::unordered_map<std::string, class Skeleton*> mSkeletons; // スケルタルデータ
 	std::unordered_map<std::string, class Animation*> mAnims;    // アニメーションデータ
