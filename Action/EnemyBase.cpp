@@ -8,6 +8,7 @@
 #include "AnimationEnemyComponent.h"
 #include "EnemyWeapon.h"
 #include "ParticleEffect.h"
+#include "MainCameraObject.h"
 
 const float EnemyBase::Gravity = 500.0f;
 const float EnemyBase::NockBackPower = 1075.0f;
@@ -92,6 +93,8 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 	if (hitPoint <= 0)
 	{
 		isLive = false;
+		//撃破されたのでメインカメラの注視位置を1F変更し衝撃のように見せる
+		mainCamera->SetViewMatrixLerpObject(Vector3(0, 0, 0), position);
 
 		DeadCommonEvent();
 		animComponent->SetAttack(true);

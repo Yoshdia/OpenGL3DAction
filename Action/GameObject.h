@@ -166,11 +166,15 @@ public:
 
 	virtual void FixCollision(const AABB & myAABB, const AABB & pairAABB,const Tag& _pairTag);
 
+	/*
+	@fn 静的なmainCameraを生成する
+	*/
 	static void CreateMainCamera();
 protected:
 	std::function<void(ColliderComponent*)> GetTriggerEnterFunc() { return std::bind(&GameObject::OnTriggerEnter, this, std::placeholders::_1); }
 	std::function<void(ColliderComponent*)> GetTriggerStayFunc() { return std::bind(&GameObject::OnTriggerStay, this, std::placeholders::_1); }
-
+	
+	//メインカメラ　生成はGameObjectManager生成時に行われる
 	static class MainCameraObject* mainCamera;
 
 	virtual void OnTriggerEnter( ColliderComponent* colliderPair) {};
