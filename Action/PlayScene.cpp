@@ -6,6 +6,7 @@
 #include "PlayerCharacter.h"
 #include "DebugBox.h"
 #include "MeleeEnemy.h"
+#include "CandleStick.h"
 
 PlayScene::PlayScene()
 	:SceneBase()
@@ -22,6 +23,7 @@ PlayScene::PlayScene()
 
 	//new MeleeEnemy(Vector3(0,-125,0));
 	//new MeleeEnemy(Vector3(-200,50,0));
+	new CandleStick(Vector3(400, 80, 0));
 
 	new DebugBox(Vector3(-100, -200, 0));
 	new DebugBox(Vector3(-100, -100, 0));

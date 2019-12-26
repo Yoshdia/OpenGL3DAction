@@ -61,6 +61,7 @@ public:
 		@fn “–‚½‚è”»’è‚ÌƒTƒCƒY
 	*/
 	Vector3 GetCollisionSize() { return size; };
+	void SetScale(Vector3 _scale){size=_scale;}
 
 	Tag GetObjectTag();
 

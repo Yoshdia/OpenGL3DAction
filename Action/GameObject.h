@@ -36,6 +36,7 @@ enum Tag
 	GroundTag=5,
 	ThinGroundFloor=6,
 	EnemyWeaponTag=7,
+	CandleStickTag=8,
 	null,
 };
 

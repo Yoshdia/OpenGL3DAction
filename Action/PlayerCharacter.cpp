@@ -74,8 +74,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	mainCamera->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
 	//着地状態
 	bool noGround = footChecker->GetNoTouchingFlag() && (thinChecker->GetNoTouchingFlag());
-	//bool aaaaa = thinChecker->GetNoTouchingFlag();
-	//noGround = noGround && aaaaa;
+
 	//着地状態のとき上下方向への力をリセットする
 	if (!noGround && !isFloating)
 	{
@@ -209,6 +208,12 @@ void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 	if (colliderPair->GetObjectTag() == Tag::ThinGroundFloor)
 	{
 		isThinGroundCollision = true;
+		return;
+	}
+	if (colliderPair->GetObjectTag() == Tag::CandleStickTag)
+	{
+		printf("Healing\n");
+		return;
 	}
 }
 

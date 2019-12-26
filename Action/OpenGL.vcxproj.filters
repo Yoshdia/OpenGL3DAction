@@ -179,7 +179,10 @@
     <ClCompile Include="MainCameraObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="WarpPointSearchEnemy.cpp" />
+    <ClCompile Include="WarpPointSearchEnemy.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CandleStick.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -362,7 +365,10 @@
     <ClInclude Include="MainCameraObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="WarpPointSearchEnemy.h" />
+    <ClInclude Include="WarpPointSearchEnemy.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CandleStick.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
