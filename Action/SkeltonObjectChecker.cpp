@@ -20,7 +20,7 @@ SkeltonObjectChecker::SkeltonObjectChecker(GameObject* _parent, Vector3 _pos, Ve
 
 		meshComponent = new MeshComponent(this);
 		meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/collisionMask.gpmesh"));
-	SetScale(_colliderSize);
+	SetScale(_colliderSize*10);
 }
 
 SkeltonObjectChecker::~SkeltonObjectChecker()

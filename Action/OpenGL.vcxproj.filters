@@ -179,6 +179,7 @@
     <ClCompile Include="MainCameraObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="WarpPointSearchEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -361,6 +362,7 @@
     <ClInclude Include="MainCameraObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="WarpPointSearchEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

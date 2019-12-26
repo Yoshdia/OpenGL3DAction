@@ -116,6 +116,9 @@ private:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair)override;
 
+	class WarpPointSearchEnemy* warpSearch;
+	bool warpPositonSearching;
+
 	class RotateComponent* rotate;
 	//このカウントが0以下でないと行動ができない。攻撃時や被弾時にカウントが増える
 	int canNotActionTime;

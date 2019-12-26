@@ -9,6 +9,7 @@
 #include "EnemyWeapon.h"
 #include "ParticleEffect.h"
 #include "MainCameraObject.h"
+#include "WarpPointSearchEnemy.h"
 
 const float EnemyBase::Gravity = 500.0f;
 const float EnemyBase::NockBackPower = 1075.0f;
@@ -49,7 +50,8 @@ EnemyBase::EnemyBase(Vector3 _pos,Vector3 _scale,const std::string& meshName) :
 	walkSpeed(WalkSpeed),
 	approachSpeedRatio(ApproachSpeedRatio),
 	searchRange(SearchRange),
-	attackRange(AttackRange)
+	attackRange(AttackRange),
+	warpPositonSearching(false)
 {
 	SetScale(_scale);
 	SetPosition(_pos);
@@ -68,6 +70,8 @@ EnemyBase::EnemyBase(Vector3 _pos,Vector3 _scale,const std::string& meshName) :
 	animComponent = new AnimationEnemyComponent(this);
 	animComponent->SetMove(true);
 	isLive = true;
+
+	warpSearch = new WarpPointSearchEnemy();
 }
 
 EnemyBase::~EnemyBase()
@@ -307,7 +311,7 @@ void EnemyBase::Attacking(float _deltaTime)
 	{
 		//追跡対象と高さの差が10以上ある状態でカウントが100進むと追跡対象から一定以上離れた位置にテレポート
 		float heightDistance = Math::Abs(position.y - target.y);
-		if (heightDistance > 10 && playerDistance > 100)
+		if (heightDistance > 10 && playerDistance > 100&&!warpPositonSearching)
 		{
 			teleportChargingTime++;
 		}
@@ -315,12 +319,23 @@ void EnemyBase::Attacking(float _deltaTime)
 		{
 			teleportChargingTime = 0;
 		}
-		if (teleportChargingTime > 100)
+		if (teleportChargingTime > 200&&!warpPositonSearching)
+		{ 
+ 			teleportChargingTime = 0;
+ 		//	Vector3 teleportPosition = target;
+			//teleportPosition.x += (100 * moveDirection) * -1;
+			warpSearch->SetFirstPosition(target, position);
+  			warpPositonSearching = true;
+			//SetPosition(teleportPosition);
+		}
+		if (warpPositonSearching)
 		{
-			teleportChargingTime = 0;
-			Vector3 teleportPosition = target;
-			teleportPosition.x += (100 * moveDirection) * -1;
-			SetPosition(teleportPosition);
+			if (warpSearch->GetEndSearch())
+			{
+				SetPosition(warpSearch->GetPosition());
+				warpPositonSearching = false;
+				teleportChargingTime = 0;
+			}
 		}
 		//進行方向に壁があるか||進行方向の足元に地面が無いか
 		if (!forwardDownGroundCheck->GetNoTouchingFlag() && forwardGroundCheck->GetNoTouchingFlag())
@@ -345,6 +360,7 @@ void EnemyBase::Attacking(float _deltaTime)
 	}
 	else
 	{
+		warpPositonSearching = false;
 		//攻撃の射程距離から離れたらアクションを変更する
 		if (playerDistance >= attackRange)
 		{
