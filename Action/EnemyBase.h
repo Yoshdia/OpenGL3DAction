@@ -45,41 +45,36 @@ public:
 	~EnemyBase();
 	void UpdateGameObject(float _deltaTime)override;
 protected:
-	/**
-	~ 以下継承先で変更が可能 ~(private内にある定数は指定がなかった場合のもの)
-	**/
-	//初期体力　ゼロになると撃破アニメーションと共に消える
-	int hitPoint;
+	void OnTriggerEnter(ColliderComponent* colliderPair)override;
 
+	//初期体力　ゼロになると撃破パーティクルと共に消える
+	int hitPoint;
 	//現在Fの進行方向
 	EnemyMoveDirection moveDirection;
 	//前Fの進行方向、現Fと異なっていた場合RotateComponentを用いて回転する
 	EnemyMoveDirection beforeDirection;
 
-	void OnTriggerEnter(ColliderComponent* colliderPair)override;
-	/*
-	@fn 被弾時の処理　ノックバックなど
-	*/
-	virtual void HitPlayerAttack(const Vector3& _pairPos) {};
-
 	class RotateComponent* rotate;
+	//アニメーションを管理するクラス
+	class AnimationEnemyComponent* animComponent;
 
 	/*
 	@fn 死亡時のイベント
 	*/
-	virtual void DeadEvent() {};
 	void DeadCommonEvent();
-
-	//アニメーションを管理するクラス
-	class AnimationEnemyComponent* animComponent;
+	virtual void DeadEvent() {};
 
 	/*
 	@fn エネミー固有のUpdate関数、継承先で実装
 	*/
 	virtual void UpdateEnemyObject(float _deltaTime) {};
+	/*
+	@fn 被弾時の処理　ノックバックなど
+	*/
+	virtual void HitPlayerAttack(const Vector3& _pairPos) {};
 
 	/**
-	~ protected内の変数に継承先で変更が行われなかった場合の定数 ~
+	~ 継承先で変更が行われなかった場合の最大体力 ~
 	**/
 	static const int HitPointMax;
 };
@@ -110,14 +105,14 @@ static const int AttackIntervalCount;
 */
 //.cpp用
 /*
-const int MeleeEnemy::HitPointMax = 0;
-const float MeleeEnemy::AttackingTime = 0;
-const float MeleeEnemy::HittingTime = 0;
-const float MeleeEnemy::WalkSpeed = 0;
-const float MeleeEnemy::ApproachSpeedRatio = 0;
-const float MeleeEnemy::SearchRange = 0;
-const float MeleeEnemy::AttackRange = 0;
-const int MeleeEnemy::AttackIntervalCount = 0;
+const int LoiteringEnemyBase::HitPointMax = 0;
+const float LoiteringEnemyBase::AttackingTime = 0;
+const float LoiteringEnemyBase::HittingTime = 0;
+const float LoiteringEnemyBase::WalkSpeed = 0;
+const float LoiteringEnemyBase::ApproachSpeedRatio = 0;
+const float LoiteringEnemyBase::SearchRange = 0;
+const float LoiteringEnemyBase::AttackRange = 0;
+const int LoiteringEnemyBase::AttackIntervalCount = 0;
 
 hitPoint = HitPointMax;
 attackingTime = AttackingTime;

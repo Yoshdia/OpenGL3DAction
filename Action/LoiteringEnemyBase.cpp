@@ -4,6 +4,15 @@
 #include "RotateComponent.h"
 #include "AnimationEnemyComponent.h"
 #include "EnemyWeapon.h"
+const int LoiteringEnemyBase::HitPointMax = 3;
+const float LoiteringEnemyBase::AttackingTime = 200;
+const float LoiteringEnemyBase::HittingTime = 40;
+const float LoiteringEnemyBase::WalkSpeed = 125;
+const float LoiteringEnemyBase::ApproachSpeedRatio = 0.8f;
+const float LoiteringEnemyBase::SearchRange = 200;
+const float LoiteringEnemyBase::AttackRange = 75;
+const int LoiteringEnemyBase::AttackIntervalCount = 20;
+
 const float LoiteringEnemyBase::Gravity = 500.0f;
 const float LoiteringEnemyBase::NockBackPower = 1075.0f;
 const float LoiteringEnemyBase::GroundCheckPos = 40;
@@ -13,22 +22,14 @@ const Vector3 LoiteringEnemyBase::TrackingRange = Vector3(1000, 1000, 1000);
 const int LoiteringEnemyBase::TurnWaitCountMax = 2;
 const float LoiteringEnemyBase::ForwardDownY = -90;
 
-const float LoiteringEnemyBase::AttackingTime = 30;
-const float LoiteringEnemyBase::HittingTime = 40.0f;
-const float LoiteringEnemyBase::WalkSpeed = 125;
-const float LoiteringEnemyBase::ApproachSpeedRatio = 0.8f;
-const float LoiteringEnemyBase::SearchRange = 200;
-const float LoiteringEnemyBase::AttackRange = 75.0f;
-const int LoiteringEnemyBase::AttackIntervalCount = 120;
-
-LoiteringEnemyBase::LoiteringEnemyBase(Vector3 _pos, Vector3 _scale):
-	EnemyBase(_pos,_scale),
+LoiteringEnemyBase::LoiteringEnemyBase(Vector3 _pos, Vector3 _scale) :
+	EnemyBase(_pos, _scale),
 	actionChangeCount(0),
 	attackingTime(AttackingTime),
 	hittingTime(HittingTime),
 	walkSpeed(WalkSpeed),
 	approachSpeedRatio(ApproachSpeedRatio),
-	searchRange(SearchRange), 
+	searchRange(SearchRange),
 	attackIntervalCountMax(AttackIntervalCount),
 	attackRange(AttackRange),
 	actionName(EnemyActions::walk),
@@ -41,14 +42,15 @@ LoiteringEnemyBase::LoiteringEnemyBase(Vector3 _pos, Vector3 _scale):
 	actionChangeCountMax(ActionChangeCountMax),
 	warpPositonSearching(false)
 {
-	warpSearch = new WarpPointSearchEnemy();
+	hitPoint = HitPointMax;
 
 	footChecker = new SkeltonObjectChecker(this, footPos, Vector3(1, 1, 1), Tag::GroundTag);
 	forwardDownGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0), Vector3(1, 1, 1), Tag::GroundTag);
 	forwardGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
 	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(searchRange, 1, 0), Vector3(searchRange, 1, 1), Tag::PlayerTag);
 	trackingRange = new SkeltonObjectChecker(this, Vector3::Zero, TrackingRange, Tag::PlayerTag);
-
+	
+	warpSearch = new WarpPointSearchEnemy();
 }
 
 LoiteringEnemyBase::~LoiteringEnemyBase()
@@ -74,7 +76,7 @@ void LoiteringEnemyBase::UpdateLoiteringEnemyObject(float _deltaTime)
 }
 
 void LoiteringEnemyBase::HitPlayerAttack(const Vector3& _pairPos)
-{		
+{
 	//ÉvÉåÉCÉÑÅ[ÇÃçUåÇÇÃï˚å¸ÇåvéZÇµnockBackForceÇ…åvéZ
 	double distance = Math::Sqrt((_pairPos.x - position.x) * (_pairPos.x - position.x) + (_pairPos.y - position.y) * (_pairPos.y - position.y));
 	Vector3 force = Vector3::Normalize(Vector3((position.x - _pairPos.x), 0, (position.z - _pairPos.z)));
@@ -270,7 +272,7 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 
 void LoiteringEnemyBase::Attack(float _deltaTime)
 {
-	
+
 }
 
 void LoiteringEnemyBase::NoAttacking(float _deltaTime)

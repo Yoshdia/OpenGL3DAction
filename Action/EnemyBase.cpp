@@ -12,9 +12,9 @@ const int EnemyBase::HitPointMax = 3;
 
 EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale) :
 	GameObject(),
+	hitPoint(HitPointMax),
 	moveDirection(EnemyMoveDirection::right),
-	beforeDirection(moveDirection),
-	hitPoint(HitPointMax)
+	beforeDirection(moveDirection)
 {
 	SetScale(_scale);
 	SetPosition(_pos);
