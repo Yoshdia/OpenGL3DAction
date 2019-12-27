@@ -183,6 +183,7 @@
       <Filter>GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="CandleStick.cpp" />
+    <ClCompile Include="LoiteringEnemyBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -369,6 +370,7 @@
       <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="CandleStick.h" />
+    <ClInclude Include="LoiteringEnemyBase.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

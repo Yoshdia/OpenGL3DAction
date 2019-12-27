@@ -12,7 +12,7 @@
  const int MeleeEnemy::AttackIntervalCount=20;
 
 MeleeEnemy::MeleeEnemy(Vector3 _pos) :
-	EnemyBase(_pos,Vector3(0.5f, 0.5f, 0.5f),"Assets/Model/untitled.gpmesh")
+	LoiteringEnemyBase(_pos,Vector3(0.5f, 0.5f, 0.5f))
 {
 	//hitPoint = HitPointMax;
 	//attackingTime = AttackingTime;
@@ -28,6 +28,14 @@ MeleeEnemy::~MeleeEnemy()
 {
 }
 
+void MeleeEnemy::UpdateLoiteringEnemyObject(float _deltaTime)
+{
+}
+
+void MeleeEnemy::DeadEvent()
+{
+}
+
 void MeleeEnemy::Attack(float _deltaTime)
 {
 	Vector3 ataPos = Vector3::Zero;
@@ -36,11 +44,3 @@ void MeleeEnemy::Attack(float _deltaTime)
 	new EnemyWeapon(position+ataPos, Vector3(60,80,20), 30,40);
 }
 
-//void MeleeEnemy::BranchActionChange()
-//{
-//
-//}
-//
-//void MeleeEnemy::ShuffleCountMax()
-//{
-//}

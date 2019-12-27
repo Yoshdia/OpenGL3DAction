@@ -1,16 +1,16 @@
 #pragma once
-#include "EnemyBase.h"
+#include "LoiteringEnemyBase.h"
 
 
 class MeleeEnemy :
-	public EnemyBase
+	public LoiteringEnemyBase
 {
 public:
 	MeleeEnemy(Vector3 _pos);
 	~MeleeEnemy();
 private:
-	void UpdateEnemyObject(float _deltaTime)override {};
-	void DeadEvent()override {};
+	void UpdateLoiteringEnemyObject(float _deltaTime)override;
+	void DeadEvent()override ;
 	void Attack(float _deltaTime)override ;
 
 	//初期体力　ゼロになると撃破アニメーションと共に消える
