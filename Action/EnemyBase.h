@@ -112,19 +112,18 @@ protected:
 	attackIntervalCount = AttackIntervalCount;
 	*/
 private:
-
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair)override;
 
+	//プレイヤーが離れすぎた場合にワープするためにワープ地点を指定するクラス
 	class WarpPointSearchEnemy* warpSearch;
+	//ワープ地点指定中かどうか
 	bool warpPositonSearching;
 
 	class RotateComponent* rotate;
 	//このカウントが0以下でないと行動ができない。攻撃時や被弾時にカウントが増える
 	int canNotActionTime;
 
-	//生存フラグ
-	bool isLive;
 	/*
 	@fn 死亡時のイベント
 	*/

@@ -29,7 +29,7 @@ const float EnemyBase::SearchRange = 200;
 const float EnemyBase::AttackRange = 75.0f;
 const int EnemyBase::AttackIntervalCount = 120;
 
-EnemyBase::EnemyBase(Vector3 _pos,Vector3 _scale,const std::string& meshName) :
+EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale, const std::string& meshName) :
 	GameObject(),
 	actionChangeCount(0),
 	moveDirection(EnemyMoveDirection::right),
@@ -43,7 +43,6 @@ EnemyBase::EnemyBase(Vector3 _pos,Vector3 _scale,const std::string& meshName) :
 	attackIntervalCountMax(AttackIntervalCount),
 	canNotActionTime(0),
 	hitPoint(HitPointMax),
-	isLive(false),
 	actionChangeCountMax(ActionChangeCountMax),
 	attackingTime(AttackingTime),
 	hittingTime(HittingTime),
@@ -64,13 +63,11 @@ EnemyBase::EnemyBase(Vector3 _pos,Vector3 _scale,const std::string& meshName) :
 	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(searchRange, 1, 0), Vector3(searchRange, 1, 1), Tag::PlayerTag);
 	trackingRange = new SkeltonObjectChecker(this, Vector3::Zero, TrackingRange, Tag::PlayerTag);
 
-	 rotate = new RotateComponent(this);
+	rotate = new RotateComponent(this);
 	rotate->SetRotation(-90, Vector3::UnitX);
 
 	animComponent = new AnimationEnemyComponent(this);
 	animComponent->SetMove(true);
-	isLive = true;
-
 	warpSearch = new WarpPointSearchEnemy();
 }
 
@@ -80,43 +77,32 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::UpdateGameObject(float _deltaTime)
 {
+	if (hitPoint <= 0)
+	{
+		//撃破されたのでメインカメラの注視位置を1F変更し衝撃のように見せる
+		mainCamera->SetViewMatrixLerpObject(Vector3(0, 0, 0), position);
+		//敵くらすごとの撃破イベント
+		DeadCommonEvent();
+		return;
+	}
 	//地面と接触していないとき重力を働かせる
 	if (footChecker->GetNoTouchingFlag())
 	{
 		SetPosition(position + Vector3(0, -Gravity * _deltaTime, 0));
 	}
-
-	if (!isLive)
-	{
-		if (animComponent->GetAnimDuration() <= 0)
-		{
-			SetState(State::Dead);
-		}
-		return;
-	}
-	if (hitPoint <= 0)
-	{
-		isLive = false;
-		//撃破されたのでメインカメラの注視位置を1F変更し衝撃のように見せる
-		mainCamera->SetViewMatrixLerpObject(Vector3(0, 0, 0), position);
-
-		DeadCommonEvent();
-		animComponent->SetAttack(true);
-		animComponent->SetMove(false);
-		return;
-	}
+	//敵クラスごとの更新事項
 	UpdateEnemyObject(_deltaTime);
+	//ノックバック
 	NockBack(_deltaTime);
+	//徘徊や攻撃などのアクション
 	Action(_deltaTime);
 
+	//前Fと向きが異なっていた場合回転
 	if (beforeDirection != moveDirection)
 	{
 		rotate->SetRotation(180, Vector3::UnitY);
 		beforeDirection = moveDirection;
 	}
-
-	//移動方向に変更が加わった際にすぐそっちを見るように座標を更新し続ける
-	findingPlayerCheck->SetOffset(Vector3((searchRange)*moveDirection, 0, 0));
 }
 
 
@@ -135,7 +121,7 @@ void EnemyBase::OnTriggerEnter(ColliderComponent* colliderPair)
 	{
 		//プレイヤーの攻撃の方向を計算しnockBackForceに計算
 		double distance = Math::Sqrt((colliderPair->GetPosition().x - position.x) * (colliderPair->GetPosition().x - position.x) + (colliderPair->GetPosition().y - position.y) * (colliderPair->GetPosition().y - position.y));
-		Vector3 force = Vector3::Normalize(Vector3((position.x - colliderPair->GetPosition().x),0, (position.z - colliderPair->GetPosition().z)));
+		Vector3 force = Vector3::Normalize(Vector3((position.x - colliderPair->GetPosition().x), 0, (position.z - colliderPair->GetPosition().z)));
 		nockBackForce = force * NockBackPower;
 		canNotActionTime = hittingTime;
 		hitPoint--;
@@ -144,7 +130,6 @@ void EnemyBase::OnTriggerEnter(ColliderComponent* colliderPair)
 
 void EnemyBase::DeadCommonEvent()
 {
-	DeadEvent();
 	SetState(Dead);
 	Vector3 effectPos = Vector3(position.x, position.y + 50, position.z);
 	new ParticleEffect(effectPos, Vector3(10, 18, 0));
@@ -159,6 +144,7 @@ void EnemyBase::DeadCommonEvent()
 	new ParticleEffect(effectPos, Vector3(-10, 9, 0));
 	new ParticleEffect(effectPos, Vector3(-10, 6, 0));
 	new ParticleEffect(effectPos, Vector3(-10, 3, 0));
+	DeadEvent();
 }
 
 void EnemyBase::NockBack(float _deltaTime)
@@ -234,8 +220,10 @@ void EnemyBase::BranchActionChange()
 	{
 		moveDirection = EnemyMoveDirection::right;
 	}
+	//移動方向に変更が加わった際にすぐそっちを見るように座標を更新し続ける
 	forwardDownGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, -90, 0));
 	forwardGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, 0, 0));
+	findingPlayerCheck->SetOffset(Vector3((searchRange)*moveDirection, 0, 0));
 }
 
 void EnemyBase::ShuffleCountMax()
@@ -262,7 +250,7 @@ void EnemyBase::NoAttacking(float _deltaTime)
 					//移動方向が反転したのでそれぞれのoffset座標を更新する
 					forwardDownGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, -90, 0));
 					forwardGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, 0, 0));
-					printf("%f,%f\n",forwardDownGroundCheck->GetPosition().x, forwardGroundCheck->GetPosition().x);
+					printf("%f,%f\n", forwardDownGroundCheck->GetPosition().x, forwardGroundCheck->GetPosition().x);
 				}
 			}
 			else
@@ -311,7 +299,7 @@ void EnemyBase::Attacking(float _deltaTime)
 	{
 		//追跡対象と高さの差が10以上ある状態でカウントが100進むと追跡対象から一定以上離れた位置にテレポート
 		float heightDistance = Math::Abs(position.y - target.y);
-		if (heightDistance > 10 && playerDistance > 100&&!warpPositonSearching)
+		if (heightDistance > 10 && playerDistance > 100 && !warpPositonSearching)
 		{
 			teleportChargingTime++;
 		}
@@ -319,19 +307,19 @@ void EnemyBase::Attacking(float _deltaTime)
 		{
 			teleportChargingTime = 0;
 		}
-		if (teleportChargingTime > 200&&!warpPositonSearching)
-		{ 
- 			teleportChargingTime = 0;
- 		//	Vector3 teleportPosition = target;
-			//teleportPosition.x += (100 * moveDirection) * -1;
+		if (teleportChargingTime > 100 && !warpPositonSearching)
+		{
+			teleportChargingTime = 0;
+			//ワープ地点指定の開始
 			warpSearch->SetFirstPosition(target, position);
-  			warpPositonSearching = true;
-			//SetPosition(teleportPosition);
+			warpPositonSearching = true;
 		}
 		if (warpPositonSearching)
 		{
+			//ワープ地点指定が終了したら
 			if (warpSearch->GetEndSearch())
 			{
+				//ワープ地点にワープ
 				SetPosition(warpSearch->GetPosition());
 				warpPositonSearching = false;
 				teleportChargingTime = 0;
