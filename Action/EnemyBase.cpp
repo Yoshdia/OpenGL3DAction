@@ -9,14 +9,6 @@
 #include "MainCameraObject.h"
 
 const int EnemyBase::HitPointMax = 3;
-const float EnemyBase::AttackingTime = 30;
-const float EnemyBase::HittingTime = 40.0f;
-const float EnemyBase::WalkSpeed = 125;
-const float EnemyBase::ApproachSpeedRatio = 0.8f;
-const float EnemyBase::SearchRange = 200;
-const float EnemyBase::AttackRange = 75.0f;
-const int EnemyBase::AttackIntervalCount = 120;
-
 
 EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale) :
 	GameObject(),

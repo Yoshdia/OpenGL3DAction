@@ -116,5 +116,13 @@ private:
 	virtual void Attack(float _deltaTime);
 	//”ñUŒ‚‘Ô¨ •às/–_—§‚¿
 	void NoAttacking(float _deltaTime);
+
+	static const float AttackingTime;
+	static const float HittingTime;
+	static const float WalkSpeed;
+	static const float ApproachSpeedRatio;
+	static const float SearchRange;
+	static const float AttackRange;
+	static const int AttackIntervalCount;
 };
 

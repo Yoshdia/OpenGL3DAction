@@ -13,6 +13,14 @@ const Vector3 LoiteringEnemyBase::TrackingRange = Vector3(1000, 1000, 1000);
 const int LoiteringEnemyBase::TurnWaitCountMax = 2;
 const float LoiteringEnemyBase::ForwardDownY = -90;
 
+const float LoiteringEnemyBase::AttackingTime = 30;
+const float LoiteringEnemyBase::HittingTime = 40.0f;
+const float LoiteringEnemyBase::WalkSpeed = 125;
+const float LoiteringEnemyBase::ApproachSpeedRatio = 0.8f;
+const float LoiteringEnemyBase::SearchRange = 200;
+const float LoiteringEnemyBase::AttackRange = 75.0f;
+const int LoiteringEnemyBase::AttackIntervalCount = 120;
+
 LoiteringEnemyBase::LoiteringEnemyBase(Vector3 _pos, Vector3 _scale):
 	EnemyBase(_pos,_scale),
 	actionChangeCount(0),

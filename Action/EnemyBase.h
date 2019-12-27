@@ -82,13 +82,6 @@ protected:
 	~ protected“à‚Ì•Ï”‚ÉŒp³æ‚Å•ÏX‚ªs‚í‚ê‚È‚©‚Á‚½ê‡‚Ì’è” ~
 	**/
 	static const int HitPointMax;
-	static const float AttackingTime;
-	static const float HittingTime;
-	static const float WalkSpeed;
-	static const float ApproachSpeedRatio;
-	static const float SearchRange;
-	static const float AttackRange;
-	static const int AttackIntervalCount;
 };
 
 
