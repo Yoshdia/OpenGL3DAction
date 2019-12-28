@@ -43,5 +43,5 @@ void RangeEnemy::Attack(float _deltaTime)
 	Vector3 attackPos = Vector3::Zero;
 	attackPos.x = moveDirection * 60;
 	attackPos.y += 40;
-	new ThrowWeapon(attackPos+position, moveDirection,Tag::EnemyWeaponTag);
+	new ThrowWeapon(attackPos+position, moveDirection,100,Tag::EnemyWeaponTag);
 }
