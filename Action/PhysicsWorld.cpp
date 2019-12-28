@@ -103,7 +103,6 @@ void PhysicsWorld::MakeNoCollisionPair()
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::PlayerWeaponTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::PlayerGuardWeaponTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::ParticleEffectTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::GroundTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::ThinGroundFloor));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::EnemyWeaponTag));
 
