@@ -1,13 +1,21 @@
 #pragma once
 #include "BoneAnimationBaseComponent.h"
+
+enum EnemyType
+{
+	MeleeType,
+	RangeType,
+};
+
 class AnimationEnemyComponent :
 	public BoneAnimationBaseComponent
 {
 public:
-	AnimationEnemyComponent(GameObject * _owner, int updateOrder=100);
+	AnimationEnemyComponent(GameObject * _owner, EnemyType _type, int updateOrder = 100);
 	~AnimationEnemyComponent();
 
 	void UpdateAnimationComponent(float _deltaTime)override;
+
 
 	/*
 	@fn アニメーションの残り時間を返す
@@ -27,6 +35,7 @@ private:
 		Attack,
 	};
 	EnemyAnimationName animationName;
+
 	bool move;
 	bool attack;
 	float animDuration;

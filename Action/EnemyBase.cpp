@@ -10,7 +10,7 @@
 
 const int EnemyBase::HitPointMax = 3;
 
-EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale) :
+EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale,EnemyType _type) :
 	GameObject(),
 	hitPoint(HitPointMax),
 	moveDirection(EnemyMoveDirection::right),
@@ -24,7 +24,7 @@ EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale) :
 	rotate = new RotateComponent(this);
 	rotate->SetRotation(-90, Vector3::UnitX);
 
-	animComponent = new AnimationEnemyComponent(this);
+	animComponent = new AnimationEnemyComponent(this,_type);
 	animComponent->SetMove(true);
 }
 

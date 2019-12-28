@@ -8,7 +8,7 @@ class LoiteringEnemyBase :
 	public EnemyBase
 {
 public:
-	LoiteringEnemyBase(Vector3 _pos = Vector3(0, 0, 0), Vector3 _scale = Vector3(1, 1, 1));
+	LoiteringEnemyBase(Vector3 _pos = Vector3(0, 0, 0), Vector3 _scale = Vector3(1, 1, 1),  EnemyType _type=EnemyType::MeleeType);
 	~LoiteringEnemyBase();
 
 private:
@@ -87,8 +87,7 @@ private:
 	bool attackingState;
 	//テレポートまでの時間
 	int teleportChargingTime;
-	//次の攻撃までのインターバル
-	int attackIntervalCount;
+
 
 	/*
 	@fn ノックバック
@@ -108,6 +107,12 @@ private:
 	static const float AttackRange;
 	static const int AttackIntervalCount;
 protected:
+	/*
+	@fn 初期化関数
+	@brief 派生クラスごとに変更が行われた定数を別クラスに反映させるために別個に用意
+	*/
+	void InstantiateLoiteringEnemyBase();
+
 	//攻撃時間
 	float attackingTime;
 	//被弾時間、被弾時にこの定数がcanNotActionTimeに入る
@@ -122,5 +127,7 @@ protected:
 	float attackRange;
 	//次の攻撃までのインターバル最大数
 	int attackIntervalCountMax;
+	//次の攻撃までのインターバル
+	int attackIntervalCount;
 };
 

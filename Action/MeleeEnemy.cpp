@@ -8,9 +8,9 @@
  const float MeleeEnemy::WalkSpeed=125;
  const float MeleeEnemy::ApproachSpeedRatio=0.8f;
  const float MeleeEnemy::SearchRange=200;
- const float MeleeEnemy::AttackRange=75;
+ const float MeleeEnemy::AttackRange=50;
  const int MeleeEnemy::AttackIntervalCount=20;
-
+ 
 MeleeEnemy::MeleeEnemy(Vector3 _pos) :
 	LoiteringEnemyBase(_pos,Vector3(0.5f, 0.5f, 0.5f))
 {
@@ -22,6 +22,7 @@ MeleeEnemy::MeleeEnemy(Vector3 _pos) :
 	//searchRange = SearchRange;
 	//attackRange = AttackRange;
 	//attackIntervalCountMax = AttackIntervalCount;
+	InstantiateLoiteringEnemyBase();
 }
 
 MeleeEnemy::~MeleeEnemy()

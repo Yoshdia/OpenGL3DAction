@@ -212,7 +212,7 @@ void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 	}
 	if (colliderPair->GetObjectTag() == Tag::CandleStickTag)
 	{
-		printf("Healing\n");
+		//printf("Healing\n");
 		return;
 	}
 }

@@ -7,6 +7,7 @@
 #include "DebugBox.h"
 #include "MeleeEnemy.h"
 #include "CandleStick.h"
+#include "RangeEnemy.h"
 
 PlayScene::PlayScene()
 	:SceneBase()
@@ -19,10 +20,10 @@ PlayScene::PlayScene()
 	dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
 	new PlayerCharacter;
-	new MeleeEnemy(Vector3(400,80,0));
+	//new MeleeEnemy(Vector3(400,80,0));
+	new RangeEnemy(Vector3(400, 80, 0));
 
-	//new MeleeEnemy(Vector3(0,-125,0));
-	//new MeleeEnemy(Vector3(-200,50,0));
+
 	new CandleStick(Vector3(400, 80, 0));
 
 	new DebugBox(Vector3(-100, -200, 0));

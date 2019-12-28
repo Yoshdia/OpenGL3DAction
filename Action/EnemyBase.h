@@ -40,7 +40,7 @@ public:
 	/*
 	@param meshName mesh–¼
 	*/
-	EnemyBase(Vector3 _pos=Vector3(0,0,0), Vector3 _scale=Vector3(1,1,1));
+	EnemyBase(Vector3 _pos=Vector3(0,0,0), Vector3 _scale=Vector3(1,1,1), EnemyType _type=EnemyType::MeleeType);
 
 	~EnemyBase();
 	void UpdateGameObject(float _deltaTime)override;
@@ -122,4 +122,5 @@ approachSpeedRatio = ApproachSpeedRatio;
 searchRange = SearchRange;
 attackRange = AttackRange;
 attackIntervalCount = AttackIntervalCount;
+
 */

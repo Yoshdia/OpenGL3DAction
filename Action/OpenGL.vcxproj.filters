@@ -182,8 +182,15 @@
     <ClCompile Include="WarpPointSearchEnemy.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="CandleStick.cpp" />
-    <ClCompile Include="LoiteringEnemyBase.cpp" />
+    <ClCompile Include="LoiteringEnemyBase.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="CandleStick.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeEnemy.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -369,8 +376,15 @@
     <ClInclude Include="WarpPointSearchEnemy.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="CandleStick.h" />
-    <ClInclude Include="LoiteringEnemyBase.h" />
+    <ClInclude Include="LoiteringEnemyBase.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="CandleStick.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeEnemy.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
