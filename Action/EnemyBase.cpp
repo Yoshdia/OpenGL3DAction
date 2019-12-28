@@ -3,10 +3,10 @@
 #include "Renderer.h"
 #include "ColliderComponent.h"
 #include "RotateComponent.h"
-#include "AnimationEnemyComponent.h"
 #include "EnemyWeapon.h"
 #include "ParticleEffect.h"
 #include "MainCameraObject.h"
+
 
 const int EnemyBase::HitPointMax = 3;
 
