@@ -191,7 +191,9 @@
     <ClCompile Include="RangeEnemy.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="TankEnemy.cpp" />
+    <ClCompile Include="TankEnemy.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -386,7 +388,9 @@
     <ClInclude Include="RangeEnemy.h">
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="TankEnemy.h" />
+    <ClInclude Include="TankEnemy.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
