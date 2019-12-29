@@ -5,6 +5,7 @@ enum EnemyType
 {
 	MeleeType,
 	RangeType,
+	TankType,
 };
 
 class AnimationEnemyComponent :

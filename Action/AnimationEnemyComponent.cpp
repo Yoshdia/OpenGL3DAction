@@ -37,6 +37,14 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 		idleName = "Assets/Model/Skelton_Archer/ArcherIdle.gpanim";
 		attackName = "Assets/Model/Skelton_Archer/ArcherChargeShoot.gpanim";
 		break;
+	case EnemyType::TankType:
+		skeletalName = "Assets/Model/Giant/skeleton_grunt.gpskel";
+
+		meshName = "Assets/Model/Giant/skeleton_grunt";
+		moveName = "Assets/Model/Giant/run.gpanim";
+		idleName = "Assets/Model/Giant/idle.gpanim";
+		attackName = "Assets/Model/Giant/defaultAttack.gpanim";
+		break;
 	default:
 
 		break;

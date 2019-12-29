@@ -203,7 +203,7 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 	{
 		//追跡対象と高さの差が10以上ある状態でカウントが100進むと追跡対象から一定以上離れた位置にテレポート
 
-		if( (heightDistance > 25 || playerDistance > attackRange) && !warpPositonSearching)
+		if( (heightDistance > 25 || playerDistance > attackRange*10) && !warpPositonSearching)
 		{
 			teleportChargingTime++;
 		}
