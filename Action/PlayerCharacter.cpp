@@ -59,6 +59,7 @@ PlayerCharacter::PlayerCharacter() :
 
 	footChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::GroundTag);
 	thinChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::ThinGroundFloor);
+	headRoofChecker = new SkeltonObjectChecker(this, Vector3(0, 30, 0), Vector3(20, 1, 20), Tag::GroundTag);
 
 	RotateComponent* rota = new RotateComponent(this);
 }
@@ -76,7 +77,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	bool noGround = footChecker->GetNoTouchingFlag() && (thinChecker->GetNoTouchingFlag());
 
 	//着地状態のとき上下方向への力をリセットする
-	if (!noGround && !isFloating)
+	if ((!noGround && !isFloating)|| !headRoofChecker->GetNoTouchingFlag())
 	{
 		velocity.y = 0;
 	}

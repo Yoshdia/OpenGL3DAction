@@ -30,6 +30,8 @@ private:
 	//足の裏、薄い床(ThinGround)を対象に着地しているかどうかを検知する
 	class SkeltonObjectChecker* thinChecker;
 
+	class SkeltonObjectChecker* headRoofChecker;
+
 	//入力による行動が制限される時間　主にAttackPlayerComponentの攻撃アクションから受け取る
 	float canNotActionTime;
 
