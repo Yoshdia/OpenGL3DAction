@@ -48,7 +48,7 @@ PlayerCharacter::PlayerCharacter() :
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
 
 	tag = Tag::PlayerTag;
-	SetPosition(Vector3(100, 200, 0));
+	SetPosition(Vector3(-500, 200, 0));
 	float scaleF = 60.0f;
 	SetScale(scaleF);
 

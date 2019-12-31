@@ -25,50 +25,98 @@ PlayScene::PlayScene()
 	new TankEnemy(Vector3(400, 80, 0));
 
 
-	new CandleStick(Vector3(400, 80, 0));
 
+	//.         .
+	//.         .
+	//.         .
+	//.         .
+	//._       _.
+	//.         .
+	//...........
+	new DebugBox(Vector3(0, 400, 0));
+	new DebugBox(Vector3(0, 300, 0));
+	new DebugBox(Vector3(0, 200, 0));
+	new DebugBox(Vector3(0, 100, 0));
+	new DebugBox(Vector3(100, 100, 0), Vector3(50, 5, 50),Tag::ThinGroundFloor);
+	new DebugBox(Vector3(0, 0, 0));
+	new DebugBox(Vector3(-200, -200, 0));
 	new DebugBox(Vector3(-100, -200, 0));
-	new DebugBox(Vector3(-100, -100, 0));
 
-	new DebugBox(Vector3(0, 45, 0),Vector3(50,5,50),Tag::ThinGroundFloor);
-	new DebugBox(Vector3(-300, 0, 0));
-	new DebugBox(Vector3(-200, 0, 0));
-	new DebugBox(Vector3(-100, 0, 0));
+	//new DebugBox(Vector3(0, -100, 0));
 
-	new DebugBox(Vector3(0, -200, 0));
+	new DebugBox(Vector3(00, -200, 0));
 	new DebugBox(Vector3(100, -200, 0));
 	new DebugBox(Vector3(200, -200, 0));
 	new DebugBox(Vector3(300, -200, 0));
-	new DebugBox(Vector3(300, -100, 0));
-		
-	new DebugBox(Vector3(300, 0, 0));
-	new DebugBox(Vector3(400, 0, 0));
-	new DebugBox(Vector3(500, 0, 0));
-	new DebugBox(Vector3(600, 0, 0));
+	new DebugBox(Vector3(400, -200, 0));
+	new DebugBox(Vector3(500, -200, 0));
+	new DebugBox(Vector3(600, -200, 0));
+	new DebugBox(Vector3(700, -200, 0));
+	new DebugBox(Vector3(800, -200, 0));
+	new DebugBox(Vector3(900, -200, 0));
 
-	new DebugBox(Vector3(600, 100, 0));
-	new DebugBox(Vector3(600, 200, 0));
-
-	new DebugBox(Vector3(700, 200, 0));
-	new DebugBox(Vector3(800, 200, 0));
+	new DebugBox(Vector3(900, -100, 0));
+	new DebugBox(Vector3(900, 0, 0));
+	new DebugBox(Vector3(900, 100, 0));
+	new DebugBox(Vector3(800, 100, 0), Vector3(50, 5, 50), Tag::ThinGroundFloor);
 	new DebugBox(Vector3(900, 200, 0));
-	new DebugBox(Vector3(1000, 200, 0));
-	new DebugBox(Vector3(1100, 200, 0));
+	new DebugBox(Vector3(900, 300, 0));
+	new DebugBox(Vector3(900, 400, 0));
 
-	new DebugBox(Vector3(1100, 100, 0));
-	new DebugBox(Vector3(1100, 0, 0));
-	new DebugBox(Vector3(1200, 0, 0));
-	new DebugBox(Vector3(1300, 0, 0));
-	new DebugBox(Vector3(1400, 0, 0));
-	new DebugBox(Vector3(1500, 0, 0));
-	new DebugBox(Vector3(1600, 0, 0));
-	new DebugBox(Vector3(1700, 0, 0));
-	new DebugBox(Vector3(1800, 0, 0));
-	new DebugBox(Vector3(1900, 0, 0));
-	new DebugBox(Vector3(2000, 0, 0));
+	new DebugBox(Vector3(-100, 0, 0));
+	new DebugBox(Vector3(-200, 0, 0));
+	new DebugBox(Vector3(-300, -200, 0));
+	new DebugBox(Vector3(-400, -200, 0));
+	new DebugBox(Vector3(-500, -200, 0));
+	new DebugBox(Vector3(-600, -200, 0));
+	new DebugBox(Vector3(-700, -200, 0));
 
-	//new DebugBox(Vector3(-200, 100, 0), Tag::EnemyWeaponTag);
-
+	//        .....
+	//        .   .
+	//..._  ...   ........
+	//  .   .
+	//  .....
+	//new CandleStick(Vector3(400, 80, 0));
+	//
+	//new DebugBox(Vector3(-100, -200, 0));
+	//new DebugBox(Vector3(-100, -100, 0));
+	//
+	//new DebugBox(Vector3(0, 45, 0),Vector3(50,5,50),Tag::ThinGroundFloor);
+	//new DebugBox(Vector3(-300, 0, 0));
+	//new DebugBox(Vector3(-200, 0, 0));
+	//new DebugBox(Vector3(-100, 0, 0));
+	//
+	//new DebugBox(Vector3(0, -200, 0));
+	//new DebugBox(Vector3(100, -200, 0));
+	//new DebugBox(Vector3(200, -200, 0));
+	//new DebugBox(Vector3(300, -200, 0));
+	//new DebugBox(Vector3(300, -100, 0));
+	//	
+	//new DebugBox(Vector3(300, 0, 0));
+	//new DebugBox(Vector3(400, 0, 0));
+	//new DebugBox(Vector3(500, 0, 0));
+	//new DebugBox(Vector3(600, 0, 0));
+	//
+	//new DebugBox(Vector3(600, 100, 0));
+	//new DebugBox(Vector3(600, 200, 0));
+	//
+	//new DebugBox(Vector3(700, 200, 0));
+	//new DebugBox(Vector3(800, 200, 0));
+	//new DebugBox(Vector3(900, 200, 0));
+	//new DebugBox(Vector3(1000, 200, 0));
+	//new DebugBox(Vector3(1100, 200, 0));
+	//
+	//new DebugBox(Vector3(1100, 100, 0));
+	//new DebugBox(Vector3(1100, 0, 0));
+	//new DebugBox(Vector3(1200, 0, 0));
+	//new DebugBox(Vector3(1300, 0, 0));
+	//new DebugBox(Vector3(1400, 0, 0));
+	//new DebugBox(Vector3(1500, 0, 0));
+	//new DebugBox(Vector3(1600, 0, 0));
+	//new DebugBox(Vector3(1700, 0, 0));
+	//new DebugBox(Vector3(1800, 0, 0));
+	//new DebugBox(Vector3(1900, 0, 0));
+	//new DebugBox(Vector3(2000, 0, 0));
 }
 
 
