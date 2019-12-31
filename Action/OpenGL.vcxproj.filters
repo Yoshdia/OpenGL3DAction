@@ -194,6 +194,9 @@
     <ClCompile Include="TankEnemy.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="MageEnemy.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -389,6 +392,9 @@
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="TankEnemy.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MageEnemy.h">
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

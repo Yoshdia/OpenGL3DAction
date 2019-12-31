@@ -266,6 +266,7 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 		{
 			attackIntervalCount = attackIntervalCountMax;
 			animComponent->SetAttack(true);
+			animComponent->SetMove(false);
 			canNotActionTime = attackingTime;
 			printf("%d[Attack!]\n", gameObjectId);
 			Attack(_deltaTime);

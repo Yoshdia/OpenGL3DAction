@@ -45,6 +45,14 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 		idleName = "Assets/Model/Giant/idle.gpanim";
 		attackName = "Assets/Model/Giant/defaultAttack.gpanim";
 		break;
+	case EnemyType::MageType:
+		skeletalName = "Assets/Model/Mage/skeleton_mage.gpskel";
+
+		meshName = "Assets/Model/Mage/skeleton_mage";
+		moveName = "Assets/Model/Mage/run.gpanim";
+		idleName = "Assets/Model/Mage/idle.gpanim";
+		attackName = "Assets/Model/Mage/defaultAttack.gpanim";
+		break;
 	default:
 
 		break;
