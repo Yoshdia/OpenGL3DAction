@@ -67,6 +67,12 @@ public:
 	*/
 	virtual void UpdateGameObject(float _deltaTime) ;
 
+	/*
+	@fn ゲームオブジェクトが静止中に更新されるアップデート関数
+	@brief pauzingUpdateがtrueのときだけ呼ばれる更新関数
+	*/
+	virtual void PausingUpdateGameObject();
+
 	void ProcessInput(const InputState& _keyState);
 	virtual void GameObjectInput(const InputState& _keyState) ;
 
@@ -177,6 +183,8 @@ protected:
 	
 	//メインカメラ　生成はGameObjectManager生成時に行われる
 	static class MainCameraObject* mainCamera;
+	//ゲームオブジェクトが静止中かどうか
+	static bool pauzingUpdate;
 
 	virtual void OnTriggerEnter( ColliderComponent* colliderPair) {};
 	virtual void OnTriggerStay( ColliderComponent* colliderPair) {};

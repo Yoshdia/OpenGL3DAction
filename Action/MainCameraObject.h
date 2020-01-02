@@ -8,7 +8,8 @@ public:
 	MainCameraObject();
 	~MainCameraObject();
 
-	void UpdateGameObject(float _deltaTime)override;
+	//このクラスはポーズ中に別クラスから更新関数を呼ばれることがある
+	void UpdateGameObject(float _deltaTime=1.0f)override;
 	void SetViewMatrixLerpObject(const Vector3& _offset, const Vector3& _parentPos);
 private:
 	Vector3 offsetPos;

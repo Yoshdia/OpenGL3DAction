@@ -197,6 +197,8 @@
     <ClCompile Include="MageEnemy.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="EventSystem.cpp" />
+    <ClCompile Include="SpawnEventSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -397,6 +399,8 @@
     <ClInclude Include="MageEnemy.h">
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="EventSystem.h" />
+    <ClInclude Include="SpawnEventSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

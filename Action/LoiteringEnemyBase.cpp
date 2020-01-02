@@ -61,6 +61,17 @@ LoiteringEnemyBase::~LoiteringEnemyBase()
 {
 }
 
+void LoiteringEnemyBase::SpawnSummoned()
+{
+	animComponent->SetSpawn(true);
+	animComponent->SetMove(false);
+	actionName = EnemyActions::approach;
+	attackingState = true;
+	moveDirection = EnemyMoveDirection::left;
+	beforeDirection = moveDirection;
+	rotate->SetRotation(180, Vector3::UnitY);
+}
+
 void LoiteringEnemyBase::UpdateEnemyObject(float _deltaTime)
 {
 	//地面と接触していないとき重力を働かせる
@@ -81,6 +92,7 @@ void LoiteringEnemyBase::UpdateLoiteringEnemyObject(float _deltaTime)
 
 void LoiteringEnemyBase::HitPlayerAttack(const Vector3& _pairPos)
 {
+	hitPoint--;
 	//プレイヤーの攻撃の方向を計算しnockBackForceに計算
 	double distance = Math::Sqrt((_pairPos.x - position.x) * (_pairPos.x - position.x) + (_pairPos.y - position.y) * (_pairPos.y - position.y));
 	Vector3 force = Vector3::Normalize(Vector3((position.x - _pairPos.x), 0, (position.z - _pairPos.z)));

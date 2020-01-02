@@ -10,6 +10,7 @@
 #include "RangeEnemy.h"
 #include "TankEnemy.h"
 #include "MageEnemy.h"
+#include "SpawnEventSystem.h"
 
 PlayScene::PlayScene()
 	:SceneBase()
@@ -24,7 +25,8 @@ PlayScene::PlayScene()
 	new PlayerCharacter;
 	//new MeleeEnemy(Vector3(400,80,0));
 	//new TankEnemy(Vector3(400, 80, 0));
-	new MageEnemy(Vector3(400, 80, 0));
+	//new MageEnemy(Vector3(500, 80, 0));
+	new SpawnEventSystem(Vector3(500, 80, 0), Vector3(0, -100, 0));
 
 	//.         .
 	//.         .

@@ -9,6 +9,7 @@
 
 int GameObject::gameObjectId = 0;
 MainCameraObject* GameObject::mainCamera = nullptr;
+bool GameObject::pauzingUpdate = false;
 
 /**
 @param	ゲームクラスのポインタ
@@ -21,7 +22,7 @@ GameObject::GameObject()
 	, rotation(Quaternion::Identity)
 	, recomputeWorldTransform(true)
 	, myObjectId(gameObjectId)
-	,tag(Tag::null)
+	, tag(Tag::null)
 {
 	gameObjectId++;
 	GAME_OBJECT_MANAGER->AddGameObject(this);
@@ -33,7 +34,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-    GAME_OBJECT_MANAGER->RemoveGameObject(this);
+	GAME_OBJECT_MANAGER->RemoveGameObject(this);
 	while (!components.empty())
 	{
 		delete components.back();
@@ -50,8 +51,15 @@ void GameObject::Update(float _deltaTime)
 	{
 		ComputeWorldTransform();
 
-		UpdateGameObject(_deltaTime);
-		UpdateComponents(_deltaTime);
+		if (!pauzingUpdate)
+		{
+			UpdateGameObject(_deltaTime);
+		}
+		else
+		{
+			PausingUpdateGameObject();
+		}
+			UpdateComponents(_deltaTime);
 
 		ComputeWorldTransform();
 	}
@@ -70,6 +78,10 @@ void GameObject::UpdateComponents(float _deltaTime)
 }
 
 void GameObject::UpdateGameObject(float _deltaTime)
+{
+}
+
+void GameObject::PausingUpdateGameObject()
 {
 }
 
@@ -116,7 +128,7 @@ void GameObject::AddComponent(Component * _component)
 */
 void GameObject::RemoveComponent(Component * _component)
 {
-	auto itr = std::find(components.begin(),components.end(), _component);
+	auto itr = std::find(components.begin(), components.end(), _component);
 	if (itr != components.end())
 	{
 		components.erase(itr);
@@ -142,7 +154,7 @@ void GameObject::ComputeWorldTransform()
 	}
 }
 
-void GameObject::FixCollision(const AABB & myAABB, const AABB & pairAABB,const Tag& _pairTag)
+void GameObject::FixCollision(const AABB & myAABB, const AABB & pairAABB, const Tag& _pairTag)
 {
 	Vector3 ment = Vector3(0, 0, 0);
 	calcCollisionFixVec(myAABB, pairAABB, ment);

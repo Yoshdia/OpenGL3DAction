@@ -25,21 +25,28 @@ public:
 	float GetAnimDuration() { return animDuration; }
 	void SetMove(bool _move) { move = _move; };
 	void SetAttack(bool _attack) { attack = _attack; }
+	void SetSpawn(bool _spawn) { spawn = _spawn; }
 private:
 	const class Animation* moveAnim;
 	const class Animation* idleAnim;
 	const class Animation* attackAnim;
+
+	const class Animation* spawnAnim;
+	const class Animation* summonAnim;
 
 	enum EnemyAnimationName
 	{
 		Idle,
 		Move,
 		Attack,
+		Spawn,
+
 	};
 	EnemyAnimationName animationName;
 
 	bool move;
 	bool attack;
+	bool spawn;
 	float animDuration;
 };
 

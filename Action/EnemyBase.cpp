@@ -59,7 +59,6 @@ void EnemyBase::OnTriggerEnter(ColliderComponent* colliderPair)
 	if (colliderPair->GetObjectTag() == Tag::PlayerWeaponTag)
 	{
 		HitPlayerAttack(colliderPair->GetPosition());
-		hitPoint--;
 	}
 }
 

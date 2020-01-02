@@ -2,7 +2,8 @@
 #include "Renderer.h"
 
 
-MainCameraObject::MainCameraObject()
+MainCameraObject::MainCameraObject():
+	GameObject()
 {
 	SetPosition(Vector3::Zero);
 }

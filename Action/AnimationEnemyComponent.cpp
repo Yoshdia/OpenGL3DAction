@@ -10,6 +10,7 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 	animationName(EnemyAnimationName::Idle),
 	move(false),
 	attack(false),
+	spawn(false),
 	animDuration(0)
 {
 	//メッシュ名以外にはgpskelの拡張指名をつけること
@@ -18,6 +19,7 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 	const char* moveName = "";
 	const char* idleName = "";
 	const char* attackName = "";
+	const char* spawnName = "";
 
 	switch (_type)
 	{
@@ -28,6 +30,8 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 		moveName = "Assets/Model/Skelton_King/KingRun.gpanim";
 		idleName = "Assets/Model/Skelton_King/KingIdle.gpanim";
 		attackName = "Assets/Model/Skelton_King/KingAttack1.gpanim";
+
+		spawnName = "Assets/Model/Skelton_King/spawn.gpanim";
 		break;
 	case EnemyType::RangeType:
 		skeletalName = "Assets/Model/Skelton_Archer/skeleton_archer.gpskel";
@@ -52,6 +56,9 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 		moveName = "Assets/Model/Mage/run.gpanim";
 		idleName = "Assets/Model/Mage/idle.gpanim";
 		attackName = "Assets/Model/Mage/defaultAttack.gpanim";
+
+		spawnName = "Assets/Model/Mage/spawn.gpanim";
+		summonAnim = RENDERER->GetAnimation("Assets/Model/Mage/summon.gpanim");
 		break;
 	default:
 
@@ -60,6 +67,7 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 	moveAnim = RENDERER->GetAnimation(moveName);
 	idleAnim = RENDERER->GetAnimation(idleName);
 	attackAnim = RENDERER->GetAnimation(attackName);
+	spawnAnim = RENDERER->GetAnimation(spawnName);
 
 	mMeshComp->SetMesh(RENDERER->GetMesh(meshName + ".gpmesh"));
 	mMeshComp->SetSkeleton(RENDERER->GetSkeleton(skeletalName));
@@ -74,7 +82,6 @@ AnimationEnemyComponent::~AnimationEnemyComponent()
 
 void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 {
-
 	switch (animationName)
 	{
 	case(EnemyAnimationName::Idle):
@@ -87,6 +94,11 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		{
 			animationName = EnemyAnimationName::Attack;
 			animDuration = mMeshComp->PlayAnimation(attackAnim, 0.5f);
+		}
+		if (spawn)
+		{
+			animationName = EnemyAnimationName::Spawn;
+			animDuration = mMeshComp->PlayAnimation(spawnAnim, 0.5f);
 		}
 		if (animDuration < 0)
 		{
@@ -133,7 +145,22 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			}
 		}
 		break;
+	case(EnemyAnimationName::Spawn):
+		if (animDuration < 0)
+		{
+			animationName = EnemyAnimationName::Idle;
+			if (summonAnim != nullptr)
+			{
+				animDuration = mMeshComp->PlayAnimation(summonAnim, 0.5f);
+			}
+			else
+			{
+				animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
+			}
+			spawn = false;
+		}
+		break;
 	}
-	animDuration -= 0.020f;
+	animDuration -= 0.008f; 
 
 }
