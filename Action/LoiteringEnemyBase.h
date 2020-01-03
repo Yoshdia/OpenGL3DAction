@@ -11,7 +11,7 @@ public:
 	LoiteringEnemyBase(Vector3 _pos = Vector3(0, 0, 0), Vector3 _scale = Vector3(1, 1, 1),  EnemyType _type=EnemyType::MeleeType);
 	~LoiteringEnemyBase();
 
-	void SpawnSummoned();
+	void SpawnSummoned(const Vector3& _pos, const int& _hitPoint);
 private:
 	void HitPlayerAttack(const Vector3& _pairPos)override;
 	void DeadEvent()override;

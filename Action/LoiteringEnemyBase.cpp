@@ -23,7 +23,7 @@ const int LoiteringEnemyBase::TurnWaitCountMax = 2;
 const float LoiteringEnemyBase::ForwardDownY = -90;
 
 LoiteringEnemyBase::LoiteringEnemyBase(Vector3 _pos, Vector3 _scale, EnemyType _type) :
-	EnemyBase(_pos, _scale,_type),
+	EnemyBase(_pos, _scale, _type),
 	actionChangeCount(0),
 	attackingTime(AttackingTime),
 	hittingTime(HittingTime),
@@ -43,7 +43,7 @@ LoiteringEnemyBase::LoiteringEnemyBase(Vector3 _pos, Vector3 _scale, EnemyType _
 	warpPositonSearching(false)
 {
 	hitPoint = HitPointMax;
-	
+
 	warpSearch = new WarpPointSearchEnemy();
 	//InstantiateLoiteringEnemyBaseを派生クラスコンストラクタ内で呼ぶこと
 }
@@ -61,15 +61,23 @@ LoiteringEnemyBase::~LoiteringEnemyBase()
 {
 }
 
-void LoiteringEnemyBase::SpawnSummoned()
+void LoiteringEnemyBase::SpawnSummoned(const Vector3& _pos, const int& _hitPoint)
 {
+	SetPosition(_pos);
+	hitPoint = _hitPoint;
+	canNotActionTime = 200;
+	SetState(State::Active);
 	animComponent->SetSpawn(true);
 	animComponent->SetMove(false);
 	actionName = EnemyActions::approach;
 	attackingState = true;
-	moveDirection = EnemyMoveDirection::left;
-	beforeDirection = moveDirection;
-	rotate->SetRotation(180, Vector3::UnitY);
+	if (moveDirection == EnemyMoveDirection::right)
+	{
+		moveDirection = EnemyMoveDirection::left;
+		beforeDirection = moveDirection;
+		rotate->SetRotation(180, Vector3::UnitY);
+
+	}
 }
 
 void LoiteringEnemyBase::UpdateEnemyObject(float _deltaTime)
@@ -215,7 +223,7 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 	{
 		//追跡対象と高さの差が10以上ある状態でカウントが100進むと追跡対象から一定以上離れた位置にテレポート
 
-		if( (heightDistance > 25 || playerDistance > attackRange*10) && !warpPositonSearching)
+		if ((heightDistance > 25 || playerDistance > attackRange * 10) && !warpPositonSearching)
 		{
 			teleportChargingTime++;
 		}
@@ -266,7 +274,7 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 	{
 		warpPositonSearching = false;
 		//攻撃の射程距離から離れたらアクションを変更する
-		if (playerDistance >= attackRange|| heightDistance>25)
+		if (playerDistance >= attackRange || heightDistance > 25)
 		{
 			actionName = EnemyActions::approach;
 

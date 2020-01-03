@@ -5,13 +5,15 @@
 #include "Renderer.h"
 #include <string>
 
+
 AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType _type, int updateOrder) :
 	BoneAnimationBaseComponent(_owner, updateOrder),
 	animationName(EnemyAnimationName::Idle),
 	move(false),
 	attack(false),
 	spawn(false),
-	animDuration(0)
+	animDuration(0),
+	action(false)
 {
 	//メッシュ名以外にはgpskelの拡張指名をつけること
 	std::string meshName = "";
@@ -58,7 +60,8 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 		attackName = "Assets/Model/Mage/defaultAttack.gpanim";
 
 		spawnName = "Assets/Model/Mage/spawn.gpanim";
-		summonAnim = RENDERER->GetAnimation("Assets/Model/Mage/summon.gpanim");
+		actionAnim = RENDERER->GetAnimation("Assets/Model/Mage/summon.gpanim");
+		stanAnim = RENDERER->GetAnimation("Assets/Model/Mage/hitForward.gpanim");
 		break;
 	default:
 
@@ -100,6 +103,16 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			animationName = EnemyAnimationName::Spawn;
 			animDuration = mMeshComp->PlayAnimation(spawnAnim, 0.5f);
 		}
+		if (stan)
+		{
+			animationName = EnemyAnimationName::Stan;
+			animDuration = mMeshComp->PlayAnimation(stanAnim,0.1f);
+		}
+		if (action)
+		{
+			animationName = EnemyAnimationName::Action;
+			animDuration = mMeshComp->PlayAnimation(actionAnim, 0.5f);
+		}
 		if (animDuration < 0)
 		{
 			animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
@@ -115,6 +128,16 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		{
 			animationName = EnemyAnimationName::Attack;
 			animDuration = mMeshComp->PlayAnimation(attackAnim, 1.0f);
+		}
+		if (stan)
+		{
+			animationName = EnemyAnimationName::Stan;
+			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.1f);
+		}
+		if (action)
+		{
+			animationName = EnemyAnimationName::Action;
+			animDuration = mMeshComp->PlayAnimation(actionAnim, 0.5f);
 		}
 		if (animDuration <= 0)
 		{
@@ -144,14 +167,19 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 				animDuration = mMeshComp->PlayAnimation(moveAnim, 0.5f);
 			}
 		}
+		if (stan)
+		{
+			animationName = EnemyAnimationName::Stan;
+			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.1f);
+		}
 		break;
 	case(EnemyAnimationName::Spawn):
 		if (animDuration < 0)
 		{
 			animationName = EnemyAnimationName::Idle;
-			if (summonAnim != nullptr)
+			if (actionAnim != nullptr)
 			{
-				animDuration = mMeshComp->PlayAnimation(summonAnim, 0.5f);
+				animDuration = mMeshComp->PlayAnimation(actionAnim, 0.5f);
 			}
 			else
 			{
@@ -160,6 +188,27 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			spawn = false;
 		}
 		break;
+	case(EnemyAnimationName::Stan):
+		if (animDuration < 0)
+		{
+			if (stan)
+			{
+				animDuration = mMeshComp->PlayAnimation(idleAnim,0.1f);
+			}
+		}
+		if (!stan)
+		{
+			animationName = EnemyAnimationName::Idle;
+			animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
+		}
+		break;
+	case(EnemyAnimationName::Action):
+		if (animDuration < 0)
+		{
+			action = false;
+			animationName = EnemyAnimationName::Idle;
+			animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
+		}
 	}
 	animDuration -= 0.008f; 
 

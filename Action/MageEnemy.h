@@ -24,7 +24,13 @@ private:
 	bool attackState;
 	int directingCount;
 	class LoiteringEnemyBase* meleeEnemy;
+	class LoiteringEnemyBase* rangeEnemy;
+	Vector3 popLoiteringEnemyPosition;
 	bool barrier;
+	int stanCount;
+	static const int StanCount;
+	int chargeCount;
+	static const int ChargeCount;
 	enum MageActionName
 	{
 		SkillCharge,

@@ -26,13 +26,16 @@ public:
 	void SetMove(bool _move) { move = _move; };
 	void SetAttack(bool _attack) { attack = _attack; }
 	void SetSpawn(bool _spawn) { spawn = _spawn; }
+	void SetStan(bool _stan) { stan = _stan; }
+	void SetAction(bool _action) { action = _action; }
 private:
 	const class Animation* moveAnim;
 	const class Animation* idleAnim;
 	const class Animation* attackAnim;
 
 	const class Animation* spawnAnim;
-	const class Animation* summonAnim;
+	const class Animation* stanAnim;
+	const class Animation* actionAnim;
 
 	enum EnemyAnimationName
 	{
@@ -40,13 +43,16 @@ private:
 		Move,
 		Attack,
 		Spawn,
-
+		Stan,
+		Action,
 	};
 	EnemyAnimationName animationName;
 
 	bool move;
 	bool attack;
 	bool spawn;
+	bool stan;
+	bool action;
 	float animDuration;
 };
 

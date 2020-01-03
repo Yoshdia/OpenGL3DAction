@@ -2,7 +2,7 @@
 #include "SkeltonObjectChecker.h"
 
 const float DoSubActionMagesChild::FloatHeight = 150;
-const float DoSubActionMagesChild::FloatSpeed = 10;
+const float DoSubActionMagesChild::FloatSpeed = 1;
 const float DoSubActionMagesChild::DroppingSpeed = -10;
 
 DoSubActionMagesChild::DoSubActionMagesChild(GameObject* _owner) :
