@@ -28,7 +28,7 @@ void SpawnEventSystem::OnTriggerEnter(ColliderComponent * _pair)
 {
 	if (_pair->GetObjectTag() == Tag::PlayerTag)
 	{
-		mageEnemy->SetAttackState();
+		mageEnemy->SetAttackState(_pair->GetOwner());
 		new DebugBox(wallPos);
 		trigger = true;
 		//ゲームオブジェクトの更新を止め演出をMageクラスに継いでもらう

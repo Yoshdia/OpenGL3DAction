@@ -14,9 +14,10 @@ public:
 	/*
 	@brief ‘Ò‹@ó‘Ô‚©‚çí“¬ó‘Ô‚É“ü‚éŠÖ”@‰Šú‰»‚É
 	*/
-	void SetAttackState();
+	void SetAttackState(GameObject* _playerObject);
 private:
 	void UpdateEnemyObject(float _deltaTime)override;
+	GameObject* playerObject;
 	void AliveLoiteringEnemyCheck();
 	void DeadEvent()override;
 	void HitPlayerAttack(const Vector3& _pairPos)override;
@@ -24,5 +25,14 @@ private:
 	int directingCount;
 	class LoiteringEnemyBase* meleeEnemy;
 	bool barrier;
+	enum MageActionName
+	{
+		SkillCharge,
+		FloatShot,
+		Stanning,
+		None
+	};
+	MageActionName actionName;
+	class DoSubActionMagesChild* subActionClass;
 };
 

@@ -197,8 +197,13 @@
     <ClCompile Include="MageEnemy.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EventSystem.cpp" />
-    <ClCompile Include="SpawnEventSystem.cpp" />
+    <ClCompile Include="EventSystem.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnEventSystem.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="DoSubActionMagesChild.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -399,8 +404,13 @@
     <ClInclude Include="MageEnemy.h">
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EventSystem.h" />
-    <ClInclude Include="SpawnEventSystem.h" />
+    <ClInclude Include="EventSystem.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnEventSystem.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="DoSubActionMagesChild.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
