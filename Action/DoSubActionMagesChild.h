@@ -29,6 +29,11 @@ public:
 	@sa SkeltonObjectChecker.h
 	*/
 	void StartDroppingDown();
+
+	/*
+	@return 浮上、落下のどちらも終了している状態(true=終了
+	*/
+	bool EndFloatDrop() { return !(floating || droppingDown); }
 private:
 	//親オブジェクトへのポインタ
 	GameObject* owner;

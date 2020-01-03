@@ -45,7 +45,7 @@ void MageEnemy::PausingUpdateGameObject()
 	if (directingCount == 3)//220
 	{
 		rotate->SetRotation(90, Vector3::UnitY);
-		meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition,5);
+		meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition, 5);
 		mainCamera->SetViewMatrixLerpObject(Vector3(0, 50, -350), meleeEnemy->GetPosition());
 		directingCount++;
 	}
@@ -104,14 +104,20 @@ void MageEnemy::UpdateEnemyObject(float _deltaTime)
 			if (chargeCount <= 0)
 			{
 				animComponent->SetAction(true);
+				meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition + Vector3(100, 0, 0), 5);
+				rangeEnemy->SpawnSummoned(popLoiteringEnemyPosition + Vector3(-100, 0, 0), 5);
 				subActionClass->StartFloating();
-				meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition+Vector3(100,0,0),5);
-				rangeEnemy->SpawnSummoned(popLoiteringEnemyPosition+Vector3(-100,0,0),5);
-				actionName = MageActionName::FloatShot;
+				actionName = MageActionName::Skill;
 			}
 			else
 			{
 				chargeCount--;
+			}
+			break;
+		case(MageActionName::Skill):
+			if (subActionClass->EndFloatDrop())
+			{
+				actionName = MageActionName::FloatShot;
 			}
 			break;
 		case(MageActionName::Stanning):
@@ -131,7 +137,7 @@ void MageEnemy::UpdateEnemyObject(float _deltaTime)
 
 void MageEnemy::AliveLoiteringEnemyCheck()
 {
-	if ((meleeEnemy->GetState() == State::Dead&&rangeEnemy->GetState()==State::Dead)&&attackState)
+	if ((meleeEnemy->GetState() == State::Dead&&rangeEnemy->GetState() == State::Dead) && attackState)
 	{
 		subActionClass->StartDroppingDown();
 		barrier = false;

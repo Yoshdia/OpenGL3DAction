@@ -34,6 +34,7 @@ private:
 	enum MageActionName
 	{
 		SkillCharge,
+		Skill,
 		FloatShot,
 		Stanning,
 		None
