@@ -1,8 +1,6 @@
 #include "IdlePlayerAnimationClip.h"
 #include "Renderer.h"
 
-
-
 IdlePlayerAnimationClip::IdlePlayerAnimationClip()
 {
 	animation[0].sprite = RENDERER->GetTexture("Assets/Image/Idle1.png");

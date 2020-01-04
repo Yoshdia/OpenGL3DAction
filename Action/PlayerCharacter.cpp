@@ -48,6 +48,7 @@ PlayerCharacter::PlayerCharacter() :
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
 
 	tag = Tag::PlayerTag;
+	//SetPosition(Vector3(00, 200, 0));
 	SetPosition(Vector3(-500, 200, 0));
 	float scaleF = 60.0f;
 	SetScale(scaleF);
@@ -77,7 +78,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	bool noGround = footChecker->GetNoTouchingFlag() && (thinChecker->GetNoTouchingFlag());
 
 	//着地状態のとき上下方向への力をリセットする
-	if ((!noGround && !isFloating)|| !headRoofChecker->GetNoTouchingFlag())
+	if ((!noGround && !isFloating) || !headRoofChecker->GetNoTouchingFlag())
 	{
 		velocity.y = 0;
 	}
@@ -100,7 +101,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		}
 		if (velocity.y < 0)
 		{
-			animationComponent->SetAnimation(PlayerAnimationState::Jump);
+			animationComponent->SetAnimation(PlayerAnimationState::Drop);
 		}
 		else
 		{

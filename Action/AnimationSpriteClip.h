@@ -18,8 +18,8 @@ public:
 	virtual ~AnimationSpriteClip();
 
 	void Animation();
-	Texture* GetSprite() { return animation[nowAnimationFrame].sprite; };
-	bool AnimationEnd() { return animationEnd; };
+	Texture* GetSprite() { return animation[nowAnimationFrame].sprite; }
+	bool AnimationEnd() { return animationEnd; }
 	void ResetAnimation();
 
 	bool GetLoopFlag() { return loop; }
