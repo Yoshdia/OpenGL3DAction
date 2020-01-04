@@ -152,6 +152,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="AttackPlayerOnce.cpp" />
     <ClCompile Include="AttackPlayerThird.cpp" />
     <ClCompile Include="AttackPlayerTwice.cpp" />
+    <ClCompile Include="AttackRoopPlayerAnimationClip.cpp" />
     <ClCompile Include="BoneAnimationBaseComponent.cpp" />
     <ClCompile Include="BoneTransform.cpp" />
     <ClCompile Include="CameraObject.cpp" />
@@ -162,6 +163,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="DebugBox.cpp" />
     <ClCompile Include="DoSubActionMagesChild.cpp" />
     <ClCompile Include="DownPlayerAnimationClip.cpp" />
+    <ClCompile Include="DroppingDownPlayerAnimation.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyWeapon.cpp" />
     <ClCompile Include="EventSystem.cpp" />
@@ -192,6 +194,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="RangeAttackPlayer.cpp" />
     <ClCompile Include="RangeAttackPlayerAnimationClip.cpp" />
+    <ClCompile Include="RangeAttackRoopAnimationClip.cpp" />
     <ClCompile Include="RangeEnemy.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RotateComponent.cpp" />
@@ -204,6 +207,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="SkeltonObjectChecker.cpp" />
     <ClCompile Include="SpawnEventSystem.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
+    <ClCompile Include="StraightMagicBullet.cpp" />
     <ClCompile Include="TankEnemy.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ThrowWeapon.cpp" />
@@ -223,6 +227,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="AttackPlayerOnce.h" />
     <ClInclude Include="AttackPlayerThird.h" />
     <ClInclude Include="AttackPlayerTwice.h" />
+    <ClInclude Include="AttackRoopPlayerAnimationClip.h" />
     <ClInclude Include="BoneAnimationBaseComponent.h" />
     <ClInclude Include="BoneTransform.h" />
     <ClInclude Include="CameraObject.h" />
@@ -233,6 +238,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="DebugBox.h" />
     <ClInclude Include="DoSubActionMagesChild.h" />
     <ClInclude Include="DownPlayerAnimationClip.h" />
+    <ClInclude Include="DroppingDownPlayerAnimation.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyWeapon.h" />
     <ClInclude Include="EventSystem.h" />
@@ -263,6 +269,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="RangeAttackPlayer.h" />
     <ClInclude Include="RangeAttackPlayerAnimationClip.h" />
+    <ClInclude Include="RangeAttackRoopAnimationClip.h" />
     <ClInclude Include="RangeEnemy.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RotateComponent.h" />
@@ -275,6 +282,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="SkeltonObjectChecker.h" />
     <ClInclude Include="SpawnEventSystem.h" />
     <ClInclude Include="SpriteComponent.h" />
+    <ClInclude Include="StraightMagicBullet.h" />
     <ClInclude Include="TankEnemy.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="ThrowWeapon.h" />

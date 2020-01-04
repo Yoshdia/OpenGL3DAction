@@ -41,5 +41,9 @@ private:
 	};
 	MageActionName actionName;
 	class DoSubActionMagesChild* subActionClass;
+
+	void Shot(const Vector3& target);
+	int shotInterval;
+	static const int ShotInterval;
 };
 

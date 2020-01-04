@@ -6,9 +6,11 @@
 #include "MeleeEnemy.h"
 #include "RangeEnemy.h"
 #include "DoSubActionMagesChild.h"
+#include "StraightMagicBullet.h"
 
 const int MageEnemy::StanCount = 200;
 const int MageEnemy::ChargeCount = 200;
+const int MageEnemy::ShotInterval = 300;
 
 MageEnemy::MageEnemy(Vector3 _pos) :
 	EnemyBase(_pos, Vector3(0.8f, 0.8f, 0.8f), EnemyType::MageType),
@@ -19,7 +21,8 @@ MageEnemy::MageEnemy(Vector3 _pos) :
 	playerObject(this),
 	chargeCount(0),
 	stanCount(0),
-	popLoiteringEnemyPosition(Vector3::Zero)
+	popLoiteringEnemyPosition(Vector3::Zero),
+	shotInterval(0)
 {
 	animComponent->SetMove(false);
 	moveDirection = EnemyMoveDirection::left;
@@ -42,14 +45,14 @@ void MageEnemy::PausingUpdateGameObject()
 	mainCamera->UpdateGameObject(0.06f);
 	animComponent->UpdateAnimationComponent(0.6f);
 	animComponent->SetSpawn(false);
-	if (directingCount == 3)//220
+	if (directingCount == 220)//220
 	{
 		rotate->SetRotation(90, Vector3::UnitY);
 		meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition, 5);
 		mainCamera->SetViewMatrixLerpObject(Vector3(0, 50, -350), meleeEnemy->GetPosition());
 		directingCount++;
 	}
-	else if (directingCount >= 5)//530
+	else if (directingCount >= 530)//530
 	{
 		pauzingUpdate = false;
 		actionName = MageActionName::FloatShot;
@@ -94,6 +97,9 @@ void MageEnemy::UpdateEnemyObject(float _deltaTime)
 			{
 				moveDirection = EnemyMoveDirection::right;
 			}
+			subActionClass->MoveHorizontal();
+			subActionClass->HuwaHuwa();
+			Shot(target);
 			AliveLoiteringEnemyCheck();
 			break;
 		case(MageActionName::SkillCharge):
@@ -164,5 +170,20 @@ void MageEnemy::HitPlayerAttack(const Vector3 & _pairPos)
 	else
 	{
 
+	}
+}
+
+void MageEnemy::Shot(const Vector3& target)
+{
+	if (shotInterval <= 0)
+	{
+		shotInterval = ShotInterval;
+		new StraightMagicBullet(position, target, 100);
+		animComponent->SetAttack(true);
+	}
+	else
+	{
+		animComponent->SetAttack(false);
+		shotInterval--;
 	}
 }

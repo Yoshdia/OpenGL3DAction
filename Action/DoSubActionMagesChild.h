@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "EnemyBase.h"
 
 /*
  @file DoSubActionMagesChild.h
@@ -34,6 +35,14 @@ public:
 	@return 浮上、落下のどちらも終了している状態(true=終了
 	*/
 	bool EndFloatDrop() { return !(floating || droppingDown); }
+	/*
+	@fn 水平を指定する変数をもとに移動する。壁に当たると変数を反転する
+	*/
+	void MoveHorizontal();
+	/*
+	@fn 垂直を指定する変数をもとに移動する。一定間隔ごとに変数を反転する
+	*/
+	void HuwaHuwa();
 private:
 	//親オブジェクトへのポインタ
 	GameObject* owner;
@@ -52,5 +61,16 @@ private:
 	bool droppingDown;
 	//落下速度
 	static const float DroppingSpeed;
+
+	//移動方向
+	EnemyMoveDirection moveDirection;
+	//右方向の壁を探知する
+	class SkeltonObjectChecker* rightWallChecker;
+	//左方向の壁を探知する
+	class SkeltonObjectChecker* leftWallChecker;
+	//縦の移動方向
+	EnemyMoveDirection verticalMoveDirection;
+	//縦方向の移動方向反転カウント
+	int verticalInversionCount;
 };
 

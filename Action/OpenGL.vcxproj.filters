@@ -203,7 +203,19 @@
     <ClCompile Include="SpawnEventSystem.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="DoSubActionMagesChild.cpp" />
+    <ClCompile Include="AttackRoopPlayerAnimationClip.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeAttackRoopAnimationClip.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="DroppingDownPlayerAnimation.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="StraightMagicBullet.cpp" />
+    <ClCompile Include="DoSubActionMagesChild.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -410,7 +422,19 @@
     <ClInclude Include="SpawnEventSystem.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="DoSubActionMagesChild.h" />
+    <ClInclude Include="AttackRoopPlayerAnimationClip.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeAttackRoopAnimationClip.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="DroppingDownPlayerAnimation.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="StraightMagicBullet.h" />
+    <ClInclude Include="DoSubActionMagesChild.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
