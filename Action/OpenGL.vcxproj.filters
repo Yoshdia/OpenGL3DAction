@@ -212,9 +212,11 @@
     <ClCompile Include="DroppingDownPlayerAnimation.cpp">
       <Filter>Animation\Player</Filter>
     </ClCompile>
-    <ClCompile Include="StraightMagicBullet.cpp" />
     <ClCompile Include="DoSubActionMagesChild.cpp">
       <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="StraightMagicBullet.cpp">
+      <Filter>PlayerAction\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -431,9 +433,11 @@
     <ClInclude Include="DroppingDownPlayerAnimation.h">
       <Filter>Animation\Player</Filter>
     </ClInclude>
-    <ClInclude Include="StraightMagicBullet.h" />
     <ClInclude Include="DoSubActionMagesChild.h">
       <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="StraightMagicBullet.h">
+      <Filter>PlayerAction\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
