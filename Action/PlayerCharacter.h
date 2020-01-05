@@ -20,6 +20,7 @@ public:
 	void GameObjectInput(const InputState& _keyState) override;
 
 	void FixCollision(const AABB & myAABB, const AABB & pairAABB, const Tag& _pairTag)override;
+	void PausingUpdateGameObject();
 private:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair) override;
@@ -119,9 +120,11 @@ private:
 	@fn –€C
 	@brief ¶‰E•ûŒü‚Ö‚Ìvelocity‚Ö–€C‚ğ•t—^
 	*/
-	void Friction();
+	void Friction(float _friction);
 	//¶‰E•ûŒü‚Ö‚Ì–€C
 	static const float MoveFriction;
+
+	static const float DownFriction;
 
 	/*
 	@fn ”í’e
@@ -139,5 +142,7 @@ private:
 	//–³“GŠÔ‚ÌÅ‘å”
 	static const int InvincibleCount;
 
+	int hitPoint;
+	bool isLive;
 };
 

@@ -23,6 +23,7 @@ const float PlayerCharacter::MoveSpeed = 600;
 const float PlayerCharacter::GravityPower = 80;
 const float PlayerCharacter::JumpPower = 25.0f;
 const float PlayerCharacter::MoveFriction = 1.2f;
+const float PlayerCharacter::DownFriction = 1.05f;
 
 const int PlayerCharacter::InvincibleCount = 20;
 const int PlayerCharacter::InputUnderCountMax = 30;
@@ -42,8 +43,9 @@ PlayerCharacter::PlayerCharacter() :
 	isFloating(false),
 	isThinGroundCollision(false),
 	noInputForUnderDirection(false),
-	doSkeletonThinGround(false)
-
+	doSkeletonThinGround(false),
+	isLive(true),
+	hitPoint(3)
 {
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
 
@@ -95,18 +97,18 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	if (noGround || (doSkeletonThinGround/*&& !noGround*/))
 	{
 		Gravity(_deltaTime);
-		if (inputUnderDirection > 0)
-		{
-			doSkeletonThinGround = true;
-		}
-		if (velocity.y < 0)
-		{
-			animationComponent->SetAnimation(PlayerAnimationState::Drop);
-		}
-		else
-		{
-			animationComponent->SetAnimation(PlayerAnimationState::Jump);
-		}
+			if (inputUnderDirection > 0)
+			{
+				doSkeletonThinGround = true;
+			}
+			if (velocity.y < 0)
+			{
+				animationComponent->SetAnimation(PlayerAnimationState::Drop);
+			}
+			else
+			{
+				animationComponent->SetAnimation(PlayerAnimationState::Jump);
+			}
 	}
 	//ジャンプにより浮上中か
 	if (velocity.y <= 0)
@@ -117,7 +119,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	{
 		isFloating = true;
 	}
-	Friction();
+	Friction(MoveFriction);
 	SetPosition(position + (velocity));
 	Invincible();
 	SkeletonThinGround();
@@ -203,6 +205,17 @@ void PlayerCharacter::FixCollision(const AABB & myAABB, const AABB & pairAABB, c
 	Vector3 ment = Vector3(0, 0, 0);
 	calcCollisionFixVec(myAABB, pairAABB, ment);
 	SetPosition(GetPosition() + (ment));
+}
+
+void PlayerCharacter::PausingUpdateGameObject()
+{
+	if (pauzingEvent == PauzingEvent::DeadPlayerEvent)
+	{
+		velocity.y = -1;
+		SetPosition(position + velocity);
+		Friction(DownFriction);
+		animationComponent->SetAnimation(PlayerAnimationState::Down);
+	}
 }
 
 void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
@@ -398,7 +411,7 @@ void PlayerCharacter::Gravity(float _deltaTime)
 	}
 }
 
-void PlayerCharacter::Friction()
+void PlayerCharacter::Friction(float _fricton)
 {
 	//velocityが一定以下でないなら左右移動へ摩擦を付与
 	if (velocity.x >= 0.1f && velocity.x <= -0.1f)
@@ -407,7 +420,7 @@ void PlayerCharacter::Friction()
 	}
 	else
 	{
-		velocity.x /= MoveFriction;
+		velocity.x /= _fricton;
 	}
 }
 
@@ -415,6 +428,15 @@ void PlayerCharacter::HitAttack()
 {
 	invincibleCount = InvincibleCount;
 	invincible = true;
+	if (hitPoint <= 0)
+	{
+		isLive = false;
+		pauzingEvent = PauzingEvent::DeadPlayerEvent;
+	}
+	else
+	{
+		hitPoint--;
+	}
 }
 
 void PlayerCharacter::Invincible()

@@ -32,7 +32,7 @@ void SpawnEventSystem::OnTriggerEnter(ColliderComponent * _pair)
 		new DebugBox(wallPos);
 		trigger = true;
 		//ゲームオブジェクトの更新を止め演出をMageクラスに継いでもらう
-		pauzingUpdate = true;
+		pauzingEvent = PauzingEvent::SummonMageEvent;
 		printf("start!");
 	}
 }

@@ -40,6 +40,13 @@ enum Tag
 	null,
 };
 
+enum PauzingEvent
+{
+	SummonMageEvent,
+	DeadPlayerEvent,
+	NoneEvent
+};
+
 class GameObject
 {
 public:
@@ -183,8 +190,8 @@ protected:
 	
 	//メインカメラ　生成はGameObjectManager生成時に行われる
 	static class MainCameraObject* mainCamera;
-	//ゲームオブジェクトが静止中かどうか
-	static bool pauzingUpdate;
+
+	static PauzingEvent pauzingEvent;
 
 	virtual void OnTriggerEnter( ColliderComponent* colliderPair) {};
 	virtual void OnTriggerStay( ColliderComponent* colliderPair) {};

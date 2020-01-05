@@ -179,9 +179,6 @@
     <ClCompile Include="MainCameraObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="WarpPointSearchEnemy.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="LoiteringEnemyBase.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
@@ -200,9 +197,6 @@
     <ClCompile Include="EventSystem.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="SpawnEventSystem.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="AttackRoopPlayerAnimationClip.cpp">
       <Filter>Animation\Player</Filter>
     </ClCompile>
@@ -212,11 +206,17 @@
     <ClCompile Include="DroppingDownPlayerAnimation.cpp">
       <Filter>Animation\Player</Filter>
     </ClCompile>
-    <ClCompile Include="DoSubActionMagesChild.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="StraightMagicBullet.cpp">
       <Filter>PlayerAction\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="DoSubActionMagesChild.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnEventSystem.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="WarpPointSearchEnemy.cpp">
+      <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -400,9 +400,6 @@
     <ClInclude Include="MainCameraObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="WarpPointSearchEnemy.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="LoiteringEnemyBase.h">
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
@@ -421,9 +418,6 @@
     <ClInclude Include="EventSystem.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="SpawnEventSystem.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="AttackRoopPlayerAnimationClip.h">
       <Filter>Animation\Player</Filter>
     </ClInclude>
@@ -433,11 +427,17 @@
     <ClInclude Include="DroppingDownPlayerAnimation.h">
       <Filter>Animation\Player</Filter>
     </ClInclude>
-    <ClInclude Include="DoSubActionMagesChild.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="StraightMagicBullet.h">
       <Filter>PlayerAction\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="DoSubActionMagesChild.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnEventSystem.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="WarpPointSearchEnemy.h">
+      <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

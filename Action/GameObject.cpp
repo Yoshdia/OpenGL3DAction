@@ -9,7 +9,7 @@
 
 int GameObject::gameObjectId = 0;
 MainCameraObject* GameObject::mainCamera = nullptr;
-bool GameObject::pauzingUpdate = false;
+PauzingEvent GameObject::pauzingEvent = PauzingEvent::NoneEvent;
 
 /**
 @param	ゲームクラスのポインタ
@@ -51,7 +51,7 @@ void GameObject::Update(float _deltaTime)
 	{
 		ComputeWorldTransform();
 
-		if (!pauzingUpdate)
+		if (pauzingEvent== PauzingEvent::NoneEvent)
 		{
 			UpdateGameObject(_deltaTime);
 		}

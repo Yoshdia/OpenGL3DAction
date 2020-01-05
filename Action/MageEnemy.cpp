@@ -42,24 +42,28 @@ MageEnemy::~MageEnemy()
 
 void MageEnemy::PausingUpdateGameObject()
 {
-	mainCamera->UpdateGameObject(0.06f);
-	animComponent->UpdateAnimationComponent(0.6f);
-	animComponent->SetSpawn(false);
-	if (directingCount == 220)//220
+	if (pauzingEvent == PauzingEvent::SummonMageEvent)
 	{
-		rotate->SetRotation(90, Vector3::UnitY);
-		meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition, 5);
-		mainCamera->SetViewMatrixLerpObject(Vector3(0, 50, -350), meleeEnemy->GetPosition());
-		directingCount++;
-	}
-	else if (directingCount >= 530)//530
-	{
-		pauzingUpdate = false;
-		actionName = MageActionName::FloatShot;
-	}
-	else
-	{
-		directingCount++;
+
+		mainCamera->UpdateGameObject(0.06f);
+		animComponent->UpdateAnimationComponent(0.6f);
+		animComponent->SetSpawn(false);
+		if (directingCount == 220)//220
+		{
+			rotate->SetRotation(90, Vector3::UnitY);
+			meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition, 5);
+			mainCamera->SetViewMatrixLerpObject(Vector3(0, 50, -350), meleeEnemy->GetPosition());
+			directingCount++;
+		}
+		else if (directingCount >= 530)//530
+		{
+			pauzingEvent = PauzingEvent::NoneEvent;
+			actionName = MageActionName::FloatShot;
+		}
+		else
+		{
+			directingCount++;
+		}
 	}
 }
 
