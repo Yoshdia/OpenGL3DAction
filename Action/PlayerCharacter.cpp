@@ -27,6 +27,8 @@ const float PlayerCharacter::DownFriction = 1.05f;
 
 const int PlayerCharacter::InvincibleCount = 20;
 const int PlayerCharacter::InputUnderCountMax = 30;
+const int PlayerCharacter::AvoidanceInterval = 40;
+const int PlayerCharacter::AvoidanceInvincible = 30;
 
 PlayerCharacter::PlayerCharacter() :
 	GameObject(),
@@ -36,7 +38,7 @@ PlayerCharacter::PlayerCharacter() :
 	attackBottonInput(false),
 	jumpBottonInput(false),
 	rangeAttackBottonInput(false),
-	guardBottonInput(false),
+	avoidanceBottonInput(false),
 	direction(1),
 	invincible(false),
 	invincibleCount(0),
@@ -45,7 +47,9 @@ PlayerCharacter::PlayerCharacter() :
 	noInputForUnderDirection(false),
 	doSkeletonThinGround(false),
 	isLive(true),
-	hitPoint(3)
+	hitPoint(3),
+	avoidancing(false),
+	avoidanceInterval(0)
 {
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
 
@@ -57,7 +61,7 @@ PlayerCharacter::PlayerCharacter() :
 
 	animationComponent = new AnimationPlayerComponent(this, 100);
 	attack = new AttackPlayerComponent(this, 100);
-	guardComponent = new GuardPlayerComponent(this, 100);
+	//guardComponent = new GuardPlayerComponent(this, 100);
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 	footChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::GroundTag);
@@ -97,18 +101,22 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	if (noGround || (doSkeletonThinGround/*&& !noGround*/))
 	{
 		Gravity(_deltaTime);
-			if (inputUnderDirection > 0)
-			{
-				doSkeletonThinGround = true;
-			}
-			if (velocity.y < 0)
-			{
-				animationComponent->SetAnimation(PlayerAnimationState::Drop);
-			}
-			else
-			{
-				animationComponent->SetAnimation(PlayerAnimationState::Jump);
-			}
+		if (inputUnderDirection > 0)
+		{
+			doSkeletonThinGround = true;
+		}
+		if (velocity.y < 0)
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Drop);
+		}
+		else
+		{
+			animationComponent->SetAnimation(PlayerAnimationState::Jump);
+		}
+	}
+	if (avoidancing)
+	{
+		animationComponent->SetAnimation(PlayerAnimationState::Guard);
 	}
 	//ジャンプにより浮上中か
 	if (velocity.y <= 0)
@@ -120,9 +128,19 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		isFloating = true;
 	}
 	Friction(MoveFriction);
+	AcoidanceIntervalDown();
 	SetPosition(position + (velocity));
 	Invincible();
 	SkeletonThinGround();
+	if (avoidancing)
+	{
+		printf("avo!\n");
+	}
+	else
+	{
+		printf("?\n");
+
+	}
 }
 
 void PlayerCharacter::GameObjectInput(const InputState& _keyState)
@@ -130,7 +148,10 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	if (_keyState.Keyboard.GetKeyValue(SDL_SCANCODE_0) == 1)
 		printf("\nplayerPosition = {%f,%f,%f}", position.x, position.y, position.z);
 
-	inputDirection = 0;
+	if (!avoidancing)
+	{
+		inputDirection = 0;
+	}
 	inputUnderDirection = false;
 
 	//コントローラーが接続された場合操作をコントローラーに変更
@@ -138,7 +159,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	{
 		attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
 		rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
-		guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_B);
+		avoidanceBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_B);
 		jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
 		inputDirection = _keyState.Controller.GetLAxisVec().x;
 	}
@@ -146,11 +167,15 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	{
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 		{
-			inputDirection++;
+			inputDirection = 1;
 		}
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_LEFT))
 		{
-			inputDirection--;
+			inputDirection = -1;
+		}
+		if (inputDirection==0&& avoidancing)
+		{
+			inputDirection = direction;
 		}
 		//if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_DOWN))
 		//{
@@ -160,7 +185,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 
 		attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
 		rangeAttackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S);
-		guardBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_D);
+		avoidanceBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_D);
 		jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
 	}
 	//前Fと入力法が違い、スティックの入力が0でない場合プレイヤーの向きを更新
@@ -236,18 +261,18 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 {
 	if (colliderPair->GetObjectTag() == Tag::EnemyWeaponTag)
 	{
-		if (!invincible)
+		if (!invincible && !avoidancing)
 		{
 			//衝突した敵の攻撃が、防御済みでないか
-			if (!guardComponent->SearchObjectId(colliderPair->GetId()))
-			{
+			//if (!guardComponent->SearchObjectId(colliderPair->GetId()))
+			//{
 				//プレイヤーの攻撃の方向を計算しnockBackForceに計算
-				double distance = Math::Sqrt((colliderPair->GetPosition().x - position.x) * (colliderPair->GetPosition().x - position.x) + (colliderPair->GetPosition().y - position.y) * (colliderPair->GetPosition().y - position.y));
-				Vector3 force = Vector3::Normalize(Vector3((position.x - colliderPair->GetPosition().x), 0, (position.z - colliderPair->GetPosition().z)));
-				velocity.x = force.x * 10;
-				HitAttack();
-				animationComponent->SetAnimation(PlayerAnimationState::Outi);
-			}
+			double distance = Math::Sqrt((colliderPair->GetPosition().x - position.x) * (colliderPair->GetPosition().x - position.x) + (colliderPair->GetPosition().y - position.y) * (colliderPair->GetPosition().y - position.y));
+			Vector3 force = Vector3::Normalize(Vector3((position.x - colliderPair->GetPosition().x), 0, (position.z - colliderPair->GetPosition().z)));
+			velocity.x = force.x * 10;
+			HitAttack();
+			animationComponent->SetAnimation(PlayerAnimationState::Outi);
+			//}
 		}
 	}
 }
@@ -255,7 +280,7 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 {
 	bool actioned = false;
-	if (attackBottonInput)
+	if (attackBottonInput&&!avoidancing)
 	{
 		Attack(PlayerAnimationState::Attack);
 		if (animationComponent != nullptr)
@@ -264,7 +289,7 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 		}
 		actioned = true;
 	}
-	else if (rangeAttackBottonInput)
+	else if (rangeAttackBottonInput&&!avoidancing)
 	{
 		Attack(PlayerAnimationState::Range);
 		if (animationComponent != nullptr)
@@ -273,21 +298,16 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 		}
 		actioned = true;
 	}
-	else if (guardBottonInput)
-	{
-		Guard();
-		animationComponent->SetAnimation(PlayerAnimationState::Guard);
-
-		actioned = true;
-	}
 	else
 	{
-		if (inputDirection != 0)
+		//Guard();
+		Avoidance();
+		if (inputDirection != 0||avoidancing)
 		{
 			Move(_deltaTime);
 			actioned = true;
-
 		}
+		
 		//着地しているか
 		if (!_noGround)
 		{
@@ -333,9 +353,35 @@ void PlayerCharacter::Attack(PlayerAnimationState _animState)
 	}
 }
 
-void PlayerCharacter::Guard()
+//void PlayerCharacter::Guard()
+//{
+	//canNotActionTime = guardComponent->Guard();
+//}
+
+void PlayerCharacter::Avoidance()
 {
-	canNotActionTime = guardComponent->Guard();
+	if (avoidanceBottonInput)
+	{
+		if (avoidanceInterval <= 0)
+		{
+			avoidancing = true;
+			animationComponent->SetAnimation(PlayerAnimationState::Guard);
+			avoidanceInterval = AvoidanceInterval;
+			invincibleCount = AvoidanceInvincible;
+		}
+	}
+}
+
+void PlayerCharacter::AcoidanceIntervalDown()
+{
+	if (avoidanceInterval <= 0)
+	{
+
+	}
+	else
+	{
+		avoidanceInterval--;
+	}
 }
 
 void PlayerCharacter::Move(float _deltaTime)
@@ -441,13 +487,10 @@ void PlayerCharacter::HitAttack()
 
 void PlayerCharacter::Invincible()
 {
-	if (!invincible)
-	{
-		return;
-	}
 	if (invincibleCount <= 0)
 	{
 		invincible = false;
+		avoidancing = false;
 	}
 	else
 	{

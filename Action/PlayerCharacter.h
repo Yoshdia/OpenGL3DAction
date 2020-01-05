@@ -62,12 +62,18 @@ private:
 	/*
 	@fn 防御
 	*/
-	void Guard();
-	//防御のための盾の生成、ガード済みの攻撃の管理を行うクラス
-	class GuardPlayerComponent* guardComponent;
-	//ガードボタンの入力フラグ
-	bool guardBottonInput;
-
+	//void Guard();
+	////防御のための盾の生成、ガード済みの攻撃の管理を行うクラス
+	//class GuardPlayerComponent* guardComponent;
+	////ガードボタンの入力フラグ
+	//bool guardBottonInput;
+	bool avoidanceBottonInput;
+	void Avoidance();
+	void AcoidanceIntervalDown();
+	bool avoidancing;
+	int avoidanceInterval;
+	static const int AvoidanceInvincible;
+	static const int AvoidanceInterval;
 	/*
 	@fn 左右移動
 	@brief 左右の入力情報をもとにvelocityへ値を代入しアニメーションを再生する
