@@ -14,7 +14,7 @@ PauzingEvent GameObject::pauzingEvent = PauzingEvent::NoneEvent;
 /**
 @param	ゲームクラスのポインタ
 */
-GameObject::GameObject()
+GameObject::GameObject(bool _reUseGameObject)
 	: state(Active)
 	, worldTransform()
 	, position(Vector3::Zero)
@@ -23,6 +23,7 @@ GameObject::GameObject()
 	, recomputeWorldTransform(true)
 	, myObjectId(gameObjectId)
 	, tag(Tag::null)
+	,reUseObject(_reUseGameObject)
 {
 	gameObjectId++;
 	GAME_OBJECT_MANAGER->AddGameObject(this);

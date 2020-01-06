@@ -17,7 +17,6 @@
 #include "InputSystem.h"
 #include "PhysicsWorld.h"
 #include "GameObjectManager.h"
-#include "SceneBase.h"
 
 int Game::debug = 0;
 
@@ -27,8 +26,6 @@ int Game::debug = 0;
 Game::Game()
 	: fps(nullptr)
     , isRunning(true)
-    , nowScene(nullptr)
-    , nextScene(nullptr)
 {
 }
 
@@ -78,9 +75,6 @@ bool Game::Initialize()
     //ゲームオブジェクト管理クラスの初期化
     GameObjectManager::CreateInstance();
 
-    //現在のシーンの初期化
-    nowScene = SceneBase::StartGame();
-
 	Matrix4 v = Matrix4::CreateLookAt(Vector3(200, 0, -500), Vector3(200,0, 0),Vector3::UnitY);
 	RENDERER->SetViewMatrix(v);
 
@@ -101,7 +95,6 @@ void Game::Termination()
     //クラスの解放処理
     delete fps;
     delete inputSystem;
-    delete nowScene;
     //サブシステムの終了
 	SDL_Quit();
 }

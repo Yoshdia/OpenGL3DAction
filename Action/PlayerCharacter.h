@@ -21,6 +21,7 @@ public:
 
 	void FixCollision(const AABB & myAABB, const AABB & pairAABB, const Tag& _pairTag)override;
 	void PausingUpdateGameObject();
+	bool GetGameEnd();
 private:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair) override;

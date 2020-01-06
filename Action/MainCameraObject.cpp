@@ -3,7 +3,7 @@
 
 
 MainCameraObject::MainCameraObject():
-	GameObject()
+	GameObject(true)
 {
 	SetPosition(Vector3::Zero);
 }

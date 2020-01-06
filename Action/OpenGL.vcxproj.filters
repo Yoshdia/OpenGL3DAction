@@ -53,15 +53,6 @@
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneBase.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="AttackPlayerComponent.cpp">
       <Filter>PlayerAction\Attack</Filter>
     </ClCompile>
@@ -218,6 +209,18 @@
     <ClCompile Include="WarpPointSearchEnemy.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="PlaySceneObject.cpp">
+      <Filter>GameObjects\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultSceneObject.cpp">
+      <Filter>GameObjects\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneObjectBase.cpp">
+      <Filter>GameObjects\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleSceneObject.cpp">
+      <Filter>GameObjects\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -270,15 +273,6 @@
     </ClInclude>
     <ClInclude Include="GameObjectManager.h">
       <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneBase.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="PlayerCharacter.h">
       <Filter>GameObjects</Filter>
@@ -439,6 +433,18 @@
     <ClInclude Include="WarpPointSearchEnemy.h">
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="TitleSceneObject.h">
+      <Filter>GameObjects\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaySceneObject.h">
+      <Filter>GameObjects\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultSceneObject.h">
+      <Filter>GameObjects\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObjectBase.h">
+      <Filter>GameObjects\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -491,6 +497,9 @@
     </Filter>
     <Filter Include="GameObjects\Enemy\Weapon">
       <UniqueIdentifier>{0e4f0142-ff55-454d-bbeb-108eaaf133de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Scene">
+      <UniqueIdentifier>{7cca6bff-aa08-4305-90b7-4933b126a9a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

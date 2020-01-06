@@ -27,6 +27,7 @@ ParticleComponent::ParticleComponent(GameObject* _owner, const Vector3& _pos, fl
 
 ParticleComponent::~ParticleComponent()
 {
+	RENDERER->RemoveParticle(this);
 }
 
 void ParticleComponent::Update(float _deltaTime)

@@ -3,6 +3,9 @@
 #include "InputSystem.h"
 #include "Renderer.h"
 #include "MainCameraObject.h"
+#include "PlaySceneObject.h"
+#include "TitleSceneObject.h"
+#include "ResultSceneObject.h"
 
 GameObjectManager* GameObjectManager::manager = nullptr;
 
@@ -43,6 +46,13 @@ void GameObjectManager::UpdateGameObject(float _deltaTime)
 		gameObjects.emplace_back(pending);
 	}
 	pendingGameObjects.clear();
+
+	if (beforeScene != nextScene)
+	{
+		beforeScene = nextScene;
+		RemoveAllUsedGameObject();
+		ChangeScene();
+	}
 }
 
 void GameObjectManager::ProcessInput(const InputState& _state)
@@ -92,6 +102,25 @@ void GameObjectManager::RemoveGameObject(GameObject * _object)
 	}
 }
 
+void GameObjectManager::RemoveAllUsedGameObject()
+{
+	std::vector<GameObject*> reUseObjects;
+
+	while (!gameObjects.empty())
+	{
+		GameObject* obj = gameObjects.back();
+		if (obj->GetReUseGameObject())
+		{
+			reUseObjects.push_back(obj);
+			gameObjects.pop_back();
+			continue;
+		}
+		delete obj;
+	}
+
+	gameObjects = reUseObjects;
+}
+
 GameObject * GameObjectManager::FindGameObject(Tag _tag)
 {
 	for (auto itr : gameObjects)
@@ -119,7 +148,9 @@ std::vector<GameObject*> GameObjectManager::FindGameObjects(Tag _tag)
 
 
 GameObjectManager::GameObjectManager()
-	: updatingGameObject(false)
+	: updatingGameObject(false),
+	nextScene(SceneName::PlayScene),
+	beforeScene(SceneName::NoneScene)
 {
 }
 
@@ -129,5 +160,22 @@ GameObjectManager::~GameObjectManager()
 	while (!gameObjects.empty())
 	{
 		delete gameObjects.back();
+	}
+}
+
+void GameObjectManager::ChangeScene()
+{
+	std::function<void(SceneName)> func= std::bind(&GameObjectManager::SetScene, this, std::placeholders::_1);
+	switch (nextScene)
+	{
+	case(SceneName::TitleScene):
+		new TitleSceneObject(func);
+			break;
+	case(SceneName::PlayScene):
+		new PlaySceneObject(func);
+		break;
+	case(SceneName::ResultScene):
+		new ResultSceneObject(func);
+		break;
 	}
 }

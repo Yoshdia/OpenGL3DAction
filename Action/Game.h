@@ -24,7 +24,6 @@
 class FPS;
 class GameObject;
 class InputSystem;
-class SceneBase;
 
 //-----------------------------------------------------------------------------
 //	@brief	Gameクラス
@@ -80,10 +79,6 @@ private:
 	FPS* fps;
     // 入力管理クラス
 	InputSystem* inputSystem;
-    // 現在のシーン
-    SceneBase* nowScene;
-    // 次のフレームに実行する予定のシーン
-    SceneBase* nextScene;
 	//ゲームを続けるかどうか
     bool isRunning;
 };

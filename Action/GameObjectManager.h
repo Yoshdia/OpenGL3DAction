@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include "GameObject.h"
+#include "SceneObjectBase.h"
 
 class GameObject;
 struct InputState;
@@ -39,6 +40,12 @@ public:
 	*/
 	void RemoveGameObject(GameObject* _object);
 
+	/*
+	@brief 使用したすべてのゲームオブジェクトを解放する
+	@detail シーン遷移の際に使用される。GameObject内の再利用フラグが建っているオブジェクトは解放しない
+	*/
+	void RemoveAllUsedGameObject();
+
 	GameObject* FindGameObject(Tag _tag);
 	std::vector<GameObject*> FindGameObjects(Tag _tag);
 
@@ -56,5 +63,8 @@ private:
 	//Update中かどうか
 	bool updatingGameObject;
 
-
+	void SetScene(SceneName _sceneName) { nextScene = _sceneName; }
+	SceneName nextScene;
+	SceneName beforeScene;
+	void ChangeScene();
 };

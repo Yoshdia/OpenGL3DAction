@@ -28,15 +28,15 @@ enum State
 */
 enum Tag
 {
-	PlayerTag=0,
-	PlayerWeaponTag=1,
-	PlayerGuardWeaponTag=2,
-	EnemyTag=3,
-	ParticleEffectTag=4,
-	GroundTag=5,
-	ThinGroundFloor=6,
-	EnemyWeaponTag=7,
-	CandleStickTag=8,
+	PlayerTag = 0,
+	PlayerWeaponTag = 1,
+	PlayerGuardWeaponTag = 2,
+	EnemyTag = 3,
+	ParticleEffectTag = 4,
+	GroundTag = 5,
+	ThinGroundFloor = 6,
+	EnemyWeaponTag = 7,
+	CandleStickTag = 8,
 	null,
 };
 
@@ -53,7 +53,7 @@ public:
 	/**
 	@param	ゲームクラスのポインタ
 	*/
-	GameObject();
+	GameObject(bool _reUseGameObject=false);
 	virtual ~GameObject();
 
 	/**
@@ -72,7 +72,7 @@ public:
 	@brief	ゲームオブジェクトのアップデート
 	@param	最後のフレームを完了するのに要した時間
 	*/
-	virtual void UpdateGameObject(float _deltaTime) ;
+	virtual void UpdateGameObject(float _deltaTime);
 
 	/*
 	@fn ゲームオブジェクトが静止中に更新されるアップデート関数
@@ -81,7 +81,7 @@ public:
 	virtual void PausingUpdateGameObject();
 
 	void ProcessInput(const InputState& _keyState);
-	virtual void GameObjectInput(const InputState& _keyState) ;
+	virtual void GameObjectInput(const InputState& _keyState);
 
 	/**
 	@brief	コンポーネントを追加する
@@ -104,19 +104,19 @@ public:
 	@brief　オブジェクトのポジションを取得する
 	@return	position
 	*/
-    const Vector3& GetPosition() const { return position; }
+	const Vector3& GetPosition() const { return position; }
 
 	/**
 	@brief　オブジェクトのポジションを設定する
 	@param	position
 	*/
-    virtual void SetPosition(const Vector3& _pos) { position = _pos; recomputeWorldTransform = true; }
+	virtual void SetPosition(const Vector3& _pos) { position = _pos; recomputeWorldTransform = true; }
 
 	/**
 	@brief　オブジェクトのスケールを取得する
 	@return	scale
 	*/
-    Vector3 GetScaleFloat() const { return scale; }
+	Vector3 GetScaleFloat() const { return scale; }
 
 	/**
 	@brief　オブジェクトのスケールを設定する
@@ -130,7 +130,7 @@ public:
 	@brief　オブジェクトのクォータニオンを取得する
 	@return	rotation（Quaternion型）
 	*/
-    const Quaternion& GetRotation() const { return rotation; }
+	const Quaternion& GetRotation() const { return rotation; }
 
 	/**
 	@brief　オブジェクトのクォータニオンを設定する
@@ -160,7 +160,7 @@ public:
 	@brief　オブジェクトの前方を表すベクトルを取得する
 	@param	forward(Vector3型)
 	*/
-    Vector3 GetForward() const { return Vector3::Transform(Vector3::UnitZ, rotation); }
+	Vector3 GetForward() const { return Vector3::Transform(Vector3::UnitZ, rotation); }
 
 	/**
 	@brief　オブジェクトの右を表すベクトルを取得する
@@ -176,9 +176,11 @@ public:
 
 	Tag GetTag() const { return tag; }
 
-	int GetObjectId() {return myObjectId;};
+	int GetObjectId() { return myObjectId; };
 
-	virtual void FixCollision(const AABB & myAABB, const AABB & pairAABB,const Tag& _pairTag);
+	bool GetReUseGameObject() { return reUseObject; }
+
+	virtual void FixCollision(const AABB & myAABB, const AABB & pairAABB, const Tag& _pairTag);
 
 	/*
 	@fn 静的なmainCameraを生成する
@@ -187,14 +189,15 @@ public:
 protected:
 	std::function<void(ColliderComponent*)> GetTriggerEnterFunc() { return std::bind(&GameObject::OnTriggerEnter, this, std::placeholders::_1); }
 	std::function<void(ColliderComponent*)> GetTriggerStayFunc() { return std::bind(&GameObject::OnTriggerStay, this, std::placeholders::_1); }
-	
+
 	//メインカメラ　生成はGameObjectManager生成時に行われる
 	static class MainCameraObject* mainCamera;
 
+
 	static PauzingEvent pauzingEvent;
 
-	virtual void OnTriggerEnter( ColliderComponent* colliderPair) {};
-	virtual void OnTriggerStay( ColliderComponent* colliderPair) {};
+	virtual void OnTriggerEnter(ColliderComponent* colliderPair) {};
+	virtual void OnTriggerStay(ColliderComponent* colliderPair) {};
 
 	//ゲームオブジェクトの状態
 	State state;
@@ -206,7 +209,7 @@ protected:
 
 	//Transform
 	Vector3 position;
-	Quaternion rotation;	
+	Quaternion rotation;
 	Vector3 scale;
 	Matrix4 worldTransform;
 	//ワールド変換の処理を行う必要性があるか
@@ -214,6 +217,8 @@ protected:
 
 	//アタッチされているコンポーネント
 	std::vector<class Component*>components;
-
+private:
+	//シーンを跨ぐ際に開放されるオブジェクトかどうか、カメラなどが対象になる
+	bool reUseObject;
 };
 

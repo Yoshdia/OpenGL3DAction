@@ -18,6 +18,7 @@
 #include "PhysicsWorld.h"
 #include "ParticleEffect.h"
 #include "MainCameraObject.h"
+#include "GameObjectManager.h"
 
 const float PlayerCharacter::MoveSpeed = 600;
 const float PlayerCharacter::GravityPower = 80;
@@ -47,7 +48,7 @@ PlayerCharacter::PlayerCharacter() :
 	noInputForUnderDirection(false),
 	doSkeletonThinGround(false),
 	isLive(true),
-	hitPoint(3),
+	hitPoint(1),
 	avoidancing(false),
 	avoidanceInterval(0)
 {
@@ -132,15 +133,6 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	SetPosition(position + (velocity));
 	Invincible();
 	SkeletonThinGround();
-	if (avoidancing)
-	{
-		printf("avo!\n");
-	}
-	else
-	{
-		printf("?\n");
-
-	}
 }
 
 void PlayerCharacter::GameObjectInput(const InputState& _keyState)
@@ -243,6 +235,15 @@ void PlayerCharacter::PausingUpdateGameObject()
 	}
 }
 
+bool PlayerCharacter::GetGameEnd()
+{
+	if (hitPoint <= 0)
+	{
+		return true;
+	}
+	return false;
+}
+
 void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 {
 	if (colliderPair->GetObjectTag() == Tag::ThinGroundFloor)
@@ -270,8 +271,8 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 			double distance = Math::Sqrt((colliderPair->GetPosition().x - position.x) * (colliderPair->GetPosition().x - position.x) + (colliderPair->GetPosition().y - position.y) * (colliderPair->GetPosition().y - position.y));
 			Vector3 force = Vector3::Normalize(Vector3((position.x - colliderPair->GetPosition().x), 0, (position.z - colliderPair->GetPosition().z)));
 			velocity.x = force.x * 10;
-			HitAttack();
 			animationComponent->SetAnimation(PlayerAnimationState::Outi);
+			HitAttack();
 			//}
 		}
 	}
