@@ -221,6 +221,8 @@
     <ClCompile Include="TitleSceneObject.cpp">
       <Filter>GameObjects\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleEffectBase.cpp" />
+    <ClCompile Include="BombParticleEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -445,6 +447,8 @@
     <ClInclude Include="SceneObjectBase.h">
       <Filter>GameObjects\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleEffectBase.h" />
+    <ClInclude Include="BombParticleEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

@@ -4,7 +4,7 @@
 #include "ColliderComponent.h"
 #include "RotateComponent.h"
 #include "EnemyWeapon.h"
-#include "ParticleEffect.h"
+#include "BombParticleEffect.h"
 #include "MainCameraObject.h"
 
 
@@ -66,18 +66,18 @@ void EnemyBase::DeadCommonEvent()
 {
 	SetState(Dead);
 	Vector3 effectPos = Vector3(position.x, position.y + 50, position.z);
-	new ParticleEffect(effectPos, Vector3(10, 18, 0));
-	new ParticleEffect(effectPos, Vector3(-10, 18, 0));
-	new ParticleEffect(effectPos, Vector3(10, 16, 0));
-	new ParticleEffect(effectPos, Vector3(10, 12, 0));
-	new ParticleEffect(effectPos, Vector3(10, 9, 0));
-	new ParticleEffect(effectPos, Vector3(10, 6, 0));
-	new ParticleEffect(effectPos, Vector3(10, 3, 0));
-	new ParticleEffect(effectPos, Vector3(-10, 16, 0));
-	new ParticleEffect(effectPos, Vector3(-10, 12, 0));
-	new ParticleEffect(effectPos, Vector3(-10, 9, 0));
-	new ParticleEffect(effectPos, Vector3(-10, 6, 0));
-	new ParticleEffect(effectPos, Vector3(-10, 3, 0));
+	new BombParticleEffect(effectPos, Vector3(10, 18, 0),true);
+	new BombParticleEffect(effectPos, Vector3(-10, 18, 0),true);
+	new BombParticleEffect(effectPos, Vector3(10, 16, 0),true);
+	new BombParticleEffect(effectPos, Vector3(10, 12, 0),true);
+	new BombParticleEffect(effectPos, Vector3(10, 9, 0),true);
+	new BombParticleEffect(effectPos, Vector3(10, 6, 0),true);
+	new BombParticleEffect(effectPos, Vector3(10, 3, 0),true);
+	new BombParticleEffect(effectPos, Vector3(-10, 16, 0),true);
+	new BombParticleEffect(effectPos, Vector3(-10, 12, 0),true);
+	new BombParticleEffect(effectPos, Vector3(-10, 9, 0),true);
+	new BombParticleEffect(effectPos, Vector3(-10, 6, 0),true);
+	new BombParticleEffect(effectPos, Vector3(-10, 3, 0),true);
 	DeadEvent();
 }
 

@@ -13,14 +13,13 @@ ParticleEffect::ParticleEffect(Vector3 _pos, Vector3 _velocity, bool _collionFor
 	direction(1),
 	isCollision(false)
 {
-	tag = (Tag::ParticleEffectTag);
-	direction = _velocity.x > 0 ? 1 : -1;
-	SetPosition(_pos);
-	ParticleComponent* pa = new ParticleComponent(this);
-	pa->SetTextureID(RENDERER->GetTexture("Assets/Image/16.png")->GetTextureID());
-	pa->SetColor(Vector3(1.0f, 1.0f, 1.0f));
-	pa->SetScale(10);
-	ColliderComponent* col = new ColliderComponent(this, 100, Vector3(40, 40, 40), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
+	//tag = (Tag::ParticleEffectTag);
+	//direction = _velocity.x > 0 ? 1 : -1;
+	//SetPosition(_pos);
+	//ParticleComponent* pa = new ParticleComponent(this);
+	//pa->SetTextureID(RENDERER->GetTexture("Assets/Image/16.png")->GetTextureID());
+	//pa->SetColor(Vector3(1.0f, 1.0f, 1.0f));
+	//pa->SetScale(10);
 }
 
 ParticleEffect::~ParticleEffect()

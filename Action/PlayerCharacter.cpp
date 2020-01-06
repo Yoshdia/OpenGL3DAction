@@ -16,7 +16,7 @@
 //debug
 #include "Game.h"
 #include "PhysicsWorld.h"
-#include "ParticleEffect.h"
+#include "BombParticleEffect.h"
 #include "MainCameraObject.h"
 #include "GameObjectManager.h"
 
@@ -165,7 +165,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		{
 			inputDirection = -1;
 		}
-		if (inputDirection==0&& avoidancing)
+		if (inputDirection == 0 && avoidancing)
 		{
 			inputDirection = direction;
 		}
@@ -196,16 +196,16 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	}
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_5))
 	{
-		new ParticleEffect(position, Vector3(10, 16, 0));
-		new ParticleEffect(position, Vector3(10, 12, 0));
-		new ParticleEffect(position, Vector3(10, 9, 0));
-		new ParticleEffect(position, Vector3(10, 6, 0));
-		new ParticleEffect(position, Vector3(10, 3, 0));
-		new ParticleEffect(position, Vector3(-10, 16, 0));
-		new ParticleEffect(position, Vector3(-10, 12, 0));
-		new ParticleEffect(position, Vector3(-10, 9, 0));
-		new ParticleEffect(position, Vector3(-10, 6, 0));
-		new ParticleEffect(position, Vector3(-10, 3, 0));
+		new BombParticleEffect(position, Vector3(10, 16, 0),true);
+		new BombParticleEffect(position, Vector3(10, 12, 0),true);
+		new BombParticleEffect(position, Vector3(10, 9, 0),true);
+		new BombParticleEffect(position, Vector3(10, 6, 0),true);
+		new BombParticleEffect(position, Vector3(10, 3, 0),true);
+		new BombParticleEffect(position, Vector3(-10, 16, 0),true);
+		new BombParticleEffect(position, Vector3(-10, 12, 0),true);
+		new BombParticleEffect(position, Vector3(-10, 9, 0),true);
+		new BombParticleEffect(position, Vector3(-10, 6, 0),true);
+		new BombParticleEffect(position, Vector3(-10, 3, 0),true);
 	}
 }
 
@@ -281,7 +281,7 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 {
 	bool actioned = false;
-	if (attackBottonInput&&!avoidancing)
+	if (attackBottonInput && !avoidancing)
 	{
 		Attack(PlayerAnimationState::Attack);
 		if (animationComponent != nullptr)
@@ -290,7 +290,7 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 		}
 		actioned = true;
 	}
-	else if (rangeAttackBottonInput&&!avoidancing)
+	else if (rangeAttackBottonInput && !avoidancing)
 	{
 		Attack(PlayerAnimationState::Range);
 		if (animationComponent != nullptr)
@@ -303,12 +303,12 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 	{
 		//Guard();
 		Avoidance();
-		if (inputDirection != 0||avoidancing)
+		if (inputDirection != 0 || avoidancing)
 		{
 			Move(_deltaTime);
 			actioned = true;
 		}
-		
+
 		//’…’n‚µ‚Ä‚¢‚é‚©
 		if (!_noGround)
 		{
