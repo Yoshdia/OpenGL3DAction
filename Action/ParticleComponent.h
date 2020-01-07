@@ -11,8 +11,8 @@ public:
 		PARTICLE_BLEND_ENUM_ADD,
 		PARTICLE_BLEND_ENUM_MULT
 	}PARTICLE_ENUM;
-	ParticleComponent(GameObject* _owner);
-	ParticleComponent(GameObject* _owner, const Vector3& _pos, float _scale);
+	ParticleComponent(GameObject* _owner, int _updateOrder=100);
+	ParticleComponent(GameObject* _owner, const Vector3& _pos, float _scale,int _updateOrder=100);
 	~ParticleComponent();
 
 	/**
@@ -35,6 +35,8 @@ public:
 	*/
 	bool GetVisible() const { return visible; }
 
+	void SetDrawOrder(int _drawOrder) { drawOrder = _drawOrder; }
+	int GetDrawOrder() { return drawOrder; }
 private:
 	Vector3              position;
 	Vector3              color; // 色
@@ -47,6 +49,8 @@ private:
 	// 共有スタティックメンバ
 	static Matrix4       staticBillboardMat; // ビルボード行列
 	static Vector3       staticCameraWorldPos; // カメラのワールド座標
+	//描画順(数字が少ないものから描画される)
+	int drawOrder;
 
 public:
 	int                  GetTextureID() { return textureID; }

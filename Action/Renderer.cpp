@@ -298,7 +298,19 @@ void Renderer::RemoveSprite(SpriteComponent* _spriteComponent)
 
 void Renderer::AddParticle(ParticleComponent * _particleComponent)
 {
-	particles.push_back(_particleComponent);
+	int myDrawOrder = _particleComponent->GetDrawOrder();
+	auto iter = particles.begin();
+	for (;
+		iter != particles.end();
+		++iter)
+	{
+		if (myDrawOrder < (*iter)->GetDrawOrder())
+		{
+			break;
+		}
+	}
+	particles.insert(iter, _particleComponent);
+	//particles.push_back(_particleComponent);
 }
 
 void Renderer::RemoveParticle(ParticleComponent * _particleComponent)
@@ -589,7 +601,6 @@ void Renderer::DrawParticle()
 	{
 		if (particle->GetVisible())
 		{
-
 			//ブレンドモード変更が必要なら変更する
 			blendType = particle->GetBlendType();
 			if (blendType != prevType)

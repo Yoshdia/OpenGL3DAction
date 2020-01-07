@@ -6,24 +6,25 @@
 Matrix4 ParticleComponent::staticBillboardMat;
 Vector3 ParticleComponent::staticCameraWorldPos;
 
-ParticleComponent::ParticleComponent(GameObject* _owner)
-	:Component(_owner)
+ParticleComponent::ParticleComponent(GameObject* _owner, int _updateOrder)
+	:Component(_owner,_updateOrder)
 	, position(Vector3(0, 0, 0))
 	, scale(0)
 	, alpha(1.0f)
 	, visible(true)
+	, drawOrder(_updateOrder)
 {
 	RENDERER->AddParticle(this);
 }
 
-ParticleComponent::ParticleComponent(GameObject* _owner, const Vector3& _pos, float _scale)
-	: Component(_owner)
+ParticleComponent::ParticleComponent(GameObject* _owner, const Vector3& _pos, float _scale, int _updateOrder)
+	: Component(_owner, _updateOrder)
 	, position(_pos)
 	, scale(_scale)
 	, alpha(1)
 	, blendType(PARTICLE_BLEND_ENUM::PARTICLE_BLEND_ENUM_ALPHA)
 	, visible(true)
-
+	, drawOrder(_updateOrder)
 {
 	RENDERER->AddParticle(this);
 }

@@ -230,7 +230,9 @@
     <ClCompile Include="ParticleEffectBase.cpp">
       <Filter>GameObjects\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="BackGroundObject.cpp" />
+    <ClCompile Include="BackGroundObject.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -464,7 +466,9 @@
     <ClInclude Include="ParticleEffectBase.h">
       <Filter>GameObjects\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="BackGroundObject.h" />
+    <ClInclude Include="BackGroundObject.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

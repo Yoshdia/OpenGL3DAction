@@ -6,7 +6,7 @@
 BackGroundObject::BackGroundObject():
 	GameObject(true)
 {
-	ParticleComponent* particle = new ParticleComponent(this);
+	ParticleComponent* particle = new ParticleComponent(this,50);
 	particle->SetColor(Vector3(1, 1, 1));
 	particle->SetScale(3000);
 	particle->SetTextureID(RENDERER->GetTexture("Assets/Image/back.png")->GetTextureID());
