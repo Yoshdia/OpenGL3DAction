@@ -21,7 +21,7 @@
 #include "GameObjectManager.h"
 #include "HeartParticleEffect.h"
 
-const float PlayerCharacter::MoveSpeed = 600;
+const float PlayerCharacter::MoveSpeed = 450;
 const float PlayerCharacter::GravityPower = 80;
 const float PlayerCharacter::JumpPower = 25.0f;
 const float PlayerCharacter::MoveFriction = 1.2f;
@@ -411,7 +411,12 @@ void PlayerCharacter::Move(float _deltaTime)
 		{
 			animationComponent->SetAnimation(PlayerAnimationState::Move);
 		}
-		velocity.x = (MoveSpeed * _deltaTime) * inputDirection;
+		float speed = MoveSpeed;
+		if (avoidancing)
+		{
+			speed *= 1.3f;
+		}
+		velocity.x = (speed * _deltaTime) * inputDirection;
 	}
 	else
 	{
