@@ -34,6 +34,7 @@ MageEnemy::MageEnemy(Vector3 _pos) :
 	rangeEnemy = new RangeEnemy(popLoiteringEnemyPosition);
 	rangeEnemy->SetState(State::Dead);
 	subActionClass = new DoSubActionMagesChild(this);
+	animComponent->SetSubDuration(0.005f);
 }
 
 MageEnemy::~MageEnemy()
@@ -44,21 +45,21 @@ void MageEnemy::PausingUpdateGameObject()
 {
 	if (pauzingEvent == PauzingEvent::SummonMageEvent)
 	{
-
 		mainCamera->UpdateGameObject(0.06f);
 		animComponent->UpdateAnimationComponent(0.6f);
 		animComponent->SetSpawn(false);
-		if (directingCount == 220)//220
+		if (directingCount == 320)//220
 		{
 			rotate->SetRotation(90, Vector3::UnitY);
 			meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition, 5);
 			mainCamera->SetViewMatrixLerpObject(Vector3(0, 50, -350), meleeEnemy->GetPosition());
 			directingCount++;
 		}
-		else if (directingCount >= 530)//530
+		else if (directingCount >= 600)//530
 		{
 			pauzingEvent = PauzingEvent::NoneEvent;
 			actionName = MageActionName::FloatShot;
+			animComponent->SetSubDuration(0.017f);
 		}
 		else
 		{

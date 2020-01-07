@@ -13,7 +13,7 @@ class PlayerCharacter :
 	public GameObject
 {
 public:
-	PlayerCharacter();
+	PlayerCharacter(const Vector3& _pos);
 	~PlayerCharacter();
 
 	void UpdateGameObject(float _deltaTime)override;
