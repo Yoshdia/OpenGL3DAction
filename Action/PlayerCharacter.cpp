@@ -50,7 +50,7 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	noInputForUnderDirection(false),
 	doSkeletonThinGround(false),
 	isLive(true),
-	hitPoint(1),
+	hitPoint(10),
 	avoidancing(false),
 	avoidanceInterval(0),
 	candleHealingInterval(0)

@@ -3,7 +3,7 @@
 
 
 HeartParticleEffect::HeartParticleEffect(const Vector3& _pos, const Vector3& _velocity):
-	ParticleEffectBase(_pos,_velocity,30, "Assets/Image/16.png")
+	ParticleEffectBase(_pos,_velocity,30, "Assets/Image/BrokenHeart.png")
 {
 }
 

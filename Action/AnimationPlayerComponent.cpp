@@ -76,7 +76,7 @@ void AnimationPlayerComponent::Update(float _deltaTime)
 		case (PlayerAnimationState::Move): nowAnimation = move; break;
 		case (PlayerAnimationState::Attack): nowAnimation = attack; break;
 		case (PlayerAnimationState::Range): nowAnimation = rangeAttack; break;
-		case (PlayerAnimationState::Down): nowAnimation = down;  break;
+		case (PlayerAnimationState::Down): nowAnimation = down; particleComponent->SetOffSet(Vector3(0, 0, 0)); break;
 		case (PlayerAnimationState::Guard): nowAnimation = guard; break;
 		case (PlayerAnimationState::Jump): nowAnimation = jump; break;
 		case (PlayerAnimationState::Outi): nowAnimation = outi; break;
