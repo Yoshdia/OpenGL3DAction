@@ -12,7 +12,7 @@ const float RangeEnemy::AttackRange = 500;
 const int RangeEnemy::AttackIntervalCount = 20;
 
 RangeEnemy::RangeEnemy(Vector3 _pos):
-	LoiteringEnemyBase(_pos, Vector3(0.5f, 0.5f, 0.5f),EnemyType::RangeType)
+	LoiteringEnemyBase(_pos, Vector3(0.8f, 0.8f, 0.8f),EnemyType::RangeType)
 {
 	hitPoint = HitPointMax;
 	attackingTime = AttackingTime;

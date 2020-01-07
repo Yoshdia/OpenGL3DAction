@@ -11,8 +11,8 @@ public:
 		PARTICLE_BLEND_ENUM_ADD,
 		PARTICLE_BLEND_ENUM_MULT
 	}PARTICLE_ENUM;
-	ParticleComponent(GameObject* _owner, int _updateOrder=100);
-	ParticleComponent(GameObject* _owner, const Vector3& _pos, float _scale,int _updateOrder=100);
+	ParticleComponent(GameObject* _owner, int _updateOrder = 100);
+	ParticleComponent(GameObject* _owner, const Vector3& _pos, float _scale, int _updateOrder = 100);
 	~ParticleComponent();
 
 	/**
@@ -23,10 +23,10 @@ public:
 
 	void Draw(class Shader* shader);
 
-		/**
-	@brief@•`‰æ‚ğ‚·‚é‚©‚Ç‚¤‚©‚ğİ’è
-	@param	true : •`‰æ‚·‚é , false : •`‰æ‚µ‚È‚¢
-	*/
+	/**
+@brief@•`‰æ‚ğ‚·‚é‚©‚Ç‚¤‚©‚ğİ’è
+@param	true : •`‰æ‚·‚é , false : •`‰æ‚µ‚È‚¢
+*/
 	void SetVisible(bool _visible) { visible = _visible; }
 
 	/**
@@ -37,6 +37,8 @@ public:
 
 	void SetDrawOrder(int _drawOrder) { drawOrder = _drawOrder; }
 	int GetDrawOrder() { return drawOrder; }
+
+	void SetOffSet(Vector3 _pos) { position = _pos; };
 private:
 	Vector3              position;
 	Vector3              color; // F

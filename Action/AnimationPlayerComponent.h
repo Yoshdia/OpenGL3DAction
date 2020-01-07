@@ -10,6 +10,7 @@ enum PlayerAnimationState
 	Range,
 	RangeRoop,
 	Guard,
+	Avoidance,
 	Down,
 	Outi,
 	Jump,
@@ -40,6 +41,7 @@ private:
 	AnimationSpriteClip* down;
 	AnimationSpriteClip* jump;
 	AnimationSpriteClip* dropping;
+	AnimationSpriteClip* avoidancing;
 
 
 	PlayerAnimationState nextAnimation;

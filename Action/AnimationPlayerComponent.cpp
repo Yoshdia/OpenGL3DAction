@@ -14,6 +14,7 @@
 #include "AnimationSpriteClip.h"
 #include "AttackRoopPlayerAnimationClip.h"
 #include "RangeAttackRoopAnimationClip.h"
+#include "AvoidancingPlayerAnimation.h"
 
 AnimationPlayerComponent::AnimationPlayerComponent(GameObject* _owner, int _updateOrder)
 	:Component(_owner, _updateOrder)
@@ -33,6 +34,8 @@ AnimationPlayerComponent::AnimationPlayerComponent(GameObject* _owner, int _upda
 	down = new DownPlayerAnimationClip();
 	jump = new JumpPlayerAnimationClip();
 	dropping = new DroppingDownPlayerAnimation();
+	avoidancing = new AvoidancingPlayerAnimation();
+
 
 	nowAnimation = idle;
 	beforeAnimation = PlayerAnimationState::Idle;
@@ -47,6 +50,7 @@ AnimationPlayerComponent::~AnimationPlayerComponent()
 	delete move;
 	delete attack;
 	delete attackRoop;
+	delete avoidancing;
 	delete rangeAttack;
 	delete rangeAttackRoop;
 	delete outi;
@@ -72,14 +76,16 @@ void AnimationPlayerComponent::Update(float _deltaTime)
 		case (PlayerAnimationState::Move): nowAnimation = move; break;
 		case (PlayerAnimationState::Attack): nowAnimation = attack; break;
 		case (PlayerAnimationState::Range): nowAnimation = rangeAttack; break;
-		case (PlayerAnimationState::Down): nowAnimation = down; break;
+		case (PlayerAnimationState::Down): nowAnimation = down;  break;
 		case (PlayerAnimationState::Guard): nowAnimation = guard; break;
 		case (PlayerAnimationState::Jump): nowAnimation = jump; break;
 		case (PlayerAnimationState::Outi): nowAnimation = outi; break;
 		case (PlayerAnimationState::Drop): nowAnimation = dropping; break;
+		case (PlayerAnimationState::Avoidance): nowAnimation = avoidancing; break;
 		}
 		nowAnimation->ResetAnimation();
 	}
+
 	if (nextAnimation == PlayerAnimationState::Attack)
 	{
 		if (nowAnimation->AnimationEnd())

@@ -233,6 +233,7 @@
     <ClCompile Include="BackGroundObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="AvoidancingPlayerAnimation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -469,6 +470,7 @@
     <ClInclude Include="BackGroundObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="AvoidancingPlayerAnimation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

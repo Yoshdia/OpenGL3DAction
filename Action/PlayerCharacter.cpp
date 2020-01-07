@@ -50,7 +50,7 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	noInputForUnderDirection(false),
 	doSkeletonThinGround(false),
 	isLive(true),
-	hitPoint(10),
+	hitPoint(1),
 	avoidancing(false),
 	avoidanceInterval(0),
 	candleHealingInterval(0)
@@ -61,7 +61,7 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	//SetPosition(Vector3(00, 200, 0));
 	SetPosition(_pos);
 	float scaleF = 60.0f;
-	SetScale(scaleF);
+	SetScale(60.0f);
 
 	animationComponent = new AnimationPlayerComponent(this, 100);
 	attack = new AttackPlayerComponent(this, 100);
@@ -120,7 +120,13 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	}
 	if (avoidancing)
 	{
-		animationComponent->SetAnimation(PlayerAnimationState::Guard);
+		animationComponent->SetAnimation(PlayerAnimationState::Avoidance);
+		//SetScale(50.0f);
+	}
+	else
+	{
+		SetScale(60.0f);
+
 	}
 	//ƒWƒƒƒ“ƒv‚É‚æ‚è•‚ã’†‚©
 	if (velocity.y <= 0)
@@ -246,7 +252,7 @@ bool PlayerCharacter::GetGameEnd()
 {
 	if (hitPoint <= 0)
 	{
-		return true;
+		//return true;
 	}
 	return false;
 }
@@ -378,7 +384,7 @@ void PlayerCharacter::Avoidance()
 		if (avoidanceInterval <= 0)
 		{
 			avoidancing = true;
-			animationComponent->SetAnimation(PlayerAnimationState::Guard);
+			animationComponent->SetAnimation(PlayerAnimationState::Avoidance);
 			avoidanceInterval = AvoidanceInterval;
 			invincibleCount = AvoidanceInvincible;
 		}
