@@ -3,7 +3,7 @@
 #include "PhysicsWorld.h"
 
 BombParticleEffect::BombParticleEffect(const Vector3& _pos, const Vector3& _velocity, const bool& _collisionForGround) :
-	ParticleEffectBase(_pos, _velocity,15),
+	ParticleEffectBase(_pos, _velocity,15, "Assets/Image/16.png"),
 	collisionForGround(_collisionForGround),
 	isCollision(false)
 {

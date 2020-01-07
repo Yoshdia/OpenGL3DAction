@@ -19,6 +19,7 @@
 #include "BombParticleEffect.h"
 #include "MainCameraObject.h"
 #include "GameObjectManager.h"
+#include "HeartParticleEffect.h"
 
 const float PlayerCharacter::MoveSpeed = 600;
 const float PlayerCharacter::GravityPower = 80;
@@ -196,16 +197,19 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	}
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_5))
 	{
-		new BombParticleEffect(position, Vector3(10, 16, 0),true);
-		new BombParticleEffect(position, Vector3(10, 12, 0),true);
-		new BombParticleEffect(position, Vector3(10, 9, 0),true);
-		new BombParticleEffect(position, Vector3(10, 6, 0),true);
-		new BombParticleEffect(position, Vector3(10, 3, 0),true);
-		new BombParticleEffect(position, Vector3(-10, 16, 0),true);
-		new BombParticleEffect(position, Vector3(-10, 12, 0),true);
-		new BombParticleEffect(position, Vector3(-10, 9, 0),true);
-		new BombParticleEffect(position, Vector3(-10, 6, 0),true);
-		new BombParticleEffect(position, Vector3(-10, 3, 0),true);
+		//new BombParticleEffect(position, Vector3(10, 16, 0),true);
+		//new BombParticleEffect(position, Vector3(10, 12, 0),true);
+		//new BombParticleEffect(position, Vector3(10, 9, 0),true);
+		//new BombParticleEffect(position, Vector3(10, 6, 0),true);
+		//new BombParticleEffect(position, Vector3(10, 3, 0),true);
+		//new BombParticleEffect(position, Vector3(-10, 16, 0),true);
+		//new BombParticleEffect(position, Vector3(-10, 12, 0),true);
+		//new BombParticleEffect(position, Vector3(-10, 9, 0),true);
+		//new BombParticleEffect(position, Vector3(-10, 6, 0),true);
+		//new BombParticleEffect(position, Vector3(-10, 3, 0),true);
+		new HeartParticleEffect(position, Vector3(15, 2.5, 0));
+		new HeartParticleEffect(position, Vector3(-15, 2.5, 0));
+		new HeartParticleEffect(position, Vector3(5, 2.5, 0));
 	}
 }
 
@@ -475,6 +479,9 @@ void PlayerCharacter::HitAttack()
 {
 	invincibleCount = InvincibleCount;
 	invincible = true;
+	new HeartParticleEffect(position, Vector3(15, 2.5, 0));
+	new HeartParticleEffect(position, Vector3(-15, 2.5, 0));
+	new HeartParticleEffect(position, Vector3(5, 2.5, 0));
 	if (hitPoint <= 0)
 	{
 		isLive = false;

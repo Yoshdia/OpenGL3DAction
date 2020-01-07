@@ -11,6 +11,7 @@ ParticleComponent::ParticleComponent(GameObject* _owner)
 	, position(Vector3(0, 0, 0))
 	, scale(0)
 	, alpha(1.0f)
+	, visible(true)
 {
 	RENDERER->AddParticle(this);
 }
@@ -21,6 +22,8 @@ ParticleComponent::ParticleComponent(GameObject* _owner, const Vector3& _pos, fl
 	, scale(_scale)
 	, alpha(1)
 	, blendType(PARTICLE_BLEND_ENUM::PARTICLE_BLEND_ENUM_ALPHA)
+	, visible(true)
+
 {
 	RENDERER->AddParticle(this);
 }

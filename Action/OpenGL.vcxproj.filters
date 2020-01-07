@@ -221,8 +221,15 @@
     <ClCompile Include="TitleSceneObject.cpp">
       <Filter>GameObjects\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleEffectBase.cpp" />
-    <ClCompile Include="BombParticleEffect.cpp" />
+    <ClCompile Include="BombParticleEffect.cpp">
+      <Filter>GameObjects\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="HeartParticleEffect.cpp">
+      <Filter>GameObjects\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEffectBase.cpp">
+      <Filter>GameObjects\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -447,8 +454,15 @@
     <ClInclude Include="SceneObjectBase.h">
       <Filter>GameObjects\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleEffectBase.h" />
-    <ClInclude Include="BombParticleEffect.h" />
+    <ClInclude Include="BombParticleEffect.h">
+      <Filter>GameObjects\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="HeartParticleEffect.h">
+      <Filter>GameObjects\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEffectBase.h">
+      <Filter>GameObjects\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -504,6 +518,9 @@
     </Filter>
     <Filter Include="GameObjects\Scene">
       <UniqueIdentifier>{7cca6bff-aa08-4305-90b7-4933b126a9a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Effect">
+      <UniqueIdentifier>{f2d6a8b3-e1bd-4178-9312-8a97c863bad1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

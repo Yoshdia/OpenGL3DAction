@@ -15,6 +15,7 @@ SpriteComponent::SpriteComponent(GameObject * _owner, int _drawOrder)
     ,drawOrder(_drawOrder)
     ,textureWidth(0)
     ,textureHeight(0)
+	, visible(true)
 {
 	RENDERER->AddSprite(this);
 }

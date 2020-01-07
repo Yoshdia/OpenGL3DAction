@@ -46,6 +46,17 @@ public:
 	*/
 	int GetDrawOrder() { return drawOrder; }
 
+	/**
+@brief　描画をするかどうかを設定
+@param	true : 描画する , false : 描画しない
+*/
+	void SetVisible(bool _visible) { visible = _visible; }
+
+	/**
+	@brief　描画をするかどうかを取得する
+	@return	true : 描画する , false : 描画しない
+	*/
+	bool GetVisible() const { return visible; }
 protected:
 
 	//クラスのポインタ
@@ -58,5 +69,7 @@ protected:
     int textureWidth;
 	//テクスチャの縦幅
     int textureHeight;
+
+	bool visible;
 };
 

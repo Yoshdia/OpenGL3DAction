@@ -251,7 +251,10 @@ void Renderer::Draw()
 	// すべてのスプライトの描画
 	for (auto sprite : sprites)
 	{
-		sprite->Draw(spriteShader);
+		if (sprite->GetVisible())
+		{
+			sprite->Draw(spriteShader);
+		}
 	}
 
 	// バッファを交換
@@ -584,25 +587,29 @@ void Renderer::DrawParticle()
 
 	for (auto particle : particles)
 	{
-		//ブレンドモード変更が必要なら変更する
-		blendType = particle->GetBlendType();
-		if (blendType != prevType)
+		if (particle->GetVisible())
 		{
-			ChangeBlendMode(blendType);
-		}
-		// テクスチャ変更が必要なら変更する
-		nowTexture = particle->GetTextureID();
-		if (nowTexture != prevTexture)
-		{
-			ChangeTexture(nowTexture);
-		}
 
-		// パーティクル描画
-		particle->Draw(particleShader);
+			//ブレンドモード変更が必要なら変更する
+			blendType = particle->GetBlendType();
+			if (blendType != prevType)
+			{
+				ChangeBlendMode(blendType);
+			}
+			// テクスチャ変更が必要なら変更する
+			nowTexture = particle->GetTextureID();
+			if (nowTexture != prevTexture)
+			{
+				ChangeTexture(nowTexture);
+			}
 
-		// 前回描画状態として保存
-		prevType = blendType;
-		prevTexture = nowTexture;
+			// パーティクル描画
+			particle->Draw(particleShader);
+
+			// 前回描画状態として保存
+			prevType = blendType;
+			prevTexture = nowTexture;
+		}
 	}
 	glDisable(GL_BLEND);
 	glDepthMask(GL_TRUE);

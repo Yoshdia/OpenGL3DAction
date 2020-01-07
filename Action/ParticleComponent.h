@@ -21,7 +21,19 @@ public:
 	*/
 	virtual void Update(float _deltaTime) override;
 
-	void Draw(class Shader* shader);// のちの授業で virtualに
+	void Draw(class Shader* shader);
+
+		/**
+	@brief　描画をするかどうかを設定
+	@param	true : 描画する , false : 描画しない
+	*/
+	void SetVisible(bool _visible) { visible = _visible; }
+
+	/**
+	@brief　描画をするかどうかを取得する
+	@return	true : 描画する , false : 描画しない
+	*/
+	bool GetVisible() const { return visible; }
 
 private:
 	Vector3              position;
@@ -30,6 +42,7 @@ private:
 	float                alpha; // α
 	int                  textureID; // テクスチャID
 	PARTICLE_ENUM        blendType; // ブレンドタイプ
+	bool visible;
 
 	// 共有スタティックメンバ
 	static Matrix4       staticBillboardMat; // ビルボード行列
