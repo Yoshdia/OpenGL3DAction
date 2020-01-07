@@ -28,6 +28,7 @@ public:
 	void SetSpawn(bool _spawn) { spawn = _spawn; }
 	void SetStan(bool _stan) { stan = _stan; }
 	void SetAction(bool _action) { action = _action; }
+	void SetSubDuration(float _sub) { subAnimDuration = _sub; }
 private:
 	const class Animation* moveAnim;
 	const class Animation* idleAnim;
@@ -54,5 +55,6 @@ private:
 	bool stan;
 	bool action;
 	float animDuration;
+	float subAnimDuration;
 };
 

@@ -84,7 +84,6 @@ void AnimationPlayerComponent::Update(float _deltaTime)
 	{
 		if (nowAnimation->AnimationEnd())
 		{
-			printf("loooooooop\n");
 			nowAnimation = attackRoop;
 			nextAnimation = PlayerAnimationState::AttackRoop;
 		}
@@ -93,7 +92,6 @@ void AnimationPlayerComponent::Update(float _deltaTime)
 	{
 		if (nowAnimation->AnimationEnd())
 		{
-			printf("loooooooop\n");
 			nowAnimation = rangeAttackRoop;
 			nextAnimation = PlayerAnimationState::RangeRoop;
 		}

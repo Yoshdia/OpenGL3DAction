@@ -32,7 +32,7 @@ const int PlayerCharacter::InputUnderCountMax = 30;
 const int PlayerCharacter::AvoidanceInterval = 40;
 const int PlayerCharacter::AvoidanceInvincible = 30;
 
-PlayerCharacter::PlayerCharacter() :
+PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	GameObject(),
 	inputDirection(0),
 	canNotActionTime(0),
@@ -49,7 +49,7 @@ PlayerCharacter::PlayerCharacter() :
 	noInputForUnderDirection(false),
 	doSkeletonThinGround(false),
 	isLive(true),
-	hitPoint(1),
+	hitPoint(10),
 	avoidancing(false),
 	avoidanceInterval(0)
 {
@@ -57,7 +57,7 @@ PlayerCharacter::PlayerCharacter() :
 
 	tag = Tag::PlayerTag;
 	//SetPosition(Vector3(00, 200, 0));
-	SetPosition(Vector3(-500, 200, 0));
+	SetPosition(_pos);
 	float scaleF = 60.0f;
 	SetScale(scaleF);
 

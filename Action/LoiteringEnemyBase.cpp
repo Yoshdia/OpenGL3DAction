@@ -71,6 +71,7 @@ void LoiteringEnemyBase::SpawnSummoned(const Vector3& _pos, const int& _hitPoint
 	animComponent->SetMove(false);
 	actionName = EnemyActions::approach;
 	attackingState = true;
+	animComponent->SetSubDuration(0.01f);
 	if (moveDirection == EnemyMoveDirection::right)
 	{
 		moveDirection = EnemyMoveDirection::left;
@@ -280,12 +281,13 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 
 			animComponent->SetAttack(false);
 			animComponent->SetMove(true);
-
+			//animComponent->SetSubDuration(0.02f);
 		}
 		else if (attackIntervalCount <= 0)
 		{
 			attackIntervalCount = attackIntervalCountMax;
 			animComponent->SetAttack(true);
+			animComponent->SetSubDuration(0.016f);
 			animComponent->SetMove(false);
 			canNotActionTime = attackingTime;
 			printf("%d[Attack!]\n", gameObjectId);

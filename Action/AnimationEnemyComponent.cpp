@@ -13,7 +13,8 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 	attack(false),
 	spawn(false),
 	animDuration(0),
-	action(false)
+	action(false),
+	subAnimDuration(0.0001f)
 {
 	//メッシュ名以外にはgpskelの拡張指名をつけること
 	std::string meshName = "";
@@ -96,17 +97,17 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		if (attack)
 		{
 			animationName = EnemyAnimationName::Attack;
-			animDuration = mMeshComp->PlayAnimation(attackAnim, 0.5f);
+			animDuration = mMeshComp->PlayAnimation(attackAnim, 1.0f);
 		}
 		if (spawn)
 		{
 			animationName = EnemyAnimationName::Spawn;
-			animDuration = mMeshComp->PlayAnimation(spawnAnim, 0.5f);
+			animDuration = mMeshComp->PlayAnimation(spawnAnim, 0.6f);
 		}
 		if (stan)
 		{
 			animationName = EnemyAnimationName::Stan;
-			animDuration = mMeshComp->PlayAnimation(stanAnim,0.1f);
+			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.1f);
 		}
 		if (action)
 		{
@@ -193,7 +194,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		{
 			if (stan)
 			{
-				animDuration = mMeshComp->PlayAnimation(idleAnim,0.1f);
+				animDuration = mMeshComp->PlayAnimation(idleAnim, 0.1f);
 			}
 		}
 		if (!stan)
@@ -210,6 +211,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
 		}
 	}
-	animDuration -= 0.008f; 
+	animDuration -= subAnimDuration;
+	//animDuration -= 0.0175f;
 
 }
