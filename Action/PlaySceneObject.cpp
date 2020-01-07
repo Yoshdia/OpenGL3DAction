@@ -7,6 +7,7 @@
 #include "MeleeEnemy.h"
 #include "TankEnemy.h"
 #include "RangeEnemy.h"
+#include "BackGroundObject.h"
 
 PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	SceneObjectBase(_SetSceneFunc),
@@ -19,13 +20,13 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	dir.diffuseColor = Vector3(0.78f, 0.88f, 1.0f);
 	dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
+	new BackGroundObject();
 	player = new PlayerCharacter(Vector3(-500, 200, 0));
 	//new MeleeEnemy(Vector3(400,80,0));
 	//new RangeEnemy(Vector3(800, 400, 0));
 	//new TankEnemy(Vector3(-300, 80, 0));
 	//new MageEnemy(Vector3(500, 80, 0));
 	new SpawnEventSystem(Vector3(500, 80, 0), Vector3(0, -100, 0));
-
 	//.         .
 	//.         .
 	//.         .
