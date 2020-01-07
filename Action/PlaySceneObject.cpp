@@ -8,6 +8,7 @@
 #include "TankEnemy.h"
 #include "RangeEnemy.h"
 #include "BackGroundObject.h"
+#include "CandleStick.h"
 
 PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	SceneObjectBase(_SetSceneFunc),
@@ -20,7 +21,7 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	dir.diffuseColor = Vector3(0.78f, 0.88f, 1.0f);
 	dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
-	new BackGroundObject();
+	//new BackGroundObject();
 	player = new PlayerCharacter(Vector3(-500, 200, 0));
 	//new MeleeEnemy(Vector3(400,80,0));
 	//new RangeEnemy(Vector3(800, 400, 0));
@@ -76,7 +77,7 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	//..._  ...   ........
 	//  .   .
 	//  .....
-	//new CandleStick(Vector3(400, 80, 0));
+	new CandleStick(Vector3(-700, 0, 0));
 	//
 	/*new DebugBox(Vector3(-100, -200, 0));
 	new DebugBox(Vector3(-100, -100, 0));

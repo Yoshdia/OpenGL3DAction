@@ -9,10 +9,11 @@ Vector3 ParticleComponent::staticCameraWorldPos;
 ParticleComponent::ParticleComponent(GameObject* _owner, int _updateOrder)
 	:Component(_owner,_updateOrder)
 	, position(Vector3(0, 0, 0))
-	, scale(0)
+	, scale(1)
 	, alpha(1.0f)
 	, visible(true)
 	, drawOrder(_updateOrder)
+	,color(Vector3(1,1,1))
 {
 	RENDERER->AddParticle(this);
 }
@@ -25,6 +26,8 @@ ParticleComponent::ParticleComponent(GameObject* _owner, const Vector3& _pos, fl
 	, blendType(PARTICLE_BLEND_ENUM::PARTICLE_BLEND_ENUM_ALPHA)
 	, visible(true)
 	, drawOrder(_updateOrder)
+	, color(Vector3(1, 1, 1))
+
 {
 	RENDERER->AddParticle(this);
 }

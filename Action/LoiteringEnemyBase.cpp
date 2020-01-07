@@ -290,7 +290,6 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 			animComponent->SetSubDuration(0.016f);
 			animComponent->SetMove(false);
 			canNotActionTime = attackingTime;
-			printf("%d[Attack!]\n", gameObjectId);
 			Attack(_deltaTime);
 		}
 		else
@@ -323,7 +322,6 @@ void LoiteringEnemyBase::NoAttacking(float _deltaTime)
 					//ˆÚ“®•ûŒü‚ª”½“]‚µ‚½‚Ì‚Å‚»‚ê‚¼‚ê‚ÌoffsetÀ•W‚ðXV‚·‚é
 					forwardDownGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, -90, 0));
 					forwardGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, 0, 0));
-					printf("%f,%f\n", forwardDownGroundCheck->GetPosition().x, forwardGroundCheck->GetPosition().x);
 				}
 			}
 			else

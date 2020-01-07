@@ -603,6 +603,7 @@ void Renderer::DrawParticle()
 		{
 			//ブレンドモード変更が必要なら変更する
 			blendType = particle->GetBlendType();
+			blendType = particle->GetBlendType();
 			if (blendType != prevType)
 			{
 				ChangeBlendMode(blendType);

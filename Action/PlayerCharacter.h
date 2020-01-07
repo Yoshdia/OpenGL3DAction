@@ -151,5 +151,9 @@ private:
 
 	int hitPoint;
 	bool isLive;
+
+	int candleHealingInterval;
+	static const int CandleHealingInterval;
+	void CandleHealingIntervalDown();
 };
 

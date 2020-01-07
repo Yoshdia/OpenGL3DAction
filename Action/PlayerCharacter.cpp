@@ -31,6 +31,7 @@ const int PlayerCharacter::InvincibleCount = 20;
 const int PlayerCharacter::InputUnderCountMax = 30;
 const int PlayerCharacter::AvoidanceInterval = 40;
 const int PlayerCharacter::AvoidanceInvincible = 30;
+const int PlayerCharacter::CandleHealingInterval = 200;
 
 PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	GameObject(),
@@ -51,7 +52,8 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	isLive(true),
 	hitPoint(10),
 	avoidancing(false),
-	avoidanceInterval(0)
+	avoidanceInterval(0),
+	candleHealingInterval(0)
 {
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
 
@@ -129,6 +131,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	{
 		isFloating = true;
 	}
+	CandleHealingIntervalDown();
 	Friction(MoveFriction);
 	AcoidanceIntervalDown();
 	SetPosition(position + (velocity));
@@ -257,7 +260,12 @@ void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 	}
 	if (colliderPair->GetObjectTag() == Tag::CandleStickTag)
 	{
-		//printf("Healing\n");
+		if (candleHealingInterval < 0)
+		{
+			hitPoint++;
+			printf("heal");
+			candleHealingInterval = 100;
+		}
 		return;
 	}
 }
@@ -503,5 +511,13 @@ void PlayerCharacter::Invincible()
 	else
 	{
 		invincibleCount--;
+	}
+}
+
+void PlayerCharacter::CandleHealingIntervalDown()
+{
+	if (candleHealingInterval >= 0)
+	{
+		candleHealingInterval--;
 	}
 }
