@@ -239,6 +239,7 @@
     <ClCompile Include="FloatParticleEffect.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="TestModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -481,6 +482,7 @@
     <ClInclude Include="FloatParticleEffect.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="TestModel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

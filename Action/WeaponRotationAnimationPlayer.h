@@ -27,9 +27,11 @@ private:
 	float rotateSpeed;
 	//回転速度の減少率。rotateSpeedが一定値まで減ると数が変化する
 	float rotateSpeedSub;
+
+	int direction;
 	//移動の目標位置、生成時に_moveDistanceStageをもとに決定
 	Vector3 targetPos;
-	int direction;
+	int rotateDirection;
 	class RotateComponent* rotateComponent;
 };
 

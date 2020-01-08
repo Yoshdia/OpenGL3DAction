@@ -2,7 +2,7 @@
 #include "MeshComponent.h"
 #include "Renderer.h"
 #include "ColliderComponent.h"
-
+#include "RotateComponent.h"
 
 ThrowWeapon::ThrowWeapon(const Vector3& _pos, const int& _direction, const int& _waitTime, const Tag& _tag) :
 	lifeCount(240),
@@ -13,11 +13,16 @@ ThrowWeapon::ThrowWeapon(const Vector3& _pos, const int& _direction, const int& 
 {
 	SetPosition(_pos);
 	tag = _tag;
+	SetScale(0.9f);
 	meshComponent = new MeshComponent(this);
-	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Bike.gpmesh"));
+	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/Weapon/SK_Dual_Blade_Arrow.gpmesh"));
 	meshComponent->SetVisible(false);
-	colliderComponent = new ColliderComponent(this, 100, Vector3(50, 5, 5), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
+	colliderComponent = new ColliderComponent(this, 100, Vector3(100, 30, 5), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 	colliderComponent->SetDoCollision(false);
+
+	RotateComponent* rotate = new RotateComponent(this);
+	if(_direction==1)
+	rotate->SetRotation(90, Vector3::UnitY);
 
 	velocity.x = 30 * direction;
 	velocity.y = 4;
@@ -36,7 +41,7 @@ void ThrowWeapon::UpdateGameObject(float _deltaTime)
 		colliderComponent->SetDoCollision(true);
 		if (!collided)
 		{
-			velocity.y -= (34.375f*_deltaTime);
+			velocity.y -= (27.0*_deltaTime);
 			SetPosition(position + velocity);
 		}
 		if (lifeCount < 0)
