@@ -236,7 +236,9 @@
     <ClCompile Include="AvoidancingPlayerAnimation.cpp">
       <Filter>Animation\Player</Filter>
     </ClCompile>
-    <ClCompile Include="FloatParticleEffect.cpp" />
+    <ClCompile Include="FloatParticleEffect.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -476,7 +478,9 @@
     <ClInclude Include="AvoidancingPlayerAnimation.h">
       <Filter>Animation\Player</Filter>
     </ClInclude>
-    <ClInclude Include="FloatParticleEffect.h" />
+    <ClInclude Include="FloatParticleEffect.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

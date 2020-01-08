@@ -111,7 +111,11 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		}
 		if (velocity.y < 0)
 		{
+			if (noGround)
+			{
+
 			animationComponent->SetAnimation(PlayerAnimationState::Drop);
+			}
 		}
 		else
 		{
