@@ -233,7 +233,10 @@
     <ClCompile Include="BackGroundObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="AvoidancingPlayerAnimation.cpp" />
+    <ClCompile Include="AvoidancingPlayerAnimation.cpp">
+      <Filter>Animation\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatParticleEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -470,7 +473,10 @@
     <ClInclude Include="BackGroundObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="AvoidancingPlayerAnimation.h" />
+    <ClInclude Include="AvoidancingPlayerAnimation.h">
+      <Filter>Animation\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatParticleEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

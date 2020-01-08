@@ -170,6 +170,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyWeapon.cpp" />
     <ClCompile Include="EventSystem.cpp" />
+    <ClCompile Include="FloatParticleEffect.cpp" />
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -254,6 +255,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyWeapon.h" />
     <ClInclude Include="EventSystem.h" />
+    <ClInclude Include="FloatParticleEffect.h" />
     <ClInclude Include="FPS.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />

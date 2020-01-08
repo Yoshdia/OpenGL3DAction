@@ -4,6 +4,7 @@
 #include "RotateComponent.h"
 #include "AnimationEnemyComponent.h"
 #include "EnemyWeapon.h"
+
 const int LoiteringEnemyBase::HitPointMax = 3;
 const float LoiteringEnemyBase::AttackingTime = 200;
 const float LoiteringEnemyBase::HittingTime = 40;

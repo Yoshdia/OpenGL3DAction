@@ -7,6 +7,7 @@
 #include "RangeEnemy.h"
 #include "DoSubActionMagesChild.h"
 #include "StraightMagicBullet.h"
+#include "FloatParticleEffect.h"
 
 const int MageEnemy::StanCount = 200;
 const int MageEnemy::ChargeCount = 200;
@@ -52,6 +53,8 @@ void MageEnemy::PausingUpdateGameObject()
 		{
 			rotate->SetRotation(90, Vector3::UnitY);
 			meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition, 5);
+			new FloatParticleEffect(Vector3(30,0,0)+ popLoiteringEnemyPosition, Vector3(0, 2, 0));
+			new FloatParticleEffect(Vector3(-30,0,0)+ popLoiteringEnemyPosition, Vector3(0, 2, 0));
 			mainCamera->SetViewMatrixLerpObject(Vector3(0, 50, -350), meleeEnemy->GetPosition());
 			directingCount++;
 		}
@@ -116,7 +119,11 @@ void MageEnemy::UpdateEnemyObject(float _deltaTime)
 			{
 				animComponent->SetAction(true);
 				meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition + Vector3(100, 0, 0), 5);
+				new FloatParticleEffect(Vector3(30, 0, 0) + popLoiteringEnemyPosition + Vector3(100, 0, 0), Vector3(0,2,0));
+				new FloatParticleEffect(Vector3(-30, 0, 0) + popLoiteringEnemyPosition + Vector3(100, 0, 0), Vector3(0,2,0));
 				rangeEnemy->SpawnSummoned(popLoiteringEnemyPosition + Vector3(-100, 0, 0), 5);
+				new FloatParticleEffect(Vector3(30, 0, 0) + popLoiteringEnemyPosition + Vector3(-100, 0, 0), Vector3(0, 2, 0));
+				new FloatParticleEffect(Vector3(-30, 0, 0) + popLoiteringEnemyPosition + Vector3(-100, 0, 0), Vector3(0, 2, 0));
 				subActionClass->StartFloating();
 				actionName = MageActionName::Skill;
 			}
