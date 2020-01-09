@@ -24,7 +24,7 @@ ThrowWeapon::ThrowWeapon(const Vector3& _pos, const int& _direction, const int& 
 	if(_direction==1)
 	rotate->SetRotation(90, Vector3::UnitY);
 
-	velocity.x = 30 * direction;
+	velocity.x = (float)(30 * direction);
 	velocity.y = 4;
 }
 

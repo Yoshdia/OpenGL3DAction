@@ -20,7 +20,7 @@ WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& pos,
 	case(1):addDistance.x += 120; break;
 	default:addDistance.x += 180; break;
 	}
-	targetPos = pos + (addDistance*direction);
+	targetPos = pos + (addDistance*(float)direction);
 
 	meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/Weapon/SK_Blunt_SpikedClub.gpmesh"));

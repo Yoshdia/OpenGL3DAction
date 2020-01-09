@@ -40,7 +40,7 @@ void MeleeEnemy::DeadEvent()
 void MeleeEnemy::Attack(float _deltaTime)
 {
 	Vector3 ataPos = Vector3::Zero;
-	ataPos.x = moveDirection * 60;
+	ataPos.x = (float)(moveDirection * 60);
 	ataPos.y += 40;
 	new EnemyWeapon(position+ataPos, Vector3(60,80,20), 30,40);
 }

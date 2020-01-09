@@ -32,7 +32,7 @@ void CandleStick::UpdateGameObject(float _deltaTime)
 {
 	if (ignition)
 	{
-		particle->SetScale(30 + rand() % 5);
+		particle->SetScale(30.0f + rand() % 5);
 	}
 }
 

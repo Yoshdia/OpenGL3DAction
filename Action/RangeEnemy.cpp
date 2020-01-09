@@ -3,8 +3,8 @@
 #include "AnimationEnemyComponent.h"
 
 const int RangeEnemy::HitPointMax = 5;
-const float RangeEnemy::AttackingTime = 300;
-const float RangeEnemy::HittingTime = 40;
+const float RangeEnemy::AttackingTime = 300.0f;
+const float RangeEnemy::HittingTime = 40.0f;
 const float RangeEnemy::WalkSpeed = 50;
 const float RangeEnemy::ApproachSpeedRatio = 0.4f;
 const float RangeEnemy::SearchRange = 500;
@@ -41,7 +41,7 @@ void RangeEnemy::DeadEvent()
 void RangeEnemy::Attack(float _deltaTime)
 {
 	Vector3 attackPos = Vector3::Zero;
-	attackPos.x = moveDirection * 60;
+	attackPos.x = (float)(moveDirection * 60);
 	attackPos.y += 40;
 	new ThrowWeapon(attackPos+position, moveDirection,100,Tag::EnemyWeaponTag);
 }

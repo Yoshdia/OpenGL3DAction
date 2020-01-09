@@ -2,8 +2,8 @@
 #include "EnemyWeapon.h"
 
 const int TankEnemy::HitPointMax = 10;
-const float TankEnemy::AttackingTime = 200;
-const float TankEnemy::HittingTime = 40;
+const float TankEnemy::AttackingTime = 200.0f;
+const float TankEnemy::HittingTime = 40.0f;
 const float TankEnemy::WalkSpeed = 60;
 const float TankEnemy::ApproachSpeedRatio = 0.4f;
 const float TankEnemy::SearchRange = 200;
@@ -39,7 +39,7 @@ void TankEnemy::DeadEvent()
 void TankEnemy::Attack(float _deltaTime)
 {
 	Vector3 ataPos = Vector3::Zero;
-	ataPos.x = moveDirection * 120;
+	ataPos.x = (float)(moveDirection * 120);
 	ataPos.y += 40;
 	new EnemyWeapon(position + ataPos, Vector3(70, 40, 20), 20, 50);
 }

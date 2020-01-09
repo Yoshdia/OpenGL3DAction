@@ -40,7 +40,7 @@ private:
 	//生成される高さ 生成時のプレイヤーの高さに足す
 	static const float CreatedHeightShield;
 	//生成後に向かう高さ　生成時のプレイヤーの高さ
-	int targetHeight;
+	float targetHeight;
 	//浮遊時間 0になると落下する
 	int floatingCount;
 	//浮遊時間の最大数

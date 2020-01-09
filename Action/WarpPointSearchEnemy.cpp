@@ -8,8 +8,8 @@ WarpPointSearchEnemy::WarpPointSearchEnemy(Vector3 _pos):
 	isGround(false)
 {
 	footGroundChecker = new SkeltonObjectChecker(this, Vector3(0, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
-	forwardGroundChecker = new SkeltonObjectChecker(this, Vector3(moveDirection * 50, -75, 0), Vector3(1, 1, 1), Tag::GroundTag);
-	forwardWallChecker = new SkeltonObjectChecker(this, Vector3(moveDirection * 50, 30, 0), Vector3(1, 1, 1), Tag::GroundTag);
+	forwardGroundChecker = new SkeltonObjectChecker(this, Vector3((float)moveDirection * 50.0f, -75, 0), Vector3(1, 1, 1), Tag::GroundTag);
+	forwardWallChecker = new SkeltonObjectChecker(this, Vector3((float)moveDirection * 50.0f, 30, 0), Vector3(1, 1, 1), Tag::GroundTag);
 }
 
 WarpPointSearchEnemy::~WarpPointSearchEnemy()
@@ -25,7 +25,7 @@ void WarpPointSearchEnemy::UpdateGameObject(float _deltaTime)
 		{
 			isGround = true;
 
-			SetPosition(position + Vector3(moveDirection*5, 0, 0));
+			SetPosition(position + Vector3((float)(moveDirection*5), 0, 0));
 			if (forwardGroundChecker->GetNoTouchingFlag()|| !forwardWallChecker->GetNoTouchingFlag())
 			{
 				searchedPoint = true;
@@ -59,7 +59,7 @@ void WarpPointSearchEnemy::SetFirstPosition(Vector3 _position,Vector3 _enemyPosi
 	}
 	//forwardGroundChecker->SetPosition(position+Vector3(moveDirection * 50, -75, 0));
 	//forwardWallChecker->SetPosition(position+Vector3(moveDirection * 50, 0, 0));
-	forwardGroundChecker->SetOffset(Vector3(moveDirection * 50, -75, 0));
-	forwardWallChecker->SetOffset(Vector3(moveDirection * 50, 30, 0));
+	forwardGroundChecker->SetOffset(Vector3((float)moveDirection * 50.0f, -75, 0));
+	forwardWallChecker->SetOffset(Vector3((float)moveDirection * 50.0f, 30, 0));
 	//footGroundChecker->SetPosition(Vector3(0, 0, 0)+position);
 }

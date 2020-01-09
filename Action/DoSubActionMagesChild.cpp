@@ -91,7 +91,7 @@ void DoSubActionMagesChild::MoveHorizontal()
 		}
 	}
 	int direction = moveDirection == EnemyMoveDirection::right ? 1 : -1;
-	owner->SetPosition(owner->GetPosition() + Vector3(2 * direction, 0, 0));
+	owner->SetPosition(owner->GetPosition() + Vector3((float)(2 * direction), 0, 0));
 }
 
 void DoSubActionMagesChild::HuwaHuwa()
@@ -106,6 +106,6 @@ void DoSubActionMagesChild::HuwaHuwa()
 		verticalInversionCount--;
 	}
 	int direction = verticalMoveDirection == EnemyMoveDirection::right ? 1 : -1;
-	owner->SetPosition(owner->GetPosition() + Vector3(0, 0.1* direction, 0));
+	owner->SetPosition(owner->GetPosition() + Vector3(0, (float)(0.1* direction), 0));
 
 }

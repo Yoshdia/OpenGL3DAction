@@ -181,7 +181,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		}
 		if (inputDirection == 0 && avoidancing)
 		{
-			inputDirection = direction;
+			inputDirection = (float)direction;
 		}
 		//if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_DOWN))
 		//{
@@ -198,7 +198,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	//前Fと入力法が違い、スティックの入力が0でない場合プレイヤーの向きを更新
 	if (direction != inputDirection && inputDirection != 0)
 	{
-		direction = inputDirection;
+		direction = (int)inputDirection;
 	}
 
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_3))

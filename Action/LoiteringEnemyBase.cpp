@@ -6,8 +6,8 @@
 #include "EnemyWeapon.h"
 
 const int LoiteringEnemyBase::HitPointMax = 3;
-const float LoiteringEnemyBase::AttackingTime = 200;
-const float LoiteringEnemyBase::HittingTime = 40;
+const int LoiteringEnemyBase::AttackingTime = 200;
+const int LoiteringEnemyBase::HittingTime = 40;
 const float LoiteringEnemyBase::WalkSpeed = 125;
 const float LoiteringEnemyBase::ApproachSpeedRatio = 0.8f;
 const float LoiteringEnemyBase::SearchRange = 200;

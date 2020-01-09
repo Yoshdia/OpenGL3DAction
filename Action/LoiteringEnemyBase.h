@@ -100,8 +100,8 @@ private:
 	Vector3 nockBackForce;
 
 	static const int HitPointMax;
-	static const float AttackingTime;
-	static const float HittingTime;
+	static const int AttackingTime;
+	static const int HittingTime;
 	static const float WalkSpeed;
 	static const float ApproachSpeedRatio;
 	static const float SearchRange;
@@ -115,9 +115,9 @@ protected:
 	void InstantiateLoiteringEnemyBase();
 
 	//UŒ‚ŠÔ
-	float attackingTime;
+	int attackingTime;
 	//”í’eŠÔA”í’e‚É‚±‚Ì’è”‚ªcanNotActionTime‚É“ü‚é
-	float hittingTime;
+	int hittingTime;
 	//•às‘¬“x
 	float walkSpeed;
 	//UŒ‚‘ÎÛ‚Ö‚ÌÚ‹ß‘¬“x

@@ -76,7 +76,7 @@ private:
 	*/
 	void Move(float _deltaTime);
 	//“ü—Í•ûŒüA¶...-1 ‰E...1
-	int inputDirection;
+	float inputDirection;
 	//ˆÚ“®‘¬“x
 	static const float MoveSpeed;
 
