@@ -5,6 +5,10 @@
 #include "Game.h"
 
 /*
+ƒNƒ‰ƒX“à‚Å‚ÌéŒ¾‡”Ô‚Ípublic>protected>private‚Ì‡
+*/
+
+/*
  @file –¼.h
  @brief ŠÈ’P‚Èà–¾
 	*/

@@ -162,6 +162,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="CandleStick.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="ComboMeanPlayerBase.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DebugBox.cpp" />
     <ClCompile Include="DoSubActionMagesChild.cpp" />
@@ -208,6 +209,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResultSceneObject.cpp" />
     <ClCompile Include="RotateComponent.cpp" />
+    <ClCompile Include="RotateTripleWeaponCombo.cpp" />
     <ClCompile Include="SceneObjectBase.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShieldWeapon.cpp" />
@@ -222,6 +224,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="TestModel.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ThrowWeapon.cpp" />
+    <ClCompile Include="ThrowWeaponCombo.cpp" />
     <ClCompile Include="TitleSceneObject.cpp" />
     <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="WarpPointSearchEnemy.cpp" />
@@ -248,6 +251,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="CandleStick.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="ComboMeanPlayerBase.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DebugBox.h" />
     <ClInclude Include="DoSubActionMagesChild.h" />
@@ -294,6 +298,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResultSceneObject.h" />
     <ClInclude Include="RotateComponent.h" />
+    <ClInclude Include="RotateTripleWeaponCombo.h" />
     <ClInclude Include="SceneObjectBase.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShieldWeapon.h" />
@@ -308,6 +313,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="TestModel.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="ThrowWeapon.h" />
+    <ClInclude Include="ThrowWeaponCombo.h" />
     <ClInclude Include="TitleSceneObject.h" />
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="WarpPointSearchEnemy.h" />

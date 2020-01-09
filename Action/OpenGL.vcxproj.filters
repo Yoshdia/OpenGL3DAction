@@ -56,18 +56,6 @@
     <ClCompile Include="AttackPlayerComponent.cpp">
       <Filter>PlayerAction\Attack</Filter>
     </ClCompile>
-    <ClCompile Include="AttackPlayerOnce.cpp">
-      <Filter>PlayerAction\Attack\Combo</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackPlayerThird.cpp">
-      <Filter>PlayerAction\Attack\Combo</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackPlayerTwice.cpp">
-      <Filter>PlayerAction\Attack\Combo</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackBase.cpp">
-      <Filter>PlayerAction\Attack\Combo</Filter>
-    </ClCompile>
     <ClCompile Include="WeaponRotationAnimationPlayer.cpp">
       <Filter>PlayerAction\Weapon</Filter>
     </ClCompile>
@@ -97,9 +85,6 @@
     </ClCompile>
     <ClCompile Include="ThrowWeapon.cpp">
       <Filter>PlayerAction\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="RangeAttackPlayer.cpp">
-      <Filter>PlayerAction\Attack\Combo</Filter>
     </ClCompile>
     <ClCompile Include="ShieldWeapon.cpp">
       <Filter>PlayerAction\Weapon</Filter>
@@ -163,9 +148,6 @@
     </ClCompile>
     <ClCompile Include="EnemyWeapon.cpp">
       <Filter>GameObjects\Enemy\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleEffect.cpp">
-      <Filter>GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="MainCameraObject.cpp">
       <Filter>GameObjects</Filter>
@@ -236,10 +218,33 @@
     <ClCompile Include="AvoidancingPlayerAnimation.cpp">
       <Filter>Animation\Player</Filter>
     </ClCompile>
-    <ClCompile Include="FloatParticleEffect.cpp">
+    <ClCompile Include="TestModel.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="TestModel.cpp" />
+    <ClCompile Include="FloatParticleEffect.cpp">
+      <Filter>GameObjects\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEffect.cpp">
+      <Filter>GameObjects\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackBase.cpp">
+      <Filter>PlayerAction\Attack\Combo\Part</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackPlayerOnce.cpp">
+      <Filter>PlayerAction\Attack\Combo\Part</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackPlayerThird.cpp">
+      <Filter>PlayerAction\Attack\Combo\Part</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackPlayerTwice.cpp">
+      <Filter>PlayerAction\Attack\Combo\Part</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeAttackPlayer.cpp">
+      <Filter>PlayerAction\Attack\Combo\Part</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboMeanPlayerBase.cpp" />
+    <ClCompile Include="RotateTripleWeaponCombo.cpp" />
+    <ClCompile Include="ThrowWeaponCombo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -299,18 +304,6 @@
     <ClInclude Include="AttackPlayerComponent.h">
       <Filter>PlayerAction\Attack</Filter>
     </ClInclude>
-    <ClInclude Include="AttackPlayerOnce.h">
-      <Filter>PlayerAction\Attack\Combo</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackPlayerThird.h">
-      <Filter>PlayerAction\Attack\Combo</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackPlayerTwice.h">
-      <Filter>PlayerAction\Attack\Combo</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackBase.h">
-      <Filter>PlayerAction\Attack\Combo</Filter>
-    </ClInclude>
     <ClInclude Include="WeaponRotationAnimationPlayer.h">
       <Filter>PlayerAction\Weapon</Filter>
     </ClInclude>
@@ -337,9 +330,6 @@
     </ClInclude>
     <ClInclude Include="ThrowWeapon.h">
       <Filter>PlayerAction\Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="RangeAttackPlayer.h">
-      <Filter>PlayerAction\Attack\Combo</Filter>
     </ClInclude>
     <ClInclude Include="ShieldWeapon.h">
       <Filter>PlayerAction\Weapon</Filter>
@@ -406,9 +396,6 @@
     </ClInclude>
     <ClInclude Include="EnemyWeapon.h">
       <Filter>GameObjects\Enemy\Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEffect.h">
-      <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="MainCameraObject.h">
       <Filter>GameObjects</Filter>
@@ -479,10 +466,33 @@
     <ClInclude Include="AvoidancingPlayerAnimation.h">
       <Filter>Animation\Player</Filter>
     </ClInclude>
-    <ClInclude Include="FloatParticleEffect.h">
+    <ClInclude Include="TestModel.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="TestModel.h" />
+    <ClInclude Include="FloatParticleEffect.h">
+      <Filter>GameObjects\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEffect.h">
+      <Filter>GameObjects\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackBase.h">
+      <Filter>PlayerAction\Attack\Combo\Part</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackPlayerOnce.h">
+      <Filter>PlayerAction\Attack\Combo\Part</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackPlayerThird.h">
+      <Filter>PlayerAction\Attack\Combo\Part</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackPlayerTwice.h">
+      <Filter>PlayerAction\Attack\Combo\Part</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeAttackPlayer.h">
+      <Filter>PlayerAction\Attack\Combo\Part</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboMeanPlayerBase.h" />
+    <ClInclude Include="RotateTripleWeaponCombo.h" />
+    <ClInclude Include="ThrowWeaponCombo.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -541,6 +551,9 @@
     </Filter>
     <Filter Include="GameObjects\Effect">
       <UniqueIdentifier>{f2d6a8b3-e1bd-4178-9312-8a97c863bad1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayerAction\Attack\Combo\Part">
+      <UniqueIdentifier>{14937684-7e51-45ec-ae0c-18058526c87d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

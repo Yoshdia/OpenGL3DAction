@@ -7,11 +7,11 @@
 */
 enum PlayerAttackState
 {
-	NoAttack,
-	AttackOnce,
-	AttackTwice,
-	AttackThird,
-	EndAttack,
+	NoAttacka,
+	AttackOncea,
+	AttackTwicea,
+	AttackThirda,
+	EndAttacka,
 };
 
 /*
@@ -42,12 +42,8 @@ public:
 	*/
 	float RangeAttack(int _direction);
 private:
-	//近距離攻撃の状態
-	PlayerAttackState attackState;
-	//遠距離攻撃の回数
-	int rangeAttackCount;
-	//攻撃を行うクラスへのアドレス
-	class AttackBase* attack;
+	class ComboMeanPlayerBase* firstSlotAttack;
+	class ComboMeanPlayerBase* secondSlotAttack;
 	//近距離攻撃のコンボを次につなげる猶予時間。これが0になるとコンボ状態をリセットする
 	float waitTimeForNextAttack;
 };
