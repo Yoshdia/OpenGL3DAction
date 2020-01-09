@@ -49,7 +49,7 @@ private:
 	void Actions(float _deltaTime,const bool& _noGround);
 
 	//近接コンボ、遠距離攻撃を行うクラス
-	class AttackPlayerComponent* attack;
+	class AttackPlayerObject* attack;
 	//近接攻撃ボタンの入力フラグ
 	bool attackBottonInput;
 	//遠距離攻撃ボタンの入力フラグ

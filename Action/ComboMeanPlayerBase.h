@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
+#include "AttackBase.h"
 
 /*
  @file ComboMeanPlayerBase.h
@@ -27,6 +28,8 @@ public:
 	@return このコンボが遠距離攻撃かどうか。プレイヤーのアニメーションに違いが生まれるので指定が必要
 	*/
 	bool GetRangeFlag() { return range; }
+
+	virtual void DropMyItem(const Vector3& _pos) {};
 protected:
 	/*
 	@enum コンボ状態

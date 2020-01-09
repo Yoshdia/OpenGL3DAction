@@ -4,7 +4,7 @@
 #include "MeshComponent.h"
 #include "CameraComponent.h"
 #include "InputSystem.h"
-#include "AttackPlayerComponent.h"
+#include "AttackPlayerObject.h"
 #include "ColliderComponent.h"
 //#include "PhysicsWorld.h"
 #include "MeshComponent.h"
@@ -64,7 +64,7 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	SetScale(60.0f);
 
 	animationComponent = new AnimationPlayerComponent(this, 100);
-	attack = new AttackPlayerComponent(this, 100);
+	attack = new AttackPlayerObject(this);
 	//guardComponent = new GuardPlayerComponent(this, 100);
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
@@ -193,6 +193,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		rangeAttackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S);
 		avoidanceBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_D);
 		jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
+		attack->SetInput(_keyState.Keyboard.GetKeyState(SDL_SCANCODE_Q), _keyState.Keyboard.GetKeyState(SDL_SCANCODE_E));
 	}
 	//前Fと入力法が違い、スティックの入力が0でない場合プレイヤーの向きを更新
 	if (direction != inputDirection && inputDirection != 0)

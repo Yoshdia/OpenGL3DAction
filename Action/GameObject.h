@@ -37,6 +37,8 @@ enum Tag
 	ThinGroundFloor = 6,
 	EnemyWeaponTag = 7,
 	CandleStickTag = 8,
+	SubPlayerObject=9,
+	ComboItem=10,
 	null,
 };
 

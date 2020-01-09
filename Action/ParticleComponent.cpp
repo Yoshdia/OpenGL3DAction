@@ -43,6 +43,10 @@ void ParticleComponent::Update(float _deltaTime)
 
 void ParticleComponent::Draw(Shader* shader)
 {
+	if (owner->GetState() == State::Dead)
+	{
+		return;
+	}
 	Matrix4 mat, matScale;
 	matScale = Matrix4::CreateScale(scale * owner->GetScale());
 	//if (isFollowing)

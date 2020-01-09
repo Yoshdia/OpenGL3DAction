@@ -53,9 +53,6 @@
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="AttackPlayerComponent.cpp">
-      <Filter>PlayerAction\Attack</Filter>
-    </ClCompile>
     <ClCompile Include="WeaponRotationAnimationPlayer.cpp">
       <Filter>PlayerAction\Weapon</Filter>
     </ClCompile>
@@ -251,6 +248,21 @@
     <ClCompile Include="ThrowWeaponCombo.cpp">
       <Filter>PlayerAction\Attack\Combo</Filter>
     </ClCompile>
+    <ClCompile Include="AttackPlayerComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackPlayerObject.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboItemObjectBase.cpp">
+      <Filter>GameObjects\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboItemThrowWeapon.cpp">
+      <Filter>GameObjects\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboItemRotateWeapon.cpp">
+      <Filter>GameObjects\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -306,9 +318,6 @@
     </ClInclude>
     <ClInclude Include="PlayerCharacter.h">
       <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackPlayerComponent.h">
-      <Filter>PlayerAction\Attack</Filter>
     </ClInclude>
     <ClInclude Include="WeaponRotationAnimationPlayer.h">
       <Filter>PlayerAction\Weapon</Filter>
@@ -505,6 +514,21 @@
     <ClInclude Include="ThrowWeaponCombo.h">
       <Filter>PlayerAction\Attack\Combo</Filter>
     </ClInclude>
+    <ClInclude Include="AttackPlayerComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackPlayerObject.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboItemThrowWeapon.h">
+      <Filter>GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboItemObjectBase.h">
+      <Filter>GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboItemRotateWeapon.h">
+      <Filter>GameObjects\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -566,6 +590,9 @@
     </Filter>
     <Filter Include="PlayerAction\Attack\Combo\Part">
       <UniqueIdentifier>{14937684-7e51-45ec-ae0c-18058526c87d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Item">
+      <UniqueIdentifier>{24454561-9074-4232-8ba2-e5e79ecf4945}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
