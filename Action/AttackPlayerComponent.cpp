@@ -42,26 +42,27 @@ void AttackPlayerComponent::Update(float _deltaTime)
 	}
 }
 
-float AttackPlayerComponent::Attack(int _direction)
+float AttackPlayerComponent::Attack(const int& _direction, const int& _slot,bool& _range)
 {
 	float playerCanNotMoveTime = 0.0f;
 
-	if (firstSlotAttack != nullptr)
+	if (_slot == 1)
 	{
-		firstSlotAttack->Attack(owner->GetPosition(), _direction, playerCanNotMoveTime, waitTimeForNextAttack);
+		if (firstSlotAttack != nullptr)
+		{
+			firstSlotAttack->Attack(owner->GetPosition(), _direction, playerCanNotMoveTime, waitTimeForNextAttack);
+			_range = firstSlotAttack->GetRangeFlag();
+		}
+	}
+	else
+	{
+		if (secondSlotAttack != nullptr)
+		{
+			secondSlotAttack->Attack(owner->GetPosition(), _direction, playerCanNotMoveTime, waitTimeForNextAttack);
+			_range = secondSlotAttack->GetRangeFlag();
+		}
 	}
 
 	return playerCanNotMoveTime;
 }
 
-float AttackPlayerComponent::RangeAttack(int _direction)
-{
-	float playerCanNotMoveTime = 0.0f;
-
-	if (secondSlotAttack != nullptr)
-	{
-		secondSlotAttack->Attack(owner->GetPosition(), _direction, playerCanNotMoveTime, waitTimeForNextAttack);
-	}
-
-	return playerCanNotMoveTime;
-}

@@ -303,21 +303,27 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 {
 	bool actioned = false;
-	if (attackBottonInput && !avoidancing)
+	if ((attackBottonInput|| rangeAttackBottonInput) && !avoidancing)
 	{
-		Attack(PlayerAnimationState::Attack);
-		if (animationComponent != nullptr)
+		bool rangeAttack = false;
+		if (attackBottonInput)
 		{
-			animationComponent->SetAnimation(PlayerAnimationState::Attack);
+			canNotActionTime = attack->Attack(direction, 1,rangeAttack);
 		}
-		actioned = true;
-	}
-	else if (rangeAttackBottonInput && !avoidancing)
-	{
-		Attack(PlayerAnimationState::Range);
+		else if(rangeAttackBottonInput)
+		{
+			canNotActionTime = attack->Attack(direction, 2, rangeAttack);
+		}
 		if (animationComponent != nullptr)
 		{
-			animationComponent->SetAnimation(PlayerAnimationState::Range);
+			if (!rangeAttack)
+			{
+				animationComponent->SetAnimation(PlayerAnimationState::Attack);
+			}
+			else
+			{
+				animationComponent->SetAnimation(PlayerAnimationState::Range);
+			}
 		}
 		actioned = true;
 	}
@@ -354,25 +360,6 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 		{
 			animationComponent->SetAnimation(PlayerAnimationState::Idle);
 		}
-	}
-}
-
-void PlayerCharacter::Attack(PlayerAnimationState _animState)
-{
-	switch (_animState)
-	{
-	case(PlayerAnimationState::Attack):
-		if (attack != nullptr)
-		{
-			canNotActionTime = attack->Attack(direction);
-		}
-		break;
-	case(PlayerAnimationState::Range):
-		if (attack != nullptr)
-		{
-			canNotActionTime = attack->RangeAttack(direction);
-		}
-		break;
 	}
 }
 

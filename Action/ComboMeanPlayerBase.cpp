@@ -3,9 +3,10 @@
 #include "AttackPlayerOnce.h"
 
 
-ComboMeanPlayerBase::ComboMeanPlayerBase(const AttackState& _endAttack):
+ComboMeanPlayerBase::ComboMeanPlayerBase(const AttackState& _endAttack,const bool& _range):
 	attackState(AttackState::NoAttack),
-	endAttackState(_endAttack)
+	endAttackState(_endAttack),
+	range(_range)
 {
 }
 

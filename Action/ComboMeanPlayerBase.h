@@ -23,6 +23,10 @@ public:
 	@detail AttackPlayerComponent内で管理されている、次の攻撃までの時間waitTimeForNextAttackがゼロになったときに呼ばれる。
 	*/
 	void ComboReset() { attackState = AttackState::NoAttack; }
+	/*
+	@return このコンボが遠距離攻撃かどうか。プレイヤーのアニメーションに違いが生まれるので指定が必要
+	*/
+	bool GetRangeFlag() { return range; }
 protected:
 	/*
 	@enum コンボ状態
@@ -45,10 +49,12 @@ protected:
 	/*
 	@fn 初期コンボ数と最終コンボendAttackStateを初期化する,endAttackStateは継承先クラスで指定
 	*/
-	ComboMeanPlayerBase(const AttackState& _endAttack);
+	ComboMeanPlayerBase(const AttackState& _endAttack, const bool& _range = false);
 	//終了コンボ、3段ならAttackThird
 	AttackState endAttackState;
 private:
+	//遠距離攻撃かどうか。プレイヤーのアニメーションに違いが生まれるので指定が必要
+	bool range;
 	//現在のコンボ
 	AttackState attackState;
 	//攻撃クラス、ステートパターンを用いて切り替える

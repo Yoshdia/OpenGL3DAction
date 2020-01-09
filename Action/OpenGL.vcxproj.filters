@@ -242,9 +242,15 @@
     <ClCompile Include="RangeAttackPlayer.cpp">
       <Filter>PlayerAction\Attack\Combo\Part</Filter>
     </ClCompile>
-    <ClCompile Include="ComboMeanPlayerBase.cpp" />
-    <ClCompile Include="RotateTripleWeaponCombo.cpp" />
-    <ClCompile Include="ThrowWeaponCombo.cpp" />
+    <ClCompile Include="ComboMeanPlayerBase.cpp">
+      <Filter>PlayerAction\Attack\Combo</Filter>
+    </ClCompile>
+    <ClCompile Include="RotateTripleWeaponCombo.cpp">
+      <Filter>PlayerAction\Attack\Combo</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowWeaponCombo.cpp">
+      <Filter>PlayerAction\Attack\Combo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -490,9 +496,15 @@
     <ClInclude Include="RangeAttackPlayer.h">
       <Filter>PlayerAction\Attack\Combo\Part</Filter>
     </ClInclude>
-    <ClInclude Include="ComboMeanPlayerBase.h" />
-    <ClInclude Include="RotateTripleWeaponCombo.h" />
-    <ClInclude Include="ThrowWeaponCombo.h" />
+    <ClInclude Include="ComboMeanPlayerBase.h">
+      <Filter>PlayerAction\Attack\Combo</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateTripleWeaponCombo.h">
+      <Filter>PlayerAction\Attack\Combo</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowWeaponCombo.h">
+      <Filter>PlayerAction\Attack\Combo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

@@ -48,11 +48,6 @@ private:
 	*/
 	void Actions(float _deltaTime,const bool& _noGround);
 
-	/*
-	@fn 攻撃
-	@param _animState 近接攻撃、遠距離攻撃のどちらを行うか
-	*/
-	void Attack(PlayerAnimationState _animState);
 	//近接コンボ、遠距離攻撃を行うクラス
 	class AttackPlayerComponent* attack;
 	//近接攻撃ボタンの入力フラグ
