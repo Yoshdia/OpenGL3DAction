@@ -320,6 +320,7 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 			if (!rangeAttack)
 			{
 				animationComponent->SetAnimation(PlayerAnimationState::Attack);
+				velocity.x += -0.6*direction;
 			}
 			else
 			{

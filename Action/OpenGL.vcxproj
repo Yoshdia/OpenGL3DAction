@@ -172,6 +172,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DebugBox.cpp" />
     <ClCompile Include="DoSubActionMagesChild.cpp" />
+    <ClCompile Include="DoubleHammerCombo.cpp" />
     <ClCompile Include="DownPlayerAnimationClip.cpp" />
     <ClCompile Include="DroppingDownPlayerAnimation.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
@@ -184,6 +185,8 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GuardPlayerAnimationClip.cpp" />
     <ClCompile Include="GuardPlayerComponent.cpp" />
+    <ClCompile Include="HammerAttackPlayer.cpp" />
+    <ClCompile Include="HammerWeapon.cpp" />
     <ClCompile Include="HeartParticleEffect.cpp" />
     <ClCompile Include="IdlePlayerAnimationClip.cpp" />
     <ClCompile Include="InputSystem.cpp" />
@@ -267,6 +270,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="Component.h" />
     <ClInclude Include="DebugBox.h" />
     <ClInclude Include="DoSubActionMagesChild.h" />
+    <ClInclude Include="DoubleHammerCombo.h" />
     <ClInclude Include="DownPlayerAnimationClip.h" />
     <ClInclude Include="DroppingDownPlayerAnimation.h" />
     <ClInclude Include="EnemyBase.h" />
@@ -279,6 +283,8 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GuardPlayerAnimationClip.h" />
     <ClInclude Include="GuardPlayerComponent.h" />
+    <ClInclude Include="HammerAttackPlayer.h" />
+    <ClInclude Include="HammerWeapon.h" />
     <ClInclude Include="HeartParticleEffect.h" />
     <ClInclude Include="IdlePlayerAnimationClip.h" />
     <ClInclude Include="InputSystem.h" />

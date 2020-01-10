@@ -8,7 +8,7 @@
 
 
 RotateTripleWeaponCombo::RotateTripleWeaponCombo():
-	ComboMeanPlayerBase(AttackState::AttackThird)
+	ComboMeanPlayerBase(AttackState::AttackThird,false)
 {
 }
 

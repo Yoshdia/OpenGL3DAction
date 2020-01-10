@@ -15,7 +15,7 @@ ComboItemObjectBase::ComboItemObjectBase(const Vector3 & _pos, const std::string
 	ColliderComponent* colliderPair = new ColliderComponent(this, 100, Vector3(30, 30, 30), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 	ParticleComponent*par = new ParticleComponent(this);
 	par->SetScale(50);
-	if (_name == ComboItemName::RotateComboItem)
+	if (_name == ComboItemName::HammerComboItem)
 	{
 		par->SetColor(Vector3(1, 0, 0));
 	}

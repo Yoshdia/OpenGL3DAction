@@ -7,6 +7,7 @@ enum ComboItemName
 	NoComboItem,
 	RotateComboItem=0,
 	ThrowComboItem=1,
+	HammerComboItem=2,
 };
 
 class ComboItemObjectBase :

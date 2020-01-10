@@ -40,3 +40,12 @@ private:
 	int changeCount;
 };
 
+/*
+☆攻撃クラスの追加手順
+①矢や剣のような、各々の挙動のみを制御する武器クラス:GameObjectを作成
+②武器クラスを受けとった座標、向きに発生させる攻撃クラス:AttackBaseを作成
+③攻撃クラスをコンボごとに生成するコンボクラス:ComboMeanPlayerBaseを作成
+~付け替えを行う場合~
+④ComboItemObjectBase内の列挙型で宣言
+⑤このクラスAttackPlayerObject内でその攻撃クラスを付け替えるため関数に文章を加える
+*/

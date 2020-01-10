@@ -3,7 +3,7 @@
 #include "ThrowWeaponCombo.h"
 #include "ColliderComponent.h"
 #include "ComboItemObjectBase.h"
-
+#include "DoubleHammerCombo.h"
 
 AttackPlayerObject::AttackPlayerObject(GameObject * _owner) :
 	GameObject(),
@@ -118,6 +118,17 @@ ComboItemObjectBase * AttackPlayerObject::DropComboItem(const ComboItemName & _n
 		else
 		{
 			secondSlotAttack = new ThrowWeaponCombo;
+		}
+		break;
+	case(ComboItemName::HammerComboItem):
+		ChangeSlot(_slot);
+		if (_slot == 1)
+		{
+			firstSlotAttack = new DoubleHammerCombo;
+		}
+		else
+		{
+			secondSlotAttack = new DoubleHammerCombo;
 		}
 		break;
 	}

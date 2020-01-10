@@ -10,7 +10,7 @@
 #include "BackGroundObject.h"
 #include "CandleStick.h"
 #include "TestModel.h"
-#include "ComboItemThrowWeapon.h"
+#include "ComboItemObjectBase.h"
 
 PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	SceneObjectBase(_SetSceneFunc),
@@ -29,7 +29,8 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	//new BackGroundObject();
 	//player = new PlayerCharacter(Vector3(00, 200, 0));
 	player = new PlayerCharacter(Vector3(-500, 200, 0));
-	new ComboItemThrowWeapon(Vector3(-300, 150, 0));
+	//new ComboItemThrowWeapon(Vector3(-300, 150, 0));
+	new ComboItemObjectBase(Vector3(-300, 150, 0),"Assets/Image/16.png" ,ComboItemName::HammerComboItem);
 	//new MeleeEnemy(Vector3(400,80,0));
 	//new RangeEnemy(Vector3(800, 400, 0));
 	//new TankEnemy(Vector3(800, 400, 0));
