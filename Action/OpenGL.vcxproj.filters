@@ -275,6 +275,9 @@
     <ClCompile Include="WeaponBase.cpp">
       <Filter>GameObjects\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="UserInterfaceBase.cpp">
+      <Filter>GameObjects\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -553,6 +556,9 @@
     <ClInclude Include="WeaponBase.h">
       <Filter>GameObjects\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="UserInterfaceBase.h">
+      <Filter>GameObjects\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -614,6 +620,9 @@
     </Filter>
     <Filter Include="GameObjects\Weapon">
       <UniqueIdentifier>{91cc7e3d-8a65-457f-b294-9c649e27863e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\UI">
+      <UniqueIdentifier>{9309263b-65c2-4aba-b9fc-d2d3aa6611e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,25 +1,20 @@
 #include "PlayerCharacter.h"
-#include "SpriteComponent.h"
 #include "Renderer.h"
 #include "MeshComponent.h"
 #include "CameraComponent.h"
 #include "InputSystem.h"
 #include "AttackPlayerObject.h"
 #include "ColliderComponent.h"
-//#include "PhysicsWorld.h"
-#include "MeshComponent.h"
 #include "SkeltonObjectChecker.h"
 #include "GuardPlayerComponent.h"
 #include "ParticleComponent.h"
-#include "Texture.h"
-#include "RotateComponent.h"
 //debug
 #include "Game.h"
 #include "PhysicsWorld.h"
-#include "BombParticleEffect.h"
 #include "MainCameraObject.h"
 #include "GameObjectManager.h"
 #include "HeartParticleEffect.h"
+#include "UserInterfaceBase.h"
 
 const float PlayerCharacter::MoveSpeed = 450;
 const float PlayerCharacter::GravityPower = 80;
@@ -50,7 +45,7 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	noInputForUnderDirection(false),
 	doSkeletonThinGround(false),
 	isLive(true),
-	hitPoint(10),
+	hitPoint(1),
 	avoidancing(false),
 	avoidanceInterval(0),
 	candleHealingInterval(0)
@@ -58,7 +53,6 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	printf("%5f,%5f,%5f", position.x, position.y, position.z);
 
 	tag = Tag::PlayerTag;
-	//SetPosition(Vector3(00, 200, 0));
 	SetPosition(_pos);
 	float scaleF = 60.0f;
 	SetScale(60.0f);
@@ -71,8 +65,6 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	footChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::GroundTag);
 	thinChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::ThinGroundFloor);
 	headRoofChecker = new SkeltonObjectChecker(this, Vector3(0, 30, 0), Vector3(20, 1, 20), Tag::GroundTag);
-
-	RotateComponent* rota = new RotateComponent(this);
 }
 
 PlayerCharacter::~PlayerCharacter()
@@ -114,7 +106,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 			if (noGround)
 			{
 
-			animationComponent->SetAnimation(PlayerAnimationState::Drop);
+				animationComponent->SetAnimation(PlayerAnimationState::Drop);
 			}
 		}
 		else
@@ -147,6 +139,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	SetPosition(position + (velocity));
 	Invincible();
 	SkeletonThinGround();
+	DrawHitPointUI();
 }
 
 void PlayerCharacter::GameObjectInput(const InputState& _keyState)
@@ -304,14 +297,14 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 {
 	bool actioned = false;
-	if ((attackBottonInput|| rangeAttackBottonInput) && !avoidancing)
+	if ((attackBottonInput || rangeAttackBottonInput) && !avoidancing)
 	{
 		bool rangeAttack = false;
 		if (attackBottonInput)
 		{
-			canNotActionTime = attack->Attack(direction, 1,rangeAttack);
+			canNotActionTime = attack->Attack(direction, 1, rangeAttack);
 		}
-		else if(rangeAttackBottonInput)
+		else if (rangeAttackBottonInput)
 		{
 			canNotActionTime = attack->Attack(direction, 2, rangeAttack);
 		}
@@ -515,6 +508,32 @@ void PlayerCharacter::Invincible()
 	else
 	{
 		invincibleCount--;
+	}
+}
+
+void PlayerCharacter::DrawHitPointUI()
+{
+
+	Vector3 uiPos = Vector3(0, 0, 0);
+	float hpPos = 50;
+	if (hitPointUI.size() < hitPoint)
+	{
+		for (; hitPointUI.size() < hitPoint;)
+		{
+			hitPointUI.emplace_back(new UserInterfaceBase(uiPos +
+				Vector3(hpPos * hitPointUI.size(), 0, 0), "Assets/Image/16.png"));
+		}
+	}
+	else if (hitPointUI.size() > hitPoint)
+	{
+		if (!hitPointUI.empty())
+		{
+			for (; hitPointUI.size() > hitPoint;)
+			{
+				delete hitPointUI.back();
+				hitPointUI.pop_back();
+			}
+		}
 	}
 }
 

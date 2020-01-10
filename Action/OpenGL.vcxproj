@@ -235,6 +235,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="ThrowWeapon.cpp" />
     <ClCompile Include="ThrowWeaponCombo.cpp" />
     <ClCompile Include="TitleSceneObject.cpp" />
+    <ClCompile Include="UserInterfaceBase.cpp" />
     <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="WarpPointSearchEnemy.cpp" />
     <ClCompile Include="WeaponBase.cpp" />
@@ -334,6 +335,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="ThrowWeapon.h" />
     <ClInclude Include="ThrowWeaponCombo.h" />
     <ClInclude Include="TitleSceneObject.h" />
+    <ClInclude Include="UserInterfaceBase.h" />
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="WarpPointSearchEnemy.h" />
     <ClInclude Include="WeaponBase.h" />

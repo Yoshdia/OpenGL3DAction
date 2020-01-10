@@ -31,7 +31,7 @@ SpriteComponent::~SpriteComponent()
 */
 void SpriteComponent::Draw(Shader * _shader)
 {
-	if (texture)
+	if (texture&&owner->GetState()!=State::Dead)
 	{
 		Matrix4 scaleMatrix = Matrix4::CreateScale(
 			static_cast<float>(textureWidth),

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "AnimationPlayerComponent.h"
+#include <vector>
 
 struct InputState;
 
@@ -145,6 +146,8 @@ private:
 	static const int InvincibleCount;
 
 	int hitPoint;
+	void DrawHitPointUI();
+	std::vector<class UserInterfaceBase*> hitPointUI;
 	bool isLive;
 
 	int candleHealingInterval;
