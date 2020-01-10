@@ -34,8 +34,8 @@ HammerWeapon::~HammerWeapon()
 void HammerWeapon::UpdateWeaponGameObject(float _deltaTime)
 {
 	rotateComponent->SetRotation(rotateSpeed, Vector3::UnitZ);
-	if (activeCount == 3)
+	if (activeCount == 15)
 		rotateSpeed *= 49;
-	if (activeCount == 6)
+	if (activeCount == 18)
 		rotateSpeed /= 35;
 }
