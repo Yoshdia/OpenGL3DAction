@@ -16,5 +16,5 @@ AttackPlayerOnce::~AttackPlayerOnce()
 
 void AttackPlayerOnce::Attack(const Vector3& _ownerPosition,const int& _direction)
 {
-	new WeaponRotationAnimationPlayer(_ownerPosition, _direction,0);
+	new WeaponRotationAnimationPlayer(_ownerPosition, _direction,0,50,0);
 }

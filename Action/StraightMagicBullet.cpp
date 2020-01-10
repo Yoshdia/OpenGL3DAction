@@ -4,33 +4,16 @@
 #include "Renderer.h"
 
 StraightMagicBullet::StraightMagicBullet(const Vector3 & _shotPosition, const Vector3 & _targetPosition, const int & _waitCount) :
-	GameObject(),
-	waitCount(_waitCount)
+	WeaponBase(_shotPosition, _waitCount, 150, 1, Tag::EnemyWeaponTag, Vector3(10, 10, 10), "Assets/Bike.gpmesh", "Assets/Bike.gpskel")
 {
-	SetPosition(_shotPosition);
-	force = Vector3::Normalize(_targetPosition-_shotPosition);
-	
-	MeshComponent* meshComponent = new MeshComponent(this);
-	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Bike.gpmesh"));
-	
-	tag = Tag::EnemyWeaponTag;
-	colliderComponent = new ColliderComponent(this, 100, Vector3(10, 10, 10), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
-	colliderComponent->SetDoCollision(false);
+	force = Vector3::Normalize(_targetPosition - _shotPosition);
 }
 
 StraightMagicBullet::~StraightMagicBullet()
 {
 }
 
-void StraightMagicBullet::UpdateGameObject(float _deltaTime)
+void StraightMagicBullet::UpdateWeaponGameObject(float _deltaTime)
 {
-	if (waitCount <= 0)
-	{
-		colliderComponent->SetDoCollision(true);
-	}
-	else
-	{
-		waitCount--;
-	}
-	SetPosition(position+(force * 2));
+	SetPosition(position + (force * 2));
 }

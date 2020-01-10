@@ -7,64 +7,35 @@
 #include "Skeleton.h"
 
 HammerWeapon::HammerWeapon(const Vector3 & _pos, const int & number, const int & _direction, const int& _lifeCount, const int & _waitTime)
-	:GameObject(),
-	waitTime(_waitTime),
-	lifeCount(_lifeCount)
+	:WeaponBase(_pos, _waitTime, _lifeCount, _direction,
+		Tag::PlayerWeaponTag, Vector3(50, 50, 50), "Assets/Model/Weapon/SK_Forging_ForgeHammer01.gpmesh", "Assets/Model/Weapon/SK_Forging_ForgeHammer01.gpskel")
 {
 	SetPosition(_pos + Vector3(((50 * number)*_direction), 0, 0));
-	colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
-	colliderComponent->SetDoCollision(false);
-
-	skeletal = new SkeletalMeshComponent(this);
-	skeletal->SetSkeleton(RENDERER->GetSkeleton("Assets/Model/Weapon/SK_Forging_ForgeHammer01.gpskel"));
-	skeletal->SetMesh(RENDERER->GetMesh("Assets/Model/Weapon/SK_Forging_ForgeHammer01.gpmesh"));
-	skeletal->SetVisible(false);
-
-	rotate = new RotateComponent(this);
 
 	if (_direction == 1)
 	{
-
-		rotate->SetRotation(90, Vector3::UnitY);
-		rotate->SetRotation(150, Vector3::UnitZ);
+		rotateComponent->SetRotation(90, Vector3::UnitY);
+		rotateComponent->SetRotation(150, Vector3::UnitZ);
 		rotateSpeed = -1;
 	}
 	else
 	{
-		rotate->SetRotation(-90, Vector3::UnitY);
-		rotate->SetRotation(-150, Vector3::UnitZ);
+		rotateComponent->SetRotation(-90, Vector3::UnitY);
+		rotateComponent->SetRotation(-150, Vector3::UnitZ);
 		rotateSpeed = 1;
 	}
-		rotate->SetRotation(90, Vector3::UnitX);
-
+	rotateComponent->SetRotation(90, Vector3::UnitX);
 }
 
 HammerWeapon::~HammerWeapon()
 {
 }
 
-void HammerWeapon::UpdateGameObject(float _deltaTime)
+void HammerWeapon::UpdateWeaponGameObject(float _deltaTime)
 {
-	if (waitTime <= 0)
-	{
-		skeletal->SetVisible(true);
-		colliderComponent->SetDoCollision(true);
-		rotate->SetRotation(rotateSpeed, Vector3::UnitZ);
-		if (waitTime == -15)
-			rotateSpeed *= 49;
-		if (waitTime == -18)
-			rotateSpeed /= 35;
-		if (lifeCount <= 0)
-		{
-			SetState(State::Dead);
-		}
-		else
-		{
-			lifeCount--;
-		}
-	}
-	if (waitTime >= -1000)
-	{
-		waitTime--;
-	}
+	rotateComponent->SetRotation(rotateSpeed, Vector3::UnitZ);
+	if (activeCount == 3)
+		rotateSpeed *= 49;
+	if (activeCount == 6)
+		rotateSpeed /= 35;
 }

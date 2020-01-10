@@ -1,20 +1,14 @@
 #pragma once
-#include "GameObject.h"
+#include "WeaponBase.h"
 
 class HammerWeapon :
-	public GameObject
+	public WeaponBase
 {
 public:
 	HammerWeapon(const Vector3& _pos,const int& number, const int& _direction,const int& _lifeCount, const int& _waitTime = 0);
 	~HammerWeapon();
-	void UpdateGameObject(float _deltaTime)override;
 private:
-	ColliderComponent* colliderComponent;
-	class SkeletalMeshComponent* skeletal;
-	class RotateComponent* rotate;
-	int waitTime;
-	//ê∂ë∂éûä‘ÅA0Ç…Ç»ÇÈÇ∆StateÇDeadÇ…Ç∑ÇÈ
-	int lifeCount;
+	void UpdateWeaponGameObject(float _deltaTime)override;
 	int rotateSpeed;
 };
 

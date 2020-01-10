@@ -1,16 +1,14 @@
 #pragma once
-#include "GameObject.h"
+#include "WeaponBase.h"
 class StraightMagicBullet :
-	public GameObject
+	public WeaponBase
 {
 public:
 	StraightMagicBullet(const Vector3& _shotPosition, const Vector3& _targetPosition, const int& _waitCount);
 	~StraightMagicBullet();
 
-	void UpdateGameObject(float _deltaTime)override;
 private:
-	int waitCount;
-	class ColliderComponent* colliderComponent;
-	 Vector3 force;
+	void UpdateWeaponGameObject(float _deltaTime)override;
+	Vector3 force;
 };
 
