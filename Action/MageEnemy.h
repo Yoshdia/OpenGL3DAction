@@ -20,7 +20,7 @@ private:
 	GameObject* playerObject;
 	void AliveLoiteringEnemyCheck();
 	void DeadEvent()override;
-	void HitPlayerAttack(const Vector3& _pairPos)override;
+	void HitPlayerAttack(const Vector3& _pairPos,const int& _power)override;
 	bool attackState;
 	int directingCount;
 	class LoiteringEnemyBase* meleeEnemy;

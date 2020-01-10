@@ -272,7 +272,9 @@
     <ClCompile Include="RangeAttackPlayer.cpp">
       <Filter>PlayerAction\Attack</Filter>
     </ClCompile>
-    <ClCompile Include="WeaponBase.cpp" />
+    <ClCompile Include="WeaponBase.cpp">
+      <Filter>GameObjects\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -548,7 +550,9 @@
     <ClInclude Include="RangeAttackPlayer.h">
       <Filter>PlayerAction\Attack</Filter>
     </ClInclude>
-    <ClInclude Include="WeaponBase.h" />
+    <ClInclude Include="WeaponBase.h">
+      <Filter>GameObjects\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

@@ -46,7 +46,7 @@ public:
 	~EnemyBase();
 	void UpdateGameObject(float _deltaTime)override;
 protected:
-	void OnTriggerEnter(ColliderComponent* colliderPair)override;
+	void OnTriggerEnter(ColliderComponent* _colliderPair)override;
 
 	//初期体力　ゼロになると撃破パーティクルと共に消える
 	int hitPoint;
@@ -72,7 +72,7 @@ protected:
 	/*
 	@fn 被弾時の処理　ノックバックなど
 	*/
-	virtual void HitPlayerAttack(const Vector3& _pairPos) {};
+	virtual void HitPlayerAttack(const Vector3& _pairPos,const int& _power) {};
 
 	/**
 	~ 継承先で変更が行われなかった場合の最大体力 ~

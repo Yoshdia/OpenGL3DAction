@@ -13,7 +13,7 @@ public:
 
 	void SpawnSummoned(const Vector3& _pos, const int& _hitPoint);
 private:
-	void HitPlayerAttack(const Vector3& _pairPos)override;
+	void HitPlayerAttack(const Vector3& _pairPos,const int& _power)override;
 	void DeadEvent()override;
 	void UpdateEnemyObject(float _deltaTime)override;
 	virtual void UpdateLoiteringEnemyObject(float _deltaTime);

@@ -6,7 +6,7 @@
 #include "EnemyWeapon.h"
 #include "BombParticleEffect.h"
 #include "MainCameraObject.h"
-
+#include "WeaponBase.h"
 
 const int EnemyBase::HitPointMax = 3;
 
@@ -53,12 +53,14 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 	}
 }
 
-void EnemyBase::OnTriggerEnter(ColliderComponent* colliderPair)
+void EnemyBase::OnTriggerEnter(ColliderComponent* _colliderPair)
 {
 	//ƒvƒŒƒCƒ„[‚ÌUŒ‚‚ÉÚG‚µ‚½‚Æ‚«
-	if (colliderPair->GetObjectTag() == Tag::PlayerWeaponTag)
+	if (_colliderPair->GetObjectTag() == Tag::PlayerWeaponTag)
 	{
-		HitPlayerAttack(colliderPair->GetPosition());
+		int weaponPower = WeaponBase::SearchWeaponPower(_colliderPair->GetId());
+		printf("%d\n", weaponPower);
+		HitPlayerAttack(_colliderPair->GetPosition(),weaponPower);
 	}
 }
 

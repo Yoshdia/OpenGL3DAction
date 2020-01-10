@@ -173,11 +173,11 @@ void MageEnemy::DeadEvent()
 {
 }
 
-void MageEnemy::HitPlayerAttack(const Vector3 & _pairPos)
+void MageEnemy::HitPlayerAttack(const Vector3& _pairPos,const int& _power)
 {
 	if (!barrier)
 	{
-		hitPoint--;
+		hitPoint-=_power;
 	}
 	else
 	{
