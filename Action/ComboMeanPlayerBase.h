@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 #include "AttackBase.h"
+#include <string>
 
 /*
  @file ComboMeanPlayerBase.h
@@ -30,6 +31,7 @@ public:
 	bool GetRangeFlag() { return range; }
 
 	virtual void DropMyItem(const Vector3& _pos) {};
+	virtual std::string GetComboIconFileName() { return "Assets/Image/16.png"; };
 protected:
 	/*
 	@enum コンボ状態
@@ -56,6 +58,7 @@ protected:
 	//終了コンボ、3段ならAttackThird
 	AttackState endAttackState;
 private:
+
 	//遠距離攻撃かどうか。プレイヤーのアニメーションに違いが生まれるので指定が必要
 	bool range;
 	//現在のコンボ

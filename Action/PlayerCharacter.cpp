@@ -248,7 +248,7 @@ void PlayerCharacter::PausingUpdateGameObject()
 
 bool PlayerCharacter::GetGameEnd()
 {
-	if (hitPoint <= 0)
+	if (hitPoint < 0)
 	{
 		//return true;
 	}

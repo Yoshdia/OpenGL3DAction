@@ -25,7 +25,7 @@ public:
 private:
 	void OnTriggerStay(ColliderComponent* _colliderPair) ;
 	ComboItemObjectBase* DropComboItem(const ComboItemName& _name,const int& slot);
-	void ChangeSlot(const int& _slot);
+	void DeleteSlot(const int& _slot);
 
 	bool inputLeftChange;
 	bool inputRightChange;
@@ -38,6 +38,8 @@ private:
 	float waitTimeForNextAttack;
 
 	int changeCount;
+	class UserInterfaceBase* leftIcon;
+	class UserInterfaceBase* rightIcon;
 };
 
 /*

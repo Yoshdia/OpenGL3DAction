@@ -4,6 +4,7 @@
 #include "ColliderComponent.h"
 #include "ComboItemObjectBase.h"
 #include "DoubleHammerCombo.h"
+#include "UserInterfaceBase.h"
 
 AttackPlayerObject::AttackPlayerObject(GameObject * _owner) :
 	GameObject(),
@@ -12,7 +13,9 @@ AttackPlayerObject::AttackPlayerObject(GameObject * _owner) :
 	changeCount(0)
 {
 	firstSlotAttack = new RotateTripleWeaponCombo();
+	leftIcon = new UserInterfaceBase(Vector3(0, 50, 0), firstSlotAttack->GetComboIconFileName());
 	secondSlotAttack = new ThrowWeaponCombo();
+	rightIcon = new UserInterfaceBase(Vector3(50, 50, 0), secondSlotAttack->GetComboIconFileName());
 	tag = SubPlayerObject;
 	ColliderComponent* colliderPair = new ColliderComponent(this, 100, Vector3(30, 30, 30), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 }
@@ -99,7 +102,7 @@ ComboItemObjectBase * AttackPlayerObject::DropComboItem(const ComboItemName & _n
 	switch (_name)
 	{
 	case(ComboItemName::RotateComboItem):
-		ChangeSlot(_slot);
+		DeleteSlot(_slot);
 		if (_slot==1)
 		{
 			firstSlotAttack = new RotateTripleWeaponCombo;
@@ -110,7 +113,7 @@ ComboItemObjectBase * AttackPlayerObject::DropComboItem(const ComboItemName & _n
 		}
 		break;
 	case(ComboItemName::ThrowComboItem):
-		ChangeSlot(_slot);
+		DeleteSlot(_slot);
 		if (_slot==1)
 		{
 			firstSlotAttack = new ThrowWeaponCombo;
@@ -121,7 +124,7 @@ ComboItemObjectBase * AttackPlayerObject::DropComboItem(const ComboItemName & _n
 		}
 		break;
 	case(ComboItemName::HammerComboItem):
-		ChangeSlot(_slot);
+		DeleteSlot(_slot);
 		if (_slot == 1)
 		{
 			firstSlotAttack = new DoubleHammerCombo;
@@ -132,10 +135,19 @@ ComboItemObjectBase * AttackPlayerObject::DropComboItem(const ComboItemName & _n
 		}
 		break;
 	}
+	if (_slot == 1)
+	{
+		leftIcon = new UserInterfaceBase(Vector3(0, 60, 0), firstSlotAttack->GetComboIconFileName());
+	}
+	else
+	{
+		rightIcon = new UserInterfaceBase(Vector3(60, 60, 0), secondSlotAttack->GetComboIconFileName());
+
+	}
 	return nullptr;
 }
 
-void AttackPlayerObject::ChangeSlot(const int & _slot)
+void AttackPlayerObject::DeleteSlot(const int & _slot)
 {
 	if (_slot == 1)
 	{
@@ -143,12 +155,20 @@ void AttackPlayerObject::ChangeSlot(const int & _slot)
 		{
 			delete firstSlotAttack;
 		}
+		if (leftIcon != nullptr)
+		{
+			delete leftIcon;
+		}
 	}
 	else
 	{
 		if (secondSlotAttack != nullptr)
 		{
 			delete secondSlotAttack;
+		}
+		if (rightIcon != nullptr)
+		{
+			delete rightIcon;
 		}
 	}
 }
