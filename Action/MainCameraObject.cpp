@@ -2,7 +2,7 @@
 #include "Renderer.h"
 
 
-MainCameraObject::MainCameraObject():
+MainCameraObject::MainCameraObject() :
 	GameObject(true)
 {
 	SetPosition(Vector3::Zero);
@@ -15,11 +15,6 @@ MainCameraObject::~MainCameraObject()
 
 void MainCameraObject::UpdateGameObject(float _deltaTime)
 {
-	if (!hasParentObject)
-	{
-		printf("Camera[I don't have parent!]");
-		return;
-	}
 	Vector3 pos = offsetPos + position;
 	pos.x = lerpObject.x + offsetPos.x;
 	pos.y = lerpObject.y + offsetPos.y;

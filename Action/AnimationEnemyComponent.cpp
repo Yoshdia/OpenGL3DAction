@@ -35,6 +35,8 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 		attackName = "Assets/Model/Skelton_King/KingAttack1.gpanim";
 
 		spawnName = "Assets/Model/Skelton_King/spawn.gpanim";
+		spawnAnim = RENDERER->GetAnimation(spawnName);
+
 		break;
 	case EnemyType::RangeType:
 		skeletalName = "Assets/Model/Skelton_Archer/skeleton_archer.gpskel";
@@ -61,6 +63,7 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 		attackName = "Assets/Model/Mage/defaultAttack.gpanim";
 
 		spawnName = "Assets/Model/Mage/spawn.gpanim";
+		spawnAnim = RENDERER->GetAnimation(spawnName);
 		actionAnim = RENDERER->GetAnimation("Assets/Model/Mage/summon.gpanim");
 		stanAnim = RENDERER->GetAnimation("Assets/Model/Mage/hitForward.gpanim");
 		break;
@@ -71,7 +74,6 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 	moveAnim = RENDERER->GetAnimation(moveName);
 	idleAnim = RENDERER->GetAnimation(idleName);
 	attackAnim = RENDERER->GetAnimation(attackName);
-	spawnAnim = RENDERER->GetAnimation(spawnName);
 
 	mMeshComp->SetMesh(RENDERER->GetMesh(meshName + ".gpmesh"));
 	mMeshComp->SetSkeleton(RENDERER->GetSkeleton(skeletalName));
