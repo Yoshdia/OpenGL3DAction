@@ -25,6 +25,7 @@ MageEnemy::MageEnemy(Vector3 _pos) :
 	popLoiteringEnemyPosition(Vector3::Zero),
 	shotInterval(0)
 {
+	hitPoint = 30;
 	animComponent->SetMove(false);
 	moveDirection = EnemyMoveDirection::left;
 	//playerSearcher = new SkeltonObjectChecker(this, Vector3(0, 0, 0), Vector3(500, 500, 500), Tag::PlayerTag);

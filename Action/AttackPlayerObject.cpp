@@ -13,9 +13,9 @@ AttackPlayerObject::AttackPlayerObject(GameObject * _owner) :
 	changeCount(0)
 {
 	firstSlotAttack = new RotateTripleWeaponCombo();
-	leftIcon = new UserInterfaceBase(Vector3(0, 50, 0), firstSlotAttack->GetComboIconFileName());
+	leftIcon = new UserInterfaceBase(Vector3(-300, 300, 0), firstSlotAttack->GetComboIconFileName());
 	secondSlotAttack = new ThrowWeaponCombo();
-	rightIcon = new UserInterfaceBase(Vector3(50, 50, 0), secondSlotAttack->GetComboIconFileName());
+	rightIcon = new UserInterfaceBase(Vector3(-400, 300, 0), secondSlotAttack->GetComboIconFileName());
 	tag = SubPlayerObject;
 	ColliderComponent* colliderPair = new ColliderComponent(this, 100, Vector3(30, 30, 30), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 }
@@ -137,11 +137,11 @@ ComboItemObjectBase * AttackPlayerObject::DropComboItem(const ComboItemName & _n
 	}
 	if (_slot == 1)
 	{
-		leftIcon = new UserInterfaceBase(Vector3(0, 60, 0), firstSlotAttack->GetComboIconFileName());
+		leftIcon = new UserInterfaceBase(Vector3(-350, 300, 0), firstSlotAttack->GetComboIconFileName());
 	}
 	else
 	{
-		rightIcon = new UserInterfaceBase(Vector3(60, 60, 0), secondSlotAttack->GetComboIconFileName());
+		rightIcon = new UserInterfaceBase(Vector3(-450, 300, 0), secondSlotAttack->GetComboIconFileName());
 
 	}
 	return nullptr;

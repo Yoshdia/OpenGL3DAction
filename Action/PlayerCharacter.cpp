@@ -45,7 +45,7 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	noInputForUnderDirection(false),
 	doSkeletonThinGround(false),
 	isLive(true),
-	hitPoint(1),
+	hitPoint(10),
 	avoidancing(false),
 	avoidanceInterval(0),
 	candleHealingInterval(0)
@@ -513,8 +513,7 @@ void PlayerCharacter::Invincible()
 
 void PlayerCharacter::DrawHitPointUI()
 {
-
-	Vector3 uiPos = Vector3(0, 0, 0);
+	Vector3 uiPos = Vector3(-500, -300, 0);
 	float hpPos = 50;
 	if (hitPointUI.size() < hitPoint)
 	{

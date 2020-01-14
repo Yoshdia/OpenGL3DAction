@@ -8,7 +8,7 @@
 
 HammerWeapon::HammerWeapon(const Vector3 & _pos, const int & number, const int & _direction, const int& _lifeCount, const int & _waitTime)
 	:WeaponBase(_pos, _waitTime, _lifeCount, _direction,
-		Tag::PlayerWeaponTag,5, Vector3(50, 50, 50), "Assets/Model/Weapon/SK_Forging_ForgeHammer01.gpmesh", "Assets/Model/Weapon/SK_Forging_ForgeHammer01.gpskel")
+		Tag::PlayerWeaponTag,3, Vector3(150, 100, 100), "Assets/Model/Weapon/SK_Forging_ForgeHammer01.gpmesh", "Assets/Model/Weapon/SK_Forging_ForgeHammer01.gpskel")
 {
 	SetPosition(_pos + Vector3(((50 * number)*_direction), 0, 0));
 

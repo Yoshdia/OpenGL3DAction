@@ -19,6 +19,7 @@ CandleStick::CandleStick(Vector3 _pos) :
 
 	particle = new ParticleComponent(this, 70);
 	particle->SetTextureID(RENDERER->GetTexture("Assets/Image/16.png")->GetTextureID());
+	particle->SetColor(Vector3(255, 165, 0));
 	particle->SetScale(30);
 	particle->SetVisible(false);
 	particle->SetAlpha(0.3f);
