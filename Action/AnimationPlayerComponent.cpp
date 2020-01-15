@@ -115,3 +115,8 @@ void AnimationPlayerComponent::SetAnimation(const PlayerAnimationState & _state)
 	}
 	nextAnimation = _state;
 }
+
+void AnimationPlayerComponent::SetReverce(bool _flag)
+{
+	particleComponent->SetReverce(_flag);
+}

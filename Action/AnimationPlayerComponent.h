@@ -27,6 +27,7 @@ public:
 	~AnimationPlayerComponent();
 	void Update(float _deltaTime)override;
 	void SetAnimation(const PlayerAnimationState& _state);
+	void SetReverce(bool _flag);
 private:
 	class ParticleComponent* particleComponent;
 	AnimationSpriteClip* nowAnimation;

@@ -39,6 +39,8 @@ public:
 	int GetDrawOrder() { return drawOrder; }
 
 	void SetOffSet(Vector3 _pos) { position = _pos; };
+
+	void SetReverce(bool _flag) { reverce = _flag; }
 private:
 	Vector3              position;
 	Vector3              color; // F
@@ -54,6 +56,7 @@ private:
 	//•`‰æ‡(”š‚ª­‚È‚¢‚à‚Ì‚©‚ç•`‰æ‚³‚ê‚é)
 	int drawOrder;
 
+	bool reverce;
 public:
 	int                  GetTextureID() { return textureID; }
 	PARTICLE_ENUM        GetBlendType() { return blendType; }

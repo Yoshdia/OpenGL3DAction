@@ -14,6 +14,7 @@ ParticleComponent::ParticleComponent(GameObject* _owner, int _updateOrder)
 	, visible(true)
 	, drawOrder(_updateOrder)
 	,color(Vector3(1,1,1))
+	, reverce(false)
 {
 	RENDERER->AddParticle(this);
 }
@@ -27,6 +28,7 @@ ParticleComponent::ParticleComponent(GameObject* _owner, const Vector3& _pos, fl
 	, visible(true)
 	, drawOrder(_updateOrder)
 	, color(Vector3(1, 1, 1))
+	, reverce(false)
 
 {
 	RENDERER->AddParticle(this);
@@ -48,7 +50,12 @@ void ParticleComponent::Draw(Shader* shader)
 		return;
 	}
 	Matrix4 mat, matScale;
-	matScale = Matrix4::CreateScale(scale * owner->GetScale());
+	Vector3 reverceVec = Vector3(1, 1, 1);
+	if (reverce)
+	{
+		reverceVec.x *= -1;
+	}
+	matScale = Matrix4::CreateScale(scale*reverceVec* owner->GetScale());
 	//if (isFollowing)
 	//{
 	mat = Matrix4::CreateTranslation(position + owner->GetPosition());

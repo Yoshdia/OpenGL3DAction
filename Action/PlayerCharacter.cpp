@@ -192,6 +192,8 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	if (direction != inputDirection && inputDirection != 0)
 	{
 		direction = (int)inputDirection;
+		bool reverce = direction == 1 ? false : true;
+		animationComponent->SetReverce(reverce);
 	}
 
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_3))
