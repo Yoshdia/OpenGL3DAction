@@ -43,6 +43,9 @@ private:
 	int changeCount;
 	class UserInterfaceBase* leftIcon;
 	class UserInterfaceBase* rightIcon;
+	class UserInterfaceBase* lButtonGuide;
+	class UserInterfaceBase* rButtonGuide;
+	bool itemCollided;
 };
 
 /*

@@ -13,7 +13,8 @@ AttackPlayerObject::AttackPlayerObject(GameObject * _owner) :
 	GameObject(),
 	owner(_owner),
 	waitTimeForNextAttack(0),
-	changeCount(0)
+	changeCount(0),
+	itemCollided(false)
 {
 	firstSlotAttack = new RotateTripleWeaponCombo();
 	leftIcon = new UserInterfaceBase(LeftIconPos, firstSlotAttack->GetComboIconFileName());
@@ -28,6 +29,13 @@ AttackPlayerObject::AttackPlayerObject(GameObject * _owner) :
 	UserInterfaceBase* yButton = new UserInterfaceBase(Vector3(400, -300, 0), "Assets/Image/UI/button_y.png",1000);
 	yButton->SetScale(0.3f);
 	tag = SubPlayerObject;
+
+	lButtonGuide = new   UserInterfaceBase(Vector3(-25, 50, 0), "Assets/Image/UI/bumper1_l1.png", 500);
+	lButtonGuide->SetScale(0.3f);
+	lButtonGuide->SetState(State::Dead);
+	rButtonGuide = new   UserInterfaceBase(Vector3(25, 50, 0), "Assets/Image/UI/bumper1_r1.png", 500);
+	rButtonGuide->SetScale(0.3f);
+	rButtonGuide->SetState(State::Dead);
 	ColliderComponent* colliderPair = new ColliderComponent(this, 100, Vector3(30, 30, 30), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 }
 
@@ -51,6 +59,17 @@ void AttackPlayerObject::UpdateGameObject(float _deltaTime)
 	if (changeCount >= 0)
 	{
 		changeCount--;
+	}
+	if (itemCollided)
+	{
+		lButtonGuide->SetState(State::Active);
+		rButtonGuide->SetState(State::Active);
+		itemCollided = false;
+	}
+	else
+	{
+		lButtonGuide->SetState(State::Dead);
+		rButtonGuide->SetState(State::Dead);
 	}
 }
 
@@ -104,6 +123,8 @@ void AttackPlayerObject::OnTriggerStay(ColliderComponent * _colliderPair)
 				DropComboItem(name, 2);
 			}
 		}
+		itemCollided = true;
+
 	}
 }
 
