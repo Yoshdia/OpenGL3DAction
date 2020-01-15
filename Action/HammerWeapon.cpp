@@ -25,6 +25,7 @@ HammerWeapon::HammerWeapon(const Vector3 & _pos, const int & number, const int &
 		rotateSpeed = 1;
 	}
 	rotateComponent->SetRotation(90, Vector3::UnitX);
+	doCollision = false;
 }
 
 HammerWeapon::~HammerWeapon()
@@ -35,7 +36,10 @@ void HammerWeapon::UpdateWeaponGameObject(float _deltaTime)
 {
 	rotateComponent->SetRotation(rotateSpeed, Vector3::UnitZ);
 	if (activeCount == 15)
+	{
+		doCollision = true;
 		rotateSpeed *= 49;
+	}
 	if (activeCount == 19)
 		rotateSpeed /= 35;
 }
