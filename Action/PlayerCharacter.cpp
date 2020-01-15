@@ -153,14 +153,13 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	}
 	inputUnderDirection = false;
 
+	//float i = _keyState.Controller.GetLAxisVec().y;
+
 	//コントローラーが接続された場合操作をコントローラーに変更
 	if (InputSystem::GetConnectedController())
 	{
-		attackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
-		rangeAttackBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
-		avoidanceBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_B);
-		jumpBottonInput = _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
 		inputDirection = _keyState.Controller.GetLAxisVec().x;
+		inputUnderDirection = _keyState.Controller.GetLAxisVec().y == 1 ? 1 : 0;
 	}
 	else
 	{
@@ -172,26 +171,28 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		{
 			inputDirection = -1;
 		}
-		if (inputDirection == 0 && avoidancing)
-		{
-			inputDirection = (float)direction;
-		}
-		//if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_DOWN))
-		//{
-		//	inputUnderDirection = true;
-		//}
 		inputUnderDirection = _keyState.Keyboard.GetKeyValue(SDL_SCANCODE_DOWN);
-
-		attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A);
-		rangeAttackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S);
-		avoidanceBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_D);
-		jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE);
-		attack->SetInput(_keyState.Keyboard.GetKeyState(SDL_SCANCODE_Q), _keyState.Keyboard.GetKeyState(SDL_SCANCODE_E));
 	}
+	if (inputDirection == 0 && avoidancing)
+	{
+		inputDirection = (float)direction;
+	}
+	//if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_DOWN))
+	//{
+	//	inputUnderDirection = true;
+	//}
+
+	attackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_A) || _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X);
+	rangeAttackBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_S) || _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_Y);
+	avoidanceBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_D) || _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_B);
+	jumpBottonInput = _keyState.Keyboard.GetKeyState(SDL_SCANCODE_SPACE) || _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_A);
+	attack->SetInput(_keyState.Keyboard.GetKeyState(SDL_SCANCODE_Q) || _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_LEFTSHOULDER),
+		_keyState.Keyboard.GetKeyState(SDL_SCANCODE_E) || _keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_RIGHTSHOULDER));
+
 	//前Fと入力法が違い、スティックの入力が0でない場合プレイヤーの向きを更新
 	if (direction != inputDirection && inputDirection != 0)
 	{
-		direction = (int)inputDirection;
+		direction = inputDirection>0?1:-1;
 		bool reverce = direction == 1 ? false : true;
 		animationComponent->SetReverce(reverce);
 	}
