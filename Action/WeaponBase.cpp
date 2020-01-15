@@ -12,7 +12,8 @@ WeaponBase::WeaponBase(const Vector3 & _pos, const int & _waitCount, const int &
 	GameObject(),
 	waitCount(_waitCount),
 	lifeCount(_lifeCount),
-	activeCount(0)
+	activeCount(0),
+	doCollision(true)
 {
 	int dir = _direction == 1 ? 1 : -1;
 	direction = dir;
@@ -55,6 +56,14 @@ void WeaponBase::UpdateGameObject(float _deltaTime)
 	else
 	{
 		waitCount--;
+	}
+	if (doCollision)
+	{
+		colliderComponent->SetDoCollision(true);
+	}
+	else
+	{
+		colliderComponent->SetDoCollision(false);
 	}
 }
 

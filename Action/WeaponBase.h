@@ -16,6 +16,7 @@ protected:
 	int direction;
 	int activeCount;
 	virtual void UpdateWeaponGameObject(float _deltaTime) {};
+	bool doCollision;
 private:
 	static std::unordered_map<int,int> weapons;
 	class ColliderComponent* colliderComponent;

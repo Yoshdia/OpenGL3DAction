@@ -30,6 +30,11 @@ void ThrowWeapon::UpdateWeaponGameObject(float _deltaTime)
 		velocity.y -= (27.0*_deltaTime);
 		SetPosition(position + velocity);
 	}
+	else
+	{
+		doCollision = false;
+	}
+
 }
 
 void ThrowWeapon::OnTriggerStay(ColliderComponent * _collider)
