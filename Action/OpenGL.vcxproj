@@ -166,8 +166,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ComboItemObjectBase.cpp" />
-    <ClCompile Include="ComboItemRotateWeapon.cpp" />
-    <ClCompile Include="ComboItemThrowWeapon.cpp" />
     <ClCompile Include="ComboMeanPlayerBase.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DebugBox.cpp" />
@@ -266,8 +264,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="ComboItemObjectBase.h" />
-    <ClInclude Include="ComboItemRotateWeapon.h" />
-    <ClInclude Include="ComboItemThrowWeapon.h" />
     <ClInclude Include="ComboMeanPlayerBase.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DebugBox.h" />

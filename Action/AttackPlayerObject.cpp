@@ -6,6 +6,9 @@
 #include "DoubleHammerCombo.h"
 #include "UserInterfaceBase.h"
 
+const Vector3 AttackPlayerObject::LeftIconPos = Vector3(300, -300, 0);
+const Vector3 AttackPlayerObject::RightIconPos = Vector3(400, -300, 0);
+
 AttackPlayerObject::AttackPlayerObject(GameObject * _owner) :
 	GameObject(),
 	owner(_owner),
@@ -13,9 +16,17 @@ AttackPlayerObject::AttackPlayerObject(GameObject * _owner) :
 	changeCount(0)
 {
 	firstSlotAttack = new RotateTripleWeaponCombo();
-	leftIcon = new UserInterfaceBase(Vector3(-300, 300, 0), firstSlotAttack->GetComboIconFileName());
+	leftIcon = new UserInterfaceBase(LeftIconPos, firstSlotAttack->GetComboIconFileName());
+	leftIcon->SetScale(0.5f);
 	secondSlotAttack = new ThrowWeaponCombo();
-	rightIcon = new UserInterfaceBase(Vector3(-400, 300, 0), secondSlotAttack->GetComboIconFileName());
+	rightIcon = new UserInterfaceBase(RightIconPos, secondSlotAttack->GetComboIconFileName());
+	rightIcon->SetScale(0.5f);
+
+
+	UserInterfaceBase* xButton= new UserInterfaceBase(Vector3(300, -300, 0), "Assets/Image/UI/button_x.png",1000);
+	xButton->SetScale(0.3f);
+	UserInterfaceBase* yButton = new UserInterfaceBase(Vector3(400, -300, 0), "Assets/Image/UI/button_y.png",1000);
+	yButton->SetScale(0.3f);
 	tag = SubPlayerObject;
 	ColliderComponent* colliderPair = new ColliderComponent(this, 100, Vector3(30, 30, 30), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 }
@@ -98,7 +109,7 @@ void AttackPlayerObject::OnTriggerStay(ColliderComponent * _colliderPair)
 
 ComboItemObjectBase * AttackPlayerObject::DropComboItem(const ComboItemName & _name, const int& _slot)
 {
-	changeCount = 50;
+	changeCount = 25;
 	switch (_name)
 	{
 	case(ComboItemName::RotateComboItem):
@@ -137,11 +148,14 @@ ComboItemObjectBase * AttackPlayerObject::DropComboItem(const ComboItemName & _n
 	}
 	if (_slot == 1)
 	{
-		leftIcon = new UserInterfaceBase(Vector3(-350, 300, 0), firstSlotAttack->GetComboIconFileName());
+		leftIcon = new UserInterfaceBase(LeftIconPos, firstSlotAttack->GetComboIconFileName());
+		leftIcon->SetScale(0.5f);
+
 	}
 	else
 	{
-		rightIcon = new UserInterfaceBase(Vector3(-450, 300, 0), secondSlotAttack->GetComboIconFileName());
+		rightIcon = new UserInterfaceBase(RightIconPos, secondSlotAttack->GetComboIconFileName());
+		rightIcon->SetScale(0.5f);
 
 	}
 	return nullptr;

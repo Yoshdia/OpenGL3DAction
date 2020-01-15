@@ -7,20 +7,30 @@
 
 std::unordered_map<int, ComboItemName> ComboItemObjectBase::comboItems;
 
-ComboItemObjectBase::ComboItemObjectBase(const Vector3 & _pos, const std::string& _fileName, const ComboItemName& _name) :
+ComboItemObjectBase::ComboItemObjectBase(const Vector3 & _pos, const ComboItemName& _name) :
 	GameObject()
 {
 	SetPosition(_pos);
+	velocity = Vector3(0, 10, 0);
 	tag = Tag::ComboItem;
-	ColliderComponent* colliderPair = new ColliderComponent(this, 100, Vector3(30, 30, 30), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
+	ColliderComponent* colliderPair = new ColliderComponent(this, 100, Vector3(80, 80, 80), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 	ParticleComponent*par = new ParticleComponent(this);
 	par->SetScale(50);
-	if (_name == ComboItemName::HammerComboItem)
+	std::string fileName="";
+	switch (_name)
 	{
-		par->SetColor(Vector3(1, 0, 0));
+	case(ComboItemName::ThrowComboItem):
+		fileName = "Assets/Image/Item/WoodenClub.png";
+		break;
+	case(ComboItemName::RotateComboItem):
+		fileName = "Assets/Image/Item/MarauderBow.png";
+		break;
+	case(ComboItemName::HammerComboItem):
+		fileName = "Assets/Image/Item/WarHammer.png";
+		break;
 	}
-	par->SetTextureID(RENDERER->GetTexture(_fileName)->GetTextureID());
-	noGround = new SkeltonObjectChecker(this, Vector3(0, -15, 0), Vector3(5, 1, 5), Tag::GroundTag);
+	par->SetTextureID(RENDERER->GetTexture(fileName)->GetTextureID());
+	noGround = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(5, 1, 5), Tag::GroundTag);
 	comboItems.emplace(myObjectId,_name);
 }
 
@@ -30,6 +40,15 @@ ComboItemObjectBase::~ComboItemObjectBase()
 
 void ComboItemObjectBase::UpdateGameObject(float _deltaTime)
 {
+	if (noGround->GetNoTouchingFlag())
+	{
+		velocity.y-=(20*_deltaTime);
+		if (velocity.y <= -10)
+		{
+			velocity.y = -10;
+		}
+		SetPosition(velocity + position);
+	}
 }
 
 ComboItemName ComboItemObjectBase::SearchComboId(const int & _objectId)

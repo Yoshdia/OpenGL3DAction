@@ -8,8 +8,8 @@ class DoubleHammerCombo :
 public:
 	DoubleHammerCombo();
 	~DoubleHammerCombo();
-	void DropMyItem(const Vector3& _pos) { new ComboItemObjectBase(_pos,"Assets/Image/16.png",ComboItemName::HammerComboItem); }
-	std::string GetComboIconFileName()override { return "Assets/Image/16.png"; };
+	void DropMyItem(const Vector3& _pos) { new ComboItemObjectBase(_pos,ComboItemName::HammerComboItem); }
+	std::string GetComboIconFileName()override { return "Assets/Image/Item/WarHammer.png"; };
 private:
 	AttackBase* GetComboAttack(const AttackState& _attackState)override;
 };

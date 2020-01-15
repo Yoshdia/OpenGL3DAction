@@ -27,6 +27,9 @@ private:
 	ComboItemObjectBase* DropComboItem(const ComboItemName& _name,const int& slot);
 	void DeleteSlot(const int& _slot);
 
+	static const Vector3 RightIconPos;
+	static const Vector3 LeftIconPos;
+
 	bool inputLeftChange;
 	bool inputRightChange;
 	GameObject* owner;

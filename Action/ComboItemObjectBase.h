@@ -14,7 +14,7 @@ class ComboItemObjectBase :
 	public GameObject
 {
 public:
-	ComboItemObjectBase(const Vector3& _pos, const std::string& _fileName,const ComboItemName& _name);
+	ComboItemObjectBase(const Vector3& _pos,const ComboItemName& _name);
 	~ComboItemObjectBase();
 
 	void UpdateGameObject(float _deltaTime)override;
@@ -22,5 +22,6 @@ public:
 private:
 	static std::unordered_map<int,ComboItemName> comboItems;
 	class SkeltonObjectChecker* noGround;
+	Vector3 velocity;
 };
 

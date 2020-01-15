@@ -242,12 +242,6 @@
     <ClCompile Include="ComboItemObjectBase.cpp">
       <Filter>GameObjects\Item</Filter>
     </ClCompile>
-    <ClCompile Include="ComboItemThrowWeapon.cpp">
-      <Filter>GameObjects\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ComboItemRotateWeapon.cpp">
-      <Filter>GameObjects\Item</Filter>
-    </ClCompile>
     <ClCompile Include="HammerWeapon.cpp">
       <Filter>GameObjects\Weapon</Filter>
     </ClCompile>
@@ -520,13 +514,7 @@
     <ClInclude Include="AttackPlayerObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="ComboItemThrowWeapon.h">
-      <Filter>GameObjects\Item</Filter>
-    </ClInclude>
     <ClInclude Include="ComboItemObjectBase.h">
-      <Filter>GameObjects\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ComboItemRotateWeapon.h">
       <Filter>GameObjects\Item</Filter>
     </ClInclude>
     <ClInclude Include="HammerWeapon.h">

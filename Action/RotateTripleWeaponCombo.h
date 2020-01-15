@@ -1,6 +1,7 @@
 #pragma once
 #include "ComboMeanPlayerBase.h"
-#include "ComboItemRotateWeapon.h"
+#include "ComboItemObjectBase.h"
+
 #include <string>
 
 class RotateTripleWeaponCombo :
@@ -9,8 +10,8 @@ class RotateTripleWeaponCombo :
 public:
 	RotateTripleWeaponCombo();
 	~RotateTripleWeaponCombo();
-	void DropMyItem(const Vector3& _pos) { new ComboItemRotateWeapon(_pos); }
-	std::string GetComboIconFileName() override { return "Assets/Image/16.png"; }
+	void DropMyItem(const Vector3& _pos) { new ComboItemObjectBase(_pos,ComboItemName::RotateComboItem); }
+	std::string GetComboIconFileName() override { return "Assets/Image/Item/WoodenClub.png"; }
 private:
 	AttackBase* GetComboAttack(const AttackState& _attackState)override;
 };

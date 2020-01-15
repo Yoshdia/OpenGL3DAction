@@ -30,7 +30,7 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	//new BackGroundObject();
 	//player = new PlayerCharacter(Vector3(00, 200, 0));
 	//new ComboItemThrowWeapon(Vector3(-300, 150, 0));
-	new ComboItemObjectBase(Vector3(-300, 150, 0), "Assets/Image/16.png", ComboItemName::HammerComboItem);
+	new ComboItemObjectBase(Vector3(-300, 150, 0), ComboItemName::HammerComboItem);
 	new MeleeEnemy(Vector3(0,80,0));
 	new RangeEnemy(Vector3(400, 400, 0));
 	new TankEnemy(Vector3(800, 400, 0));
