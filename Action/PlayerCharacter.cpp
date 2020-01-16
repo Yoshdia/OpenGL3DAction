@@ -17,8 +17,8 @@
 #include "UserInterfaceBase.h"
 
 const float PlayerCharacter::MoveSpeed = 450;
-const float PlayerCharacter::GravityPower = 80;
-const float PlayerCharacter::JumpPower = 25.0f;
+const float PlayerCharacter::GravityPower = 60;
+const float PlayerCharacter::JumpPower = 20.0f;
 const float PlayerCharacter::MoveFriction = 1.2f;
 const float PlayerCharacter::DownFriction = 1.05f;
 
