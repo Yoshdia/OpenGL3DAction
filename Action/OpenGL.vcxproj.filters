@@ -272,6 +272,8 @@
     <ClCompile Include="UserInterfaceBase.cpp">
       <Filter>GameObjects\UI</Filter>
     </ClCompile>
+    <ClCompile Include="RapidJsonHelper.cpp" />
+    <ClCompile Include="StageCreater.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -547,6 +549,8 @@
     <ClInclude Include="UserInterfaceBase.h">
       <Filter>GameObjects\UI</Filter>
     </ClInclude>
+    <ClInclude Include="RapidJsonHelper.h" />
+    <ClInclude Include="StageCreater.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

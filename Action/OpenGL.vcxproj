@@ -213,6 +213,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="RangeAttackPlayerAnimationClip.cpp" />
     <ClCompile Include="RangeAttackRoopAnimationClip.cpp" />
     <ClCompile Include="RangeEnemy.cpp" />
+    <ClCompile Include="RapidJsonHelper.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResultSceneObject.cpp" />
     <ClCompile Include="RotateComponent.cpp" />
@@ -226,6 +227,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="SkeltonObjectChecker.cpp" />
     <ClCompile Include="SpawnEventSystem.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
+    <ClCompile Include="StageCreater.cpp" />
     <ClCompile Include="StraightMagicBullet.cpp" />
     <ClCompile Include="TankEnemy.cpp" />
     <ClCompile Include="TestModel.cpp" />
@@ -311,6 +313,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="RangeAttackPlayerAnimationClip.h" />
     <ClInclude Include="RangeAttackRoopAnimationClip.h" />
     <ClInclude Include="RangeEnemy.h" />
+    <ClInclude Include="RapidJsonHelper.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResultSceneObject.h" />
     <ClInclude Include="RotateComponent.h" />
@@ -324,6 +327,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="SkeltonObjectChecker.h" />
     <ClInclude Include="SpawnEventSystem.h" />
     <ClInclude Include="SpriteComponent.h" />
+    <ClInclude Include="StageCreater.h" />
     <ClInclude Include="StraightMagicBullet.h" />
     <ClInclude Include="TankEnemy.h" />
     <ClInclude Include="TestModel.h" />
