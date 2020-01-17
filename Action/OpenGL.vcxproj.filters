@@ -272,8 +272,12 @@
     <ClCompile Include="UserInterfaceBase.cpp">
       <Filter>GameObjects\UI</Filter>
     </ClCompile>
-    <ClCompile Include="RapidJsonHelper.cpp" />
-    <ClCompile Include="StageCreater.cpp" />
+    <ClCompile Include="RapidJsonHelper.cpp">
+      <Filter>RapidJson</Filter>
+    </ClCompile>
+    <ClCompile Include="StageCreater.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -549,8 +553,12 @@
     <ClInclude Include="UserInterfaceBase.h">
       <Filter>GameObjects\UI</Filter>
     </ClInclude>
-    <ClInclude Include="RapidJsonHelper.h" />
-    <ClInclude Include="StageCreater.h" />
+    <ClInclude Include="RapidJsonHelper.h">
+      <Filter>RapidJson</Filter>
+    </ClInclude>
+    <ClInclude Include="StageCreater.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -615,6 +623,9 @@
     </Filter>
     <Filter Include="GameObjects\UI">
       <UniqueIdentifier>{9309263b-65c2-4aba-b9fc-d2d3aa6611e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RapidJson">
+      <UniqueIdentifier>{f0e3faca-e48a-4068-8bbf-2cbca8ba06c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

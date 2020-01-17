@@ -5,12 +5,12 @@
 
 TestModel::TestModel()
 {
-	SetPosition(Vector3(-500, 100, 0));
+	SetPosition(Vector3(-500, -9000, 100));
 	MeshComponent* meshComponent = new MeshComponent(this);
-	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/Weapon/SK_Forging_Mallet_02.gpmesh"));
+	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/Stage/SM_Env_Ice_Cliffs_CliffWall_01b.gpmesh"));
 	RotateComponent* ro= new RotateComponent(this);
 	ro->SetRotation(90, Vector3::UnitY);
-	SetScale(4);
+	SetScale(Vector3(0.1f,5,5));
 }
 
 
