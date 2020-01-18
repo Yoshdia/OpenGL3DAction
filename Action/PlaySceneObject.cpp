@@ -18,7 +18,8 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	dir.diffuseColor = Vector3(0.78f, 0.88f, 1.0f);
 	dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
-	new TestModel;
+	//new TestModel;
+	new BackGroundObject();
 	StageCreater* stageCreater= new StageCreater();
 	
 	if (!stageCreater->OpenFile())
@@ -26,7 +27,6 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 		player= stageCreater->CreatePlayer();
 		stageCreater->CreateStage();
 	}
-	//new BackGroundObject();
 }
 
 
