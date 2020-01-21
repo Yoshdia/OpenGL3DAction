@@ -13,6 +13,7 @@ public:
 	bool OpenFile();
 	class PlayerCharacter* CreatePlayer();
 	void CreateStage();
+	class GameEndEventSystem* GetEvent() {return endEvent;}
 private:
 	bool readTiledJson(std::vector<std::vector<int>>& mapData, const char* filename, const char* layerName);
 	int  findLayerIndex(rapidjson::GenericArray<false, rapidjson::Value>& layer, std::string& layerName);
@@ -21,5 +22,6 @@ private:
 	int sizeX;
 	int sizeY;
 	int offset;
+	class GameEndEventSystem* endEvent;
 };
 

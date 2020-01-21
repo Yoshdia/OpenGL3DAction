@@ -15,6 +15,8 @@ public:
 	@brief ‘Ò‹@ó‘Ô‚©‚çí“¬ó‘Ô‚É“ü‚éŠÖ”@‰Šú‰»‚É
 	*/
 	void SetAttackState(GameObject* _playerObject);
+
+	void SetGoalWall(GameObject* _wall) { goalWallObject = _wall; }
 private:
 	void UpdateEnemyObject(float _deltaTime)override;
 	GameObject* playerObject;
@@ -41,6 +43,7 @@ private:
 	};
 	MageActionName actionName;
 	class DoSubActionMagesChild* subActionClass;
+	GameObject* goalWallObject;
 
 	void Shot(const Vector3& target);
 	int shotInterval;

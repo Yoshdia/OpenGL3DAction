@@ -26,6 +26,7 @@ MageEnemy::MageEnemy(Vector3 _pos) :
 	shotInterval(0)
 {
 	hitPoint = 30;
+	goalWallObject = nullptr;
 	animComponent->SetMove(false);
 	moveDirection = EnemyMoveDirection::left;
 	//playerSearcher = new SkeltonObjectChecker(this, Vector3(0, 0, 0), Vector3(500, 500, 500), Tag::PlayerTag);
@@ -172,6 +173,7 @@ void MageEnemy::AliveLoiteringEnemyCheck()
 
 void MageEnemy::DeadEvent()
 {
+	goalWallObject->SetState(State::Dead);
 }
 
 void MageEnemy::HitPlayerAttack(const Vector3& _pairPos,const int& _power)

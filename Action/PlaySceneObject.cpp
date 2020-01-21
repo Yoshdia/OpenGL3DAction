@@ -5,10 +5,12 @@
 #include "TestModel.h"
 #include "BackGroundObject.h"
 #include "PlayerCharacter.h"
+#include "GameEndEventSystem.h"
 
 PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	SceneObjectBase(_SetSceneFunc),
-	player(nullptr)
+	player(nullptr),
+	endSystem(nullptr)
 {
 	// Setup lights
 	RENDERER->SetAmbientLight(Vector3(0.4f, 0.4f, 0.4f));
@@ -26,6 +28,7 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	{
 		player= stageCreater->CreatePlayer();
 		stageCreater->CreateStage();
+		endSystem = stageCreater->GetEvent();
 	}
 }
 
@@ -36,9 +39,21 @@ PlaySceneObject::~PlaySceneObject()
 
 void PlaySceneObject::UpdateGameObject(float _deltaTime)
 {
-	//if (player->GetGameEnd())
-	//{
-	//	player = nullptr;
-	//	SetSceneFunc(SceneName::ResultScene);
-	//}
+	if (player != nullptr)
+	{
+
+	if (player->GetGameEnd())
+	{
+		player = nullptr;
+		SetSceneFunc(SceneName::ResultScene);
+	}
+	}
+	if (endSystem != nullptr)
+	{
+		if (endSystem->GetEndFlag())
+		{
+			endSystem = nullptr;
+			SetSceneFunc(SceneName::ResultScene);
+		}
+	}
 }

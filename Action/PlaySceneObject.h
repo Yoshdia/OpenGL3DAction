@@ -10,5 +10,7 @@ public:
 	void UpdateGameObject(float _deltaTime)override;
 private:
 	class PlayerCharacter* player;
+	class GameEndEventSystem* endSystem;
+
 };
 

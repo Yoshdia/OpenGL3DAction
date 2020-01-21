@@ -7,7 +7,7 @@
 #include "Renderer.h"
 #include "DebugBox.h"
 
-SpawnEventSystem::SpawnEventSystem(const Vector3& _pos,const Vector3& _wallPos):
+SpawnEventSystem::SpawnEventSystem(const Vector3& _pos,const Vector3& _wallPos, const Vector3& _goalPos):
 	EventSystem(_pos),
 	startDirecting(false),
 	wallPos(_wallPos)
@@ -18,6 +18,7 @@ SpawnEventSystem::SpawnEventSystem(const Vector3& _pos,const Vector3& _wallPos):
 	meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/collisionMask.gpmesh"));
 	SetScale(Vector3(500,500,500));
+	mageEnemy->SetGoalWall(new DebugBox(_goalPos));
 }
 
 SpawnEventSystem::~SpawnEventSystem()

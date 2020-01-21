@@ -9,9 +9,9 @@ public:
 	~EventSystem();
 
 	void UpdateGameObject(float _deltaTime)override;
+protected:
+	bool trigger;
 private:
 	virtual void UpdateEventObject() {};
-	protected:
-	bool trigger;
 };
 

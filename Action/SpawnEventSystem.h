@@ -9,7 +9,7 @@ class SpawnEventSystem :
 	public EventSystem
 {
 public:
-	SpawnEventSystem(const Vector3& _pos, const Vector3& _wallPos);
+	SpawnEventSystem(const Vector3& _pos, const Vector3& _wallPos,const Vector3& _goalPos);
 	~SpawnEventSystem();
 private:
 	/*

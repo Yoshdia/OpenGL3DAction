@@ -7,12 +7,13 @@
 #include "TankEnemy.h"
 #include "RangeEnemy.h"
 #include "ComboItemObjectBase.h"
-
+#include "GameEndEventSystem.h"
 
 StageCreater::StageCreater() :
 	GameObject()
 {
 	offset = 100;
+	endEvent = nullptr;
 }
 
 StageCreater::~StageCreater()
@@ -53,6 +54,7 @@ void StageCreater::CreateStage()
 {
 	Vector3 magePos = Vector3();
 	Vector3 gatePos = Vector3();
+	Vector3 goalPos = Vector3();
 	int gateC = 0;
 
 	for (int iy = 0; iy < sizeY; iy++)
@@ -89,10 +91,15 @@ void StageCreater::CreateStage()
 				{
 					gatePos = objectPos;
 				}
+				else
+				{
+					goalPos = objectPos;
+				}
 				gateC++;
 				break;
 			case(10):
 				new CandleStick(objectPos);
+				//endEvent = new GameEndEventSystem(objectPos);
 				break;
 
 			case(12):
@@ -107,7 +114,7 @@ void StageCreater::CreateStage()
 			}
 		}
 	}
-	new SpawnEventSystem(magePos, gatePos);
+	new SpawnEventSystem(magePos, gatePos,goalPos);
 
 }
 
