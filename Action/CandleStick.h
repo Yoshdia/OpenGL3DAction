@@ -12,7 +12,9 @@ private:
 	//void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair) override;
 	class ColliderComponent* collider;
-	class ParticleComponent* particle;
+	class ParticleComponent* stickParticle;
+	class Texture* fire;
+	class ParticleComponent* lightParticle;
 	bool ignition;
 };
 

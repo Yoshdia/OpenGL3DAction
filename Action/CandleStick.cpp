@@ -1,6 +1,6 @@
 #include "CandleStick.h"
 #include "ColliderComponent.h"
-#include "MeshComponent.h"
+
 #include "Renderer.h"
 #include "ParticleComponent.h"
 #include "Texture.h"
@@ -14,15 +14,17 @@ CandleStick::CandleStick(Vector3 _pos) :
 	tag = Tag::CandleStickTag;
 	collider = new ColliderComponent(this, 100, Vector3(1, 1, 1), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 
-	MeshComponent* mesh = new MeshComponent(this);
-	mesh->SetMesh(RENDERER->GetMesh("Assets/Model/Stage/untitled.gpmesh"));
+	stickParticle = new ParticleComponent(this, 100);
+	fire = RENDERER->GetTexture("Assets/image/FireCandle.png");
+	Texture* noFire = RENDERER->GetTexture("Assets/image/CandleNoFire.png");
+	stickParticle->SetTextureID(noFire->GetTextureID());
+	stickParticle->SetScale(10);
 
-	particle = new ParticleComponent(this, 70);
-	particle->SetTextureID(RENDERER->GetTexture("Assets/Image/16.png")->GetTextureID());
-	particle->SetColor(Vector3(255, 165, 0));
-	particle->SetScale(30);
-	particle->SetVisible(false);
-	particle->SetAlpha(0.3f);
+	lightParticle = new ParticleComponent(this, 70);
+	lightParticle->SetTextureID(RENDERER->GetTexture("Assets/Image/Candle.png")->GetTextureID());
+	lightParticle->SetScale(30);
+	lightParticle->SetVisible(false);
+	lightParticle->SetAlpha(0.3f);
 }
 
 CandleStick::~CandleStick()
@@ -33,7 +35,7 @@ void CandleStick::UpdateGameObject(float _deltaTime)
 {
 	if (ignition)
 	{
-		particle->SetScale(30.0f + rand() % 5);
+		lightParticle->SetScale(30.0f + rand() % 2);
 	}
 }
 
@@ -43,6 +45,7 @@ void CandleStick::OnTriggerEnter(ColliderComponent * colliderPair)
 	{
 		ignition = true;
 		collider->SetScale(Vector3(500, 500, 500));
-		particle->SetVisible(true);
+		lightParticle->SetVisible(true);
+		stickParticle->SetTextureID(fire->GetTextureID());
 	}
 }
