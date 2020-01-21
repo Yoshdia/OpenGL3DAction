@@ -23,8 +23,12 @@ WeaponBase::WeaponBase(const Vector3 & _pos, const int & _waitCount, const int &
 	colliderComponent = new ColliderComponent(this, 100, _colliderSize, myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 	colliderComponent->SetDoCollision(false);
 	skeletalComponent = new SkeletalMeshComponent(this);
+	if (_meshFileName != "none")
+	{
+
 	skeletalComponent->SetSkeleton(RENDERER->GetSkeleton(_skeletalFileName));
 	skeletalComponent->SetMesh(RENDERER->GetMesh(_meshFileName));
+	}
 	skeletalComponent->SetVisible(false);
 	if (tag == Tag::PlayerWeaponTag)
 	{
