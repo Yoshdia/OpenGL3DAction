@@ -24,17 +24,13 @@ AttackPlayerObject::AttackPlayerObject(GameObject * _owner) :
 	rightIcon->SetScale(0.5f);
 
 
-	UserInterfaceBase* xButton= new UserInterfaceBase(Vector3(300, -300, 0), "Assets/Image/UI/button_x.png",1000);
-	xButton->SetScale(0.3f);
-	UserInterfaceBase* yButton = new UserInterfaceBase(Vector3(400, -300, 0), "Assets/Image/UI/button_y.png",1000);
-	yButton->SetScale(0.3f);
+	UserInterfaceBase* xButton= new UserInterfaceBase(Vector3(300, -300, 0), "Assets/Image/UI/button_x.png",Vector3(0.3f,0.3f,0.3f),1000);
+	UserInterfaceBase* yButton = new UserInterfaceBase(Vector3(400, -300, 0), "Assets/Image/UI/button_y.png", Vector3(0.3f, 0.3f, 0.3f),1000);
 	tag = SubPlayerObject;
 
-	lButtonGuide = new   UserInterfaceBase(Vector3(-25, 50, 0), "Assets/Image/UI/bumper1_l1.png", 500);
-	lButtonGuide->SetScale(0.3f);
+	lButtonGuide = new   UserInterfaceBase(Vector3(-25, 50, 0), "Assets/Image/UI/bumper1_l1.png", Vector3(0.3f, 0.3f, 0.3f), 500);
 	lButtonGuide->SetState(State::Dead);
-	rButtonGuide = new   UserInterfaceBase(Vector3(25, 50, 0), "Assets/Image/UI/bumper1_r1.png", 500);
-	rButtonGuide->SetScale(0.3f);
+	rButtonGuide = new   UserInterfaceBase(Vector3(25, 50, 0), "Assets/Image/UI/bumper1_r1.png", Vector3(0.3f, 0.3f, 0.3f), 500);
 	rButtonGuide->SetState(State::Dead);
 	ColliderComponent* colliderPair = new ColliderComponent(this, 100, Vector3(30, 30, 30), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 }

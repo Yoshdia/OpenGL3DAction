@@ -145,7 +145,10 @@ private:
 	//–³“GŠÔ‚ÌÅ‘å”
 	static const int InvincibleCount;
 
+	static const int HitPointMax;
 	int hitPoint;
+	static const float HitPointUIWidth;
+	static const Vector3 HitPointUIPos;
 	void DrawHitPointUI();
 	std::vector<class UserInterfaceBase*> hitPointUI;
 	bool isLive;

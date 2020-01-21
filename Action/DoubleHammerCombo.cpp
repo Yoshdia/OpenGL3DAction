@@ -23,6 +23,7 @@ AttackBase * DoubleHammerCombo::GetComboAttack(const AttackState & _attackState)
 		return new HammerAttackPlayer(2);
 		break;
 	default:
+		return new HammerAttackPlayer(1);
 		break;
 	}
 }

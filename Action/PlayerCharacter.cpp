@@ -15,18 +15,23 @@
 #include "GameObjectManager.h"
 #include "HeartParticleEffect.h"
 #include "UserInterfaceBase.h"
+#include "HaveLifeCountUI.h"
 
 const float PlayerCharacter::MoveSpeed = 450;
 const float PlayerCharacter::GravityPower = 60;
 const float PlayerCharacter::JumpPower = 20.0f;
 const float PlayerCharacter::MoveFriction = 1.2f;
 const float PlayerCharacter::DownFriction = 1.05f;
+const float PlayerCharacter::HitPointUIWidth = 28.0f;
 
 const int PlayerCharacter::InvincibleCount = 20;
 const int PlayerCharacter::InputUnderCountMax = 30;
 const int PlayerCharacter::AvoidanceInterval = 40;
 const int PlayerCharacter::AvoidanceInvincible = 30;
 const int PlayerCharacter::CandleHealingInterval = 200;
+const int PlayerCharacter::HitPointMax = 10;
+
+const Vector3 PlayerCharacter::HitPointUIPos = Vector3(-500, -300, 0);
 
 PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	GameObject(),
@@ -45,7 +50,7 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	noInputForUnderDirection(false),
 	doSkeletonThinGround(false),
 	isLive(true),
-	hitPoint(10),
+	hitPoint(HitPointMax),
 	avoidancing(false),
 	avoidanceInterval(0),
 	candleHealingInterval(0)
@@ -65,6 +70,11 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	footChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::GroundTag);
 	thinChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::ThinGroundFloor);
 	headRoofChecker = new SkeltonObjectChecker(this, Vector3(0, 30, 0), Vector3(20, 1, 20), Tag::GroundTag);
+
+	for (int num = 0; num < HitPointMax; num++)
+	{
+		new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth*num, 0, 0), "Assets/Image/UI/HpCase.png", Vector3(0.4f, 0.4f, 0.4f),1000);
+	}
 }
 
 PlayerCharacter::~PlayerCharacter()
@@ -192,7 +202,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	//前Fと入力法が違い、スティックの入力が0でない場合プレイヤーの向きを更新
 	if (direction != inputDirection && inputDirection != 0)
 	{
-		direction = inputDirection>0?1:-1;
+		direction = inputDirection > 0 ? 1 : -1;
 		bool reverce = direction == 1 ? false : true;
 		animationComponent->SetReverce(reverce);
 	}
@@ -269,7 +279,10 @@ void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 	{
 		if (candleHealingInterval < 0)
 		{
-			hitPoint++;
+			if (hitPoint< HitPointMax)
+			{
+				hitPoint++;
+			}
 			printf("heal");
 			candleHealingInterval = 100;
 		}
@@ -516,14 +529,12 @@ void PlayerCharacter::Invincible()
 
 void PlayerCharacter::DrawHitPointUI()
 {
-	Vector3 uiPos = Vector3(-500, -300, 0);
-	float hpPos = 50;
 	if (hitPointUI.size() < hitPoint)
 	{
 		for (; hitPointUI.size() < hitPoint;)
 		{
-			hitPointUI.emplace_back(new UserInterfaceBase(uiPos +
-				Vector3(hpPos * hitPointUI.size(), 0, 0), "Assets/Image/16.png"));
+			hitPointUI.emplace_back(new UserInterfaceBase(HitPointUIPos +Vector3(HitPointUIWidth * hitPointUI.size(), 0, 0),
+				"Assets/Image/UI/HpGreen.png",Vector3(0.4f, 0.4f, 0.4f),900));
 		}
 	}
 	else if (hitPointUI.size() > hitPoint)
@@ -534,6 +545,8 @@ void PlayerCharacter::DrawHitPointUI()
 			{
 				delete hitPointUI.back();
 				hitPointUI.pop_back();
+				new HaveLifeCountUI(HitPointUIPos + Vector3(HitPointUIWidth * hitPointUI.size(), 0, 0),
+					"Assets/Image/UI/HpGreen.png", 30.0f, Vector3(0.4f, 0.4f, 0.4f), 900);
 			}
 		}
 	}

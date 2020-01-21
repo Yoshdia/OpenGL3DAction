@@ -278,6 +278,7 @@
     <ClCompile Include="StageCreater.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="HaveLifeCountUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -559,6 +560,7 @@
     <ClInclude Include="StageCreater.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="HaveLifeCountUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
