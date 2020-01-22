@@ -8,6 +8,8 @@
 #include "RangeEnemy.h"
 #include "ComboItemObjectBase.h"
 #include "GameEndEventSystem.h"
+#include "RainWeaponTutorialEnemy.h"
+#include "ParticleObject.h"
 
 StageCreater::StageCreater() :
 	GameObject()
@@ -24,7 +26,7 @@ StageCreater::~StageCreater()
 bool StageCreater::OpenFile()
 {
 	// ステージデータ読み込み
-	if (!readTiledJson(mapData, "Assets/Config/Stage1.json", "Layer0"))
+	if (!readTiledJson(mapData, "Assets/Config/Stage2.json", "Layer0"))
 	{
 		printf("mapData読み込み失敗\n");
 		return true;
@@ -41,7 +43,7 @@ PlayerCharacter* StageCreater::CreatePlayer()
 	{
 		for (int ix = 0; ix < sizeX; ix++)
 		{
-			if (mapData[iy][ix] == 2)
+			if (mapData[iy][ix] == 1)
 			{
 				pos = Vector3(offset * ix, -offset * iy, 0);
 			}
@@ -67,26 +69,20 @@ void StageCreater::CreateStage()
 			switch (name)
 			{
 			case(1):
-				new DebugBox(objectPos);
 				break;
 			case(2):
+				new DebugBox(objectPos);
 				break;
 			case(3):
 				new DebugBox(objectPos + Vector3(0, 45, 0), Vector3(50, 5, 50), Tag::ThinGroundFloor);
 				break;
 			case(4):
-				magePos = objectPos;
+				new CandleStick(objectPos);
 				break;
 			case(5):
-				new RangeEnemy(objectPos);
+				magePos = objectPos;
 				break;
 			case(6):
-				new TankEnemy(objectPos);
-				break;
-			case(7):
-				new MeleeEnemy(objectPos);
-				break;
-			case(9):
 				if (gateC == 0)
 				{
 					gatePos = objectPos;
@@ -97,18 +93,40 @@ void StageCreater::CreateStage()
 				}
 				gateC++;
 				break;
-			case(10):
-				new CandleStick(objectPos);
-				//endEvent = new GameEndEventSystem(objectPos);
+			case(7):
+				endEvent = new GameEndEventSystem(objectPos);
 				break;
-
+			case(8):
+				break;
+				new RainWeaponTutorialEnemy(objectPos);
+			case(9):
+				new MeleeEnemy(objectPos);
+				break;
+			case(10):
+				new RangeEnemy(objectPos);
+				break;
+			case(11):
+				new TankEnemy(objectPos);
+				break;
 			case(12):
-				new ComboItemObjectBase(objectPos, ComboItemName::RotateComboItem);
+				new ParticleObject("Assets/Image/GuideB.png");
 				break;
 			case(13):
-				new ComboItemObjectBase(objectPos, ComboItemName::ThrowComboItem);
+				new ParticleObject("Assets/Image/GuideL.png");
 				break;
 			case(14):
+				new ParticleObject("Assets/Image/GuideA.png");
+				break;
+			case(15):
+				new ParticleObject("Assets/Image/GuideXY.png");
+				break;
+			case(16):
+				new ComboItemObjectBase(objectPos, ComboItemName::RotateComboItem);
+				break;
+			case(17):
+				new ComboItemObjectBase(objectPos, ComboItemName::ThrowComboItem);
+				break;
+			case(18):
 				new ComboItemObjectBase(objectPos, ComboItemName::HammerComboItem);
 				break;
 			}

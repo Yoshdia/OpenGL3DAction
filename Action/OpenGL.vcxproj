@@ -208,9 +208,12 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ParticleEffectBase.cpp" />
+    <ClCompile Include="ParticleObject.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="PlaySceneObject.cpp" />
+    <ClCompile Include="RainEnemyWeapon.cpp" />
+    <ClCompile Include="RainWeaponTutorialEnemy.cpp" />
     <ClCompile Include="RangeAttackPlayer.cpp" />
     <ClCompile Include="RangeAttackPlayerAnimationClip.cpp" />
     <ClCompile Include="RangeAttackRoopAnimationClip.cpp" />
@@ -310,9 +313,12 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="ParticleEffectBase.h" />
+    <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="PlaySceneObject.h" />
+    <ClInclude Include="RainEnemyWeapon.h" />
+    <ClInclude Include="RainWeaponTutorialEnemy.h" />
     <ClInclude Include="RangeAttackPlayer.h" />
     <ClInclude Include="RangeAttackPlayerAnimationClip.h" />
     <ClInclude Include="RangeAttackRoopAnimationClip.h" />
