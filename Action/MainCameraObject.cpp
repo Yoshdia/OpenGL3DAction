@@ -1,11 +1,14 @@
 #include "MainCameraObject.h"
 #include "Renderer.h"
-
+#include "ColliderComponent.h"
 
 MainCameraObject::MainCameraObject() :
 	GameObject(true)
 {
 	SetPosition(Vector3::Zero);
+	tag = Tag::Camera;
+	ColliderComponent* comp = new ColliderComponent(this, 100, Vector3(1200, 1200, 800), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag,Vector3(0,0,400));
+	comp->SetCollidedCamera();
 }
 
 
@@ -23,6 +26,7 @@ void MainCameraObject::UpdateGameObject(float _deltaTime)
 	Vector3 aa = position;
 	aa.z = 0;
 
+	SetPosition(position);
 	Matrix4 v = Matrix4::CreateLookAt(position, aa, Vector3::UnitY);
 	RENDERER->SetViewMatrix(v);
 }

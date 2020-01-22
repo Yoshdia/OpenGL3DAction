@@ -7,6 +7,7 @@ ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector
 	, size(size)
 	, colliderPos(Vector3(0, 0, 0))
 	, doCollision(true)
+	, collidedCamera(false)
 {
 	OnTriggerEnter = TriggerEnter;
 	OnTriggerStay = TriggerStay;
@@ -18,6 +19,7 @@ ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector
 	, size(size)
 	, colliderPos(colliderPos)
 	, doCollision(true)
+	, collidedCamera(false)
 {
 	OnTriggerEnter = TriggerEnter;
 	OnTriggerStay = TriggerStay;
@@ -54,6 +56,17 @@ void ColliderComponent::Update(float deltaTime)
 		if (owner->GetRecomputeWorldTransform())
 		{
 			PhysicsWorld::GetInstance()->Collision(this);
+		}
+		if (!collidedCamera)
+		{
+			owner->SetState(State::Paused);
+		}
+		else
+		{
+			if (owner->GetTag() != Tag::Camera)
+			{
+				collidedCamera = false;
+			}
 		}
 	}
 }

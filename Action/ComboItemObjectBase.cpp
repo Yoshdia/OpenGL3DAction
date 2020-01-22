@@ -47,8 +47,12 @@ void ComboItemObjectBase::UpdateGameObject(float _deltaTime)
 		{
 			velocity.y = -10;
 		}
-		SetPosition(velocity + position);
 	}
+	else
+	{
+		velocity.y = 0;
+	}
+		SetPosition(velocity + position);
 }
 
 ComboItemName ComboItemObjectBase::SearchComboId(const int & _objectId)

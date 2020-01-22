@@ -46,7 +46,7 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 		int obj2Id = collider2->GetId();
 		if (obj1Id < obj2Id)
 		{
-			if (CheckDontCollisionPair(collider->GetObjectTag(), collider2->GetObjectTag())||
+			if (CheckDontCollisionPair(collider->GetObjectTag(), collider2->GetObjectTag()) ||
 				!collider2->GetDoCollision())
 			{
 				continue;
@@ -64,6 +64,16 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 
 			if (hit > 0)
 			{
+				if (obj1Tag == Tag::Camera)
+				{
+					collider2->SetCollidedCamera();
+					if (collider2->GetState() == State::Paused)
+					{
+						collider2->GetOwner()->SetState(State::Active);
+					}
+					continue;
+				}
+
 				if (obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::GroundTag ||
 					obj1Tag == Tag::EnemyTag&&obj2Tag == Tag::GroundTag ||
 					obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::ThinGroundFloor)

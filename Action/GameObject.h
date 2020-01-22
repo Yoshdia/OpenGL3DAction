@@ -39,6 +39,7 @@ enum Tag
 	CandleStickTag = 8,
 	SubPlayerObject=9,
 	ComboItem=10,
+	Camera=11,
 	null,
 };
 

@@ -18,8 +18,8 @@
 #include "HaveLifeCountUI.h"
 
 const float PlayerCharacter::MoveSpeed = 450;
-const float PlayerCharacter::GravityPower = 8.5f;
-const float PlayerCharacter::JumpPower = 60.0f;
+const float PlayerCharacter::GravityPower = 1.2f;
+const float PlayerCharacter::JumpPower = 25.0f;
 const float PlayerCharacter::MoveFriction = 1.2f;
 const float PlayerCharacter::DownFriction = 1.05f;
 const float PlayerCharacter::HitPointUIWidth = 28.0f;

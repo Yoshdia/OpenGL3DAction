@@ -97,8 +97,8 @@ void StageCreater::CreateStage()
 				endEvent = new GameEndEventSystem(objectPos);
 				break;
 			case(8):
-				break;
 				new RainWeaponTutorialEnemy(objectPos);
+				break;
 			case(9):
 				new MeleeEnemy(objectPos);
 				break;

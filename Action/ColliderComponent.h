@@ -69,8 +69,12 @@ public:
 
 	bool GetDoCollision() {return doCollision;}
 	void SetDoCollision(bool _flag) { doCollision = _flag; }
+
+	void SetCollidedCamera() { collidedCamera = true; }
 private:
 	bool doCollision;
+
+	bool collidedCamera;
 	//衝突判定が存在する中心座標　親GameObjectの座標に足して使用する
 	Vector3 colliderPos;
 
