@@ -5,7 +5,7 @@
 ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector3 size, int objectId, std::function<void(ColliderComponent*)>TriggerEnter, std::function<void(ColliderComponent*)>TriggerStay, Tag tag) :
 	Component(owner, updateOrder)
 	, size(size)
-	, colliderPos(Vector3(0,0,0))
+	, colliderPos(Vector3(0, 0, 0))
 	, doCollision(true)
 {
 	OnTriggerEnter = TriggerEnter;
@@ -51,7 +51,10 @@ void ColliderComponent::Update(float deltaTime)
 	isCollision.clear();
 	if (doCollision)
 	{
-	PhysicsWorld::GetInstance()->Collision(this);
+		if (owner->GetRecomputeWorldTransform())
+		{
+			PhysicsWorld::GetInstance()->Collision(this);
+		}
 	}
 }
 

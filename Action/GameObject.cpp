@@ -23,7 +23,7 @@ GameObject::GameObject(bool _reUseGameObject)
 	, recomputeWorldTransform(true)
 	, myObjectId(gameObjectId)
 	, tag(Tag::null)
-	,reUseObject(_reUseGameObject)
+	, reUseObject(_reUseGameObject)
 {
 	gameObjectId++;
 	GAME_OBJECT_MANAGER->AddGameObject(this);
@@ -52,7 +52,7 @@ void GameObject::Update(float _deltaTime)
 	{
 		ComputeWorldTransform();
 
-		if (pauzingEvent== PauzingEvent::NoneEvent)
+		if (pauzingEvent == PauzingEvent::NoneEvent)
 		{
 			UpdateGameObject(_deltaTime);
 		}
@@ -60,7 +60,7 @@ void GameObject::Update(float _deltaTime)
 		{
 			PausingUpdateGameObject();
 		}
-			UpdateComponents(_deltaTime);
+		UpdateComponents(_deltaTime);
 
 		ComputeWorldTransform();
 	}
@@ -72,9 +72,13 @@ void GameObject::Update(float _deltaTime)
 */
 void GameObject::UpdateComponents(float _deltaTime)
 {
-	for (auto itr : components)
+	if (state != State::Dead)
 	{
-		itr->Update(_deltaTime);
+	
+		for (auto itr : components)
+		{
+			itr->Update(_deltaTime);
+		}
 	}
 }
 

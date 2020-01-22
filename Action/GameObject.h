@@ -113,6 +113,7 @@ public:
 	@param	position
 	*/
 	virtual void SetPosition(const Vector3& _pos) { position = _pos; recomputeWorldTransform = true; }
+	bool GetRecomputeWorldTransform() {return recomputeWorldTransform;	}
 
 	/**
 	@brief　オブジェクトのスケールを取得する

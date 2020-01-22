@@ -36,11 +36,6 @@ void PhysicsWorld::RemoveCollider(ColliderComponent * collider)
 
 void PhysicsWorld::Collision(ColliderComponent * collider)
 {
-	if (collider->GetState() == State::Dead)
-	{
-		return;
-	}
-
 	int obj1Id = collider->GetId();
 	for (auto collider2 : colliders)
 	{

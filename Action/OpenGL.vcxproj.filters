@@ -284,12 +284,14 @@
     <ClCompile Include="GameEndEventSystem.cpp">
       <Filter>GameObjects\Event</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleObject.cpp" />
     <ClCompile Include="RainWeaponTutorialEnemy.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="RainEnemyWeapon.cpp">
       <Filter>GameObjects\Enemy\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleObject.cpp">
+      <Filter>GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -578,12 +580,14 @@
     <ClInclude Include="GameEndEventSystem.h">
       <Filter>GameObjects\Event</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="RainWeaponTutorialEnemy.h">
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="RainEnemyWeapon.h">
       <Filter>GameObjects\Enemy\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleObject.h">
+      <Filter>GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

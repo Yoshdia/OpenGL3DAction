@@ -4,7 +4,7 @@ class ParticleObject :
 	public GameObject
 {
 public:
-	ParticleObject(const std::string& _fileName);
+	ParticleObject(const Vector3& _pos, const std::string& _fileName);
 	~ParticleObject();
 };
 
