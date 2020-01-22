@@ -335,6 +335,7 @@ void LoiteringEnemyBase::NoAttacking(float _deltaTime)
 	}
 	else
 	{
+		SetPosition(position);
 		//何もしない
 	}
 	//攻撃対象を発見したときにアクションを変更する

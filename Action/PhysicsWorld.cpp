@@ -71,7 +71,7 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 					{
 						collider2->GetOwner()->SetState(State::Active);
 					}
-					continue;
+					//continue;
 				}
 
 				if (obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::GroundTag ||
