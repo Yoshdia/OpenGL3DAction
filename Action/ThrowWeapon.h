@@ -20,5 +20,6 @@ private:
 	void OnTriggerStay(ColliderComponent* _collider)override;
 	Vector3 velocity;
 	bool collided;
+	bool slow;
 };
 
