@@ -48,21 +48,22 @@ GameObject::~GameObject()
 */
 void GameObject::Update(float _deltaTime)
 {
-	if (state == Active)
+	if (pauzingEvent == PauzingEvent::NoneEvent)
 	{
-		ComputeWorldTransform();
-
-		if (pauzingEvent == PauzingEvent::NoneEvent)
+		if (state == Active)
 		{
+			ComputeWorldTransform();
+			
 			UpdateGameObject(_deltaTime);
-		}
-		else
-		{
-			PausingUpdateGameObject();
-		}
-		UpdateComponents(_deltaTime);
+			UpdateComponents(_deltaTime);
 
-		ComputeWorldTransform();
+			ComputeWorldTransform();
+		}
+	}
+	else
+	{
+		PausingUpdateGameObject();
+		UpdateComponents(_deltaTime);
 	}
 }
 
