@@ -209,6 +209,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     </ClCompile>
     <ClCompile Include="ParticleEffectBase.cpp" />
     <ClCompile Include="ParticleObject.cpp" />
+    <ClCompile Include="PauseScreen.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="PlaySceneObject.cpp" />
@@ -314,6 +315,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     </ClInclude>
     <ClInclude Include="ParticleEffectBase.h" />
     <ClInclude Include="ParticleObject.h" />
+    <ClInclude Include="PauseScreen.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="PlaySceneObject.h" />

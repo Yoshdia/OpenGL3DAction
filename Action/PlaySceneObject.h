@@ -8,9 +8,11 @@ public:
 	~PlaySceneObject();
 
 	void UpdateGameObject(float _deltaTime)override;
+	void GameObjectInput(const InputState& _keyState)override;
+	void PausingUpdateGameObject()override;
 private:
 	class PlayerCharacter* player;
 	class GameEndEventSystem* endSystem;
-
+	class PauseScreen* pausingScreen;
 };
 

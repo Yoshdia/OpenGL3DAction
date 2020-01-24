@@ -6,11 +6,14 @@
 #include "BackGroundObject.h"
 #include "PlayerCharacter.h"
 #include "GameEndEventSystem.h"
+#include "InputSystem.h"
+#include "PauseScreen.h"
 
 PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	SceneObjectBase(_SetSceneFunc),
 	player(nullptr),
-	endSystem(nullptr)
+	endSystem(nullptr),
+	pausingScreen(nullptr)
 {
 	// Setup lights
 	RENDERER->SetAmbientLight(Vector3(0.4f, 0.4f, 0.4f));
@@ -22,11 +25,11 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 
 	//new TestModel;
 	new BackGroundObject();
-	StageCreater* stageCreater= new StageCreater();
-	
+	StageCreater* stageCreater = new StageCreater();
+
 	if (!stageCreater->OpenFile())
 	{
-		player= stageCreater->CreatePlayer();
+		player = stageCreater->CreatePlayer();
 		stageCreater->CreateStage();
 		endSystem = stageCreater->GetEvent();
 	}
@@ -35,6 +38,10 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 
 PlaySceneObject::~PlaySceneObject()
 {
+	if (pausingScreen != nullptr)
+	{
+		pausingScreen = nullptr;
+	}
 }
 
 void PlaySceneObject::UpdateGameObject(float _deltaTime)
@@ -42,11 +49,11 @@ void PlaySceneObject::UpdateGameObject(float _deltaTime)
 	if (player != nullptr)
 	{
 
-	if (player->GetGameEnd())
-	{
-		player = nullptr;
-		SetSceneFunc(SceneName::ResultScene);
-	}
+		if (player->GetGameEnd())
+		{
+			player = nullptr;
+			SetSceneFunc(SceneName::ResultScene);
+		}
 	}
 	if (endSystem != nullptr)
 	{
@@ -56,4 +63,30 @@ void PlaySceneObject::UpdateGameObject(float _deltaTime)
 			SetSceneFunc(SceneName::ResultScene);
 		}
 	}
+}
+
+void PlaySceneObject::GameObjectInput(const InputState& _keyState)
+{
+	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_F1))
+	{
+		if (pausingScreen == nullptr)
+		{
+			pausingScreen = new PauseScreen();
+			pauzingEvent = PauzingEvent::PausingEvent;
+		}
+	}
+}
+
+void PlaySceneObject::PausingUpdateGameObject()
+{
+	if (pausingScreen != nullptr)
+	{
+		if (pausingScreen->GetEndPause())
+		{
+			pauzingEvent = PauzingEvent::NoneEvent;
+			delete pausingScreen;
+			pausingScreen = nullptr;
+		}
+	}
+
 }

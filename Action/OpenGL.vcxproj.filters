@@ -293,6 +293,7 @@
     <ClCompile Include="ParticleObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="PauseScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -589,6 +590,7 @@
     <ClInclude Include="ParticleObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="PauseScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
