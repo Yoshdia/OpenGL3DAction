@@ -9,7 +9,7 @@
 const Vector3 AttackPlayerObject::LeftIconPos = Vector3(300, -300, 0);
 const Vector3 AttackPlayerObject::RightIconPos = Vector3(400, -300, 0);
 
-AttackPlayerObject::AttackPlayerObject(GameObject * _owner) :
+AttackPlayerObject::AttackPlayerObject(GameObject* _owner) :
 	GameObject(),
 	owner(_owner),
 	waitTimeForNextAttack(0),
@@ -24,8 +24,8 @@ AttackPlayerObject::AttackPlayerObject(GameObject * _owner) :
 	rightIcon->SetScale(0.5f);
 
 
-	UserInterfaceBase* xButton= new UserInterfaceBase(Vector3(300, -300, 0), "Assets/Image/UI/button_x.png",Vector3(0.3f,0.3f,0.3f),1000);
-	UserInterfaceBase* yButton = new UserInterfaceBase(Vector3(400, -300, 0), "Assets/Image/UI/button_y.png", Vector3(0.3f, 0.3f, 0.3f),1000);
+	UserInterfaceBase* xButton = new UserInterfaceBase(Vector3(300, -300, 0), "Assets/Image/UI/button_x.png", Vector3(0.3f, 0.3f, 0.3f), 1000);
+	UserInterfaceBase* yButton = new UserInterfaceBase(Vector3(400, -300, 0), "Assets/Image/UI/button_y.png", Vector3(0.3f, 0.3f, 0.3f), 1000);
 	tag = SubPlayerObject;
 
 	lButtonGuide = new   UserInterfaceBase(Vector3(-25, 50, 0), "Assets/Image/UI/bumper1_l1.png", Vector3(0.3f, 0.3f, 0.3f), 500);
@@ -69,7 +69,7 @@ void AttackPlayerObject::UpdateGameObject(float _deltaTime)
 	}
 }
 
-float AttackPlayerObject::Attack(const int & _direction, const int & _slot, bool & _range)
+float AttackPlayerObject::Attack(const int& _direction, const int& _slot, bool& _range)
 {
 	float playerCanNotMoveTime = 0.0f;
 
@@ -93,30 +93,33 @@ float AttackPlayerObject::Attack(const int & _direction, const int & _slot, bool
 	return playerCanNotMoveTime;
 }
 
-void AttackPlayerObject::OnTriggerStay(ColliderComponent * _colliderPair)
+void AttackPlayerObject::OnTriggerStay(ColliderComponent* _colliderPair)
 {
 	if (_colliderPair->GetObjectTag() == Tag::ComboItem)
 	{
-		ComboItemName name = ComboItemObjectBase::SearchComboId(_colliderPair->GetId());
 		if (changeCount <= 0)
 		{
-			if (inputLeftChange)
+			if (inputLeftChange || inputRightChange)
 			{
-				//設置されていたアイテムを非アクティブにする
-				_colliderPair->GetOwner()->SetState(State::Dead);
-				//現在所持しているクラスのアイテムをその場に置く
-				firstSlotAttack->DropMyItem(position);
-				//変更先クラスを取得する
-				DropComboItem(name, 1);
-			}
-			else if (inputRightChange)
-			{
-				//設置されていたアイテムを非アクティブにする
-				_colliderPair->GetOwner()->SetState(State::Dead);
-				//現在所持しているクラスのアイテムをその場に置く
-				secondSlotAttack->DropMyItem(position);
-				//変更先クラスを取得する
-				DropComboItem(name, 2);
+				ComboItemName name = ComboItemObjectBase::SearchComboId(_colliderPair->GetId());
+				if (inputLeftChange)
+				{
+					//設置されていたアイテムを非アクティブにする
+					_colliderPair->GetOwner()->SetState(State::Dead);
+					//現在所持しているクラスのアイテムをその場に置く
+					firstSlotAttack->DropMyItem(position);
+					//変更先クラスを取得する
+					DropComboItem(name, 1);
+				}
+				else if (inputRightChange)
+				{
+					//設置されていたアイテムを非アクティブにする
+					_colliderPair->GetOwner()->SetState(State::Dead);
+					//現在所持しているクラスのアイテムをその場に置く
+					secondSlotAttack->DropMyItem(position);
+					//変更先クラスを取得する
+					DropComboItem(name, 2);
+				}
 			}
 		}
 		itemCollided = true;
@@ -124,14 +127,14 @@ void AttackPlayerObject::OnTriggerStay(ColliderComponent * _colliderPair)
 	}
 }
 
-ComboItemObjectBase * AttackPlayerObject::DropComboItem(const ComboItemName & _name, const int& _slot)
+ComboItemObjectBase* AttackPlayerObject::DropComboItem(const ComboItemName& _name, const int& _slot)
 {
 	changeCount = 25;
 	switch (_name)
 	{
 	case(ComboItemName::RotateComboItem):
 		DeleteSlot(_slot);
-		if (_slot==1)
+		if (_slot == 1)
 		{
 			firstSlotAttack = new RotateTripleWeaponCombo;
 		}
@@ -142,7 +145,7 @@ ComboItemObjectBase * AttackPlayerObject::DropComboItem(const ComboItemName & _n
 		break;
 	case(ComboItemName::ThrowComboItem):
 		DeleteSlot(_slot);
-		if (_slot==1)
+		if (_slot == 1)
 		{
 			firstSlotAttack = new ThrowWeaponCombo;
 		}
@@ -178,7 +181,7 @@ ComboItemObjectBase * AttackPlayerObject::DropComboItem(const ComboItemName & _n
 	return nullptr;
 }
 
-void AttackPlayerObject::DeleteSlot(const int & _slot)
+void AttackPlayerObject::DeleteSlot(const int& _slot)
 {
 	if (_slot == 1)
 	{

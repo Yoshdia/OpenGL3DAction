@@ -20,10 +20,10 @@ ComboItemObjectBase::ComboItemObjectBase(const Vector3 & _pos, const ComboItemNa
 	switch (_name)
 	{
 	case(ComboItemName::ThrowComboItem):
-		fileName = "Assets/Image/Item/WoodenClub.png";
+		fileName = "Assets/Image/Item/MarauderBow.png";
 		break;
 	case(ComboItemName::RotateComboItem):
-		fileName = "Assets/Image/Item/MarauderBow.png";
+		fileName = "Assets/Image/Item/WoodenClub.png";
 		break;
 	case(ComboItemName::HammerComboItem):
 		fileName = "Assets/Image/Item/WarHammer.png";

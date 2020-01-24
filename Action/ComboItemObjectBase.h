@@ -4,7 +4,7 @@
 
 enum ComboItemName
 {
-	NoComboItem,
+	NoComboItem=-1,
 	RotateComboItem=0,
 	ThrowComboItem=1,
 	HammerComboItem=2,
