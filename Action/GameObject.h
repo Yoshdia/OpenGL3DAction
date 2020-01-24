@@ -28,19 +28,20 @@ enum State
 */
 enum Tag
 {
-	PlayerTag = 0,
-	PlayerWeaponTag = 1,
-	PlayerGuardWeaponTag = 2,
-	EnemyTag = 3,
-	ParticleEffectTag = 4,
-	GroundTag = 5,
-	ThinGroundFloor = 6,
-	EnemyWeaponTag = 7,
+	Camera = 1,
+	SkeletalObjectTag=2,
+	PlayerTag = 3,
+	PlayerWeaponTag = 4,
+	PlayerGuardWeaponTag = 5,
+	SubPlayerObject = 6,
+	ComboItem = 7,
 	CandleStickTag = 8,
-	SubPlayerObject=9,
-	ComboItem=10,
-	Camera=11,
-	null,
+	EnemyTag = 9,
+	EnemyWeaponTag = 10,
+	ParticleEffectTag = 11,
+	ThinGroundFloor = 12,
+	GroundTag = 13,
+	null = 14,
 };
 
 enum PauzingEvent
@@ -56,7 +57,7 @@ public:
 	/**
 	@param	ゲームクラスのポインタ
 	*/
-	GameObject(bool _reUseGameObject=false);
+	GameObject(bool _reUseGameObject = false);
 	virtual ~GameObject();
 
 	/**
@@ -114,7 +115,7 @@ public:
 	@param	position
 	*/
 	virtual void SetPosition(const Vector3& _pos) { position = _pos; recomputeWorldTransform = true; }
-	bool GetRecomputeWorldTransform() {return recomputeWorldTransform;	}
+	bool GetRecomputeWorldTransform() { return recomputeWorldTransform; }
 
 	/**
 	@brief　オブジェクトのスケールを取得する
@@ -184,7 +185,7 @@ public:
 
 	bool GetReUseGameObject() { return reUseObject; }
 
-	virtual void FixCollision(const AABB & myAABB, const AABB & pairAABB, const Tag& _pairTag);
+	virtual void FixCollision(const AABB& myAABB, const AABB& pairAABB, const Tag& _pairTag);
 
 	/*
 	@fn 静的なmainCameraを生成する

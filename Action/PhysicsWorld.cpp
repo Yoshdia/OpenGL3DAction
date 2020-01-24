@@ -44,10 +44,16 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 			continue;
 		}
 		int obj2Id = collider2->GetId();
-		if (obj1Id < obj2Id)
+		Tag obj1Tag = collider->GetObjectTag();
+		Tag obj2Tag = collider2->GetObjectTag();
+		//if (obj1Id < obj2Id)
+		if (obj1Tag < obj2Tag)
 		{
-			if (CheckDontCollisionPair(collider->GetObjectTag(), collider2->GetObjectTag()) ||
-				!collider2->GetDoCollision())
+			if (CheckDontCollisionPair(collider->GetObjectTag(), collider2->GetObjectTag()))
+			{
+				continue;
+			}
+			if (!collider2->GetDoCollision())
 			{
 				continue;
 			}
@@ -58,8 +64,7 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 
 			hit = Intersect(obj1, obj2);
 
-			Tag obj1Tag = collider->GetObjectTag();
-			Tag obj2Tag = collider2->GetObjectTag();
+
 
 
 			if (hit > 0)

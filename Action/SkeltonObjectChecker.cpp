@@ -21,6 +21,7 @@ SkeltonObjectChecker::SkeltonObjectChecker(GameObject* _parent, Vector3 _pos, Ve
 		meshComponent = new MeshComponent(this);
 		meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/collisionMask.gpmesh"));
 	SetScale(_colliderSize);
+	tag = Tag::SkeletalObjectTag;
 }
 
 SkeltonObjectChecker::~SkeltonObjectChecker()
@@ -48,6 +49,10 @@ void SkeltonObjectChecker::UpdateGameObject(float _deltaTime)
 	else
 	{
 		changed = false;
+	}
+	if (parent->GetState() == State::Dead)
+	{
+		SetState(State::Dead);
 	}
 }
 
