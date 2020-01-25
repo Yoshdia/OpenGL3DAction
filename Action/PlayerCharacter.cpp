@@ -166,12 +166,12 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	//float i = _keyState.Controller.GetLAxisVec().y;
 
 	//コントローラーが接続された場合操作をコントローラーに変更
-	//if (InputSystem::GetConnectedController())
-	//{
-	//	inputDirection = _keyState.Controller.GetLAxisVec().x;
-	//	inputUnderDirection = _keyState.Controller.GetLAxisVec().y == 1 ? 1 : 0;
-	//}
-	//else
+	if (InputSystem::GetConnectedController())
+	{
+		inputDirection = _keyState.Controller.GetLAxisVec().x;
+		inputUnderDirection = _keyState.Controller.GetLAxisVec().y == 1 ? 1 : 0;
+	}
+	else
 	{
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 		{
