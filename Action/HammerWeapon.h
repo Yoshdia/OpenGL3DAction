@@ -5,10 +5,10 @@ class HammerWeapon :
 	public WeaponBase
 {
 public:
-	HammerWeapon(const Vector3& _pos,const int& number, const int& _direction,const int& _lifeCount, const int& _waitTime = 0);
+	HammerWeapon(const Vector3& _pos,const float& number, const float& _direction,const int& _lifeCount, const int& _waitTime = 0);
 	~HammerWeapon();
 private:
 	void UpdateWeaponGameObject(float _deltaTime)override;
-	int rotateSpeed;
+	float rotateSpeed;
 };
 

@@ -21,7 +21,7 @@ public:
 	@param _range このコンボが遠距離攻撃かどうか
 	@return プレイヤーに付与する行動不可な時間
 	*/
-	float Attack(const int& _direction, const int& _slot, bool& _range);
+	float Attack(const float& _direction, const int& _slot, bool& _range);
 private:
 	void OnTriggerStay(ColliderComponent* _colliderPair) ;
 	ComboItemObjectBase* DropComboItem(const ComboItemName& _name,const int& slot);

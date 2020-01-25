@@ -2,8 +2,8 @@
 #include "EnemyWeapon.h"
 
 const int TankEnemy::HitPointMax = 10;
-const float TankEnemy::AttackingTime = 200.0f;
-const float TankEnemy::HittingTime = 40.0f;
+const int TankEnemy::AttackingTime = 200;
+const int TankEnemy::HittingTime = 40;
 const float TankEnemy::WalkSpeed = 60;
 const float TankEnemy::ApproachSpeedRatio = 0.4f;
 const float TankEnemy::SearchRange = 200;

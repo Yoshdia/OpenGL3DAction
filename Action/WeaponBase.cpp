@@ -7,7 +7,7 @@
 
 std::unordered_map<int, int> WeaponBase::weapons;
 
-WeaponBase::WeaponBase(const Vector3 & _pos, const int & _waitCount, const int & _lifeCount, const int & _direction,
+WeaponBase::WeaponBase(const Vector3 & _pos, const int & _waitCount, const int & _lifeCount, const float & _direction,
 	const Tag& _tag, const int& _weaponName, const Vector3 & _colliderSize, const float& _colorSub, const std::string & _meshFileName, const char * _skeletalFileName) :
 	GameObject(),
 	waitCount(_waitCount),

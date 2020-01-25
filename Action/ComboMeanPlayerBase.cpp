@@ -19,7 +19,7 @@ ComboMeanPlayerBase::~ComboMeanPlayerBase()
 	}
 }
 
-void ComboMeanPlayerBase::Attack(const Vector3 & _pos, const int & _direction, float & _playerCanNotMoveTime, float & _waitTimeForNextAttack)
+void ComboMeanPlayerBase::Attack(const Vector3 & _pos, const float & _direction, float & _playerCanNotMoveTime, float & _waitTimeForNextAttack)
 {
 	//stateパターンを使用し入力時のコンボ状態によって攻撃を変更する
 	switch (attackState)

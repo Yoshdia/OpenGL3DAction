@@ -21,7 +21,7 @@ private:
 	std::vector<std::vector<int>> mapData;
 	int sizeX;
 	int sizeY;
-	int offset;
+	float offset;
 	class GameEndEventSystem* endEvent;
 };
 

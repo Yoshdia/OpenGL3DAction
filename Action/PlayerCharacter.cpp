@@ -42,7 +42,7 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	jumpBottonInput(false),
 	rangeAttackBottonInput(false),
 	avoidanceBottonInput(false),
-	direction(1),
+	direction(1.0f),
 	invincible(false),
 	invincibleCount(0),
 	isFloating(false),
@@ -169,7 +169,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	if (InputSystem::GetConnectedController())
 	{
 		inputDirection = _keyState.Controller.GetLAxisVec().x;
-		inputUnderDirection = _keyState.Controller.GetLAxisVec().y == 1 ? 1 : 0;
+		inputUnderDirection = _keyState.Controller.GetLAxisVec().y == 1.0f ? 1.0f : 0.0f;
 	}
 	else
 	{
@@ -185,7 +185,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	}
 	if (inputDirection == 0 && avoidancing)
 	{
-		inputDirection = (float)direction;
+		inputDirection = direction;
 	}
 	//if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_DOWN))
 	//{
@@ -202,8 +202,8 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	//前Fと入力法が違い、スティックの入力が0でない場合プレイヤーの向きを更新
 	if (direction != inputDirection && inputDirection != 0)
 	{
-		direction = inputDirection > 0 ? 1 : -1;
-		bool reverce = direction == 1 ? false : true;
+		direction = inputDirection > 0 ? 1.0f : -1.0f;
+		bool reverce = direction == 1.0f ? false : true;
 		animationComponent->SetReverce(reverce);
 	}
 
@@ -326,7 +326,7 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 			if (!rangeAttack)
 			{
 				animationComponent->SetAnimation(PlayerAnimationState::Attack);
-				velocity.x += -0.6*direction;
+				velocity.x += -0.6f*direction;
 			}
 			else
 			{
@@ -526,24 +526,25 @@ void PlayerCharacter::Invincible()
 
 void PlayerCharacter::DrawHitPointUI()
 {
-	if (hitPointUI.size() < hitPoint)
+	signed int hitPointUISize = hitPointUI.size();
+	if (hitPointUISize < hitPoint)
 	{
-		for (; hitPointUI.size() < hitPoint;)
+		for (; hitPointUISize < hitPoint;)
 		{
-			hitPointUI.emplace_back(new UserInterfaceBase(HitPointUIPos +Vector3(HitPointUIWidth * hitPointUI.size(), 0, 0),
+			hitPointUI.emplace_back(new UserInterfaceBase(HitPointUIPos +Vector3(HitPointUIWidth * hitPointUISize, 0, 0),
 				"Assets/Image/UI/HpGreen.png",Vector3(0.4f, 0.4f, 0.4f),900));
 		}
 	}
-	else if (hitPointUI.size() > hitPoint)
+	else if (hitPointUISize > hitPoint)
 	{
 		if (!hitPointUI.empty())
 		{
-			for (; hitPointUI.size() > hitPoint;)
+			for (; hitPointUISize > hitPoint;)
 			{
 				delete hitPointUI.back();
 				hitPointUI.pop_back();
-				new HaveLifeCountUI(HitPointUIPos + Vector3(HitPointUIWidth * hitPointUI.size(), 0, 0),
-					"Assets/Image/UI/HpGreen.png", 30.0f, Vector3(0.4f, 0.4f, 0.4f), 900);
+				new HaveLifeCountUI(HitPointUIPos + Vector3(HitPointUIWidth * hitPointUISize, 0, 0),
+					"Assets/Image/UI/HpGreen.png", 30, Vector3(0.4f, 0.4f, 0.4f), 900);
 			}
 		}
 	}

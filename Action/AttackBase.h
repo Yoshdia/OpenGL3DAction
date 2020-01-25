@@ -14,7 +14,7 @@ public:
   @fn 攻撃内容
 @param _ownerPosition 攻撃した座標
 */
-	virtual void Attack(const Vector3& _ownerPosition,const int& _directiron) {};
+	virtual void Attack(const Vector3& _ownerPosition,const float& _directiron) {};
 	/*
 	  @fn ゲッター
 	*/

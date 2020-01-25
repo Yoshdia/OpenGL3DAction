@@ -59,9 +59,6 @@
     <ClCompile Include="DebugBox.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicsWorld.cpp">
       <Filter>Components\Collider</Filter>
     </ClCompile>
@@ -302,6 +299,7 @@
     <ClCompile Include="TakeItemEffectUI.cpp">
       <Filter>GameObjects\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -363,9 +361,6 @@
     </ClInclude>
     <ClInclude Include="DebugBox.h">
       <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsWorld.h">
       <Filter>Components\Collider</Filter>
@@ -607,6 +602,7 @@
     <ClInclude Include="TakeItemEffectUI.h">
       <Filter>GameObjects\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
@@ -623,9 +619,6 @@
     </Filter>
     <Filter Include="InputSystem">
       <UniqueIdentifier>{86dd1375-242a-47c5-b4ab-8c242a88e640}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{df0532af-3c8b-4d63-8ea0-ddaca7007ebe}</UniqueIdentifier>
     </Filter>
     <Filter Include="Math">
       <UniqueIdentifier>{6a202267-f302-460a-bad2-773b2329bbdd}</UniqueIdentifier>

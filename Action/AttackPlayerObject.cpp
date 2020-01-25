@@ -70,7 +70,7 @@ void AttackPlayerObject::UpdateGameObject(float _deltaTime)
 	}
 }
 
-float AttackPlayerObject::Attack(const int& _direction, const int& _slot, bool& _range)
+float AttackPlayerObject::Attack(const float& _direction, const int& _slot, bool& _range)
 {
 	float playerCanNotMoveTime = 0.0f;
 

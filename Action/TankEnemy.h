@@ -15,9 +15,9 @@ private:
 	//初期体力　ゼロになると撃破アニメーションと共に消える
 	static const int HitPointMax;
 	//攻撃時間
-	static const float AttackingTime;
+	static const int AttackingTime;
 	//被弾時間、被弾時にこの定数がcanNotActionTimeに入る
-	static const float HittingTime;
+	static const int HittingTime;
 	//歩行速度
 	static const float WalkSpeed;
 	//攻撃対象への接近速度

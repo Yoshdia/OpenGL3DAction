@@ -39,7 +39,7 @@ private:
 	float canNotActionTime;
 
 	//Œü‚«
-	int direction;
+	float direction;
 
 	//ˆÚ“®—Í
 	Vector3 velocity;

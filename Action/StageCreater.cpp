@@ -14,7 +14,7 @@
 StageCreater::StageCreater() :
 	GameObject()
 {
-	offset = 100;
+	offset = 100.0f;
 	endEvent = nullptr;
 }
 
@@ -26,7 +26,7 @@ StageCreater::~StageCreater()
 bool StageCreater::OpenFile()
 {
 	// ステージデータ読み込み //MageOnry Stage2
-	if (!readTiledJson(mapData, "Assets/Config/MageOnry.json", "Layer0"))
+	if (!readTiledJson(mapData, "Assets/Config/Stage2.json", "Layer0"))
 	{
 		printf("mapData読み込み失敗\n");
 		return true;
@@ -39,11 +39,11 @@ bool StageCreater::OpenFile()
 PlayerCharacter* StageCreater::CreatePlayer()
 {
 	Vector3 pos = Vector3(0, 0, 0);
-	for (int iy = 0; iy < sizeY; iy++)
+	for (float iy = 0; iy < sizeY; iy++)
 	{
-		for (int ix = 0; ix < sizeX; ix++)
+		for (float ix = 0; ix < sizeX; ix++)
 		{
-			if (mapData[iy][ix] == 1)
+			if (mapData[(int)iy][(int)ix] == 1)
 			{
 				pos = Vector3(offset * ix, -offset * iy, 0);
 			}
@@ -59,11 +59,11 @@ void StageCreater::CreateStage()
 	Vector3 goalPos = Vector3();
 	int gateC = 0;
 
-	for (int iy = 0; iy < sizeY; iy++)
+	for (float iy = 0; iy < sizeY; iy++)
 	{
-		for (int ix = 0; ix < sizeX; ix++)
+		for (float ix = 0; ix < sizeX; ix++)
 		{
-			int name = mapData[iy][ix];
+			const unsigned int name = mapData[(int)iy][(int)ix];
 			Vector3 objectPos = Vector3(offset * ix, -offset * iy, 0);
 
 			switch (name)

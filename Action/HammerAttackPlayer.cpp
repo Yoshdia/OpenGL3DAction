@@ -2,7 +2,7 @@
 #include "HammerWeapon.h"
 
 
-HammerAttackPlayer::HammerAttackPlayer(const int& _number):
+HammerAttackPlayer::HammerAttackPlayer(const float& _number):
 	AttackBase(),
 	number(_number)
 {
@@ -15,7 +15,7 @@ HammerAttackPlayer::~HammerAttackPlayer()
 {
 }
 
-void HammerAttackPlayer::Attack(const Vector3 & _ownerPosition, const int & _directiron)
+void HammerAttackPlayer::Attack(const Vector3 & _ownerPosition, const float & _direction)
 {
-	new HammerWeapon(_ownerPosition,number,_directiron,30);
+	new HammerWeapon(_ownerPosition,number,_direction,30);
 }

@@ -5,10 +5,10 @@ class HammerAttackPlayer :
 	public AttackBase
 {
 public:
-	HammerAttackPlayer(const int& _number);
+	HammerAttackPlayer(const float& _number);
 	~HammerAttackPlayer();
-	void Attack(const Vector3& _ownerPosition, const int& _directiron)override;
+	void Attack(const Vector3& _ownerPosition, const float& _direction)override;
 private:
-	int number;
+	float number;
 };
 

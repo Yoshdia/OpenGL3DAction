@@ -173,7 +173,7 @@ bool InputSystem::Initialize()
 	}
 	if (SDL_IsGameController(0))
 	{
-		printf("%c", SDL_GameControllerMapping(controller));
+		printf("%s", SDL_GameControllerMapping(controller));
 	}
 
 	// コントローライベントの無視（こちらからフレーム毎に状態を取得するため）

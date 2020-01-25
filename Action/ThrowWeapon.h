@@ -13,7 +13,7 @@ public:
 	@param _pos 生成する座標
 	@param _direction 生成された際のプレイヤーの向き
 	*/
-	ThrowWeapon(const Vector3& _pos, const int& _direction,const int& _waitTime, const Tag& _tag=Tag::PlayerWeaponTag);
+	ThrowWeapon(const Vector3& _pos, const float& _direction,const int& _waitTime, const Tag& _tag=Tag::PlayerWeaponTag);
 	~ThrowWeapon();
 private:
 	void UpdateWeaponGameObject(float _deltaTime);
