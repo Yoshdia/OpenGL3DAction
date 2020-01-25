@@ -6,8 +6,10 @@
 #include <SDL_log.h>
 
 
-// アニメーションの読み込み
-bool Animation::Load(const std::string& fileName)
+/*
+@fn アニメーション読み込み
+@param アニメーションへのパス
+*/bool Animation::Load(const std::string& fileName)
 {
 	// filenameからテキストファイルとして読み込み、rapidJSONに解析させる
 	std::ifstream file(fileName);

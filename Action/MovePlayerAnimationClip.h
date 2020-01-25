@@ -4,7 +4,7 @@
 
 /*
  @file MovePlayerAnimationClip.h
- @brief Playerの移動アニメーションクリップ
+ @fn 移動しているプレイヤーのアニメーション
 */
 class MovePlayerAnimationClip final :
 	public AnimationSpriteClip 
@@ -12,11 +12,5 @@ class MovePlayerAnimationClip final :
 public:
 	MovePlayerAnimationClip();
 	~MovePlayerAnimationClip();
-
-	//const Texture* ChangeNextTexture(int& spriteCountMax);
-private:
-
-	////std::string fileNameone;
-	//std::string fileNametwo;
 };
 

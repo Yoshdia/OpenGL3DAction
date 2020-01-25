@@ -88,7 +88,7 @@ void AnimationPlayerComponent::Update(float _deltaTime)
 
 	if (nextAnimation == PlayerAnimationState::Attack)
 	{
-		if (nowAnimation->AnimationEnd())
+		if (nowAnimation->GetAnimationEnd())
 		{
 			nowAnimation = attackRoop;
 			nextAnimation = PlayerAnimationState::AttackRoop;
@@ -96,7 +96,7 @@ void AnimationPlayerComponent::Update(float _deltaTime)
 	}
 	else if(nextAnimation == PlayerAnimationState::Range)
 	{
-		if (nowAnimation->AnimationEnd())
+		if (nowAnimation->GetAnimationEnd())
 		{
 			nowAnimation = rangeAttackRoop;
 			nextAnimation = PlayerAnimationState::RangeRoop;

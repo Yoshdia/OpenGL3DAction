@@ -1,14 +1,15 @@
 #include "AnimationSpriteClip.h"
 #include "Texture.h"
 
+/*
+ @fn 所持している全体アニメーションの初期化
+*/
 AnimationSpriteClip::AnimationSpriteClip() :
-	nowAnimationFrame(0),
+	nowAnimationCount(0),
 	nowAnimationTime(0),
 	loop(false),
 	animationEnd(false)
 {
-	nowAnimationFrame = 0;
-	nowAnimationTime = 0;
 	animation = new AnimationKeyFrame[10];
 	for (int num = 0; num < 10; num++)
 	{
@@ -17,6 +18,9 @@ AnimationSpriteClip::AnimationSpriteClip() :
 	}
 }
 
+/*
+ @fn 所持している全体アニメーションの解放
+*/
 AnimationSpriteClip::~AnimationSpriteClip()
 {
 	if (animation != nullptr)
@@ -25,39 +29,51 @@ AnimationSpriteClip::~AnimationSpriteClip()
 	}
 }
 
+/*
+ @fn アニメーションを行う
+*/
 void AnimationSpriteClip::Animation()
 {
+	//アニメーションが終了していてかつループするかそうでないか
 	if (animationEnd&&!loop)
 	{
 		return;
 	}
-	if (nowAnimationTime < animation[nowAnimationFrame].waitTimeForNextTexture)
+	//現在のアニメーションカウントが再生中のテクスチャ表示時間を超えていないか
+	if (nowAnimationTime < animation[nowAnimationCount].waitTimeForNextTexture)
 	{
 		nowAnimationTime++;
 	}
+	//超えた場合
 	else
 	{
-		nowAnimationFrame++;
-		if (animation[nowAnimationFrame].sprite == nullptr)
+		//次のアニメーションへ
+		nowAnimationCount++;
+		//次のアニメーションが存在しない場合nullptrが返ってくるので終了
+		if (animation[nowAnimationCount].sprite == nullptr)
 		{
+			//アニメーション終了
 			animationEnd = true;
+			//ループするか、する場合再生枚数を初期化
 			if (loop)
 			{
-				nowAnimationFrame = 0;
+				nowAnimationCount = 0;
 			}
 			else
 			{
-				nowAnimationFrame--;
+				nowAnimationCount--;
 			}
 		}
-
 		nowAnimationTime = 0;
 	}
 }
 
+/*
+ @fn アニメーションをリセット
+*/
 void AnimationSpriteClip::ResetAnimation()
 {
-	nowAnimationFrame = 0;
+	nowAnimationCount = 0;
 	nowAnimationTime = 0;
 	animationEnd = false;
 }
