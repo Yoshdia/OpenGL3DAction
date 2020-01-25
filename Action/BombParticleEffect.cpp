@@ -3,7 +3,7 @@
 #include "PhysicsWorld.h"
 
 BombParticleEffect::BombParticleEffect(const Vector3& _pos, const Vector3& _velocity, const bool& _collisionForGround) :
-	ParticleEffectBase(_pos, _velocity,15, "Assets/Image/16.png"),
+	ParticleEffectBase(_pos, _velocity,20, "Assets/Image/16.png"),
 	collisionForGround(_collisionForGround),
 	isCollision(false)
 {
@@ -29,7 +29,6 @@ void BombParticleEffect::FixCollision(const AABB & myAABB, const AABB & pairAABB
 		}
 		else
 		{
-			LifeCountDown();
 		}
 	}
 }
@@ -49,5 +48,9 @@ void BombParticleEffect::UpdateParticleObject(float _deltaTime)
 	{
 		velocity.y -= 100 * _deltaTime;
 
+	}
+	else
+	{
+		LifeCountDown();
 	}
 }

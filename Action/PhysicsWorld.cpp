@@ -36,14 +36,14 @@ void PhysicsWorld::RemoveCollider(ColliderComponent * collider)
 
 void PhysicsWorld::Collision(ColliderComponent * collider)
 {
-	int obj1Id = collider->GetId();
+	//int obj1Id = collider->GetId();
 	for (auto collider2 : colliders)
 	{
 		if (collider2->GetState() == State::Dead)
 		{
 			continue;
 		}
-		int obj2Id = collider2->GetId();
+		//int obj2Id = collider2->GetId();
 		Tag obj1Tag = collider->GetObjectTag();
 		Tag obj2Tag = collider2->GetObjectTag();
 		//if (obj1Id < obj2Id)
@@ -107,33 +107,65 @@ void PhysicsWorld::MakeNoCollisionPair()
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::PlayerTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::PlayerWeaponTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::PlayerGuardWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::SubPlayerObject));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::EnemyTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::ParticleEffectTag));
 
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::PlayerWeaponTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::PlayerGuardWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::SubPlayerObject));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::ComboItem));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::CandleStickTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::EnemyWeaponTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::ParticleEffectTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::ThinGroundFloor));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::EnemyWeaponTag));
 
+	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::SubPlayerObject));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::PlayerGuardWeaponTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::EnemyTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::ParticleEffectTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::GroundTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::ThinGroundFloor));
 
+	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::PlayerGuardWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::SubPlayerObject));
+	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::CandleStickTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::EnemyTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::EnemyWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::ParticleEffectTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::ThinGroundFloor));
+	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::GroundTag));
+
+	noCollisionPairs.push_back(std::make_pair(Tag::ComboItem, Tag::ComboItem));
+	noCollisionPairs.push_back(std::make_pair(Tag::ComboItem, Tag::CandleStickTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::ComboItem, Tag::EnemyTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::ComboItem, Tag::EnemyWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::ComboItem, Tag::ParticleEffectTag));
+
+	
+	noCollisionPairs.push_back(std::make_pair(Tag::CandleStickTag, Tag::CandleStickTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::CandleStickTag, Tag::EnemyTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::CandleStickTag, Tag::EnemyWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::CandleStickTag, Tag::ParticleEffectTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::CandleStickTag, Tag::ThinGroundFloor));
+	noCollisionPairs.push_back(std::make_pair(Tag::CandleStickTag, Tag::GroundTag));
+
 	noCollisionPairs.push_back(std::make_pair(Tag::EnemyTag, Tag::EnemyTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::EnemyTag, Tag::ParticleEffectTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::EnemyTag, Tag::EnemyWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::EnemyTag, Tag::ParticleEffectTag));
+
+	noCollisionPairs.push_back(std::make_pair(Tag::EnemyWeaponTag, Tag::EnemyWeaponTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::EnemyWeaponTag, Tag::ParticleEffectTag));
+	noCollisionPairs.push_back(std::make_pair(Tag::EnemyWeaponTag, Tag::ThinGroundFloor));
+	noCollisionPairs.push_back(std::make_pair(Tag::EnemyWeaponTag, Tag::GroundTag));
 
 	noCollisionPairs.push_back(std::make_pair(Tag::ParticleEffectTag, Tag::ParticleEffectTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::ParticleEffectTag, Tag::EnemyWeaponTag));
 
 	noCollisionPairs.push_back(std::make_pair(Tag::GroundTag, Tag::GroundTag));
 	noCollisionPairs.push_back(std::make_pair(Tag::GroundTag, Tag::ThinGroundFloor));
 
 	noCollisionPairs.push_back(std::make_pair(Tag::ThinGroundFloor, Tag::ThinGroundFloor));
-	noCollisionPairs.push_back(std::make_pair(Tag::ThinGroundFloor, Tag::EnemyWeaponTag));
 }
 
 bool PhysicsWorld::CheckDontCollisionPair(const Tag & lTag, const Tag & rTag)
