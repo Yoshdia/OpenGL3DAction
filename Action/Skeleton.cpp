@@ -5,7 +5,11 @@
 #include <SDL_log.h>
 #include "MatrixPalette.h"
 
-// スケルトンの読み込み
+/*
+@fn スケルトンのファイルからのロード
+@param _filename
+@return 成功、失敗
+*/
 bool Skeleton::Load(const std::string& fileName)
 {
 	// ファイル名からテキストファイルをオープンして、RapidJSONに解析させる
@@ -133,7 +137,9 @@ bool Skeleton::Load(const std::string& fileName)
 	return true;
 }
 
-// 逆バインドポーズ行列の計算
+/*
+@fn スケルトンがロードされたときに自動的に呼び出され各ボーンのグローバル逆バインドポーズを計算
+*/
 void Skeleton::ComputeGlobalInvBindPose()
 {
 	// Resize to number of bones, which automatically fills identity    mGlobalInvIndPoses配列を、ボーン数分確保＆自動的に単位行列で初期化
