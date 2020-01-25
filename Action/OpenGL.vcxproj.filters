@@ -293,9 +293,15 @@
     <ClCompile Include="ParticleObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="PauseScreen.cpp" />
-    <ClCompile Include="DamageSquareEffect.cpp" />
-    <ClCompile Include="TakeItemEffectUI.cpp" />
+    <ClCompile Include="DamageSquareEffect.cpp">
+      <Filter>GameObjects\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseScreen.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="TakeItemEffectUI.cpp">
+      <Filter>GameObjects\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -592,9 +598,15 @@
     <ClInclude Include="ParticleObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="PauseScreen.h" />
-    <ClInclude Include="DamageSquareEffect.h" />
-    <ClInclude Include="TakeItemEffectUI.h" />
+    <ClInclude Include="DamageSquareEffect.h">
+      <Filter>GameObjects\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseScreen.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="TakeItemEffectUI.h">
+      <Filter>GameObjects\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
