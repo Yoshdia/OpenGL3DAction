@@ -68,7 +68,7 @@ void Renderer::DeleteInstance()
 @brief  初期化処理
 @return true : 成功 , false : 失敗
 */
-bool Renderer::Initialize(float _screenWidth, float _screenHeight)
+bool Renderer::Initialize(float _screenWidth, float _screenHeight, bool _fullScreen)
 {
 	screenWidth = _screenWidth;
 	screenHeight = _screenHeight;
@@ -91,8 +91,14 @@ bool Renderer::Initialize(float _screenWidth, float _screenHeight)
 	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
 	//ウィンドウの作成
+
 	window = SDL_CreateWindow("OpenGL Game", 100, 100,
 		static_cast<int>(screenWidth), static_cast<int>(screenHeight), SDL_WINDOW_OPENGL);
+
+	if (_fullScreen)
+	{
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	}
 
 	if (!window)
 	{

@@ -51,7 +51,7 @@ public:
 	@brief  ‰Šú‰»ˆ—
 	@return true : ¬Œ÷ , false : ¸”s
 	*/
-	bool Initialize(float _screenWidth, float _screenHeight);
+	bool Initialize(float _screenWidth, float _screenHeight, bool _fullScreen);
 	/**
 	@brief  I—¹ˆ—
 	*/

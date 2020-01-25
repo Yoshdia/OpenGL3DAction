@@ -5,7 +5,7 @@
 #include "Game.h"
 
 /*
-クラス内での宣言順番はpublic>protected>privateの順
+クラス内での宣言順番はpublic>protected>private>public(GetSet)の順
 */
 
 /*

@@ -58,7 +58,8 @@ bool Game::Initialize()
 	}
 	//ƒŒƒ“ƒ_ƒ‰[‚Ì‰Šú‰»
 	Renderer::CreateInstance();
-	if (!RENDERER->Initialize(1024.0f, 768.0f))
+	if (!RENDERER->Initialize(1024.0f, 768.0f,false))
+	//if (!RENDERER->Initialize(1920, 1080,true))
 	{
 		SDL_Log("Failed to initialize renderer");
 		Renderer::DeleteInstance();

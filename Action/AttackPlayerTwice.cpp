@@ -14,7 +14,7 @@ AttackPlayerTwice::~AttackPlayerTwice()
 {
 }
 
-void AttackPlayerTwice::Attack(const Vector3& _ownerPosition,const int& _direction)
+void AttackPlayerTwice::Attack(const Vector3& _ownerPosition,const float& _direction)
 {
 	new WeaponRotationAnimationPlayer(_ownerPosition, _direction, 0, 120, 1);
 

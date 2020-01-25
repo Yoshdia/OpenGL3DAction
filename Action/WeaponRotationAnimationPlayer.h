@@ -13,7 +13,7 @@ public:
 	@param _pos ¶¬‚·‚éÀ•W
 	@param _moveDistance ˆÚ“®—ÊA”ÍˆÍ‚Í0~2
 	*/
-	WeaponRotationAnimationPlayer(const Vector3& _pos, const int& _direction, const int& _waitCount, const int& _lifeCount, const int& _moveDistanceStage);
+	WeaponRotationAnimationPlayer(const Vector3& _pos, const float& _direction, const int& _waitCount, const int& _lifeCount, const int& _moveDistanceStage);
 	~WeaponRotationAnimationPlayer();
 private:
 	void UpdateWeaponGameObject(float _deltaTime);
