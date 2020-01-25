@@ -294,6 +294,7 @@
       <Filter>GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="PauseScreen.cpp" />
+    <ClCompile Include="DamageSquareEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -591,6 +592,7 @@
       <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="PauseScreen.h" />
+    <ClInclude Include="DamageSquareEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

@@ -7,6 +7,7 @@
 #include "BombParticleEffect.h"
 #include "MainCameraObject.h"
 #include "WeaponBase.h"
+#include "DamageSquareEffect.h"
 
 const int EnemyBase::HitPointMax = 3;
 
@@ -60,6 +61,7 @@ void EnemyBase::OnTriggerEnter(ColliderComponent* _colliderPair)
 	{
 		int weaponPower = WeaponBase::SearchWeaponPower(_colliderPair->GetId());
 		printf("%d\n", weaponPower);
+		new DamageSquareEffect(position+Vector3(0,15,0));
 		HitPlayerAttack(_colliderPair->GetPosition(),weaponPower);
 	}
 }

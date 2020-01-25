@@ -227,9 +227,6 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 		//new BombParticleEffect(position, Vector3(-10, 9, 0),true);
 		//new BombParticleEffect(position, Vector3(-10, 6, 0),true);
 		//new BombParticleEffect(position, Vector3(-10, 3, 0),true);
-		new HeartParticleEffect(position, Vector3(15, 2.5, 0));
-		new HeartParticleEffect(position, Vector3(-15, 2.5, 0));
-		new HeartParticleEffect(position, Vector3(5, 2.5, 0));
 	}
 }
 
