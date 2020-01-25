@@ -5,6 +5,7 @@
 #include "ComboItemObjectBase.h"
 #include "DoubleHammerCombo.h"
 #include "UserInterfaceBase.h"
+#include "TakeItemEffectUI.h"
 
 const Vector3 AttackPlayerObject::LeftIconPos = Vector3(300, -300, 0);
 const Vector3 AttackPlayerObject::RightIconPos = Vector3(400, -300, 0);
@@ -110,6 +111,7 @@ void AttackPlayerObject::OnTriggerStay(ColliderComponent* _colliderPair)
 					firstSlotAttack->DropMyItem(position);
 					//•ÏXæƒNƒ‰ƒX‚ðŽæ“¾‚·‚é
 					DropComboItem(name, 1);
+
 				}
 				else if (inputRightChange)
 				{
@@ -168,15 +170,15 @@ ComboItemObjectBase* AttackPlayerObject::DropComboItem(const ComboItemName& _nam
 	}
 	if (_slot == 1)
 	{
-		leftIcon = new UserInterfaceBase(LeftIconPos, firstSlotAttack->GetComboIconFileName());
+		leftIcon = new UserInterfaceBase(LeftIconPos, firstSlotAttack->GetComboIconFileName(),Vector3(1,1,1),100);
 		leftIcon->SetScale(0.5f);
-
+		new TakeItemEffectUI(LeftIconPos);
 	}
 	else
 	{
 		rightIcon = new UserInterfaceBase(RightIconPos, secondSlotAttack->GetComboIconFileName());
 		rightIcon->SetScale(0.5f);
-
+		new TakeItemEffectUI(RightIconPos);
 	}
 	return nullptr;
 }

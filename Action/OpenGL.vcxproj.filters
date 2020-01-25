@@ -295,6 +295,7 @@
     </ClCompile>
     <ClCompile Include="PauseScreen.cpp" />
     <ClCompile Include="DamageSquareEffect.cpp" />
+    <ClCompile Include="TakeItemEffectUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -593,6 +594,7 @@
     </ClInclude>
     <ClInclude Include="PauseScreen.h" />
     <ClInclude Include="DamageSquareEffect.h" />
+    <ClInclude Include="TakeItemEffectUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
