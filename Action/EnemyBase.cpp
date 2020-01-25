@@ -20,7 +20,7 @@ EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale,EnemyType _type) :
 	SetScale(_scale);
 	SetPosition(_pos);
 	tag = Tag::EnemyTag;
-	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 10, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
+	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(70, 160, 70), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 80, 0));
 
 	rotate = new RotateComponent(this);
 	rotate->SetRotation(-90, Vector3::UnitX);
