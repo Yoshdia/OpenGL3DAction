@@ -25,7 +25,7 @@ const float PlayerCharacter::DownFriction = 1.05f;
 const float PlayerCharacter::HitPointUIWidth = 28.0f;
 
 const int PlayerCharacter::InvincibleCount = 20;
-const int PlayerCharacter::InputUnderCountMax = 30;
+const int PlayerCharacter::InputUnderCountMax = 20;
 const int PlayerCharacter::AvoidanceInterval = 40;
 const int PlayerCharacter::AvoidanceInvincible = 30;
 const int PlayerCharacter::CandleHealingInterval = 200;

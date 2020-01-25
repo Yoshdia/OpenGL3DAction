@@ -15,8 +15,13 @@ public:
 
 	void Update(float _deltaTime)override;
 	virtual void UpdateAnimationComponent(float _deltaTime) {};
+	void SetStartFlash() {startFlash = true; plusFlashColor = true;}
 protected:
 	class SkeletalMeshComponent* mMeshComp;
-
+private:
+	void Flash();
+	bool startFlash;
+	bool plusFlashColor;
+	float flashColor;
 };
 

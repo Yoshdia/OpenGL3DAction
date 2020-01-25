@@ -13,6 +13,7 @@
 SkeletalMeshComponent::SkeletalMeshComponent(GameObject* owner)
 	:MeshComponent(owner, true)
 	, mSkeleton(nullptr)
+	, mColor(Vector3(0,0,0))
 {
 }
 
@@ -30,6 +31,8 @@ void SkeletalMeshComponent::Draw(Shader* shader)                         // 描画
 				MAX_SKELETON_BONES);
 			// Set specular power                                             スペキュラー強度をセット
 			shader->SetFloatUniform("uSpecPower", 100);
+
+			shader->SetVectorUniform("uColor", mColor);
 			// Set the active texture                                         テクスチャをセット 
 			Texture* t = mMesh->GetTexture(mTextureIndex);
 			if (t)

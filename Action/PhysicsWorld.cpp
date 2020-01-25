@@ -49,10 +49,6 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 		//if (obj1Id < obj2Id)
 		if (obj1Tag < obj2Tag)
 		{
-			if (CheckDontCollisionPair(collider->GetObjectTag(), collider2->GetObjectTag()))
-			{
-				continue;
-			}
 			if (!collider2->GetDoCollision())
 			{
 				continue;
@@ -168,26 +164,6 @@ void PhysicsWorld::MakeNoCollisionPair()
 	noCollisionPairs.push_back(std::make_pair(Tag::ThinGroundFloor, Tag::ThinGroundFloor));
 }
 
-bool PhysicsWorld::CheckDontCollisionPair(const Tag & lTag, const Tag & rTag)
-{
-	if (lTag == Tag::null || rTag == Tag::null)
-	{
-		return false;
-	}
-	for (auto pair : noCollisionPairs)
-	{
-		if (lTag == pair.first&&rTag == pair.second)
-		{
-			return true;
-		}
-		else if (rTag == pair.first&& lTag == pair.second)
-		{
-			return true;
-		}
-
-	}
-	return false;
-}
 
 void calcCollisionFixVec(const AABB & movableBox, const AABB & fixedBox, Vector3 & calcFixVec)
 {

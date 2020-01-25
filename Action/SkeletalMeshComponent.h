@@ -16,6 +16,8 @@ public:
 
 	// Play an animation. Returns the length of the animation                 アニメーションの再生。アニメーションの残り長さを返す
 	float PlayAnimation(const class Animation* anim, float playRate = 1.0f);
+
+	void SetColor(const Vector3& _color) { mColor = _color; }
 protected:
 	void ComputeMatrixPalette();                                           // 行列パレットの計算
 
@@ -24,4 +26,5 @@ protected:
 	const class Animation* mAnimation;                                     // アニメーション
 	float mAnimPlayRate;                                                   // アニメーションの再生速度
 	float mAnimTime;                                                       // アニメーション時間
+	Vector3 mColor;
 };

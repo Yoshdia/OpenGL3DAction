@@ -7,7 +7,7 @@ class WeaponBase :
 	public GameObject
 {
 public:
-	WeaponBase(const Vector3& _pos, const int& _waitCount, const int& _lifeCount, const int& _direction, const Tag& _tag,const int& _weaponName, const Vector3& _colliderSize, const std::string & _meshFileName, const char * _skeletalFileName);
+	WeaponBase(const Vector3& _pos, const int& _waitCount, const int& _lifeCount, const int& _direction, const Tag& _tag,const int& _weaponName, const Vector3& _colliderSize,const float& _colorSub, const std::string & _meshFileName, const char * _skeletalFileName);
 	~WeaponBase();
 	void UpdateGameObject(float _deltaTime)override;
 	static int SearchWeaponPower(const int& _objectId);
@@ -23,5 +23,7 @@ private:
 	class SkeletalMeshComponent* skeletalComponent;
 	int waitCount;
 	int lifeCount;
+	float color ;
+	float colorSub;
 };
 

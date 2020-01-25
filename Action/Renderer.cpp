@@ -133,6 +133,9 @@ bool Renderer::Initialize(float _screenWidth, float _screenHeight)
 
 	CreateParticleVerts();
 
+
+	//glFrontFace(GL_CCW);
+	//glEnable(GL_CULL_FACE);
 	return true;
 }
 

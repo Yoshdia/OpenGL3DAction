@@ -44,8 +44,6 @@ private:
 	//生成されたColliderComponent全てのアドレスを記憶
 	std::vector<ColliderComponent*> colliders;
 	std::vector<std::pair<Tag, Tag>> noCollisionPairs;
-
-	bool CheckDontCollisionPair(const Tag& lTag, const Tag& rTag);
 };
 
 ////////////////////////////////////////////////////////////////////

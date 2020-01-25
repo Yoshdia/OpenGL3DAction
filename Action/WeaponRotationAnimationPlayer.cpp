@@ -6,7 +6,7 @@
 
 WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& _pos, const int& _direction, const int& _waitCount, const int& _lifeCount, const int& _moveDistanceStage) :
 	WeaponBase(_pos, _waitCount, _lifeCount, _direction,
-		Tag::PlayerWeaponTag,3, Vector3(75, 75, 75), "Assets/Model/Weapon/SK_Blunt_SpikedClub.gpmesh", "Assets/Model/Weapon/SK_Blunt_SpikedClub.gpskel"),
+		Tag::PlayerWeaponTag,3, Vector3(75, 75, 75),0.02f, "Assets/Model/Weapon/SK_Blunt_SpikedClub.gpmesh", "Assets/Model/Weapon/SK_Blunt_SpikedClub.gpskel"),
 	rotateSpeed(50),
 	rotateSpeedSub(0.45f)
 {

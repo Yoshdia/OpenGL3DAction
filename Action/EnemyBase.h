@@ -78,6 +78,9 @@ protected:
 	~ Œp³æ‚Å•ÏX‚ªs‚í‚ê‚È‚©‚Á‚½ê‡‚ÌÅ‘å‘Ì—Í ~
 	**/
 	static const int HitPointMax;
+private:
+
+	Vector3 middlePos;
 };
 
 

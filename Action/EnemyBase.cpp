@@ -11,7 +11,7 @@
 
 const int EnemyBase::HitPointMax = 3;
 
-EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale,EnemyType _type) :
+EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale, EnemyType _type) :
 	GameObject(),
 	hitPoint(HitPointMax),
 	moveDirection(EnemyMoveDirection::right),
@@ -20,12 +20,13 @@ EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale,EnemyType _type) :
 	SetScale(_scale);
 	SetPosition(_pos);
 	tag = Tag::EnemyTag;
-	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(70, 160, 70), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 80, 0));
-
+	Vector3  collisionPos = Vector3(0, 80, 0);
+	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(70, 160, 70), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, collisionPos);
+	middlePos = position + collisionPos;
 	rotate = new RotateComponent(this);
 	rotate->SetRotation(-90, Vector3::UnitX);
 
-	animComponent = new AnimationEnemyComponent(this,_type);
+	animComponent = new AnimationEnemyComponent(this, _type);
 	animComponent->SetMove(true);
 }
 
@@ -61,8 +62,10 @@ void EnemyBase::OnTriggerEnter(ColliderComponent* _colliderPair)
 	{
 		int weaponPower = WeaponBase::SearchWeaponPower(_colliderPair->GetId());
 		printf("%d\n", weaponPower);
-		new DamageSquareEffect(position+Vector3(0,15,0));
-		HitPlayerAttack(_colliderPair->GetPosition(),weaponPower);
+		Vector3 effectPos = (middlePos - _colliderPair->GetPosition()) / 2 + position;
+		//new DamageSquareEffect(Vector3(effectPos.x,position.y,position.z));
+		animComponent->SetStartFlash();
+		HitPlayerAttack(_colliderPair->GetPosition(), weaponPower);
 	}
 }
 
@@ -70,18 +73,18 @@ void EnemyBase::DeadCommonEvent()
 {
 	SetState(Dead);
 	Vector3 effectPos = Vector3(position.x, position.y + 50, position.z);
-	new BombParticleEffect(effectPos, Vector3(10, 18, 0),true);
-	new BombParticleEffect(effectPos, Vector3(-10, 18, 0),true);
-	new BombParticleEffect(effectPos, Vector3(10, 16, 0),true);
-	new BombParticleEffect(effectPos, Vector3(10, 12, 0),true);
-	new BombParticleEffect(effectPos, Vector3(10, 9, 0),true);
-	new BombParticleEffect(effectPos, Vector3(10, 6, 0),true);
-	new BombParticleEffect(effectPos, Vector3(10, 3, 0),true);
-	new BombParticleEffect(effectPos, Vector3(-10, 16, 0),true);
-	new BombParticleEffect(effectPos, Vector3(-10, 12, 0),true);
-	new BombParticleEffect(effectPos, Vector3(-10, 9, 0),true);
-	new BombParticleEffect(effectPos, Vector3(-10, 6, 0),true);
-	new BombParticleEffect(effectPos, Vector3(-10, 3, 0),true);
+	new BombParticleEffect(effectPos, Vector3(10, 18, 0), true);
+	new BombParticleEffect(effectPos, Vector3(-10, 18, 0), true);
+	new BombParticleEffect(effectPos, Vector3(10, 16, 0), true);
+	new BombParticleEffect(effectPos, Vector3(10, 12, 0), true);
+	new BombParticleEffect(effectPos, Vector3(10, 9, 0), true);
+	new BombParticleEffect(effectPos, Vector3(10, 6, 0), true);
+	new BombParticleEffect(effectPos, Vector3(10, 3, 0), true);
+	new BombParticleEffect(effectPos, Vector3(-10, 16, 0), true);
+	new BombParticleEffect(effectPos, Vector3(-10, 12, 0), true);
+	new BombParticleEffect(effectPos, Vector3(-10, 9, 0), true);
+	new BombParticleEffect(effectPos, Vector3(-10, 6, 0), true);
+	new BombParticleEffect(effectPos, Vector3(-10, 3, 0), true);
 	DeadEvent();
 }
 
