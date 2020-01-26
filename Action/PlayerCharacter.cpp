@@ -77,6 +77,7 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	{
 		new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth*num, 0, 0), "Assets/Image/UI/HpCase.png", Vector3(0.4f, 0.4f, 0.4f), 1000);
 	}
+	mainCamera->SetPosition(position+Vector3(0,0,300));
 }
 
 PlayerCharacter::~PlayerCharacter()
@@ -274,7 +275,7 @@ bool PlayerCharacter::GetGameEnd()
 {
 	if (hitPoint < 0)
 	{
-		//return true;
+		return true;
 	}
 	return false;
 }

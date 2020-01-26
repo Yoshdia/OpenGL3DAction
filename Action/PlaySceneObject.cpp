@@ -48,7 +48,6 @@ void PlaySceneObject::UpdateGameObject(float _deltaTime)
 {
 	if (player != nullptr)
 	{
-
 		if (player->GetGameEnd())
 		{
 			player = nullptr;
