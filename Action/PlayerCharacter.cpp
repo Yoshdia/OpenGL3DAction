@@ -525,24 +525,23 @@ void PlayerCharacter::Invincible()
 
 void PlayerCharacter::DrawHitPointUI()
 {
-	signed int hitPointUISize = hitPointUI.size();
-	if (hitPointUISize < hitPoint)
+	if (hitPointUI.size() < hitPoint)
 	{
-		for (; hitPointUISize < hitPoint;)
+		for (;  hitPointUI.size() < hitPoint;)
 		{
-			hitPointUI.emplace_back(new UserInterfaceBase(HitPointUIPos +Vector3(HitPointUIWidth * hitPointUISize, 0, 0),
+			hitPointUI.emplace_back(new UserInterfaceBase(HitPointUIPos +Vector3(HitPointUIWidth * hitPointUI.size(), 0, 0),
 				"Assets/Image/UI/HpGreen.png",Vector3(0.4f, 0.4f, 0.4f),900));
 		}
 	}
-	else if (hitPointUISize > hitPoint)
+	else if (hitPointUI.size() > hitPoint)
 	{
 		if (!hitPointUI.empty())
 		{
-			for (; hitPointUISize > hitPoint;)
+			for (; hitPointUI.size() > hitPoint;)
 			{
 				delete hitPointUI.back();
 				hitPointUI.pop_back();
-				new HaveLifeCountUI(HitPointUIPos + Vector3(HitPointUIWidth * hitPointUISize, 0, 0),
+				new HaveLifeCountUI(HitPointUIPos + Vector3(HitPointUIWidth * hitPointUI.size(), 0, 0),
 					"Assets/Image/UI/HpGreen.png", 30, Vector3(0.4f, 0.4f, 0.4f), 900);
 			}
 		}
