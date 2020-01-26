@@ -14,9 +14,9 @@ WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& _pos
 	Vector3 addDistance = Vector3(0, 0, 0);
 	switch (_moveDistanceStage)
 	{
-	case(0):addDistance.x += 60; break;
-	case(1):addDistance.x += 120; break;
-	default:addDistance.x += 180; break;
+	case(0):addDistance.x += 80; break;
+	case(1):addDistance.x += 160; break;
+	default:addDistance.x += 240; break;
 	}
 	targetPos = position + (addDistance*(float)_direction);
 

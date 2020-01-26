@@ -44,7 +44,9 @@ private:
 	class UserInterfaceBase* leftIcon;
 	class UserInterfaceBase* rightIcon;
 	class UserInterfaceBase* lButtonGuide;
+	class UserInterfaceBase* lButtonIcon;
 	class UserInterfaceBase* rButtonGuide;
+	class UserInterfaceBase* rButtonIcon;
 	bool itemCollided;
 };
 

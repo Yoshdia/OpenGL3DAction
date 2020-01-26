@@ -184,7 +184,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	if (InputSystem::GetConnectedController())
 	{
 		inputDirection = _keyState.Controller.GetLAxisVec().x;
-		inputUnderDirection = _keyState.Controller.GetLAxisVec().y == 1.0f ? 1.0f : 0.0f;
+		inputUnderDirection = _keyState.Controller.GetLAxisVec().y >= 0.7f ? 1.0f : 0.0f;
 	}
 	else
 	{
@@ -544,19 +544,20 @@ void PlayerCharacter::Invincible()
 
 void PlayerCharacter::DrawHitPointUI()
 {
-	if (hitPointUI.size() < hitPoint)
+	unsigned int unsignedHitPoint = hitPoint;
+	if (hitPointUI.size() < unsignedHitPoint)
 	{
-		for (; hitPointUI.size() < hitPoint;)
+		for (; hitPointUI.size() < unsignedHitPoint;)
 		{
 			hitPointUI.emplace_back(new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth * hitPointUI.size(), 0, 0),
 				"Assets/Image/UI/HpGreen.png", Vector3(0.4f, 0.4f, 0.4f), 900));
 		}
 	}
-	else if (hitPointUI.size() > hitPoint)
+	else if (hitPointUI.size() > unsignedHitPoint)
 	{
 		if (!hitPointUI.empty())
 		{
-			for (; hitPointUI.size() > hitPoint;)
+			for (; hitPointUI.size() > unsignedHitPoint;)
 			{
 				delete hitPointUI.back();
 				hitPointUI.pop_back();

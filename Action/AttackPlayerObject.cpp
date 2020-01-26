@@ -29,8 +29,10 @@ AttackPlayerObject::AttackPlayerObject(GameObject* _owner) :
 	UserInterfaceBase* yButton = new UserInterfaceBase(Vector3(400, -300, 0), "Assets/Image/UI/button_y.png", Vector3(0.3f, 0.3f, 0.3f), 1000);
 	tag = SubPlayerObject;
 
+	lButtonIcon = new   UserInterfaceBase(LeftIconPos + Vector3(0, 50, 0), "Assets/Image/UI/bumper1_l1.png", Vector3(0.3f, 0.3f, 0.3f), 550);
 	lButtonGuide = new   UserInterfaceBase(Vector3(-25, 50, 0), "Assets/Image/UI/bumper1_l1.png", Vector3(0.3f, 0.3f, 0.3f), 500);
 	lButtonGuide->SetState(State::Dead);
+	rButtonIcon = new   UserInterfaceBase(RightIconPos+Vector3(0,50,0), "Assets/Image/UI/bumper1_r1.png", Vector3(0.3f, 0.3f, 0.3f), 550);
 	rButtonGuide = new   UserInterfaceBase(Vector3(25, 50, 0), "Assets/Image/UI/bumper1_r1.png", Vector3(0.3f, 0.3f, 0.3f), 500);
 	rButtonGuide->SetState(State::Dead);
 	ColliderComponent* colliderPair = new ColliderComponent(this, 100, Vector3(30, 30, 30), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
@@ -170,7 +172,7 @@ ComboItemObjectBase* AttackPlayerObject::DropComboItem(const ComboItemName& _nam
 	}
 	if (_slot == 1)
 	{
-		leftIcon = new UserInterfaceBase(LeftIconPos, firstSlotAttack->GetComboIconFileName(),Vector3(1,1,1),100);
+		leftIcon = new UserInterfaceBase(LeftIconPos, firstSlotAttack->GetComboIconFileName(), Vector3(1, 1, 1), 100);
 		leftIcon->SetScale(0.5f);
 		new TakeItemEffectUI(LeftIconPos);
 	}
