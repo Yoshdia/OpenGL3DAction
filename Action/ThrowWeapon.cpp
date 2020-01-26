@@ -5,7 +5,7 @@
 #include "RotateComponent.h"
 
 ThrowWeapon::ThrowWeapon(const Vector3& _pos, const float& _direction, const int& _waitTime, const Tag& _tag) :
-	WeaponBase(_pos, _waitTime, 150, _direction, _tag, 1, Vector3(100, 30, 5),0.4f, "Assets/Model/Weapon/SK_Dual_Blade_Arrow.gpmesh", "Assets/Model/Weapon/SK_Dual_Blade_Arrow.gpskel"),
+	WeaponBase(_pos, _waitTime, 150, _direction, _tag, 1, Vector3(100, 4, 5),0.4f, "Assets/Model/Weapon/SK_Dual_Blade_Arrow.gpmesh", "Assets/Model/Weapon/SK_Dual_Blade_Arrow.gpskel"),
 	velocity(Vector3::Zero),
 	collided(false)
 {

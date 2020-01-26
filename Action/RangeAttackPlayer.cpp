@@ -5,8 +5,8 @@
 
 RangeAttackPlayer::RangeAttackPlayer()
 {
-	canNotActionTime = 30;
-	waitTimeForNextAttack = 80;
+	canNotActionTime = 20;
+	waitTimeForNextAttack = 40;
 }
 
 

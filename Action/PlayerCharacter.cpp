@@ -18,8 +18,8 @@
 #include "HaveLifeCountUI.h"
 
 const float PlayerCharacter::MoveSpeed = 450;
-const float PlayerCharacter::GravityPower = 1.2f;
-const float PlayerCharacter::JumpPower = 25.0f;
+const float PlayerCharacter::GravityPower = 0.7f;
+const float PlayerCharacter::JumpPower = 13.0f;
 const float PlayerCharacter::MoveFriction = 1.2f;
 const float PlayerCharacter::DownFriction = 1.05f;
 const float PlayerCharacter::HitPointUIWidth = 28.0f;
@@ -55,7 +55,9 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	avoidanceInterval(0),
 	candleHealingInterval(0),
 	inputUnderCount(0),
-	inputUnderDirection(0)
+	inputUnderDirection(0),
+	doubleJump(false),
+	doubleJumpInterval(0)
 {
 	tag = Tag::PlayerTag;
 	SetPosition(_pos);
@@ -73,7 +75,7 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 
 	for (int num = 0; num < HitPointMax; num++)
 	{
-		new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth*num, 0, 0), "Assets/Image/UI/HpCase.png", Vector3(0.4f, 0.4f, 0.4f),1000);
+		new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth*num, 0, 0), "Assets/Image/UI/HpCase.png", Vector3(0.4f, 0.4f, 0.4f), 1000);
 	}
 }
 
@@ -107,6 +109,18 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	if (noGround || (doSkeletonThinGround/*&& !noGround*/))
 	{
 		Gravity(_deltaTime);
+		if (doubleJumpInterval >= 20)
+		{
+			if (jumpBottonInput&& !doubleJump)
+			{
+				Jump();
+				doubleJump = true;
+			}
+		}
+		else
+		{
+			doubleJumpInterval++;
+		}
 		if (inputUnderDirection > 0)
 		{
 			doSkeletonThinGround = true;
@@ -276,7 +290,7 @@ void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 	{
 		if (candleHealingInterval < 0)
 		{
-			if (hitPoint< HitPointMax)
+			if (hitPoint < HitPointMax)
 			{
 				hitPoint++;
 			}
@@ -347,6 +361,8 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 		//’…’n‚µ‚Ä‚¢‚é‚©
 		if (!_noGround)
 		{
+			doubleJump = false;
+			doubleJumpInterval = 0;
 			if (jumpBottonInput)
 			{
 				Jump();
@@ -460,7 +476,9 @@ void PlayerCharacter::Jump()
 	}
 	if (velocity.y <= 0)
 	{
+		velocity.y = 0;
 		velocity.y += JumpPower;
+		doubleJumpInterval = 0;
 	}
 	else
 	{
@@ -527,10 +545,10 @@ void PlayerCharacter::DrawHitPointUI()
 {
 	if (hitPointUI.size() < hitPoint)
 	{
-		for (;  hitPointUI.size() < hitPoint;)
+		for (; hitPointUI.size() < hitPoint;)
 		{
-			hitPointUI.emplace_back(new UserInterfaceBase(HitPointUIPos +Vector3(HitPointUIWidth * hitPointUI.size(), 0, 0),
-				"Assets/Image/UI/HpGreen.png",Vector3(0.4f, 0.4f, 0.4f),900));
+			hitPointUI.emplace_back(new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth * hitPointUI.size(), 0, 0),
+				"Assets/Image/UI/HpGreen.png", Vector3(0.4f, 0.4f, 0.4f), 900));
 		}
 	}
 	else if (hitPointUI.size() > hitPoint)

@@ -111,6 +111,10 @@ private:
 	bool isFloating;
 	//ThinGroundオブジェクトに接触しているか
 	bool isThinGroundCollision;
+	//ジャンプ一段目から二段目までのカウント
+	int doubleJumpInterval;
+	//ダブルジャンプを行ったかどうか
+	bool doubleJump;
 
 	/*
 	@fn 重力
