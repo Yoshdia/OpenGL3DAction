@@ -5,7 +5,10 @@
 #include "Renderer.h"
 #include <string>
 
-
+/*
+@fn　アニメーションやモデルをロードする
+@param _type 敵の種類　ロードするモデルやロードするアニメーションが変わる
+*/
 AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType _type, int updateOrder) :
 	BoneAnimationBaseComponent(_owner, updateOrder),
 	animationName(EnemyAnimationName::Idle),
@@ -86,6 +89,9 @@ AnimationEnemyComponent::~AnimationEnemyComponent()
 {
 }
 
+/*
+@fn animationNameと各フラグを参照しどのアニメーションを再生するかを決定し再生する
+*/
 void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 {
 	switch (animationName)

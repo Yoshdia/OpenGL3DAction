@@ -4,29 +4,42 @@
 
 PhysicsWorld* PhysicsWorld::physicsWorld = nullptr;
 
+/*
+@fn PhysicsWorldシングルトンの生成
+*/
 void PhysicsWorld::CreateInstance()
 {
 	if (!physicsWorld)
 	{
 		physicsWorld = new PhysicsWorld();
-		physicsWorld->MakeNoCollisionPair();
 	}
 }
 
+/*
+@fn PhysicsWorldシングルトンの解放
+*/
 void PhysicsWorld::DeleteInstance()
 {
 	delete physicsWorld;
 	physicsWorld = nullptr;
 }
 
-void PhysicsWorld::AddCollider(ColliderComponent * collider)
+/*
+@fn 生成されたColliderComponentをcollidersへ追加
+@param _collider PhysicsWorldクラスに追加したいクラス
+*/
+void PhysicsWorld::AddCollider(ColliderComponent* _collider)
 {
-	colliders.emplace_back(collider);
+	colliders.emplace_back(_collider);
 }
 
-void PhysicsWorld::RemoveCollider(ColliderComponent * collider)
+/*
+　@fn 生成されているColliuderComponentをcollidersから削除
+ @param _collider PhysicsWorldクラスから解放したいクラス
+*/
+void PhysicsWorld::RemoveCollider(ColliderComponent* _collider)
 {
-	auto iter = std::find(colliders.begin(), colliders.end(), collider);
+	auto iter = std::find(colliders.begin(), colliders.end(), _collider);
 	if (iter != colliders.end())
 	{
 		std::iter_swap(iter, colliders.end() - 1);
@@ -34,37 +47,42 @@ void PhysicsWorld::RemoveCollider(ColliderComponent * collider)
 	}
 }
 
-void PhysicsWorld::Collision(ColliderComponent * collider)
+/*
+@fn 衝突判定
+@param _collider 衝突を行う、ColliderComponentから呼ばれる衝突関数
+*/
+void PhysicsWorld::Collision(ColliderComponent* _collider)
 {
-	//int obj1Id = collider->GetId();
 	for (auto collider2 : colliders)
 	{
-		if (collider2->GetState() == State::Dead)
-		{
-			continue;
-		}
-		//int obj2Id = collider2->GetId();
-		Tag obj1Tag = collider->GetObjectTag();
+		Tag obj1Tag = _collider->GetObjectTag();
 		Tag obj2Tag = collider2->GetObjectTag();
-		//if (obj1Id < obj2Id)
+		//オブジェクトごとの列挙型を比較し衝突の優先順位ごとに衝突を行う
 		if (obj1Tag < obj2Tag)
 		{
+			//衝突計算相手が無更新状態でないか
+			if (collider2->GetState() == State::Dead)
+			{
+				continue;
+			}
+			//衝突予定相手が衝突を行うか
 			if (!collider2->GetDoCollision())
 			{
 				continue;
 			}
 
+			//衝突したか
 			int hit = false;
-			AABB obj1(collider->GetPosition(), collider->GetCollisionSize());
+			
+			AABB obj1(_collider->GetPosition(), _collider->GetCollisionSize());
 			AABB obj2(collider2->GetPosition(), collider2->GetCollisionSize());
 
 			hit = Intersect(obj1, obj2);
 
-
-
-
+			//衝突していたら
 			if (hit > 0)
 			{
+				//カメラが衝突した相手でかつ前Fまで画面外ポーズだったオブジェクトを活動させる
 				if (obj1Tag == Tag::Camera)
 				{
 					collider2->SetCollidedCamera();
@@ -72,22 +90,22 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 					{
 						collider2->GetOwner()->SetState(State::Active);
 					}
-					//continue;
 				}
 
-				if (obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::GroundTag ||
-					obj1Tag == Tag::EnemyTag&&obj2Tag == Tag::GroundTag ||
-					obj1Tag == Tag::PlayerTag&&obj2Tag == Tag::ThinGroundFloor)
+				//プレイヤー、エネミーは地面とのめり込み補正を行いプレイヤーは薄床とめり込み補正を行う
+				if (obj1Tag == Tag::PlayerTag && obj2Tag == Tag::GroundTag ||
+					obj1Tag == Tag::EnemyTag && obj2Tag == Tag::GroundTag ||
+					obj1Tag == Tag::PlayerTag && obj2Tag == Tag::ThinGroundFloor)
 				{
-					collider->GetOwner()->FixCollision(obj1, obj2, obj2Tag);
+					_collider->GetOwner()->FixCollision(obj1, obj2, obj2Tag);
 				}
 				else if (obj1Tag == Tag::GroundTag && obj2Tag == Tag::ParticleEffectTag)
 				{
 					collider2->GetOwner()->FixCollision(obj1, obj2, obj2Tag);
 				}
 
-				collider->OnCollision(collider2);
-				collider2->OnCollision(collider);
+				_collider->OnCollision(collider2);
+				collider2->OnCollision(_collider);
 			}
 		}
 		else
@@ -98,82 +116,21 @@ void PhysicsWorld::Collision(ColliderComponent * collider)
 	}
 }
 
-void PhysicsWorld::MakeNoCollisionPair()
+/*
+@fn 衝突したことが確定したとき、めり込みを戻す関数
+@param _movableBox 移動物体
+@param _fixedBox 移動しない物体
+@param _calcFixVec 移動物体の補正差分ベクトル
+*/
+void calcCollisionFixVec(const AABB& _movableBox, const AABB& _fixedBox, Vector3& _calcFixVec)
 {
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::PlayerTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::PlayerWeaponTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::PlayerGuardWeaponTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::SubPlayerObject));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::EnemyTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerTag, Tag::ParticleEffectTag));
-
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::PlayerWeaponTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::PlayerGuardWeaponTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::SubPlayerObject));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::ComboItem));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::CandleStickTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::EnemyWeaponTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::ParticleEffectTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::ThinGroundFloor));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerWeaponTag, Tag::EnemyWeaponTag));
-
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::SubPlayerObject));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::PlayerGuardWeaponTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::EnemyTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::ParticleEffectTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::GroundTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::PlayerGuardWeaponTag, Tag::ThinGroundFloor));
-
-	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::PlayerGuardWeaponTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::SubPlayerObject));
-	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::CandleStickTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::EnemyTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::EnemyWeaponTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::ParticleEffectTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::ThinGroundFloor));
-	noCollisionPairs.push_back(std::make_pair(Tag::SubPlayerObject, Tag::GroundTag));
-
-	noCollisionPairs.push_back(std::make_pair(Tag::ComboItem, Tag::ComboItem));
-	noCollisionPairs.push_back(std::make_pair(Tag::ComboItem, Tag::CandleStickTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::ComboItem, Tag::EnemyTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::ComboItem, Tag::EnemyWeaponTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::ComboItem, Tag::ParticleEffectTag));
-
-	
-	noCollisionPairs.push_back(std::make_pair(Tag::CandleStickTag, Tag::CandleStickTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::CandleStickTag, Tag::EnemyTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::CandleStickTag, Tag::EnemyWeaponTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::CandleStickTag, Tag::ParticleEffectTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::CandleStickTag, Tag::ThinGroundFloor));
-	noCollisionPairs.push_back(std::make_pair(Tag::CandleStickTag, Tag::GroundTag));
-
-	noCollisionPairs.push_back(std::make_pair(Tag::EnemyTag, Tag::EnemyTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::EnemyTag, Tag::EnemyWeaponTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::EnemyTag, Tag::ParticleEffectTag));
-
-	noCollisionPairs.push_back(std::make_pair(Tag::EnemyWeaponTag, Tag::EnemyWeaponTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::EnemyWeaponTag, Tag::ParticleEffectTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::EnemyWeaponTag, Tag::ThinGroundFloor));
-	noCollisionPairs.push_back(std::make_pair(Tag::EnemyWeaponTag, Tag::GroundTag));
-
-	noCollisionPairs.push_back(std::make_pair(Tag::ParticleEffectTag, Tag::ParticleEffectTag));
-
-	noCollisionPairs.push_back(std::make_pair(Tag::GroundTag, Tag::GroundTag));
-	noCollisionPairs.push_back(std::make_pair(Tag::GroundTag, Tag::ThinGroundFloor));
-
-	noCollisionPairs.push_back(std::make_pair(Tag::ThinGroundFloor, Tag::ThinGroundFloor));
-}
-
-
-void calcCollisionFixVec(const AABB & movableBox, const AABB & fixedBox, Vector3 & calcFixVec)
-{
-	calcFixVec = Vector3(0, 0, 0);
-	float dx1 = fixedBox.min.x - movableBox.max.x;
-	float dx2 = fixedBox.max.x - movableBox.min.x;
-	float dy1 = fixedBox.min.y - movableBox.max.y;
-	float dy2 = fixedBox.max.y - movableBox.min.y;
-	float dz1 = fixedBox.min.z - movableBox.max.z;
-	float dz2 = fixedBox.max.z - movableBox.min.z;
+	_calcFixVec = Vector3(0, 0, 0);
+	float dx1 = _fixedBox.min.x - _movableBox.max.x;
+	float dx2 = _fixedBox.max.x - _movableBox.min.x;
+	float dy1 = _fixedBox.min.y - _movableBox.max.y;
+	float dy2 = _fixedBox.max.y - _movableBox.min.y;
+	float dz1 = _fixedBox.min.z - _movableBox.max.z;
+	float dz2 = _fixedBox.max.z - _movableBox.min.z;
 
 	// dx, dy, dz には それぞれ1,2のうち絶対値が小さい方をセットする
 	float dx = (Math::Abs(dx1) < Math::Abs(dx2)) ? dx1 : dx2;
@@ -183,15 +140,15 @@ void calcCollisionFixVec(const AABB & movableBox, const AABB & fixedBox, Vector3
 	// x, y, zのうち最も差が小さい軸で位置を調整
 	if (Math::Abs(dx) <= Math::Abs(dy) && Math::Abs(dx) <= Math::Abs(dz))
 	{
-		calcFixVec.x = dx;
+		_calcFixVec.x = dx;
 	}
 	else if (Math::Abs(dy) <= Math::Abs(dx) && Math::Abs(dy) <= Math::Abs(dz))
 	{
-		calcFixVec.y = dy;
+		_calcFixVec.y = dy;
 	}
 	else
 	{
-		calcFixVec.z = dz;
+		_calcFixVec.z = dz;
 	}
 
 }

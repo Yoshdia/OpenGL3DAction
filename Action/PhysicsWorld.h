@@ -13,43 +13,52 @@
 
 class ColliderComponent;
 
+/*
+@file PhysicsWorld.h
+@brief ColliderComponentを管理し衝突を行うクラス
+*/
 class PhysicsWorld
 {
 public:
 	static PhysicsWorld* GetInstance() { return physicsWorld; }
-	//PhysicsWorldシングルトンの生成と解放関数
+	/*
+	@fn PhysicsWorldシングルトンの生成
+	*/
 	static void CreateInstance();
+	/*
+	@fn PhysicsWorldシングルトンの解放
+	*/
 	static void DeleteInstance();
 
 	/*
-@fn 生成されたColliderComponentをcollidersへ追加
-*/
-	void AddCollider(ColliderComponent* collider);
+	@fn 生成されたColliderComponentをcollidersへ追加
+	@param _collider PhysicsWorldクラスに追加したいクラス
+	*/
+	void AddCollider(ColliderComponent* _collider);
 	/*
-   @fn 生成されているColliuderComponentをcollidersから削除
-  */
-	void RemoveCollider(ColliderComponent* collider);
+   　@fn 生成されているColliuderComponentをcollidersから削除
+	@param _collider PhysicsWorldクラスから解放したいクラス
+  　*/
+	void RemoveCollider(ColliderComponent* _collider);
 	/*
 	@fn 衝突判定
+	@param _collider 衝突を行う、ColliderComponentから呼ばれる衝突関数
 	*/
-	void Collision(ColliderComponent * collider);
+	void Collision(ColliderComponent * _collider);
 
 private:
 	PhysicsWorld() {};
 	~PhysicsWorld() {};
 	static PhysicsWorld* physicsWorld;
-	
 
-	void MakeNoCollisionPair();
 	//生成されたColliderComponent全てのアドレスを記憶
 	std::vector<ColliderComponent*> colliders;
-	std::vector<std::pair<Tag, Tag>> noCollisionPairs;
 };
 
-////////////////////////////////////////////////////////////////////
-// 衝突したことが確定したとき、めり込みを戻す関数
-// in    movableBox 移動物体 (ex プレーヤー)
-// in    fixedBox   移動しない物体（ex ブロック）
-// inout calcFixVec 移動物体の補正差分ベクトル
-////////////////////////////////////////////////////////////////////
-void calcCollisionFixVec(const AABB& movableBox, const AABB& fixedBox, Vector3& calcFixVec);
+/*
+@fn 衝突したことが確定したとき、めり込みを戻す関数
+@param _movableBox 移動物体
+@param _fixedBox 移動しない物体
+@param _calcFixVec 移動物体の補正差分ベクトル
+*/
+void calcCollisionFixVec(const AABB& _movableBox, const AABB& _fixedBox, Vector3& _calcFixVec);

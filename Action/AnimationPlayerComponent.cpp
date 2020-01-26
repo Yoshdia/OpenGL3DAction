@@ -16,6 +16,9 @@
 #include "RangeAttackRoopAnimationClip.h"
 #include "AvoidancingPlayerAnimation.h"
 
+/*
+@fn アニメーションクラスの確保
+*/
 AnimationPlayerComponent::AnimationPlayerComponent(GameObject* _owner, int _updateOrder)
 	:Component(_owner, _updateOrder)
 {
@@ -43,6 +46,9 @@ AnimationPlayerComponent::AnimationPlayerComponent(GameObject* _owner, int _upda
 
 }
 
+/*
+@fn アニメーションクラスの解放
+*/
 AnimationPlayerComponent::~AnimationPlayerComponent()
 {
 	nowAnimation = nullptr;
@@ -60,14 +66,19 @@ AnimationPlayerComponent::~AnimationPlayerComponent()
 	delete dropping;
 }
 
+/*
+@fn nowAnimationを更新しながらnextAnimationを参照し変更を行う
+*/
 void AnimationPlayerComponent::Update(float _deltaTime)
 {
+	//アニメーションが終了していないなら再生する
 	if (nowAnimation != nullptr)
 	{
 		particleComponent->SetTextureID(nowAnimation->GetSprite()->GetTextureID());
 	}
 	nowAnimation->Animation();
 
+	//次に再生するアニメーションを設定
 	if (beforeAnimation != nextAnimation)
 	{
 		switch (nextAnimation)
@@ -86,6 +97,7 @@ void AnimationPlayerComponent::Update(float _deltaTime)
 		nowAnimation->ResetAnimation();
 	}
 
+	//攻撃アニメーションが終了したとき自動で攻撃ループのアニメーションへ移動する
 	if (nextAnimation == PlayerAnimationState::Attack)
 	{
 		if (nowAnimation->GetAnimationEnd())
@@ -94,6 +106,7 @@ void AnimationPlayerComponent::Update(float _deltaTime)
 			nextAnimation = PlayerAnimationState::AttackRoop;
 		}
 	}
+	//遠距離攻撃アニメーションが終了したとき自動で遠距離攻撃ループのアニメーションへ移動する
 	else if(nextAnimation == PlayerAnimationState::Range)
 	{
 		if (nowAnimation->GetAnimationEnd())
@@ -106,6 +119,9 @@ void AnimationPlayerComponent::Update(float _deltaTime)
 	beforeAnimation = nextAnimation;
 }
 
+/*
+@fn 次に再生するアニメーションを設定
+*/
 void AnimationPlayerComponent::SetAnimation(const PlayerAnimationState & _state)
 {
 	if ((beforeAnimation == PlayerAnimationState::AttackRoop&&_state==PlayerAnimationState::Attack)|| 
@@ -116,6 +132,9 @@ void AnimationPlayerComponent::SetAnimation(const PlayerAnimationState & _state)
 	nextAnimation = _state;
 }
 
+/*
+@fn パーティクルを反転するか
+*/
 void AnimationPlayerComponent::SetReverce(bool _flag)
 {
 	particleComponent->SetReverce(_flag);
