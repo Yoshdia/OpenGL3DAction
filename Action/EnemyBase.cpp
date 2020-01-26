@@ -61,7 +61,7 @@ void EnemyBase::OnTriggerEnter(ColliderComponent* _colliderPair)
 	if (_colliderPair->GetObjectTag() == Tag::PlayerWeaponTag)
 	{
 		int weaponPower = WeaponBase::SearchWeaponPower(_colliderPair->GetId());
-		printf("%d\n", weaponPower);
+		printf("WeaponPower :: %d \n", weaponPower);
 		Vector3 effectPos = (middlePos - _colliderPair->GetPosition()) / 2 + position;
 		//new DamageSquareEffect(Vector3(effectPos.x,position.y,position.z));
 		animComponent->SetStartFlash();

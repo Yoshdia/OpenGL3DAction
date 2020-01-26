@@ -34,7 +34,6 @@ void SpawnEventSystem::OnTriggerEnter(ColliderComponent * _pair)
 		trigger = true;
 		//ゲームオブジェクトの更新を止め演出をMageクラスに継いでもらう
 		pauzingEvent = PauzingEvent::SummonMageEvent;
-		printf("start!");
 	}
 }
 

@@ -173,7 +173,7 @@ bool InputSystem::Initialize()
 	}
 	if (SDL_IsGameController(0))
 	{
-		printf("%s", SDL_GameControllerMapping(controller));
+		printf("Controller :: %s \n", SDL_GameControllerMapping(controller));
 	}
 
 	// コントローライベントの無視（こちらからフレーム毎に状態を取得するため）
@@ -273,7 +273,7 @@ void InputSystem::Update()
 		state.Controller.lAxis.x = (float)state.Controller.axisValues[SDL_CONTROLLER_AXIS_LEFTX];
 		state.Controller.lAxis.y= (float)state.Controller.axisValues[SDL_CONTROLLER_AXIS_LEFTY];
 		
-		printf("%f\n", (float)state.Controller.axisValues[SDL_CONTROLLER_AXIS_LEFTX]);
+		//printf("%f\n", (float)state.Controller.axisValues[SDL_CONTROLLER_AXIS_LEFTX]);
 		//スティックの入力に最低値を設ける(定数以下はカット)
 		state.Controller.lAxis.x= (fabs(state.Controller.lAxis.x) < (float)7849) ? 0.0f : state.Controller.lAxis.x / maxInput;
 		state.Controller.lAxis.y= (fabs(state.Controller.lAxis.y) < (float)8689) ? 0.0f : state.Controller.lAxis.y / maxInput;

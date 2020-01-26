@@ -53,10 +53,10 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	hitPoint(HitPointMax),
 	avoidancing(false),
 	avoidanceInterval(0),
-	candleHealingInterval(0)
+	candleHealingInterval(0),
+	inputUnderCount(0),
+	inputUnderDirection(0)
 {
-	printf("%5f,%5f,%5f", position.x, position.y, position.z);
-
 	tag = Tag::PlayerTag;
 	SetPosition(_pos);
 	float scaleF = 60.0f;
@@ -280,7 +280,6 @@ void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 			{
 				hitPoint++;
 			}
-			printf("heal");
 			candleHealingInterval = 100;
 		}
 		return;

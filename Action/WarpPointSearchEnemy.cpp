@@ -20,7 +20,7 @@ void WarpPointSearchEnemy::UpdateGameObject(float _deltaTime)
 {
 	if (!searchedPoint)
 	{
-		printf("%f,%f\n", position.x, position.y);
+		printf("SearchingPosition :: %f , %f \n", position.x, position.y);
 		if (!footGroundChecker->GetNoTouchingFlag()||isGround)
 		{
 			isGround = true;
@@ -29,7 +29,7 @@ void WarpPointSearchEnemy::UpdateGameObject(float _deltaTime)
 			if (forwardGroundChecker->GetNoTouchingFlag()|| !forwardWallChecker->GetNoTouchingFlag())
 			{
 				searchedPoint = true;
-				printf("searched!\n");
+				printf("Searched Position! \n");
 			}
 		}
 		else
