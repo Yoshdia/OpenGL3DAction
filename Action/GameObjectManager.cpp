@@ -149,7 +149,7 @@ std::vector<GameObject*> GameObjectManager::FindGameObjects(Tag _tag)
 
 GameObjectManager::GameObjectManager()
 	: updatingGameObject(false),
-	nextScene(SceneName::PlayScene),
+	nextScene(SceneName::TitleScene),
 	beforeScene(SceneName::NoneScene)
 {
 }
@@ -165,12 +165,12 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::ChangeScene()
 {
-	std::function<void(SceneName)> func= std::bind(&GameObjectManager::SetScene, this, std::placeholders::_1);
+	std::function<void(SceneName)> func = std::bind(&GameObjectManager::SetScene, this, std::placeholders::_1);
 	switch (nextScene)
 	{
 	case(SceneName::TitleScene):
 		new TitleSceneObject(func);
-			break;
+		break;
 	case(SceneName::PlayScene):
 		new PlaySceneObject(func);
 		break;
