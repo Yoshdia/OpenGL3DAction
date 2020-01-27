@@ -14,12 +14,12 @@ const float LoiteringEnemyBase::SearchRange = 200;
 const float LoiteringEnemyBase::AttackRange = 75;
 const int LoiteringEnemyBase::AttackIntervalCount = 20;
 
-const float LoiteringEnemyBase::Gravity = 500.0f;
+const float LoiteringEnemyBase::Gravity = 550.0f;
 const float LoiteringEnemyBase::NockBackPower = 1075.0f;
 const float LoiteringEnemyBase::GroundCheckPos = 40;
 const int LoiteringEnemyBase::ActionChangeCountMax = 100;
 const Vector3 LoiteringEnemyBase::footPos = Vector3(0, -15, 0);
-const Vector3 LoiteringEnemyBase::TrackingRange = Vector3(1000, 1000, 1000);
+const Vector3 LoiteringEnemyBase::TrackingRange = Vector3(2000, 2000, 2000);
 const int LoiteringEnemyBase::TurnWaitCountMax = 2;
 const float LoiteringEnemyBase::ForwardDownY = -90;
 
@@ -52,8 +52,8 @@ LoiteringEnemyBase::LoiteringEnemyBase(Vector3 _pos, Vector3 _scale, EnemyType _
 void LoiteringEnemyBase::InstantiateLoiteringEnemyBase()
 {
 	footChecker = new SkeltonObjectChecker(this, footPos, Vector3(10, 10, 10), Tag::GroundTag);
-	forwardDownGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0), Vector3(1, 1, 1), Tag::GroundTag);
-	forwardGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
+	forwardDownGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0), Vector3(10, 10, 10), Tag::GroundTag);
+	forwardGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, 0, 0), Vector3(10, 10, 10), Tag::GroundTag);
 	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(searchRange / 2, 5, 0), Vector3(searchRange, 15, 1), Tag::PlayerTag);
 	trackingRange = new SkeltonObjectChecker(this, Vector3::Zero, TrackingRange, Tag::PlayerTag);
 }
@@ -256,13 +256,16 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 		{
 			//UŒ‚‘ÎÛ‚ÉÚ‹ß‚·‚é •‚—V‚Í‚Å‚«‚È‚¢‚½‚ßy•ûŒü‚É‚Í’ÇÕ‚µ‚È‚¢
 			SetPosition(Vector3::Lerp(position, Vector3(target.x, position.y, target.z), _deltaTime * approachSpeedRatio));
-
-
+			
 			animComponent->SetMove(true);
-
 		}
 		else
 		{
+			forwardDownGroundCheck->SetPosition(Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0)+position);
+			forwardDownGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0));
+			forwardGroundCheck->SetPosition(Vector3(GroundCheckPos * moveDirection, 0, 0)+position);
+			forwardGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, 0, 0));
+
 			animComponent->SetMove(false);
 		}
 			//UŒ‚‚ÌŽË’ö‹——£‚Ü‚ÅÚ‹ß‚µ‚½‚çƒAƒNƒVƒ‡ƒ“‚ð•ÏX‚·‚é
@@ -281,7 +284,10 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 			actionName = EnemyActions::approach;
 
 			animComponent->SetAttack(false);
+			if (teleportChargingTime<=0)
+			{
 			animComponent->SetMove(true);
+			}
 			//animComponent->SetSubDuration(0.02f);
 		}
 		else if (attackIntervalCount <= 0)

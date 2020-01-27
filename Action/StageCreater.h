@@ -23,5 +23,7 @@ private:
 	int sizeY;
 	float offset;
 	class GameEndEventSystem* endEvent;
+
+
 };
 

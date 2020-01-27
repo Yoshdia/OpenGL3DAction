@@ -9,6 +9,8 @@
 #include "InputSystem.h"
 #include "PauseScreen.h"
 
+#include "DebugBox.h"
+
 PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	SceneObjectBase(_SetSceneFunc),
 	player(nullptr),
