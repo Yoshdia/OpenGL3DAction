@@ -26,7 +26,7 @@ StageCreater::~StageCreater()
 bool StageCreater::OpenFile()
 {
 	// ステージデータ読み込み //MageOnry Stage2
-	if (!readTiledJson(mapData, "Assets/Config/Stage2.json", "Layer0"))
+	if (!readTiledJson(mapData, "Assets/Config/MageOnry.json", "Layer0"))
 	{
 		printf("mapData読み込み失敗\n");
 		return true;

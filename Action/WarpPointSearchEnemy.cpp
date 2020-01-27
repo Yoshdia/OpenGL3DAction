@@ -34,7 +34,7 @@ void WarpPointSearchEnemy::UpdateGameObject(float _deltaTime)
 		}
 		else
 		{
-			SetPosition(position+Vector3(0,- 1.0f*5,0));
+			SetPosition(position+Vector3(0,- 1.0f*4.0f,0));
 		}
 	}
 	else

@@ -51,7 +51,7 @@ LoiteringEnemyBase::LoiteringEnemyBase(Vector3 _pos, Vector3 _scale, EnemyType _
 
 void LoiteringEnemyBase::InstantiateLoiteringEnemyBase()
 {
-	footChecker = new SkeltonObjectChecker(this, footPos, Vector3(1, 1, 1), Tag::GroundTag);
+	footChecker = new SkeltonObjectChecker(this, footPos, Vector3(10, 10, 10), Tag::GroundTag);
 	forwardDownGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0), Vector3(1, 1, 1), Tag::GroundTag);
 	forwardGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
 	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(searchRange / 2, 5, 0), Vector3(searchRange, 15, 1), Tag::PlayerTag);
@@ -258,12 +258,6 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 			SetPosition(Vector3::Lerp(position, Vector3(target.x, position.y, target.z), _deltaTime * approachSpeedRatio));
 
 
-			//攻撃の射程距離まで接近したらアクションを変更する
-			if (playerDistance < attackRange)
-			{
-				actionName = EnemyActions::attack;
-				animComponent->SetMove(false);
-			}
 			animComponent->SetMove(true);
 
 		}
@@ -271,6 +265,12 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 		{
 			animComponent->SetMove(false);
 		}
+			//攻撃の射程距離まで接近したらアクションを変更する
+			if (playerDistance < attackRange)
+			{
+				actionName = EnemyActions::attack;
+				animComponent->SetMove(false);
+			}
 	}
 	else
 	{
