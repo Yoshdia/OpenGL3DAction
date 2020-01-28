@@ -18,7 +18,7 @@ const float LoiteringEnemyBase::Gravity = 550.0f;
 const float LoiteringEnemyBase::NockBackPower = 1075.0f;
 const float LoiteringEnemyBase::GroundCheckPos = 40;
 const int LoiteringEnemyBase::ActionChangeCountMax = 100;
-const Vector3 LoiteringEnemyBase::footPos = Vector3(0, -15, 0);
+const Vector3 LoiteringEnemyBase::footPos = Vector3(0, -3, 0);
 const Vector3 LoiteringEnemyBase::TrackingRange = Vector3(2000, 2000, 2000);
 const int LoiteringEnemyBase::TurnWaitCountMax = 2;
 const float LoiteringEnemyBase::ForwardDownY = -90;
@@ -53,8 +53,8 @@ void LoiteringEnemyBase::InstantiateLoiteringEnemyBase()
 {
 	footChecker = new SkeltonObjectChecker(this, footPos, Vector3(10, 10, 10), Tag::GroundTag);
 	forwardDownGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0), Vector3(10, 10, 10), Tag::GroundTag);
-	forwardGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, 0, 0), Vector3(10, 10, 10), Tag::GroundTag);
-	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(searchRange / 2, 5, 0), Vector3(searchRange, 15, 1), Tag::PlayerTag);
+	forwardGroundCheck = new SkeltonObjectChecker(this, Vector3(GroundCheckPos * moveDirection, -20, 0), Vector3(10, 10, 10), Tag::GroundTag);
+	findingPlayerCheck = new SkeltonObjectChecker(this, Vector3(searchRange / 1.5f, 5, 0), Vector3(searchRange, 15, 1), Tag::PlayerTag);
 	trackingRange = new SkeltonObjectChecker(this, Vector3::Zero, TrackingRange, Tag::PlayerTag);
 }
 
@@ -66,7 +66,7 @@ void LoiteringEnemyBase::SpawnSummoned(const Vector3& _pos, const int& _hitPoint
 {
 	SetPosition(_pos);
 	hitPoint = _hitPoint;
-	canNotActionTime = 200;
+	canNotActionTime = 100;
 	SetState(State::Active);
 	animComponent->SetSpawn(true);
 	animComponent->SetMove(false);
@@ -100,9 +100,14 @@ void LoiteringEnemyBase::UpdateLoiteringEnemyObject(float _deltaTime)
 {
 }
 
-void LoiteringEnemyBase::HitPlayerAttack(const Vector3& _pairPos,const int& _power)
+void LoiteringEnemyBase::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 {
-	hitPoint-=_power;
+	hitPoint -= _power;
+	if (!attackingState)
+	{
+		attackingState = true;
+		actionName == EnemyActions::approach;
+	}
 	//プレイヤーの攻撃の方向を計算しnockBackForceに計算
 	double distance = Math::Sqrt((_pairPos.x - position.x) * (_pairPos.x - position.x) + (_pairPos.y - position.y) * (_pairPos.y - position.y));
 	Vector3 force = Vector3::Normalize(Vector3((position.x - _pairPos.x), 0, (position.z - _pairPos.z)));
@@ -126,8 +131,6 @@ void LoiteringEnemyBase::NockBack(float _deltaTime)
 	//nockBackForceを半減
 	nockBackForce = nockBackForce / 2.0f;
 }
-
-
 
 void LoiteringEnemyBase::ActionChange()
 {
@@ -252,28 +255,28 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 			}
 		}
 		//進行方向に壁があるか||進行方向の足元に地面が無いか
-		if (!forwardDownGroundCheck->GetNoTouchingFlag() && forwardGroundCheck->GetNoTouchingFlag())
+		if (!forwardDownGroundCheck->GetNoTouchingFlag() && !forwardGroundCheck->GetNoTouchingFlag())
 		{
 			//攻撃対象に接近する 浮遊はできないためy方向には追跡しない
 			SetPosition(Vector3::Lerp(position, Vector3(target.x, position.y, target.z), _deltaTime * approachSpeedRatio));
-			
+
 			animComponent->SetMove(true);
 		}
 		else
 		{
-			forwardDownGroundCheck->SetPosition(Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0)+position);
-			forwardDownGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0));
-			forwardGroundCheck->SetPosition(Vector3(GroundCheckPos * moveDirection, 0, 0)+position);
-			forwardGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, 0, 0));
+			//forwardDownGroundCheck->SetPosition(Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0) + position);
+			//forwardDownGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0));
+			//forwardGroundCheck->SetPosition(Vector3(GroundCheckPos * moveDirection, 0, 0) + position);
+			//forwardGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, 0, 0));
 
 			animComponent->SetMove(false);
 		}
-			//攻撃の射程距離まで接近したらアクションを変更する
-			if (playerDistance < attackRange)
-			{
-				actionName = EnemyActions::attack;
-				animComponent->SetMove(false);
-			}
+		//攻撃の射程距離まで接近したらアクションを変更する
+		if (playerDistance < attackRange)
+		{
+			actionName = EnemyActions::attack;
+			animComponent->SetMove(false);
+		}
 	}
 	else
 	{
@@ -284,9 +287,9 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 			actionName = EnemyActions::approach;
 
 			animComponent->SetAttack(false);
-			if (teleportChargingTime<=0)
+			if (teleportChargingTime <= 0)
 			{
-			animComponent->SetMove(true);
+				animComponent->SetMove(true);
 			}
 			//animComponent->SetSubDuration(0.02f);
 		}
