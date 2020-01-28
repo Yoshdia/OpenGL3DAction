@@ -604,7 +604,9 @@
       <Filter>GameObjects\UI</Filter>
     </ClInclude>
     <ClInclude Include="Game.h" />
-    <ClInclude Include="CandleFireObject.h" />
+    <ClInclude Include="CandleFireObject.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
