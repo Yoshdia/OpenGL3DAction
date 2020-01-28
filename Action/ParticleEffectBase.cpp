@@ -2,7 +2,7 @@
 #include "Renderer.h"
 #include "Texture.h"
 
-ParticleEffectBase::ParticleEffectBase(const Vector3 & _pos, const Vector3 & _velocity,const int& _lifeCount, const std::string& _spriteFileName):
+ParticleEffectBase::ParticleEffectBase(const Vector3 & _pos, const Vector3 & _velocity,const int& _lifeCount, const std::string& _spriteFileName, const float& scale):
 	GameObject(),
 	lifeCount(_lifeCount),
 	velocity(_velocity)
@@ -11,7 +11,7 @@ ParticleEffectBase::ParticleEffectBase(const Vector3 & _pos, const Vector3 & _ve
 	particleComponent = new ParticleComponent(this);
 	particleComponent->SetTextureID(RENDERER->GetTexture(_spriteFileName)->GetTextureID());
 	particleComponent->SetColor(Vector3(1.0f, 1.0f, 1.0f));
-	particleComponent->SetScale(10);
+	particleComponent->SetScale(scale);
 }
 
 ParticleEffectBase::~ParticleEffectBase()

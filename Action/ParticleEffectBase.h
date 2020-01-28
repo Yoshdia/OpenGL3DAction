@@ -7,7 +7,7 @@ class ParticleEffectBase :
 	public GameObject
 {
 public:
-	ParticleEffectBase(const Vector3& _pos,const Vector3& _velocity,const int& _lifeCount,const std::string& _spriteFileName);
+	ParticleEffectBase(const Vector3& _pos,const Vector3& _velocity,const int& _lifeCount,const std::string& _spriteFileName,const float& scale=10);
 	~ParticleEffectBase();
 
 	void UpdateGameObject(float _deltaTime)override;

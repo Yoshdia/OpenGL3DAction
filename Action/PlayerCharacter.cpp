@@ -294,6 +294,7 @@ void PlayerCharacter::OnTriggerStay(ColliderComponent* colliderPair)
 			if (hitPoint < HitPointMax)
 			{
 				hitPoint++;
+				new HeartParticleEffect(position, Vector3(0, 2.5, 0), false);
 			}
 			candleHealingInterval = 100;
 		}
@@ -515,9 +516,9 @@ void PlayerCharacter::HitAttack()
 {
 	invincibleCount = InvincibleCount;
 	invincible = true;
-	new HeartParticleEffect(position, Vector3(15, 2.5, 0));
-	new HeartParticleEffect(position, Vector3(-15, 2.5, 0));
-	new HeartParticleEffect(position, Vector3(5, 2.5, 0));
+	new HeartParticleEffect(position, Vector3(15, 2.5, 0),true);
+	new HeartParticleEffect(position, Vector3(-15, 2.5, 0),true);
+	new HeartParticleEffect(position, Vector3(5, 2.5, 0),true);
 	if (hitPoint <= 0)
 	{
 		isLive = false;

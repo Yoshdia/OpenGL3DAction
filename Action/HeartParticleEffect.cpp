@@ -2,8 +2,8 @@
 
 
 
-HeartParticleEffect::HeartParticleEffect(const Vector3& _pos, const Vector3& _velocity):
-	ParticleEffectBase(_pos,_velocity,30, "Assets/Image/BrokenHeart.png")
+HeartParticleEffect::HeartParticleEffect(const Vector3& _pos, const Vector3& _velocity, const bool& broken):
+	ParticleEffectBase(_pos,_velocity,30, broken==true?"Assets/Image/Effect/BrokenHeart.png":"Assets/Image/Effect/Heart.png",18)
 {
 }
 
