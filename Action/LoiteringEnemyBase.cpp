@@ -106,7 +106,7 @@ void LoiteringEnemyBase::HitPlayerAttack(const Vector3& _pairPos, const int& _po
 	if (!attackingState)
 	{
 		attackingState = true;
-		actionName == EnemyActions::approach;
+		actionName = EnemyActions::approach;
 	}
 	//プレイヤーの攻撃の方向を計算しnockBackForceに計算
 	double distance = Math::Sqrt((_pairPos.x - position.x) * (_pairPos.x - position.x) + (_pairPos.y - position.y) * (_pairPos.y - position.y));

@@ -7,7 +7,9 @@
 
 CandleStick::CandleStick(Vector3 _pos) :
 	GameObject(),
-	ignition(false)
+	ignition(false),
+	ignitionCount(0),
+	fireTextureNumberOne(false)
 {
 	SetPosition(_pos);
 	SetScale(10);
@@ -15,13 +17,14 @@ CandleStick::CandleStick(Vector3 _pos) :
 	collider = new ColliderComponent(this, 100, Vector3(1, 1, 1), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 
 	stickParticle = new ParticleComponent(this, 100);
-	fire = RENDERER->GetTexture("Assets/image/FireCandle.png");
-	Texture* noFire = RENDERER->GetTexture("Assets/image/CandleNoFire.png");
+	fire = RENDERER->GetTexture("Assets/image/Candle/FireCandle.png");
+	fire2 = RENDERER->GetTexture("Assets/image/Candle/FireCandle2.png");
+	Texture* noFire = RENDERER->GetTexture("Assets/image/Candle/CandleNoFire.png");
 	stickParticle->SetTextureID(noFire->GetTextureID());
 	stickParticle->SetScale(10);
 
 	lightParticle = new ParticleComponent(this, 70);
-	lightParticle->SetTextureID(RENDERER->GetTexture("Assets/Image/Candle.png")->GetTextureID());
+	lightParticle->SetTextureID(RENDERER->GetTexture("Assets/Image/Candle/Candle.png")->GetTextureID());
 	lightParticle->SetScale(30);
 	lightParticle->SetVisible(false);
 	lightParticle->SetAlpha(0.3f);
@@ -36,6 +39,21 @@ void CandleStick::UpdateGameObject(float _deltaTime)
 	if (ignition)
 	{
 		lightParticle->SetScale(30.0f + rand() % 2);
+		
+		ignitionCount++;
+		if (ignitionCount >= 30)
+		{
+			if (fireTextureNumberOne)
+			{
+				stickParticle->SetTextureID(fire->GetTextureID());
+				fireTextureNumberOne = false;
+			}
+			else
+			{
+				stickParticle->SetTextureID(fire2->GetTextureID());
+				fireTextureNumberOne = true;
+			}
+		}
 	}
 }
 
