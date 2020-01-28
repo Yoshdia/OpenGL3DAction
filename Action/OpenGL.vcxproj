@@ -162,6 +162,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="BoneAnimationBaseComponent.cpp" />
     <ClCompile Include="BoneTransform.cpp" />
     <ClCompile Include="CameraObject.cpp" />
+    <ClCompile Include="CandleFireObject.cpp" />
     <ClCompile Include="CandleStick.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -270,6 +271,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="BoneAnimationBaseComponent.h" />
     <ClInclude Include="BoneTransform.h" />
     <ClInclude Include="CameraObject.h" />
+    <ClInclude Include="CandleFireObject.h" />
     <ClInclude Include="CandleStick.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Collision.h" />

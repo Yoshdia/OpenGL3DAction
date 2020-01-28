@@ -300,6 +300,7 @@
       <Filter>GameObjects\UI</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="CandleFireObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -603,6 +604,7 @@
       <Filter>GameObjects\UI</Filter>
     </ClInclude>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="CandleFireObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

@@ -109,16 +109,16 @@ void StageCreater::CreateStage()
 				new TankEnemy(objectPos);
 				break;
 			case(12):
-				new ParticleObject(objectPos,"Assets/Image/GuideB.png");
+				new ParticleObject(objectPos,"Assets/Image/GuideB.png",160.0f);
 				break;
 			case(13):
-				new ParticleObject(objectPos,"Assets/Image/GuideL.png");
+				new ParticleObject(objectPos,"Assets/Image/GuideL.png", 160.0f);
 				break;
 			case(14):
-				new ParticleObject(objectPos,"Assets/Image/GuideA.png");
+				new ParticleObject(objectPos,"Assets/Image/GuideA.png", 160.0f);
 				break;
 			case(15):
-				new ParticleObject(objectPos,"Assets/Image/GuideXY.png");
+				new ParticleObject(objectPos,"Assets/Image/GuideXY.png", 160.0f);
 				break;
 			case(16):
 				new ComboItemObjectBase(objectPos, ComboItemName::RotateComboItem);

@@ -17,8 +17,6 @@ private:
 	class ParticleComponent* lightParticle;
 	bool ignition;
 
-	class Texture* fire2;
 	int ignitionCount;
-	bool fireTextureNumberOne;
 };
 
