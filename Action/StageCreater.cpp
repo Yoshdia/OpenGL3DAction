@@ -25,8 +25,8 @@ StageCreater::~StageCreater()
 
 bool StageCreater::OpenFile()
 {
-	// ステージデータ読み込み //MageOnry Stage2
-	if (!readTiledJson(mapData, "Assets/Config/Stage2.json", "Layer0"))
+	// ステージデータ読み込み //MageOnry Stage2 DebugArea
+	if (!readTiledJson(mapData, "Assets/Config/DebugArea.json", "Layer0"))
 	{
 		printf("mapData読み込み失敗\n");
 		return true;
@@ -109,25 +109,36 @@ void StageCreater::CreateStage()
 				new TankEnemy(objectPos);
 				break;
 			case(12):
-				new ParticleObject(objectPos,"Assets/Image/GuideB.png",160.0f);
+				new ParticleObject(objectPos,"Assets/Image/Tutorial/Move.png",160.0f);
 				break;
 			case(13):
-				new ParticleObject(objectPos,"Assets/Image/GuideL.png", 160.0f);
+				new ParticleObject(objectPos, "Assets/Image/Tutorial/Jump.png", 160.0f);
 				break;
 			case(14):
-				new ParticleObject(objectPos,"Assets/Image/GuideA.png", 160.0f);
+				new ParticleObject(objectPos, "Assets/Image/Tutorial/DoubleJump.png", 160.0f);
 				break;
 			case(15):
-				new ParticleObject(objectPos,"Assets/Image/GuideXY.png", 160.0f);
+				new ParticleObject(objectPos, "Assets/Image/Tutorial/Pass.png", 160.0f);
 				break;
 			case(16):
-				new ComboItemObjectBase(objectPos, ComboItemName::RotateComboItem);
+				new ParticleObject(objectPos, "Assets/Image/Tutorial/Rolling.png", 160.0f);
 				break;
 			case(17):
-				new ComboItemObjectBase(objectPos, ComboItemName::ThrowComboItem);
+				new ParticleObject(objectPos, "Assets/Image/Tutorial/Attack.png", 160.0f);
 				break;
 			case(18):
+				new ParticleObject(objectPos, "Assets/Image/Tutorial/Heal.png", 160.0f);
+				break;
+			case(19):
+				new ComboItemObjectBase(objectPos, ComboItemName::RotateComboItem);
+				break;
+			case(20):
+				new ComboItemObjectBase(objectPos, ComboItemName::ThrowComboItem);
+				break;
+			case(21):
 				new ComboItemObjectBase(objectPos, ComboItemName::HammerComboItem);
+				break;
+			case(22):
 				break;
 			}
 		}

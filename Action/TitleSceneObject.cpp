@@ -24,10 +24,9 @@ TitleSceneObject::TitleSceneObject(std::function<void(SceneName)> _SetSceneFunc)
 	RENDERER->GetTexture("Assets/Image/Candle/Candle.png");
 	RENDERER->GetTexture("Assets/Image/Effect/BrokenHeart.png");
 	RENDERER->GetTexture("Assets/Image/Candle/CandleNoFire.png");
-	RENDERER->GetTexture("Assets/Image/Candle/FireCandle.png");
-	RENDERER->GetTexture("Assets/Image/MarauderBow.png");
-	RENDERER->GetTexture("Assets/Image/WarHammer.png");
-	RENDERER->GetTexture("Assets/Image/WoodenClub.png");
+	RENDERER->GetTexture("Assets/Image/Item/MarauderBow.png");
+	RENDERER->GetTexture("Assets/Image/Item/WarHammer.png");
+	RENDERER->GetTexture("Assets/Image/Item/WoodenClub.png");
 }
 
 TitleSceneObject::~TitleSceneObject()

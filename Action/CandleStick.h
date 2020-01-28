@@ -13,7 +13,6 @@ private:
 	void OnTriggerEnter(ColliderComponent* colliderPair) override;
 	class ColliderComponent* collider;
 	class ParticleComponent* stickParticle;
-	class Texture* fire;
 	class ParticleComponent* lightParticle;
 	bool ignition;
 

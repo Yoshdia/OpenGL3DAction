@@ -14,10 +14,9 @@ CandleStick::CandleStick(Vector3 _pos) :
 	SetPosition(_pos);
 	SetScale(10);
 	tag = Tag::CandleStickTag;
-	collider = new ColliderComponent(this, 100, Vector3(1, 1, 1), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
+	collider = new ColliderComponent(this, 100, Vector3(3, 3, 3), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 
 	stickParticle = new ParticleComponent(this, 100);
-	fire = RENDERER->GetTexture("Assets/image/Candle/FireCandle.png");
 	Texture* noFire = RENDERER->GetTexture("Assets/image/Candle/CandleNoFire.png");
 	stickParticle->SetTextureID(noFire->GetTextureID());
 	stickParticle->SetScale(10);
@@ -55,6 +54,5 @@ void CandleStick::OnTriggerEnter(ColliderComponent * colliderPair)
 		ignition = true;
 		collider->SetScale(Vector3(500, 500, 500));
 		lightParticle->SetVisible(true);
-		//stickParticle->SetTextureID(fire->GetTextureID());
 	}
 }
