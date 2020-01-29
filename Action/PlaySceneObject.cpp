@@ -3,7 +3,6 @@
 #include "StageCreater.h"
 
 #include "TestModel.h"
-#include "BackGroundObject.h"
 #include "PlayerCharacter.h"
 #include "GameEndEventSystem.h"
 #include "InputSystem.h"
@@ -26,13 +25,13 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
 	//new TestModel;
-	new BackGroundObject();
 	StageCreater* stageCreater = new StageCreater();
 
 	if (!stageCreater->OpenFile())
 	{
 		player = stageCreater->CreatePlayer();
 		stageCreater->CreateStage();
+		stageCreater->CreateBackGround();
 		endSystem = stageCreater->GetEvent();
 	}
 }

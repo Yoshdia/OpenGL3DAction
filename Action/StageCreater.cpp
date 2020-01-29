@@ -11,6 +11,7 @@
 #include "RainWeaponTutorialEnemy.h"
 #include "ParticleObject.h"
 #include "Ground.h"
+#include "BackGroundObject.h"
 
 StageCreater::StageCreater() :
 	GameObject()
@@ -34,6 +35,10 @@ bool StageCreater::OpenFile()
 	}
 	sizeX = mapData[0].size();
 	sizeY = mapData.size();
+	if (!readTiledJson(backData0, "Assets/Config/Stage.json", "BackGround0"))
+	{
+		printf("do'nt have Layer/BackGround0\n");
+	}
 	return false;
 }
 
@@ -47,6 +52,7 @@ PlayerCharacter* StageCreater::CreatePlayer()
 			if (mapData[(int)iy][(int)ix] == 1)
 			{
 				pos = Vector3(offset * ix, -offset * iy, 0);
+				new BackGroundObject(Vector3(offset * ix, -offset * iy, 0), Vector3(50, 50, 50), "blueFloor1");
 			}
 		}
 	}
@@ -110,7 +116,7 @@ void StageCreater::CreateStage()
 				new TankEnemy(objectPos);
 				break;
 			case(12):
-				new ParticleObject(objectPos,"Assets/Image/Tutorial/Move.png",160.0f);
+				new ParticleObject(objectPos, "Assets/Image/Tutorial/Move.png", 160.0f);
 				break;
 			case(13):
 				new ParticleObject(objectPos, "Assets/Image/Tutorial/Jump.png", 160.0f);
@@ -144,8 +150,29 @@ void StageCreater::CreateStage()
 			}
 		}
 	}
-	new SpawnEventSystem(magePos, gatePos,goalPos);
+	new SpawnEventSystem(magePos, gatePos, goalPos);
 
+}
+
+void StageCreater::CreateBackGround()
+{
+	if (!backData0.empty())
+	{
+		for (float iy = 0; iy < sizeY; iy++)
+		{
+			for (float ix = 0; ix < sizeX; ix++)
+			{
+				const unsigned int name = mapData[(int)iy][(int)ix];
+				Vector3 objectPos = Vector3(offset * ix, -offset * iy, 0);
+				switch (name)
+				{
+				case(2):
+					new BackGroundObject(objectPos, Vector3(50, 50, 50), "blueFloor1");
+					break; 
+				}
+			}
+		}
+	}
 }
 
 // Tiled形式のJsonファイルを読み込む

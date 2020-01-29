@@ -300,8 +300,12 @@
       <Filter>GameObjects\UI</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="CandleFireObject.cpp" />
-    <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="Ground.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CandleFireObject.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -608,7 +612,9 @@
     <ClInclude Include="CandleFireObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Ground.h" />
+    <ClInclude Include="Ground.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
