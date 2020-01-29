@@ -10,6 +10,7 @@
 #include "GameEndEventSystem.h"
 #include "RainWeaponTutorialEnemy.h"
 #include "ParticleObject.h"
+#include "Ground.h"
 
 StageCreater::StageCreater() :
 	GameObject()
@@ -25,8 +26,8 @@ StageCreater::~StageCreater()
 
 bool StageCreater::OpenFile()
 {
-	// ステージデータ読み込み //MageOnry Stage2 DebugArea
-	if (!readTiledJson(mapData, "Assets/Config/DebugArea.json", "Layer0"))
+	// ステージデータ読み込み //DebugArea Stage DebugArea
+	if (!readTiledJson(mapData, "Assets/Config/Stage.json", "Layer0"))
 	{
 		printf("mapData読み込み失敗\n");
 		return true;
@@ -65,16 +66,16 @@ void StageCreater::CreateStage()
 		{
 			const unsigned int name = mapData[(int)iy][(int)ix];
 			Vector3 objectPos = Vector3(offset * ix, -offset * iy, 0);
-
+			Vector3 objectSize = Vector3(50, 50, 50);
 			switch (name)
 			{
 			case(1):
 				break;
 			case(2):
-				new DebugBox(objectPos);
+				new Ground(objectPos, objectSize);
 				break;
 			case(3):
-				new DebugBox(objectPos + Vector3(0, 45, 0), Vector3(50, 5, 50), Tag::ThinGroundFloor);
+				new Ground(objectPos + Vector3(0, 45, 0), Vector3(50, 5, 50), Tag::ThinGroundFloor);
 				break;
 			case(4):
 				new CandleStick(objectPos);

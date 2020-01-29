@@ -184,6 +184,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="GameEndEventSystem.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="GuardPlayerAnimationClip.cpp" />
     <ClCompile Include="GuardPlayerComponent.cpp" />
     <ClCompile Include="HammerAttackPlayer.cpp" />
@@ -293,6 +294,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="GameEndEventSystem.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="GuardPlayerAnimationClip.h" />
     <ClInclude Include="GuardPlayerComponent.h" />
     <ClInclude Include="HammerAttackPlayer.h" />
