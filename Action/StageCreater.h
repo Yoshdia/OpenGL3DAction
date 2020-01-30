@@ -24,6 +24,7 @@ private:
 	int sizeY;
 
 	std::vector<std::vector<int>> backData0;
+	//std::vector<std::vector<int>> backData1;
 	float offset;
 	class GameEndEventSystem* endEvent;
 

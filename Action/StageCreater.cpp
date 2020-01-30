@@ -39,6 +39,10 @@ bool StageCreater::OpenFile()
 	{
 		printf("do'nt have Layer/BackGround0\n");
 	}
+	//if (!readTiledJson(backData1, "Assets/Config/Stage.json", "BackGround1"))
+	//{
+	//	printf("do'nt have Layer/BackGround0\n");
+	//}
 	return false;
 }
 
@@ -51,8 +55,9 @@ PlayerCharacter* StageCreater::CreatePlayer()
 		{
 			if (mapData[(int)iy][(int)ix] == 1)
 			{
+				ParticleObject* back = new ParticleObject(Vector3(4200,-4000, 500), "Assets/Image/BackScreen.png",8000 , 1000);
 				pos = Vector3(offset * ix, -offset * iy, 0);
-				new BackGroundObject(Vector3(offset * ix, -offset * iy, 0), Vector3(50, 50, 50), "blueFloor1");
+
 			}
 		}
 	}
@@ -71,8 +76,8 @@ void StageCreater::CreateStage()
 		for (float ix = 0; ix < sizeX; ix++)
 		{
 			const unsigned int name = mapData[(int)iy][(int)ix];
-			Vector3 objectPos = Vector3(offset * ix, -offset * iy, 0);
-			Vector3 objectSize = Vector3(50, 50, 50);
+			Vector3 objectPos = Vector3(offset * ix, -offset * iy, 50);
+			Vector3 objectSize = Vector3(50, 50, 100);
 			switch (name)
 			{
 			case(1):
@@ -81,7 +86,7 @@ void StageCreater::CreateStage()
 				new Ground(objectPos, objectSize);
 				break;
 			case(3):
-				new Ground(objectPos + Vector3(0, 45, 0), Vector3(50, 5, 50), Tag::ThinGroundFloor);
+				new Ground(objectPos + Vector3(0, 45, 0), Vector3(50, 5, 100), Tag::ThinGroundFloor);
 				break;
 			case(4):
 				new CandleStick(objectPos);
@@ -162,17 +167,39 @@ void StageCreater::CreateBackGround()
 		{
 			for (float ix = 0; ix < sizeX; ix++)
 			{
-				const unsigned int name = mapData[(int)iy][(int)ix];
+				const unsigned int name = backData0[(int)iy][(int)ix];
 				Vector3 objectPos = Vector3(offset * ix, -offset * iy, 0);
 				switch (name)
 				{
-				case(2):
+				case(31):
 					new BackGroundObject(objectPos, Vector3(50, 50, 50), "blueFloor1");
 					break; 
 				}
 			}
 		}
 	}
+	//if (!backData1.empty())
+	//{
+
+	//	for (float iy = 0; iy < sizeY; iy++)
+	//	{
+	//		for (float ix = 0; ix < sizeX; ix++)
+	//		{
+	//			const unsigned int name = backData1[(int)iy][(int)ix];
+	//			Vector3 objectPos = Vector3(offset * ix, -offset * iy, offset);
+	//			if (name != 0)
+	//			{
+	//				int i = 0;
+	//			}
+	//			switch (name)
+	//			{
+	//			case(32):
+	//				new BackGroundObject(objectPos, Vector3(50, 50, 50), "BlackFloor");
+	//				break;
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 // Tiled形式のJsonファイルを読み込む

@@ -7,6 +7,7 @@
 #include "GameEndEventSystem.h"
 #include "InputSystem.h"
 #include "PauseScreen.h"
+#include "ParticleObject.h"
 
 #include "DebugBox.h"
 
