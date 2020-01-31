@@ -23,6 +23,7 @@ MeleeEnemy::MeleeEnemy(Vector3 _pos) :
 	//attackRange = AttackRange;
 	//attackIntervalCountMax = AttackIntervalCount;
 	InstantiateLoiteringEnemyBase();
+	hitPoint = 4;
 }
 
 MeleeEnemy::~MeleeEnemy()
