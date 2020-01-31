@@ -55,7 +55,7 @@ PlayerCharacter* StageCreater::CreatePlayer()
 		{
 			if (mapData[(int)iy][(int)ix] == 1)
 			{
-				ParticleObject* back = new ParticleObject(Vector3(4200,-4000, 500), "Assets/Image/BackScreen.png",8000 , 1000);
+				//ParticleObject* back = new ParticleObject(Vector3(4200,-4000, 500), "Assets/Image/BackScreen.png",8000 , 1000);
 				pos = Vector3(offset * ix, -offset * iy, 0);
 
 			}
@@ -76,17 +76,17 @@ void StageCreater::CreateStage()
 		for (float ix = 0; ix < sizeX; ix++)
 		{
 			const unsigned int name = mapData[(int)iy][(int)ix];
-			Vector3 objectPos = Vector3(offset * ix, -offset * iy, 50);
+			Vector3 objectPos = Vector3(offset * ix, -offset * iy, 0);
 			Vector3 objectSize = Vector3(50, 50, 100);
 			switch (name)
 			{
 			case(1):
 				break;
 			case(2):
-				new Ground(objectPos, objectSize);
+				new Ground(objectPos+  Vector3(0, 0, 50), objectSize);
 				break;
 			case(3):
-				new Ground(objectPos + Vector3(0, 45, 0), Vector3(50, 5, 100), Tag::ThinGroundFloor);
+				new Ground(objectPos + Vector3(0, 45, 50), Vector3(50, 5, 100), Tag::ThinGroundFloor);
 				break;
 			case(4):
 				new CandleStick(objectPos);
