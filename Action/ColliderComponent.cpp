@@ -46,7 +46,8 @@ void ColliderComponent::OnCollision(ColliderComponent* colliderParter)
 	{
 		if (obj.first->GetId() == colliderParter->GetId())
 		{
-			obj.second = CollisionState::Stay;
+			state = CollisionState::Stay;
+			break;
 		}
 	}
 	//auto iter = hadCollision.find(colliderParter);
@@ -55,7 +56,7 @@ void ColliderComponent::OnCollision(ColliderComponent* colliderParter)
 	//	state = CollisionState::Stay;
 	//}
 	//Œ»F‚ÅÚG‚µ‚Ä‚¢‚éƒŠƒXƒg‚É‘}“ü
-	nowCollisions.emplace_back(std::make_pair(colliderParter, CollisionState::Enter));
+	nowCollisions.emplace_back(std::make_pair(colliderParter, state));
 	//isCollision.emplace(colliderParter, state);
 }
 

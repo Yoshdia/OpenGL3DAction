@@ -53,9 +53,9 @@ void PhysicsWorld::RemoveCollider(ColliderComponent* _collider)
 */
 void PhysicsWorld::Collision(ColliderComponent* _collider)
 {
+	Tag obj1Tag = _collider->GetObjectTag();
 	for (auto collider2 : colliders)
 	{
-		Tag obj1Tag = _collider->GetObjectTag();
 		Tag obj2Tag = collider2->GetObjectTag();
 		//オブジェクトごとの列挙型を比較し衝突の優先順位ごとに衝突を行う
 		if (obj1Tag < obj2Tag)
