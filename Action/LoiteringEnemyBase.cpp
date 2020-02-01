@@ -78,8 +78,8 @@ void LoiteringEnemyBase::SpawnSummoned(const Vector3& _pos, const int& _hitPoint
 	hitPoint = _hitPoint;
 	canNotActionTime = 100;
 	SetState(State::Active);
+	animComponent->AllFlagReset();
 	animComponent->SetSpawn(true);
-	animComponent->SetMove(false);
 	actionName = EnemyActions::approach;
 	attackingState = true;
 	animComponent->SetSubDuration(0.01f);

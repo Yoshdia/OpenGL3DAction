@@ -31,6 +31,7 @@ public:
 	*/
 	void UpdateAnimationComponent(float _deltaTime)override;
 
+	void AllFlagReset();
 private:
 	//ˆÚ“®
 	const Animation* moveAnim;

@@ -9,8 +9,8 @@
 #include "StraightMagicBullet.h"
 #include "FloatParticleEffect.h"
 
-const int MageEnemy::StanCount = 200;
-const int MageEnemy::ChargeCount = 200;
+const int MageEnemy::StanCount = 300;
+const int MageEnemy::ChargeCount = 50;
 const int MageEnemy::ShotInterval = 300;
 
 MageEnemy::MageEnemy(Vector3 _pos) :
@@ -165,6 +165,7 @@ void MageEnemy::AliveLoiteringEnemyCheck()
 		actionName = MageActionName::Stanning;
 		stanCount = StanCount;
 		animComponent->SetStan(true);
+		animComponent->SetSubDuration(0.005f);
 	}
 	else
 	{

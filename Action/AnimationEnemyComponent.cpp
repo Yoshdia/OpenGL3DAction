@@ -115,7 +115,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		if (stan)
 		{
 			animationName = EnemyAnimationName::Stan;
-			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.1f);
+			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.3f);
 		}
 		if (action)
 		{
@@ -179,7 +179,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		if (stan)
 		{
 			animationName = EnemyAnimationName::Stan;
-			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.1f);
+			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.3f);
 		}
 		break;
 	case(EnemyAnimationName::Spawn):
@@ -218,8 +218,22 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			animationName = EnemyAnimationName::Idle;
 			animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
 		}
+		if (stan)
+		{
+			animationName = EnemyAnimationName::Stan;
+			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.3f);
+		}
 	}
 	animDuration -= subAnimDuration;
 	//animDuration -= 0.0175f;
 
+}
+
+void AnimationEnemyComponent::AllFlagReset()
+{
+	move = false;
+	attack = false;
+	spawn = false;
+	stan = false;
+	action = false;
 }
