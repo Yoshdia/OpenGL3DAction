@@ -4,6 +4,8 @@
 #include "GameObject.h"
 #include <map>
 #include<functional>
+
+
 /*
  @file ColliderComponent名.h
  @fn 衝突機能を所有するオブジェクトに追加させるComponent
@@ -81,9 +83,11 @@ private:
 	// 当たり判定のサイズ(GameObjectのScaleとは異なる)
 	Vector3 size;
 	//現在Fで親Objectと接触している相手Objectと接触状態
-	std::map< ColliderComponent*, CollisionState> isCollision;
+	std::vector<std::pair<ColliderComponent* ,CollisionState>> nowCollisions;
+	//std::map< ColliderComponent*, CollisionState> isCollision;
 	//前Fで親Objectと接触していた相手Objectの識別子
-	std::map< ColliderComponent*, CollisionState> hadCollision;
+	std::vector<std::pair<ColliderComponent* ,CollisionState>> beforeCollisions;
+	//std::map< ColliderComponent*, CollisionState> hadCollision;
 
 public: //ゲッターセッター
 	/*

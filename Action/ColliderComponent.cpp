@@ -42,13 +42,21 @@ void ColliderComponent::OnCollision(ColliderComponent* colliderParter)
 {
 	CollisionState state = CollisionState::Enter;
 	//前Fで同じオブジェクトと接触していた場合StateをStayへ変更させる
-	auto iter = hadCollision.find(colliderParter);
-	if (iter != hadCollision.end())
+	for (auto obj : beforeCollisions)
 	{
-		state = CollisionState::Stay;
+		if (obj.first->GetId() == colliderParter->GetId())
+		{
+			obj.second = CollisionState::Stay;
+		}
 	}
+	//auto iter = hadCollision.find(colliderParter);
+	//if (iter != hadCollision.end())
+	//{
+	//	state = CollisionState::Stay;
+	//}
 	//現Fで接触しているリストに挿入
-	isCollision.emplace(colliderParter, state);
+	nowCollisions.emplace_back(std::make_pair(colliderParter, CollisionState::Enter));
+	//isCollision.emplace(colliderParter, state);
 }
 
 /*
@@ -59,9 +67,12 @@ void ColliderComponent::Update(float deltaTime)
 {
 	CollisionReaction(deltaTime);
 
-	hadCollision.clear();
-	hadCollision = isCollision;
-	isCollision.clear();
+	beforeCollisions.clear();
+	beforeCollisions = nowCollisions;
+	nowCollisions.clear();
+	//hadCollision.clear();
+	//hadCollision = isCollision;
+	//isCollision.clear();
 	//衝突を行うか
 	if (doCollision)
 	{
@@ -93,16 +104,16 @@ void ColliderComponent::Update(float deltaTime)
 void ColliderComponent::CollisionReaction(float deltaTime)
 {
 	//接触したオブジェクト達との接触状態をもとに親GameObjectのリアクション関数に接触相手のTagを渡す
-	for (auto iter : isCollision)
+	for (auto obj : nowCollisions)
 	{
-		switch (iter.second)
+		switch (obj.second)
 		{
 		case(CollisionState::Enter):
-			OnTriggerEnter(iter.first);
-			OnTriggerStay(iter.first);
+			OnTriggerEnter(obj.first);
+			OnTriggerStay(obj.first);
 			break;
 		case(CollisionState::Stay):
-			OnTriggerStay(iter.first);
+			OnTriggerStay(obj.first);
 
 			break;
 		}
