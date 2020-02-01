@@ -28,6 +28,7 @@ enum State
 */
 enum Tag
 {
+	DeleteZone=0,
 	Camera = 1,
 	SkeletalObjectTag=2,
 	PlayerTag = 3,

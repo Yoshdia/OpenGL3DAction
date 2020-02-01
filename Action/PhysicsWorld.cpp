@@ -73,7 +73,7 @@ void PhysicsWorld::Collision(ColliderComponent* _collider)
 
 			//衝突したか
 			int hit = false;
-			
+
 			AABB obj1(_collider->GetPosition(), _collider->GetCollisionSize());
 			AABB obj2(collider2->GetPosition(), collider2->GetCollisionSize());
 
@@ -82,6 +82,10 @@ void PhysicsWorld::Collision(ColliderComponent* _collider)
 			//衝突していたら
 			if (hit > 0)
 			{
+				if (obj1Tag == Tag::DeleteZone)
+				{
+					collider2->GetOwner()->SetState(State::Dead);
+				}
 				//カメラが衝突した相手でかつ前Fまで画面外ポーズだったオブジェクトを活動させる
 				if (obj1Tag == Tag::Camera)
 				{

@@ -1,14 +1,16 @@
 #include "MainCameraObject.h"
 #include "Renderer.h"
 #include "ColliderComponent.h"
+#include "DeleteArea.h"
 
 MainCameraObject::MainCameraObject() :
 	GameObject(true)
 {
 	SetPosition(Vector3::Zero);
 	tag = Tag::Camera;
-	ColliderComponent* comp = new ColliderComponent(this, 100, Vector3(1200, 1200, 800), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag,Vector3(0,0,400));
+	ColliderComponent* comp = new ColliderComponent(this, 100, Vector3(1200, 600, 800), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag,Vector3(0,0,400));
 	comp->SetCollidedCamera();
+	new DeleteArea(this);
 }
 
 
