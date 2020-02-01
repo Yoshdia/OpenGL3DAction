@@ -171,7 +171,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DamageSquareEffect.cpp" />
     <ClCompile Include="DebugBox.cpp" />
-    <ClCompile Include="DeleteArea.cpp" />
     <ClCompile Include="DoSubActionMagesChild.cpp" />
     <ClCompile Include="DoubleHammerCombo.cpp" />
     <ClCompile Include="DownPlayerAnimationClip.cpp" />
@@ -282,7 +281,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="Component.h" />
     <ClInclude Include="DamageSquareEffect.h" />
     <ClInclude Include="DebugBox.h" />
-    <ClInclude Include="DeleteArea.h" />
     <ClInclude Include="DoSubActionMagesChild.h" />
     <ClInclude Include="DoubleHammerCombo.h" />
     <ClInclude Include="DownPlayerAnimationClip.h" />

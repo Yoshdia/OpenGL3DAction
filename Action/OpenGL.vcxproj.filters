@@ -306,7 +306,6 @@
     <ClCompile Include="CandleFireObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="DeleteArea.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -616,7 +615,6 @@
     <ClInclude Include="Ground.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="DeleteArea.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

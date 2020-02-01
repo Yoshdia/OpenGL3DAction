@@ -60,6 +60,13 @@ void PhysicsWorld::Collision(ColliderComponent* _collider)
 		//オブジェクトごとの列挙型を比較し衝突の優先順位ごとに衝突を行う
 		if (obj1Tag < obj2Tag)
 		{
+			if (_collider->GetObjectTag() != Tag::Camera)
+			{
+				if (collider2->GetState() == State::Paused)
+				{
+					continue;
+				}
+			}
 			//衝突計算相手が無更新状態でないか
 			if (collider2->GetState() == State::Dead)
 			{
@@ -82,10 +89,6 @@ void PhysicsWorld::Collision(ColliderComponent* _collider)
 			//衝突していたら
 			if (hit > 0)
 			{
-				if (obj1Tag == Tag::DeleteZone)
-				{
-					collider2->GetOwner()->SetState(State::Dead);
-				}
 				//カメラが衝突した相手でかつ前Fまで画面外ポーズだったオブジェクトを活動させる
 				if (obj1Tag == Tag::Camera)
 				{
