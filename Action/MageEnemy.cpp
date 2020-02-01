@@ -62,6 +62,7 @@ void MageEnemy::PausingUpdateGameObject()
 		}
 		else if (directingCount >= 600)//530
 		{
+			//meleeEnemy->SetPosition(popLoiteringEnemyPosition);
 			pauzingEvent = PauzingEvent::NoneEvent;
 			actionName = MageActionName::FloatShot;
 			animComponent->SetSubDuration(0.017f);

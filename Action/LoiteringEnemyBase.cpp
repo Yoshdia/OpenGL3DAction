@@ -65,6 +65,16 @@ LoiteringEnemyBase::~LoiteringEnemyBase()
 void LoiteringEnemyBase::SpawnSummoned(const Vector3& _pos, const int& _hitPoint)
 {
 	SetPosition(_pos);
+	trackingRange->SetPosition(_pos);
+	trackingRange->SetState(State::Active);
+	footChecker->SetPosition(_pos);
+	footChecker->SetState(State::Active);
+	forwardDownGroundCheck->SetPosition(_pos);
+	forwardDownGroundCheck->SetState(State::Active);
+	forwardGroundCheck->SetPosition(_pos);
+	forwardGroundCheck->SetState(State::Active);
+	findingPlayerCheck->SetPosition(_pos);
+	findingPlayerCheck->SetState(State::Active);
 	hitPoint = _hitPoint;
 	canNotActionTime = 100;
 	SetState(State::Active);
