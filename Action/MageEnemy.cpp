@@ -186,7 +186,7 @@ void MageEnemy::HitPlayerAttack(const Vector3& _pairPos,const int& _power)
 	}
 	else
 	{
-
+		printf("Mages Guard HitPoint : %d \n",hitPoint);
 	}
 }
 
