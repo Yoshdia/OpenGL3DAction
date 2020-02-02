@@ -75,8 +75,9 @@ void LoiteringEnemyBase::SpawnSummoned(const Vector3& _pos, const int& _hitPoint
 	forwardGroundCheck->SetState(State::Active);
 	findingPlayerCheck->SetPosition(_pos);
 	findingPlayerCheck->SetState(State::Active);
+
 	hitPoint = _hitPoint;
-	canNotActionTime = 100;
+	canNotActionTime = 200;
 	SetState(State::Active);
 	animComponent->AllFlagReset();
 	animComponent->SetSpawn(true);

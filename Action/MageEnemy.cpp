@@ -10,8 +10,8 @@
 #include "FloatParticleEffect.h"
 
 const int MageEnemy::StanCount = 300;
-const int MageEnemy::ChargeCount = 50;
-const int MageEnemy::ShotInterval = 300;
+const int MageEnemy::ChargeCount = 10;
+const int MageEnemy::ShotInterval = 250;
 
 MageEnemy::MageEnemy(Vector3 _pos) :
 	EnemyBase(_pos, Vector3(0.8f, 0.8f, 0.8f), EnemyType::MageType),
