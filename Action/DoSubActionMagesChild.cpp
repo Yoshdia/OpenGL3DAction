@@ -16,8 +16,8 @@ DoSubActionMagesChild::DoSubActionMagesChild(GameObject* _owner) :
 {
 	owner = _owner;
 	footChcker = new SkeltonObjectChecker(this, Vector3(0, -5, 0), Vector3(8, 10, 1), Tag::GroundTag);
-	rightWallChecker = new SkeltonObjectChecker(this, Vector3(30, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
-	leftWallChecker = new SkeltonObjectChecker(this, Vector3(-30, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
+	rightWallChecker = new SkeltonObjectChecker(this, Vector3(40, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
+	leftWallChecker = new SkeltonObjectChecker(this, Vector3(-40, 0, 0), Vector3(1, 1, 1), Tag::GroundTag);
 }
 
 DoSubActionMagesChild::~DoSubActionMagesChild()
