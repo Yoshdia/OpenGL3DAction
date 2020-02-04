@@ -81,9 +81,9 @@ void LoiteringEnemyBase::SpawnSummoned(const Vector3& _pos, const int& _hitPoint
 	SetState(State::Active);
 	animComponent->AllFlagReset();
 	animComponent->SetSpawn(true);
+	animComponent->SetSubDuration(0.01f);
 	actionName = EnemyActions::approach;
 	attackingState = true;
-	animComponent->SetSubDuration(0.01f);
 	if (moveDirection == EnemyMoveDirection::right)
 	{
 		moveDirection = EnemyMoveDirection::left;
@@ -109,6 +109,11 @@ void LoiteringEnemyBase::UpdateEnemyObject(float _deltaTime)
 
 void LoiteringEnemyBase::UpdateLoiteringEnemyObject(float _deltaTime)
 {
+}
+
+void LoiteringEnemyBase::PausingUpdateGameObject()
+{
+	//animComponent->UpdateAnimationComponent(0.6f);
 }
 
 void LoiteringEnemyBase::HitPlayerAttack(const Vector3& _pairPos, const int& _power)

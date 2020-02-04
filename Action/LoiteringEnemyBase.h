@@ -17,6 +17,7 @@ private:
 	void DeadEvent()override;
 	void UpdateEnemyObject(float _deltaTime)override;
 	virtual void UpdateLoiteringEnemyObject(float _deltaTime);
+	void PausingUpdateGameObject();
 
 	//‘«Œ³‚ÌÀ•W
 	static const Vector3 footPos;
