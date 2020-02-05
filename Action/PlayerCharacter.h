@@ -153,6 +153,7 @@ private:
 	int hitPoint;
 	static const float HitPointUIWidth;
 	static const Vector3 HitPointUIPos;
+	static const float HitPointUISize;
 	void DrawHitPointUI();
 	std::vector<class UserInterfaceBase*> hitPointUI;
 	bool isLive;

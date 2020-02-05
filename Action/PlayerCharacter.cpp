@@ -22,7 +22,6 @@ const float PlayerCharacter::GravityPower = 0.7f;
 const float PlayerCharacter::JumpPower = 13.0f;
 const float PlayerCharacter::MoveFriction = 1.2f;
 const float PlayerCharacter::DownFriction = 1.05f;
-const float PlayerCharacter::HitPointUIWidth = 28.0f;
 
 const int PlayerCharacter::InvincibleCount = 20;
 const int PlayerCharacter::InputUnderCountMax = 20;
@@ -31,7 +30,9 @@ const int PlayerCharacter::AvoidanceInvincible = 30;
 const int PlayerCharacter::CandleHealingInterval = 200;
 const int PlayerCharacter::HitPointMax = 10;
 
-const Vector3 PlayerCharacter::HitPointUIPos = Vector3(-500, -300, 0);
+const Vector3 PlayerCharacter::HitPointUIPos = Vector3(-750, -400, 0);
+const float PlayerCharacter::HitPointUIWidth = 50.0f;
+const float PlayerCharacter::HitPointUISize = 0.6f;
 
 PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	GameObject(),
@@ -75,7 +76,7 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 
 	for (int num = 0; num < HitPointMax; num++)
 	{
-		new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth*num, 0, 0), "Assets/Image/UI/HpCase.png", Vector3(0.4f, 0.4f, 0.4f), 1000);
+		new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth*num, 0, 0), "Assets/Image/UI/HpCase.png", Vector3(HitPointUISize, HitPointUISize, HitPointUISize), 1000);
 	}
 	mainCamera->SetPosition(position+Vector3(0,0,300));
 }
@@ -181,12 +182,12 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	//float i = _keyState.Controller.GetLAxisVec().y;
 
 	//コントローラーが接続された場合操作をコントローラーに変更
-	if (InputSystem::GetConnectedController())
-	{
-		inputDirection = _keyState.Controller.GetLAxisVec().x;
-		inputUnderDirection = _keyState.Controller.GetLAxisVec().y >= 0.7f ? 1.0f : 0.0f;
-	}
-	else
+	//if (InputSystem::GetConnectedController())
+	//{
+	//	inputDirection = _keyState.Controller.GetLAxisVec().x;
+	//	inputUnderDirection = _keyState.Controller.GetLAxisVec().y >= 0.7f ? 1.0f : 0.0f;
+	//}
+	//else
 	{
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 		{
@@ -551,7 +552,7 @@ void PlayerCharacter::DrawHitPointUI()
 		for (; hitPointUI.size() < unsignedHitPoint;)
 		{
 			hitPointUI.emplace_back(new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth * hitPointUI.size(), 0, 0),
-				"Assets/Image/UI/HpGreen.png", Vector3(0.4f, 0.4f, 0.4f), 900));
+				"Assets/Image/UI/HpGreen.png", Vector3(HitPointUISize, HitPointUISize, HitPointUISize), 900));
 		}
 	}
 	else if (hitPointUI.size() > unsignedHitPoint)
@@ -563,7 +564,7 @@ void PlayerCharacter::DrawHitPointUI()
 				delete hitPointUI.back();
 				hitPointUI.pop_back();
 				new HaveLifeCountUI(HitPointUIPos + Vector3(HitPointUIWidth * hitPointUI.size(), 0, 0),
-					"Assets/Image/UI/HpGreen.png", 30, Vector3(0.4f, 0.4f, 0.4f), 900);
+					"Assets/Image/UI/HpGreen.png", 30, Vector3(HitPointUISize, HitPointUISize, HitPointUISize), 900);
 			}
 		}
 	}

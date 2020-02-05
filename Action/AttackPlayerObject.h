@@ -29,6 +29,8 @@ private:
 
 	static const Vector3 RightIconPos;
 	static const Vector3 LeftIconPos;
+	static const float IconSize;
+	static const float BottonSize;
 
 	bool inputLeftChange;
 	bool inputRightChange;

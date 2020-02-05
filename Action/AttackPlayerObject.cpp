@@ -7,8 +7,10 @@
 #include "UserInterfaceBase.h"
 #include "TakeItemEffectUI.h"
 
-const Vector3 AttackPlayerObject::LeftIconPos = Vector3(300, -300, 0);
-const Vector3 AttackPlayerObject::RightIconPos = Vector3(400, -300, 0);
+const Vector3 AttackPlayerObject::LeftIconPos = Vector3(300, -400, 0);
+const Vector3 AttackPlayerObject::RightIconPos = Vector3(500, -400, 0);
+const float AttackPlayerObject::IconSize =0.7f;
+const float AttackPlayerObject::BottonSize = 0.4f;
 
 AttackPlayerObject::AttackPlayerObject(GameObject* _owner) :
 	GameObject(),
@@ -19,21 +21,21 @@ AttackPlayerObject::AttackPlayerObject(GameObject* _owner) :
 {
 	firstSlotAttack = new RotateTripleWeaponCombo();
 	leftIcon = new UserInterfaceBase(LeftIconPos, firstSlotAttack->GetComboIconFileName());
-	leftIcon->SetScale(0.5f);
+	leftIcon->SetScale(IconSize);
 	secondSlotAttack = new ThrowWeaponCombo();
 	rightIcon = new UserInterfaceBase(RightIconPos, secondSlotAttack->GetComboIconFileName());
-	rightIcon->SetScale(0.5f);
+	rightIcon->SetScale(IconSize);
 
 
-	UserInterfaceBase* xButton = new UserInterfaceBase(Vector3(300, -300, 0), "Assets/Image/UI/button_x.png", Vector3(0.3f, 0.3f, 0.3f), 1000);
-	UserInterfaceBase* yButton = new UserInterfaceBase(Vector3(400, -300, 0), "Assets/Image/UI/button_y.png", Vector3(0.3f, 0.3f, 0.3f), 1000);
+	UserInterfaceBase* xButton = new UserInterfaceBase(LeftIconPos, "Assets/Image/UI/button_x.png", Vector3(BottonSize,BottonSize,BottonSize), 1000);
+	UserInterfaceBase* yButton = new UserInterfaceBase(RightIconPos, "Assets/Image/UI/button_y.png", Vector3(BottonSize,BottonSize,BottonSize), 1000);
 	tag = SubPlayerObject;
 
-	lButtonIcon = new   UserInterfaceBase(LeftIconPos + Vector3(0, 50, 0), "Assets/Image/UI/bumper1_l1.png", Vector3(0.3f, 0.3f, 0.3f), 550);
-	lButtonGuide = new   UserInterfaceBase(Vector3(-25, 50, 0), "Assets/Image/UI/bumper1_l1.png", Vector3(0.3f, 0.3f, 0.3f), 500);
+	lButtonIcon = new   UserInterfaceBase(LeftIconPos + Vector3(0, 50, 0), "Assets/Image/UI/bumper1_l1.png", Vector3(BottonSize, BottonSize, BottonSize), 550);
+	lButtonGuide = new   UserInterfaceBase(Vector3(-25, 50, 0), "Assets/Image/UI/bumper1_l1.png", Vector3(BottonSize, BottonSize, BottonSize), 500);
 	lButtonGuide->SetState(State::Dead);
-	rButtonIcon = new   UserInterfaceBase(RightIconPos+Vector3(0,50,0), "Assets/Image/UI/bumper1_r1.png", Vector3(0.3f, 0.3f, 0.3f), 550);
-	rButtonGuide = new   UserInterfaceBase(Vector3(25, 50, 0), "Assets/Image/UI/bumper1_r1.png", Vector3(0.3f, 0.3f, 0.3f), 500);
+	rButtonIcon = new   UserInterfaceBase(RightIconPos+Vector3(0,50,0), "Assets/Image/UI/bumper1_r1.png", Vector3(BottonSize, BottonSize, BottonSize), 550);
+	rButtonGuide = new   UserInterfaceBase(Vector3(25, 50, 0), "Assets/Image/UI/bumper1_r1.png", Vector3(BottonSize, BottonSize, BottonSize), 500);
 	rButtonGuide->SetState(State::Dead);
 	ColliderComponent* colliderPair = new ColliderComponent(this, 100, Vector3(30, 30, 30), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 }
@@ -172,14 +174,12 @@ ComboItemObjectBase* AttackPlayerObject::DropComboItem(const ComboItemName& _nam
 	}
 	if (_slot == 1)
 	{
-		leftIcon = new UserInterfaceBase(LeftIconPos, firstSlotAttack->GetComboIconFileName(), Vector3(1, 1, 1), 100);
-		leftIcon->SetScale(0.5f);
+		leftIcon = new UserInterfaceBase(LeftIconPos, firstSlotAttack->GetComboIconFileName(), Vector3(IconSize, IconSize, IconSize), 150);
 		new TakeItemEffectUI(LeftIconPos);
 	}
 	else
 	{
-		rightIcon = new UserInterfaceBase(RightIconPos, secondSlotAttack->GetComboIconFileName());
-		rightIcon->SetScale(0.5f);
+		rightIcon = new UserInterfaceBase(RightIconPos, secondSlotAttack->GetComboIconFileName(), Vector3(IconSize, IconSize, IconSize), 150);
 		new TakeItemEffectUI(RightIconPos);
 	}
 	return nullptr;
