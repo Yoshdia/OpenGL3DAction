@@ -271,7 +271,7 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 			}
 		}
 		//進行方向に壁があるか||進行方向の足元に地面が無いか
-		if (!forwardDownGroundCheck->GetNoTouchingFlag() && !forwardGroundCheck->GetNoTouchingFlag())
+		if (forwardDownGroundCheck->GetNoTouchingFlag() || !forwardGroundCheck->GetNoTouchingFlag())
 		{
 			//攻撃対象に接近する 浮遊はできないためy方向には追跡しない
 			SetPosition(Vector3::Lerp(position, Vector3(target.x, position.y, target.z), _deltaTime * approachSpeedRatio));

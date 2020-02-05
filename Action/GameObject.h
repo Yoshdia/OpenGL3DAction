@@ -181,7 +181,7 @@ public:
 	Vector3 GetUp() const { return Vector3::Transform(Vector3::UnitY, rotation); }
 
 	Tag GetTag() const { return tag; }
-
+		
 	int GetObjectId() { return myObjectId; };
 
 	bool GetReUseGameObject() { return reUseObject; }

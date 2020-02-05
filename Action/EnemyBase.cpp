@@ -28,6 +28,7 @@ EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale, EnemyType _type) :
 
 	animComponent = new AnimationEnemyComponent(this, _type);
 	animComponent->SetMove(true);
+	attackObject = nullptr;
 }
 
 EnemyBase::~EnemyBase()
@@ -71,6 +72,10 @@ void EnemyBase::OnTriggerEnter(ColliderComponent* _colliderPair)
 
 void EnemyBase::DeadCommonEvent()
 {
+	if (attackObject != nullptr)
+	{
+		attackObject->SetState(State::Dead);
+	}
 	SetState(Dead);
 	Vector3 effectPos = Vector3(position.x, position.y + 50, position.z);
 	new BombParticleEffect(effectPos, Vector3(10, 18, 0), true);
