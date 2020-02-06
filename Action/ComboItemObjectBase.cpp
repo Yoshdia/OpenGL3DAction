@@ -28,6 +28,9 @@ ComboItemObjectBase::ComboItemObjectBase(const Vector3 & _pos, const ComboItemNa
 	case(ComboItemName::HammerComboItem):
 		fileName = "Assets/Image/Item/WarHammer.png";
 		break;
+	case(ComboItemName::SlashSwordComboItem):
+		fileName = "Assets/Image/Item/SharpenedInfantrySword.png";
+		break;
 	}
 	par->SetTextureID(RENDERER->GetTexture(fileName)->GetTextureID());
 	noGround = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(5, 1, 5), Tag::GroundTag);

@@ -1,7 +1,4 @@
 #include "WeaponRotationAnimationPlayer.h"
-#include "MeshComponent.h"
-#include "Renderer.h"
-#include "ColliderComponent.h"
 #include "RotateComponent.h"
 
 WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& _pos, const float& _direction, const int& _waitCount, const int& _lifeCount, const int& _moveDistanceStage) :
@@ -16,17 +13,17 @@ WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& _pos
 	switch (_moveDistanceStage)
 	{
 	case(0):
-		addPosition.y -= 80;
-		addDistance.x += 100;
-		addDistance.y += 150;
+		addPosition.y += 70;
+		addDistance.x += 60;
+		addDistance.y -= 70;
 		break;
 	case(1):
-		addPosition.y += 80;
-		addDistance.x += 100;
-		addDistance.y -= 150;
+		addPosition.y -= 0;
+		addDistance.x += 120;
+		addDistance.y += 70;
 		break;
 	default:
-		addDistance.x += 300;
+		addDistance.x += 200;
 		break;
 	}
 
@@ -63,6 +60,7 @@ void WeaponRotationAnimationPlayer::Rotate()
 		if (rotateSpeed < 3)
 		{
 			rotateSpeedSub = 0.1f;
+			doCollision = false;
 		}
 		rotateSpeed -= rotateSpeedSub;
 	}

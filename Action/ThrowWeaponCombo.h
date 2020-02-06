@@ -1,7 +1,5 @@
 #pragma once
 #include "ComboMeanPlayerBase.h"
-#include "ComboItemObjectBase.h"
-#include <string>
 
 class ThrowWeaponCombo :
 	public ComboMeanPlayerBase

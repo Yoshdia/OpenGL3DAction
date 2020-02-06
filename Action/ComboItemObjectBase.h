@@ -8,6 +8,7 @@ enum ComboItemName
 	RotateComboItem=0,
 	ThrowComboItem=1,
 	HammerComboItem=2,
+	SlashSwordComboItem=3,
 };
 
 class ComboItemObjectBase :

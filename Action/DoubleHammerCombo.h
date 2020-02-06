@@ -1,6 +1,5 @@
 #pragma once
 #include "ComboMeanPlayerBase.h"
-#include "ComboItemObjectBase.h"
 
 class DoubleHammerCombo :
 	public ComboMeanPlayerBase

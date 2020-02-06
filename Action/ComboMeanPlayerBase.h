@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "ComboItemObjectBase.h"
 
 #include "AttackBase.h"
 #include <string>

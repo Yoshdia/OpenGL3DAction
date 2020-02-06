@@ -6,6 +6,7 @@
 #include "DoubleHammerCombo.h"
 #include "UserInterfaceBase.h"
 #include "TakeItemEffectUI.h"
+#include "TripleSlashSwordCombo.h"
 
 const Vector3 AttackPlayerObject::LeftIconPos = Vector3(300, -400, 0);
 const Vector3 AttackPlayerObject::RightIconPos = Vector3(500, -400, 0);
@@ -169,6 +170,17 @@ ComboItemObjectBase* AttackPlayerObject::DropComboItem(const ComboItemName& _nam
 		else
 		{
 			secondSlotAttack = new DoubleHammerCombo;
+		}
+		break;
+	case(ComboItemName::SlashSwordComboItem):
+		DeleteSlot(_slot);
+		if (_slot == 1)
+		{
+			firstSlotAttack = new TripleSlashSwordCombo;
+		}
+		else
+		{
+			secondSlotAttack = new TripleSlashSwordCombo;
 		}
 		break;
 	}

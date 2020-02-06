@@ -151,6 +151,9 @@ void StageCreater::CreateStage()
 				new ComboItemObjectBase(objectPos, ComboItemName::HammerComboItem);
 				break;
 			case(22):
+				new ComboItemObjectBase(objectPos, ComboItemName::SlashSwordComboItem);
+				break;
+			case(23):
 				break;
 			}
 		}
@@ -161,6 +164,8 @@ void StageCreater::CreateStage()
 
 void StageCreater::CreateBackGround()
 {
+	return;
+
 	if (!backData0.empty())
 	{
 		for (float iy = 0; iy < sizeY; iy++)

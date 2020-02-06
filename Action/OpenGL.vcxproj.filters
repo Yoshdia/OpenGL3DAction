@@ -306,6 +306,10 @@
     <ClCompile Include="CandleFireObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="SlashSwordWeapon.cpp" />
+    <ClCompile Include="SlashSwordAttackPlayer.cpp" />
+    <ClCompile Include="TripleSlashSwordCombo.cpp" />
+    <ClCompile Include="ShotSwordWeapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -615,6 +619,10 @@
     <ClInclude Include="Ground.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="SlashSwordWeapon.h" />
+    <ClInclude Include="SlashSwordAttackPlayer.h" />
+    <ClInclude Include="TripleSlashSwordCombo.h" />
+    <ClInclude Include="ShotSwordWeapon.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
