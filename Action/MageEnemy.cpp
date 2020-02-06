@@ -163,6 +163,7 @@ void MageEnemy::AliveLoiteringEnemyCheck()
 		subActionClass->StartDroppingDown();
 		barrier = false;
 		actionName = MageActionName::Stanning;
+		attackObject->SetState(State::Dead);
 		stanCount = StanCount;
 		animComponent->SetStan(true);
 		animComponent->SetSubDuration(0.005f);
