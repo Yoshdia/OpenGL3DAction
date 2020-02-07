@@ -84,6 +84,8 @@ private:
 	float animDuration;
 	//アニメーションの減少量
 	float subAnimDuration;
+
+	float actionAnimationSpeed;
 public:	//ゲッターセッター
 	/*
 	@fn アニメーションの残り時間を返す
@@ -108,7 +110,7 @@ public:	//ゲッターセッター
 	/*
 	@fn アニメーションフラグをセット
 	*/
-	void SetAction(bool _action) { action = _action; }
+	void SetAction(bool _action);
 	/*
 	@fn アニメーションフラグをセット
 	*/

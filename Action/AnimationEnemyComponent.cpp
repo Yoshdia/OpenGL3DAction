@@ -17,7 +17,8 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 	spawn(false),
 	animDuration(0),
 	action(false),
-	subAnimDuration(0.0001f)
+	subAnimDuration(0.0001f),
+	actionAnimationSpeed(0.3f)
 {
 	//メッシュ名以外にはgpskelの拡張指名をつけること
 	std::string meshName = "";
@@ -77,9 +78,11 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 		moveName = "Assets/Model/Shield/run.gpanim";
 		idleName = "Assets/Model/Shield/idle.gpanim";
 		attackName = "Assets/Model/Shield/defaultAttack.gpanim";
+
+		actionAnim = RENDERER->GetAnimation("Assets/Model/Shield/roar.gpanim");
+		actionAnimationSpeed = 1.5f;
 		break;
 	default:
-
 		break;
 	}
 	moveAnim = RENDERER->GetAnimation(moveName);
@@ -128,7 +131,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		if (action)
 		{
 			animationName = EnemyAnimationName::Action;
-			animDuration = mMeshComp->PlayAnimation(actionAnim, 0.5f);
+			animDuration = mMeshComp->PlayAnimation(actionAnim, actionAnimationSpeed);
 		}
 		if (animDuration < 0)
 		{
@@ -154,7 +157,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		if (action)
 		{
 			animationName = EnemyAnimationName::Action;
-			animDuration = mMeshComp->PlayAnimation(actionAnim, 0.5f);
+			animDuration = mMeshComp->PlayAnimation(actionAnim, actionAnimationSpeed);
 		}
 		if (animDuration <= 0)
 		{
@@ -196,7 +199,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			animationName = EnemyAnimationName::Idle;
 			if (actionAnim != nullptr)
 			{
-				animDuration = mMeshComp->PlayAnimation(actionAnim, 0.5f);
+				animDuration = mMeshComp->PlayAnimation(actionAnim, actionAnimationSpeed);
 			}
 			else
 			{
@@ -244,4 +247,11 @@ void AnimationEnemyComponent::AllFlagReset()
 	spawn = false;
 	stan = false;
 	action = false;
+}
+
+void AnimationEnemyComponent::SetAction(bool _action)
+{
+	action = _action; 
+	animDuration = mMeshComp->PlayAnimation(actionAnim, actionAnimationSpeed);
+
 }

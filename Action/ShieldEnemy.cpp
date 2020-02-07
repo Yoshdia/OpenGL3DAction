@@ -71,5 +71,8 @@ void ShieldEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 	else
 	{
 		new DamageSquareEffect(position + (Vector3(100 * (float)guardDirection, 80, 0)));
+		animComponent->SetAction(true);
+		animComponent->SetSubDuration(0.023f);
+		canNotActionTime = 60;
 	}
 }
