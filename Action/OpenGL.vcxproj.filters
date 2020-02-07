@@ -306,10 +306,18 @@
     <ClCompile Include="CandleFireObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="SlashSwordWeapon.cpp" />
-    <ClCompile Include="SlashSwordAttackPlayer.cpp" />
-    <ClCompile Include="TripleSlashSwordCombo.cpp" />
-    <ClCompile Include="ShotSwordWeapon.cpp" />
+    <ClCompile Include="ShotSwordWeapon.cpp">
+      <Filter>GameObjects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="SlashSwordAttackPlayer.cpp">
+      <Filter>PlayerAction\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="TripleSlashSwordCombo.cpp">
+      <Filter>PlayerAction\Combo</Filter>
+    </ClCompile>
+    <ClCompile Include="SlashSwordWeapon.cpp">
+      <Filter>GameObjects\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -619,10 +627,18 @@
     <ClInclude Include="Ground.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="SlashSwordWeapon.h" />
-    <ClInclude Include="SlashSwordAttackPlayer.h" />
-    <ClInclude Include="TripleSlashSwordCombo.h" />
-    <ClInclude Include="ShotSwordWeapon.h" />
+    <ClInclude Include="ShotSwordWeapon.h">
+      <Filter>GameObjects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="SlashSwordAttackPlayer.h">
+      <Filter>PlayerAction\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="TripleSlashSwordCombo.h">
+      <Filter>PlayerAction\Combo</Filter>
+    </ClInclude>
+    <ClInclude Include="SlashSwordWeapon.h">
+      <Filter>GameObjects\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

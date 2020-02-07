@@ -1,5 +1,6 @@
 #include "RainWeaponTutorialEnemy.h"
 #include "RainEnemyWeapon.h"
+#include "ColliderComponent.h"
 
 const int RainWeaponTutorialEnemy::Interval = 40;
 
@@ -7,6 +8,7 @@ RainWeaponTutorialEnemy::RainWeaponTutorialEnemy(const Vector3 & _pos)
 {
 	SetPosition(_pos);
 	interval = Interval;
+	ColliderComponent* collider = new ColliderComponent(this, 100, Vector3(1, 1, 1) ,myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 }
 
 RainWeaponTutorialEnemy::~RainWeaponTutorialEnemy()
