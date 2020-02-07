@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Renderer.h"
 #include "Texture.h"
 #include "Mesh.h"
 #include <algorithm>
@@ -92,7 +93,7 @@ bool Renderer::Initialize(float _screenWidth, float _screenHeight, bool _fullScr
 
 	//ウィンドウの作成
 
-	window = SDL_CreateWindow("OpenGL Game", 100, 100,
+	window = SDL_CreateWindow("OpenGL Game", 1, 1,
 		static_cast<int>(screenWidth), static_cast<int>(screenHeight), SDL_WINDOW_OPENGL);
 
 	if (_fullScreen)

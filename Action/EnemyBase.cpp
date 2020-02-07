@@ -78,18 +78,18 @@ void EnemyBase::DeadCommonEvent()
 	}
 	SetState(Dead);
 	Vector3 effectPos = Vector3(position.x, position.y + 50, position.z);
+	new BombParticleEffect(effectPos, Vector3(10, 20, 0), true);
+	new BombParticleEffect(effectPos, Vector3(-10, 20, 0), true);
 	new BombParticleEffect(effectPos, Vector3(10, 18, 0), true);
+	new BombParticleEffect(effectPos, Vector3(10, 14, 0), true);
+	new BombParticleEffect(effectPos, Vector3(10,11, 0), true);
+	new BombParticleEffect(effectPos, Vector3(10, 8, 0), true);
+	new BombParticleEffect(effectPos, Vector3(10, 5, 0), true);
 	new BombParticleEffect(effectPos, Vector3(-10, 18, 0), true);
-	new BombParticleEffect(effectPos, Vector3(10, 16, 0), true);
-	new BombParticleEffect(effectPos, Vector3(10, 12, 0), true);
-	new BombParticleEffect(effectPos, Vector3(10, 9, 0), true);
-	new BombParticleEffect(effectPos, Vector3(10, 6, 0), true);
-	new BombParticleEffect(effectPos, Vector3(10, 3, 0), true);
-	new BombParticleEffect(effectPos, Vector3(-10, 16, 0), true);
-	new BombParticleEffect(effectPos, Vector3(-10, 12, 0), true);
-	new BombParticleEffect(effectPos, Vector3(-10, 9, 0), true);
-	new BombParticleEffect(effectPos, Vector3(-10, 6, 0), true);
-	new BombParticleEffect(effectPos, Vector3(-10, 3, 0), true);
+	new BombParticleEffect(effectPos, Vector3(-10, 14, 0), true);
+	new BombParticleEffect(effectPos, Vector3(-10, 1, 0), true);
+	new BombParticleEffect(effectPos, Vector3(-10, 8, 0), true);
+	new BombParticleEffect(effectPos, Vector3(-10, 5, 0), true);
 	DeadEvent();
 }
 
