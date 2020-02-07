@@ -14,14 +14,6 @@
 MeleeEnemy::MeleeEnemy(Vector3 _pos) :
 	LoiteringEnemyBase(_pos,Vector3(0.5f, 0.5f, 0.5f))
 {
-	//hitPoint = HitPointMax;
-	//attackingTime = AttackingTime;
-	//hittingTime = HittingTime;
-	//walkSpeed = WalkSpeed;
-	//approachSpeedRatio = ApproachSpeedRatio;
-	//searchRange = SearchRange;
-	//attackRange = AttackRange;
-	//attackIntervalCountMax = AttackIntervalCount;
 	hitPoint = HitPointMax;
 	attackingTime = AttackingTime;
 	hittingTime = HittingTime;

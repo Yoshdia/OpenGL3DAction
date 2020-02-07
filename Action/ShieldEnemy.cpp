@@ -2,14 +2,14 @@
 #include "EnemyWeapon.h"
 #include "DamageSquareEffect.h"
 
-const int ShieldEnemy::HitPointMax = 2;
+const int ShieldEnemy::HitPointMax = 5;
 const float ShieldEnemy::AttackingTime = 300;
 const float ShieldEnemy::HittingTime = 10;
 const float ShieldEnemy::WalkSpeed = 80;
-const float ShieldEnemy::ApproachSpeedRatio = 0.3f;
+const float ShieldEnemy::ApproachSpeedRatio = 0.4f;
 const float ShieldEnemy::SearchRange = 200;
 const float ShieldEnemy::AttackRange = 50;
-const int ShieldEnemy::AttackIntervalCount = 20;
+const int ShieldEnemy::AttackIntervalCount = 30;
 
 ShieldEnemy::ShieldEnemy(const Vector3& _pos) :
 	LoiteringEnemyBase(_pos, Vector3(0.6f, 0.6f, 0.6f), EnemyType::ShieldType)
