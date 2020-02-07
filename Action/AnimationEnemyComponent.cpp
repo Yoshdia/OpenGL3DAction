@@ -70,6 +70,14 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 		actionAnim = RENDERER->GetAnimation("Assets/Model/Mage/summon.gpanim");
 		stanAnim = RENDERER->GetAnimation("Assets/Model/Mage/hitForward.gpanim");
 		break;
+	case EnemyType::ShieldType:
+		skeletalName = "Assets/Model/Shield/skeleton_swordsman.gpskel";
+
+		meshName = "Assets/Model/Shield/skeleton_swordsman";
+		moveName = "Assets/Model/Shield/run.gpanim";
+		idleName = "Assets/Model/Shield/idle.gpanim";
+		attackName = "Assets/Model/Shield/defaultAttack.gpanim";
+		break;
 	default:
 
 		break;

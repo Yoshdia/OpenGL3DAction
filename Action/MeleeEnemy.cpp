@@ -2,7 +2,7 @@
 #include "SkeltonObjectChecker.h"
 #include "EnemyWeapon.h"
 
- const int MeleeEnemy::HitPointMax=3;
+ const int MeleeEnemy::HitPointMax=5;
  const float MeleeEnemy::AttackingTime=200;
  const float MeleeEnemy::HittingTime=40;
  const float MeleeEnemy::WalkSpeed=125;
@@ -22,8 +22,15 @@ MeleeEnemy::MeleeEnemy(Vector3 _pos) :
 	//searchRange = SearchRange;
 	//attackRange = AttackRange;
 	//attackIntervalCountMax = AttackIntervalCount;
+	hitPoint = HitPointMax;
+	attackingTime = AttackingTime;
+	hittingTime = HittingTime;
+	walkSpeed = WalkSpeed;
+	approachSpeedRatio = ApproachSpeedRatio;
+	searchRange = SearchRange;
+	attackRange = AttackRange;
+	attackIntervalCount = AttackIntervalCount;
 	InstantiateLoiteringEnemyBase();
-	hitPoint = 4;
 }
 
 MeleeEnemy::~MeleeEnemy()

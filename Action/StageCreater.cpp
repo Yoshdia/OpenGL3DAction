@@ -12,6 +12,7 @@
 #include "ParticleObject.h"
 #include "Ground.h"
 #include "BackGroundObject.h"
+#include "ShieldEnemy.h"
 
 StageCreater::StageCreater() :
 	GameObject()
@@ -155,6 +156,7 @@ void StageCreater::CreateStage()
 				new ComboItemObjectBase(objectPos, ComboItemName::SlashSwordComboItem);
 				break;
 			case(23):
+				new ShieldEnemy(objectPos);
 				break;
 			}
 		}

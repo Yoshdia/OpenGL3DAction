@@ -13,6 +13,7 @@ enum EnemyType
 	RangeType,
 	TankType,
 	MageType,
+	ShieldType
 };
 
 class AnimationEnemyComponent :

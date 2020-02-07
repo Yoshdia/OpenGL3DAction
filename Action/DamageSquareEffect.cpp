@@ -3,7 +3,7 @@
 
 
 DamageSquareEffect::DamageSquareEffect(const Vector3 & _pos) :
-	ParticleEffectBase(_pos, Vector3(0, 0, 0), 30, "Assets/Image/damageSquare.png"),
+	ParticleEffectBase(_pos, Vector3(0, 0, 0), 30, "Assets/Image/Effect/damageSquare.png"),
 	particleScale(0.1f),
 	particleAlfa(1.0f)
 {

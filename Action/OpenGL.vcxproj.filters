@@ -318,6 +318,7 @@
     <ClCompile Include="SlashSwordWeapon.cpp">
       <Filter>GameObjects\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="ShieldEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -639,6 +640,7 @@
     <ClInclude Include="SlashSwordWeapon.h">
       <Filter>GameObjects\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="ShieldEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

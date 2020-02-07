@@ -26,10 +26,8 @@ private:
 	//エネミーに働く重力の力
 	static const float Gravity;
 
-	//このカウントが0以下でないと行動ができない。攻撃時や被弾時にカウントが増える
-	int canNotActionTime;
-	//実行中のアクション
-	EnemyActions actionName;
+
+
 	/*
 	@fn アクション変更
 	*/
@@ -85,8 +83,7 @@ private:
 	//攻撃対象を発見した後追跡する範囲。この範囲から対象が出ると追跡を止め歩行/棒立ちモードに変わる
 	SkeltonObjectChecker* trackingRange;
 	static const Vector3 TrackingRange;
-	//攻撃態勢かどうか。false=歩行/棒立ちの非戦闘状態
-	bool attackingState;
+
 	//テレポートまでの時間
 	int teleportChargingTime;
 
@@ -109,11 +106,19 @@ private:
 	static const float AttackRange;
 	static const int AttackIntervalCount;
 protected:
+
+	//このカウントが0以下でないと行動ができない。攻撃時や被弾時にカウントが増える
+	int canNotActionTime;
 	/*
 	@fn 初期化関数
 	@brief 派生クラスごとに変更が行われた定数を別クラスに反映させるために別個に用意
 	*/
 	void InstantiateLoiteringEnemyBase();
+
+	//攻撃態勢かどうか。false=歩行/棒立ちの非戦闘状態
+	bool attackingState;
+	//実行中のアクション
+	EnemyActions actionName;
 
 	//攻撃時間
 	int attackingTime;
