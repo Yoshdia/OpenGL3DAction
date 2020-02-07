@@ -49,6 +49,7 @@ enum PauzingEvent
 	SummonMageEvent,
 	DeadPlayerEvent,
 	PausingEvent,
+	GameOverEvent,
 	NoneEvent
 };
 

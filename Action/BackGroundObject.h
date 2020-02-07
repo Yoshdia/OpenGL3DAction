@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include <string>
+
 class BackGroundObject :
 	public GameObject
 {

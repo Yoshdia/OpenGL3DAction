@@ -14,7 +14,8 @@ public:
 	class PlayerCharacter* CreatePlayer();
 	void CreateStage();
 	void CreateBackGround();
-	class GameEndEventSystem* GetEvent() { return endEvent; }
+	//class GameEndEventSystem* GetEvent() { return endEvent; }
+	class GameObject* GetBossEnemy() {return bossEnemy;}
 private:
 	bool readTiledJson(std::vector<std::vector<int>>& mapData, const char* filename, const char* layerName);
 	int  findLayerIndex(rapidjson::GenericArray<false, rapidjson::Value>& layer, std::string& layerName);
@@ -26,7 +27,7 @@ private:
 	std::vector<std::vector<int>> backData0;
 	//std::vector<std::vector<int>> backData1;
 	float offset;
-	class GameEndEventSystem* endEvent;
+	class GameObject* bossEnemy;
 
 
 };

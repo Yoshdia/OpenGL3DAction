@@ -12,7 +12,21 @@ public:
 	void PausingUpdateGameObject()override;
 private:
 	class PlayerCharacter* player;
-	class GameEndEventSystem* endSystem;
+	//class GameEndEventSystem* endSystem;
+	 GameObject* bossEnemy;
 	class PauseScreen* pausingScreen;
+	void SceneChangeEvents();
+	bool EventWordObjectDelay();
+
+	static const Vector3 EventWordObjectPos;
+	static const Vector3 EventWordObjectSize;
+
+	bool gameClear;
+	bool gameOver;
+
+	int endingCount;
+	int endingDelay;
+	bool createdEventWordObject;
+	Vector3 endEffectPos;
 };
 

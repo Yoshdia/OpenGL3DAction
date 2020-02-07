@@ -28,7 +28,7 @@ const int PlayerCharacter::InputUnderCountMax = 20;
 const int PlayerCharacter::AvoidanceInterval = 40;
 const int PlayerCharacter::AvoidanceInvincible = 30;
 const int PlayerCharacter::CandleHealingInterval = 200;
-const int PlayerCharacter::HitPointMax = 10;
+const int PlayerCharacter::HitPointMax = 5;
 
 const Vector3 PlayerCharacter::HitPointUIPos = Vector3(-750, -400, 0);
 const float PlayerCharacter::HitPointUIWidth = 50.0f;
@@ -76,9 +76,9 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 
 	for (int num = 0; num < HitPointMax; num++)
 	{
-		new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth*num, 0, 0), "Assets/Image/UI/HpCase.png", Vector3(HitPointUISize, HitPointUISize, HitPointUISize), 1000);
+		new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth * num, 0, 0), "Assets/Image/UI/HpCase.png", Vector3(HitPointUISize, HitPointUISize, HitPointUISize), 1000);
 	}
-	mainCamera->SetPosition(position+Vector3(0,0,300));
+	mainCamera->SetPosition(position + Vector3(0, 0, 300));
 }
 
 PlayerCharacter::~PlayerCharacter()
@@ -113,7 +113,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		Gravity(_deltaTime);
 		if (doubleJumpInterval >= 20)
 		{
-			if (jumpBottonInput&& !doubleJump)
+			if (jumpBottonInput && !doubleJump)
 			{
 				Jump();
 				doubleJump = true;
@@ -246,7 +246,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	}
 }
 
-void PlayerCharacter::FixCollision(const AABB & myAABB, const AABB & pairAABB, const Tag & _pairTag)
+void PlayerCharacter::FixCollision(const AABB& myAABB, const AABB& pairAABB, const Tag& _pairTag)
 {
 	//浮上中でかつ薄い床にすでに接触している場合はめりこみ補正を行わない
 	if (_pairTag == Tag::ThinGroundFloor)
@@ -269,12 +269,16 @@ void PlayerCharacter::PausingUpdateGameObject()
 		SetPosition(position + velocity);
 		Friction(DownFriction);
 		animationComponent->SetAnimation(PlayerAnimationState::Down);
+		if (velocity.x >= -1 && velocity.x <= 1)
+		{
+			pauzingEvent = PauzingEvent::GameOverEvent;
+		}
 	}
 }
 
-bool PlayerCharacter::GetGameEnd()
+bool PlayerCharacter::GetGameOver()
 {
-	if (hitPoint < 0)
+	if (hitPoint <= 0)
 	{
 		return true;
 	}
@@ -342,7 +346,7 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 			if (!rangeAttack)
 			{
 				animationComponent->SetAnimation(PlayerAnimationState::Attack);
-				velocity.x += -0.6f*direction;
+				velocity.x += -0.6f * direction;
 			}
 			else
 			{
@@ -424,7 +428,7 @@ void PlayerCharacter::Move(float _deltaTime)
 {
 	if (inputDirection != 0)
 	{
-		if (animationComponent != nullptr&&velocity.y == 0)
+		if (animationComponent != nullptr && velocity.y == 0)
 		{
 			animationComponent->SetAnimation(PlayerAnimationState::Move);
 		}
@@ -463,7 +467,7 @@ void PlayerCharacter::SkeletonThinGround()
 		}
 	}
 	//下方向への入力がありその直後ニュートラルにする等の操作が入ったらすり抜けを実行
-	if (noInputForUnderDirection&&inputUnderDirection > 0)
+	if (noInputForUnderDirection && inputUnderDirection > 0)
 	{
 		inputUnderCount = 0;
 		noInputForUnderDirection = false;
@@ -517,9 +521,9 @@ void PlayerCharacter::HitAttack()
 {
 	invincibleCount = InvincibleCount;
 	invincible = true;
-	new HeartParticleEffect(position, Vector3(15, 2.5, 0),true);
-	new HeartParticleEffect(position, Vector3(-15, 2.5, 0),true);
-	new HeartParticleEffect(position, Vector3(5, 2.5, 0),true);
+	new HeartParticleEffect(position, Vector3(15, 2.5, 0), true);
+	new HeartParticleEffect(position, Vector3(-15, 2.5, 0), true);
+	new HeartParticleEffect(position, Vector3(5, 2.5, 0), true);
 	if (hitPoint <= 0)
 	{
 		isLive = false;

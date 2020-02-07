@@ -13,12 +13,13 @@
 #include "Ground.h"
 #include "BackGroundObject.h"
 #include "ShieldEnemy.h"
+#include "MageEnemy.h"
 
 StageCreater::StageCreater() :
 	GameObject()
 {
 	offset = 100.0f;
-	endEvent = nullptr;
+	bossEnemy = nullptr;
 }
 
 StageCreater::~StageCreater()
@@ -28,7 +29,7 @@ StageCreater::~StageCreater()
 
 bool StageCreater::OpenFile()
 {
-	// ステージデータ読み込み //DebugArea Stage DebugArea
+	// ステージデータ読み込み //DebugArea Stage 
 	if (!readTiledJson(mapData, "Assets/Config/DebugArea.json", "Layer0"))
 	{
 		printf("mapData読み込み失敗\n");
@@ -108,7 +109,7 @@ void StageCreater::CreateStage()
 				gateC++;
 				break;
 			case(7):
-				endEvent = new GameEndEventSystem(objectPos);
+				new GameEndEventSystem(objectPos);
 				break;
 			case(8):
 				new RainWeaponTutorialEnemy(objectPos);
@@ -161,8 +162,8 @@ void StageCreater::CreateStage()
 			}
 		}
 	}
-	new SpawnEventSystem(magePos, gatePos, goalPos);
-
+	SpawnEventSystem* spawn= new SpawnEventSystem(magePos, gatePos, goalPos);
+	bossEnemy = spawn->GetMageEnemy();
 }
 
 void StageCreater::CreateBackGround()

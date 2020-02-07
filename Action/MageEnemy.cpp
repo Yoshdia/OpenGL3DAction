@@ -163,7 +163,10 @@ void MageEnemy::AliveLoiteringEnemyCheck()
 		subActionClass->StartDroppingDown();
 		barrier = false;
 		actionName = MageActionName::Stanning;
+		if (attackObject != nullptr)
+		{
 		attackObject->SetState(State::Dead);
+		}
 		stanCount = StanCount;
 		animComponent->SetStan(true);
 		animComponent->SetSubDuration(0.005f);
@@ -196,7 +199,7 @@ void MageEnemy::Shot(const Vector3& target)
 	if (shotInterval <= 0)
 	{
 		shotInterval = ShotInterval;
-		new StraightMagicBullet(position, target, 100);
+		attackObject=new StraightMagicBullet(position, target, 100);
 		animComponent->SetAttack(true);
 	}
 	else

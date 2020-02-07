@@ -11,6 +11,7 @@ class SpawnEventSystem :
 public:
 	SpawnEventSystem(const Vector3& _pos, const Vector3& _wallPos,const Vector3& _goalPos);
 	~SpawnEventSystem();
+	class MageEnemy* GetMageEnemy() { return mageEnemy; }
 private:
 	/*
 	@brief プレイヤーの侵入を検知したときにフラグを建てる

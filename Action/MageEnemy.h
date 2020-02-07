@@ -17,6 +17,7 @@ public:
 	void SetAttackState(GameObject* _playerObject);
 
 	void SetGoalWall(GameObject* _wall) { goalWallObject = _wall; }
+
 private:
 	void UpdateEnemyObject(float _deltaTime)override;
 	GameObject* playerObject;
