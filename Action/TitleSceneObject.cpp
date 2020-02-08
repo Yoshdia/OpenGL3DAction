@@ -49,7 +49,7 @@ TitleSceneObject::TitleSceneObject(std::function<void(SceneName)> _SetSceneFunc)
 
 	Vector3 PressUiPos = Vector3(-100,-250,0);
 	new UserInterfaceBase(PressUiPos, "Assets/Image/UI/PressUi.png", Vector3(2.5f, 2.5f, 2.5f));
-	new UserInterfaceBase(PressUiPos+Vector3(250, 0, 0), "Assets/Image/UI/button_a.png", Vector3(1.1, 1.1, 1.1));
+	new UserInterfaceBase(PressUiPos+Vector3(250, 0, 0), "Assets/Image/UI/button_a.png", Vector3(1.1f, 1.1f, 1.1f));
 }
 
 TitleSceneObject::~TitleSceneObject()

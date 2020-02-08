@@ -11,7 +11,7 @@ public:
 	@param _lifeCount ¶‘¶ŠÔ
 	@param _waitTime ‘Ò‹@ŠÔ 
 	*/
-	SlashSwordWeapon(const Vector3& _pos, const int& _stage, const float& _direction, const int& _lifeCount, const int& _waitTime = 0);
+	SlashSwordWeapon(const Vector3& _pos, const float& _stage, const float& _direction, const int& _lifeCount, const int& _waitTime = 0);
 	~SlashSwordWeapon();
 private:
 	/*
@@ -19,9 +19,9 @@ private:
 */
 	void UpdateWeaponGameObject(float _deltaTime)override;
 	//‰ñ“]‘¬“x
-	int rotateSpeed;
+	float rotateSpeed;
 	//‰ñ“]Œü‚«
-	int rotateDirection;
+	float rotateDirection;
 	//ˆÚ“®—\’è’n“_
 	Vector3 targetPos;
 };

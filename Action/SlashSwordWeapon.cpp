@@ -8,14 +8,15 @@
 @param _lifeCount ê∂ë∂éûä‘
 @param _waitTime ë“ã@éûä‘
 */
-SlashSwordWeapon::SlashSwordWeapon(const Vector3& _pos, const int& _stage, const float& _direction, const int& _lifeCount, const int& _waitTime):
+SlashSwordWeapon::SlashSwordWeapon(const Vector3& _pos, const float& _stage, const float& _direction, const int& _lifeCount, const int& _waitTime):
 	WeaponBase(_pos, _waitTime, _lifeCount, _direction,
 		Tag::PlayerWeaponTag, 2, Vector3(160, 100, 100), 0.04f, "Assets/Model/Weapon/SK_Blade_BlackKnight.gpmesh", "Assets/Model/Weapon/SK_Blade_BlackKnight.gpskel"),
 	rotateSpeed(8.0f)
 {
 	Vector3 addDistance = Vector3(0, 0, 0);
 	rotateDirection = 1;
-	switch (_stage)
+	int stage = (int)_stage;
+	switch (stage)
 	{
 	case(1):
 		addDistance.x += 50;

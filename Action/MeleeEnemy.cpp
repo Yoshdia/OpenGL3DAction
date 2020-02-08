@@ -3,12 +3,12 @@
 #include "EnemyWeapon.h"
 
  const int MeleeEnemy::HitPointMax=5;
- const float MeleeEnemy::AttackingTime=200;
- const float MeleeEnemy::HittingTime=40;
- const float MeleeEnemy::WalkSpeed=125;
+ const float MeleeEnemy::AttackingTime=200.0f;
+ const float MeleeEnemy::HittingTime=40.0f;
+ const float MeleeEnemy::WalkSpeed=125.0f;
  const float MeleeEnemy::ApproachSpeedRatio=0.8f;
- const float MeleeEnemy::SearchRange=200;
- const float MeleeEnemy::AttackRange=50;
+ const float MeleeEnemy::SearchRange=200.0f;
+ const float MeleeEnemy::AttackRange=50.0f;
  const int MeleeEnemy::AttackIntervalCount=20;
 
  /*

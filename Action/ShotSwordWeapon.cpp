@@ -25,5 +25,5 @@ void ShotSwordWeapon::UpdateWeaponGameObject(float _deltaTime)
 {
 	rotateComponent->SetRotation(20, Vector3::UnitX);
 
-	SetPosition(position + (Vector3(35, 0, 0) * direction));
+	SetPosition(position + (Vector3(35.0f, 0, 0) * (float)direction));
 }
