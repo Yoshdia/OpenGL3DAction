@@ -6,6 +6,8 @@
 #include "PlaySceneObject.h"
 #include "TitleSceneObject.h"
 #include "ResultSceneObject.h"
+#include "LoadSceneObject.h"
+#include "BackGroundObject.h"
 
 GameObjectManager* GameObjectManager::manager = nullptr;
 
@@ -176,6 +178,9 @@ void GameObjectManager::ChangeScene()
 		break;
 	case(SceneName::ResultScene):
 		new ResultSceneObject(func);
+		break;
+	case(SceneName::LoadScene):
+		new LoadSceneObject(func);
 		break;
 	}
 }

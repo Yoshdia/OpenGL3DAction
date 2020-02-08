@@ -321,6 +321,12 @@
     <ClCompile Include="ShieldEnemy.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="LoadSceneObject.cpp">
+      <Filter>GameObjects\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="NoActionEnemyForLoad.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -643,6 +649,12 @@
       <Filter>GameObjects\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="ShieldEnemy.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadSceneObject.h">
+      <Filter>GameObjects\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="NoActionEnemyForLoad.h">
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

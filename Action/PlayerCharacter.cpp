@@ -78,7 +78,7 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	{
 		new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth * num, 0, 0), "Assets/Image/UI/HpCase.png", Vector3(HitPointUISize, HitPointUISize, HitPointUISize), 1000);
 	}
-	mainCamera->SetPosition(position + Vector3(0, 0, 300));
+	mainCamera->SetPosition(position + Vector3(0, 0, -300));
 }
 
 PlayerCharacter::~PlayerCharacter()
@@ -435,7 +435,7 @@ void PlayerCharacter::Move(float _deltaTime)
 		float speed = MoveSpeed;
 		if (avoidancing)
 		{
-			speed *= 1.3f;
+			speed *= 1.15f;
 		}
 		velocity.x = (speed * _deltaTime) * inputDirection;
 	}

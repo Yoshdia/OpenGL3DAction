@@ -16,7 +16,10 @@ BombParticleEffect::~BombParticleEffect()
 {
 }
 
-
+void BombParticleEffect::PausingUpdateGameObject()
+{
+	LifeCountDown();
+}
 
 void BombParticleEffect::OnTriggerEnter(ColliderComponent * colliderPair)
 {

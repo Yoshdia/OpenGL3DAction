@@ -11,7 +11,5 @@ public:
 
 	void UpdateGameObject(float deltaTime)override;
 private:
-	static int i;
-	int n;
 };
 

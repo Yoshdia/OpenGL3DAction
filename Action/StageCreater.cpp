@@ -30,7 +30,7 @@ StageCreater::~StageCreater()
 bool StageCreater::OpenFile()
 {
 	// ステージデータ読み込み //DebugArea Stage 
-	if (!readTiledJson(mapData, "Assets/Config/DebugArea.json", "Layer0"))
+	if (!readTiledJson(mapData, "Assets/Config/Stage.json", "Layer0"))
 	{
 		printf("mapData読み込み失敗\n");
 		return true;
@@ -57,8 +57,8 @@ PlayerCharacter* StageCreater::CreatePlayer()
 		{
 			if (mapData[(int)iy][(int)ix] == 1)
 			{
-				//ParticleObject* back = new ParticleObject(Vector3(4200,-4000, 500), "Assets/Image/BackScreen.png",8000 , 1000);
 				BackGroundObject* back = new BackGroundObject(Vector3(4200, 0, 500), Vector3(5000, 8000, 1), "Back");
+				//ParticleObject* back = new ParticleObject(Vector3(4200,-4000, 500), "Assets/Image/BackScreen.png",8000 , 1000);
 				pos = Vector3(offset * ix, -offset * iy, 0);
 
 			}
@@ -168,8 +168,6 @@ void StageCreater::CreateStage()
 
 void StageCreater::CreateBackGround()
 {
-	return;
-
 	if (!backData0.empty())
 	{
 		for (float iy = 0; iy < sizeY; iy++)

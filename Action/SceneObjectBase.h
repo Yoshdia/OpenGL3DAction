@@ -7,6 +7,7 @@ enum SceneName
 	TitleScene,
 	PlayScene,
 	ResultScene,
+	LoadScene,
 	NoneScene,
 };
 

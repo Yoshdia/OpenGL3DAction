@@ -1,22 +1,16 @@
 #include "BackGroundObject.h"
 #include "Renderer.h"
 #include "MeshComponent.h"
-#include "RotateComponent.h"
 #include "MainCameraObject.h"
-
-int BackGroundObject::i = 0;
+#include "ColliderComponent.h"
 
 BackGroundObject::BackGroundObject(const Vector3 & _pos, const Vector3 & _size, const std::string & _fileName)
 {
-	i++;
-	n = i;
 	SetPosition(_pos);
 	SetScale(_size);
 	MeshComponent* meshComponent = new MeshComponent(this);
 	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/Stage/" + _fileName + ".gpmesh"));
-	
-	RotateComponent* ro = new RotateComponent(this);
-	//ro->SetRotation(90, Vector3::UnitY);
+	ColliderComponent* col = new ColliderComponent(this, 100, Vector3(1, 1, 1), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 }
 
 BackGroundObject::~BackGroundObject()

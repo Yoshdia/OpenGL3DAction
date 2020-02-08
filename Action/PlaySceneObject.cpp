@@ -49,7 +49,6 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 		bossEnemy = stageCreater->GetBossEnemy();
 		endEffectPos = bossEnemy->GetPosition();
 	}
-
 }
 
 

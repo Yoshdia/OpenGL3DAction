@@ -8,7 +8,6 @@ public:
 	~TitleSceneObject();
 
 	void UpdateGameObject(float _deltaTime)override;
-private:
-	int t;
+	void GameObjectInput(const InputState& _keyState)override;
 };
 
