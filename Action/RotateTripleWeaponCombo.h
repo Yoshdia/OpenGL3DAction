@@ -1,6 +1,10 @@
 #pragma once
 #include "ComboMeanPlayerBase.h"
 
+/*
+@file RotateTripleWeaponCombo.h
+@brief ３度回転するメイスを飛ばすコンボ
+*/
 class RotateTripleWeaponCombo :
 	public ComboMeanPlayerBase
 {

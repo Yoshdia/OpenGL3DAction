@@ -26,13 +26,11 @@ public:
 	@detail AttackPlayerComponent内で管理されている、次の攻撃までの時間waitTimeForNextAttackがゼロになったときに呼ばれる。
 	*/
 	void ComboReset() { attackState = AttackState::NoAttack; }
-	/*
-	@return このコンボが遠距離攻撃かどうか。プレイヤーのアニメーションに違いが生まれるので指定が必要
-	*/
-	bool GetRangeFlag() { return range; }
 
+	/*
+	@fn このコンボを外した時に呼ばれる関数。基本的にアイテムを生成する
+	*/
 	virtual void DropMyItem(const Vector3& _pos) {};
-	virtual std::string GetComboIconFileName() { return "Assets/Image/16.png"; };
 protected:
 	/*
 	@enum コンボ状態
@@ -72,4 +70,14 @@ private:
 	@return 攻撃クラス
 	*/
 	virtual AttackBase* GetComboAttack(const AttackState& _attackState);
+
+public: //ゲッターセッター
+	/*
+	@return このコンボが遠距離攻撃かどうか。プレイヤーのアニメーションに違いが生まれるので指定が必要
+	*/
+	bool GetRangeFlag() { return range; }
+	/*
+	@return このコンボを取得したときにアイコンに表示させる画像へのアドレス
+	*/
+	virtual std::string GetComboIconFileName() { return "Assets/Image/16.png"; };
 };

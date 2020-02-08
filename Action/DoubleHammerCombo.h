@@ -1,6 +1,10 @@
 #pragma once
 #include "ComboMeanPlayerBase.h"
 
+/*
+@file DoubleHammerCombo.h
+@brief ハンマーで二度殴りつけるコンボ
+*/
 class DoubleHammerCombo :
 	public ComboMeanPlayerBase
 {

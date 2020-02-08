@@ -19,6 +19,13 @@ ComboMeanPlayerBase::~ComboMeanPlayerBase()
 	}
 }
 
+/*
+@fn AttackPlayerComponentから呼ばれる。攻撃を行う
+@param _pos 攻撃を行う座標
+@param _direction 攻撃を行う向き
+@param &_playerCanNotMoveTime 攻撃後プレイヤーの行動不可時間、硬直を所持する変数への参照
+@param &_waitTimeForNextAttack 攻撃後硬直から次の攻撃までの時間を所持する変数への参照
+*/
 void ComboMeanPlayerBase::Attack(const Vector3 & _pos, const float & _direction, float & _playerCanNotMoveTime, float & _waitTimeForNextAttack)
 {
 	//stateパターンを使用し入力時のコンボ状態によって攻撃を変更する
@@ -72,6 +79,11 @@ void ComboMeanPlayerBase::Attack(const Vector3 & _pos, const float & _direction,
 	}
 }
 
+/*
+@fn 継承先クラスで指定、識別子_attackStateをもとに攻撃する
+@param _attackState 現在のコンボを渡す
+@return 攻撃クラス
+*/
 AttackBase * ComboMeanPlayerBase::GetComboAttack(const AttackState & _attackState)
 {
 	return new AttackPlayerOnce();

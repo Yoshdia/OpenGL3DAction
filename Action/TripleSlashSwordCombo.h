@@ -1,5 +1,9 @@
 #pragma once
 #include "ComboMeanPlayerBase.h"
+/*
+@file TripleSlashSwordCombo.h
+@brief Œ•‚ğ‚R‰ñØ‚è‚Â‚¯‚éƒRƒ“ƒ{
+*/
 class TripleSlashSwordCombo :
 	public ComboMeanPlayerBase
 {

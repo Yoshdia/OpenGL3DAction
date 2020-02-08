@@ -1,5 +1,10 @@
 #pragma once
 #include "AttackBase.h"
+
+/*
+@file SlashSwordAttackPlayer.h
+@brief Œ•‚ÅØ‚è‚Â‚¯‚éUŒ‚
+*/
 class SlashSwordAttackPlayer :
 	public AttackBase
 {

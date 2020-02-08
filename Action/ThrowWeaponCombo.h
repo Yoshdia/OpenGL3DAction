@@ -1,6 +1,10 @@
 #pragma once
 #include "ComboMeanPlayerBase.h"
 
+/*
+@file ThrowWeaponCombo.h
+@brief –î‚Ì‚æ‚¤‚È•Ší‚ğ”ò‚Î‚·
+*/
 class ThrowWeaponCombo :
 	public ComboMeanPlayerBase
 {

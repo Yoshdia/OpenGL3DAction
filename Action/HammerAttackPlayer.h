@@ -1,6 +1,10 @@
 #pragma once
 #include "AttackBase.h"
 
+/*
+@file HammerAttackPlayer.h
+@brief ƒnƒ“ƒ}[‚ÅUŒ‚‚·‚é
+*/
 class HammerAttackPlayer :
 	public AttackBase
 {
