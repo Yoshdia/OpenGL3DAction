@@ -3,16 +3,23 @@
 
 class SkeltonObjectChecker;
 
+/*
+@file WarpPointSearchEnemy.h
+@brief LoiteringEnemyから呼ばれる、ワープ地点を検索するサブアクションクラス
+@sa LoiteringEnemyBase.h
+*/
 class WarpPointSearchEnemy :
 	public GameObject
 {
 public:
+	/*
+	@param _pos 座標
+	*/
 	WarpPointSearchEnemy(Vector3 _pos=Vector3(0,0,0));
 	~WarpPointSearchEnemy();
 
-	bool GetEndSearch() { return searchedPoint; };
 	void UpdateGameObject(float _deltaTime)override;
-	void SetFirstPosition(Vector3 _position, Vector3 _enemyPosition);
+
 private:
 	enum MoveDirection
 	{
@@ -28,5 +35,17 @@ private:
 	SkeltonObjectChecker* forwardGroundChecker;
 	//進行方向に壁があるか。あった場合そこに停止する
 	SkeltonObjectChecker* forwardWallChecker;
+public://ゲッターセッター
+	/*
+	@return 座標の検索が終了したか
+	*/
+	bool GetEndSearch() { return searchedPoint; };
+	/*
+	@fn 座標の検索を開始する
+	@brief 地面を検索した後に左右どちらかに進むか決定する
+	@param _position 検索開始地点
+	@param _enemyPosition このオブジェクトを使用しているエネミーの座標
+	*/
+	void SetFirstPosition(Vector3 _position, Vector3 _enemyPosition);
 };
 

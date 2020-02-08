@@ -12,7 +12,7 @@ class Component;
 struct InputState;
 class ColliderComponent;
 
-/**
+/*
 @brief	ゲームオブジェクトの状態
 */
 enum State
@@ -56,25 +56,25 @@ enum PauzingEvent
 class GameObject
 {
 public:
-	/**
+	/*
 	@param	ゲームクラスのポインタ
 	*/
 	GameObject(bool _reUseGameObject = false);
 	virtual ~GameObject();
 
-	/**
+	/*
 	@brief	フレーム毎の処理
 	@param	最後のフレームを完了するのに要した時間
 	*/
 	void Update(float _deltaTime);
 
-	/**
+	/*
 	@brief	アタッチされてるコンポーネントのアップデート
 	@param	最後のフレームを完了するのに要した時間
 	*/
 	void UpdateComponents(float _deltaTime);
 
-	/**
+	/*
 	@brief	ゲームオブジェクトのアップデート
 	@param	最後のフレームを完了するのに要した時間
 	*/
@@ -89,43 +89,43 @@ public:
 	void ProcessInput(const InputState& _keyState);
 	virtual void GameObjectInput(const InputState& _keyState);
 
-	/**
+	/*
 	@brief	コンポーネントを追加する
 	@param	追加するコンポーネントのポインタ
 	*/
 	void AddComponent(Component* _component);
 
-	/**
+	/*
 	@brief	コンポーネントを削除する
 	@param	削除するコンポーネントのポインタ
 	*/
 	void RemoveComponent(Component* _component);
 
-	/**
+	/*
 	@brief	Transformのワールド変換
 	*/
 	void ComputeWorldTransform();
 
-	/**
+	/*
 	@brief　オブジェクトのポジションを取得する
 	@return	position
 	*/
 	const Vector3& GetPosition() const { return position; }
 
-	/**
+	/*
 	@brief　オブジェクトのポジションを設定する
 	@param	position
 	*/
 	virtual void SetPosition(const Vector3& _pos) { position = _pos; recomputeWorldTransform = true; }
 	bool GetRecomputeWorldTransform() { return recomputeWorldTransform; }
 
-	/**
+	/*
 	@brief　オブジェクトのスケールを取得する
 	@return	scale
 	*/
 	Vector3 GetScaleFloat() const { return scale; }
 
-	/**
+	/*
 	@brief　オブジェクトのスケールを設定する
 	@param	scale
 	*/
@@ -133,49 +133,49 @@ public:
 	void SetScale(Vector3 _scale) { scale.x = _scale.x; scale.y = _scale.y; scale.z = _scale.z; recomputeWorldTransform = true; }
 
 	float GetScale() { return scale.x; }
-	/**
+	/*
 	@brief　オブジェクトのクォータニオンを取得する
 	@return	rotation（Quaternion型）
 	*/
 	const Quaternion& GetRotation() const { return rotation; }
 
-	/**
+	/*
 	@brief　オブジェクトのクォータニオンを設定する
 	@param	rotation（Quaternion型）
 	*/
 	virtual void SetRotation(const Quaternion& _qotation) { rotation = _qotation;  recomputeWorldTransform = true; }
 
-	/**
+	/*
 	@brief　オブジェクトの状態を取得する
 	@return	state
 	*/
 	State GetState() const { return state; }
 
-	/**
+	/*
 	@brief　オブジェクトの状態を設定する
 	@param	state
 	*/
 	virtual void SetState(State _state) { state = _state; }
 
-	/**
+	/*
 	@brief　オブジェクトのワールド行列を取得する
 	@return	worldTransform
 	*/
 	const Matrix4& GetWorldTransform() const { return worldTransform; }
 
-	/**
+	/*
 	@brief　オブジェクトの前方を表すベクトルを取得する
 	@param	forward(Vector3型)
 	*/
 	Vector3 GetForward() const { return Vector3::Transform(Vector3::UnitZ, rotation); }
 
-	/**
+	/*
 	@brief　オブジェクトの右を表すベクトルを取得する
 	@param	right(Vector3型)
 	*/
 	Vector3 GetRight() const { return Vector3::Transform(Vector3::UnitX, rotation); }
 
-	/**
+	/*
 	@brief　オブジェクトの上を表すベクトルを取得する
 	@param	up(Vector3型)
 	*/

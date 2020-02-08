@@ -13,6 +13,9 @@ const int MageEnemy::StanCount = 300;
 const int MageEnemy::ChargeCount = 10;
 const int MageEnemy::ShotInterval = 250;
 
+/*
+@param _pos 座標
+*/
 MageEnemy::MageEnemy(Vector3 _pos) :
 	EnemyBase(_pos, Vector3(0.8f, 0.8f, 0.8f), EnemyType::MageType),
 	attackState(false),
@@ -29,7 +32,6 @@ MageEnemy::MageEnemy(Vector3 _pos) :
 	goalWallObject = nullptr;
 	animComponent->SetMove(false);
 	moveDirection = EnemyMoveDirection::left;
-	//playerSearcher = new SkeltonObjectChecker(this, Vector3(0, 0, 0), Vector3(500, 500, 500), Tag::PlayerTag);
 	rotate->SetRotation(-90, Vector3::UnitY);
 	popLoiteringEnemyPosition = _pos + Vector3(0, -250, 0);
 	meleeEnemy = new MeleeEnemy(popLoiteringEnemyPosition);
@@ -44,6 +46,9 @@ MageEnemy::~MageEnemy()
 {
 }
 
+/*
+@brief ゲームオブジェクト停止中に更新、自身にカメラを向けアニメーションを再生、雑魚をPoPさせる
+*/
 void MageEnemy::PausingUpdateGameObject()
 {
 	if (pauzingEvent == PauzingEvent::SummonMageEvent)
@@ -74,6 +79,9 @@ void MageEnemy::PausingUpdateGameObject()
 	}
 }
 
+/*
+@brief 待機状態から戦闘状態に入る関数　初期化に
+*/
 void MageEnemy::SetAttackState(GameObject* _playerObject)
 {
 	playerObject = _playerObject;
@@ -82,6 +90,9 @@ void MageEnemy::SetAttackState(GameObject* _playerObject)
 	animComponent->SetSpawn(true);
 }
 
+/*
+@fn 状態(MageActionName)ごとのアクションを行う
+*/
 void MageEnemy::UpdateEnemyObject(float _deltaTime)
 {
 	//プレイヤーが射程距離内に入り攻撃態勢に入っているか
@@ -155,7 +166,9 @@ void MageEnemy::UpdateEnemyObject(float _deltaTime)
 		}
 	}
 }
-
+/*
+@fn 召喚した敵が生存しているか。していないときスタンする。
+*/
 void MageEnemy::AliveLoiteringEnemyCheck()
 {
 	if ((meleeEnemy->GetState() == State::Dead&&rangeEnemy->GetState() == State::Dead) && attackState)
@@ -176,12 +189,17 @@ void MageEnemy::AliveLoiteringEnemyCheck()
 		barrier = true;
 	}
 }
-
+/*
+@fn 撃破イベント
+*/
 void MageEnemy::DeadEvent()
 {
 	goalWallObject->SetState(State::Dead);
 }
 
+/*
+@fn 攻撃されたとき。召喚した敵が生存しているとき攻撃を喰らわない
+*/
 void MageEnemy::HitPlayerAttack(const Vector3& _pairPos,const int& _power)
 {
 	if (!barrier)
@@ -194,6 +212,10 @@ void MageEnemy::HitPlayerAttack(const Vector3& _pairPos,const int& _power)
 	}
 }
 
+/*
+@fn プレイヤーに向けて弾を発射する
+@param _target 目標座標
+*/
 void MageEnemy::Shot(const Vector3& target)
 {
 	if (shotInterval <= 0)

@@ -6,6 +6,9 @@
 #include "Texture.h"
 #include "CandleFireObject.h"
 
+/*
+@param _pos 座標
+*/
 CandleStick::CandleStick(Vector3 _pos) :
 	GameObject(),
 	ignition(false),
@@ -34,8 +37,12 @@ CandleStick::~CandleStick()
 {
 }
 
+/*
+@fn 一定間隔ごとに炎のCandleFireObjectクラスを生成する
+*/
 void CandleStick::UpdateGameObject(float _deltaTime)
 {
+	//火がともっているか
 	if (ignition)
 	{
 		lightParticle->SetScale(30.0f + rand() % 2);
@@ -49,6 +56,9 @@ void CandleStick::UpdateGameObject(float _deltaTime)
 	}
 }
 
+/*
+@fn プレイヤーと衝突したらフラグをp建てる
+*/
 void CandleStick::OnTriggerEnter(ColliderComponent * colliderPair)
 {
 	if (colliderPair->GetObjectTag() == Tag::PlayerTag && !ignition)

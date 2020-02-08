@@ -14,14 +14,32 @@ class PlayerCharacter :
 	public GameObject
 {
 public:
+	/*
+	@param _pos 座標
+	*/
 	PlayerCharacter(const Vector3& _pos);
 	~PlayerCharacter();
 
+	/*
+	@fn アクション状態ごとにアクションを行う
+	*/
 	void UpdateGameObject(float _deltaTime)override;
+	/*
+	@fn 入力を管理
+	*/
 	void GameObjectInput(const InputState& _keyState) override;
 
+	/*
+	@fn めり込み判定
+	*/
 	void FixCollision(const AABB & myAABB, const AABB & pairAABB, const Tag& _pairTag)override;
+	/*
+	@fn オブジェクト全体が停止している状態で、死亡していた時処理を行う
+	*/
 	void PausingUpdateGameObject();
+	/*
+	@fn ゲームオーバーになったか
+	*/
 	bool GetGameOver();
 private:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;

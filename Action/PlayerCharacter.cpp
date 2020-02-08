@@ -8,7 +8,6 @@
 #include "SkeltonObjectChecker.h"
 #include "GuardPlayerComponent.h"
 #include "ParticleComponent.h"
-//debug
 #include "Game.h"
 #include "PhysicsWorld.h"
 #include "MainCameraObject.h"
@@ -34,6 +33,9 @@ const Vector3 PlayerCharacter::HitPointUIPos = Vector3(-750, -400, 0);
 const float PlayerCharacter::HitPointUIWidth = 50.0f;
 const float PlayerCharacter::HitPointUISize = 0.6f;
 
+/*
+	@param _pos 座標
+	*/
 PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 	GameObject(),
 	inputDirection(0),
@@ -62,18 +64,19 @@ PlayerCharacter::PlayerCharacter(const Vector3& _pos) :
 {
 	tag = Tag::PlayerTag;
 	SetPosition(_pos);
+	//スケールを設定
 	float scaleF = 60.0f;
 	SetScale(60.0f);
 
 	animationComponent = new AnimationPlayerComponent(this, 100);
 	attack = new AttackPlayerObject(this);
-	//guardComponent = new GuardPlayerComponent(this, 100);
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 	footChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::GroundTag);
 	thinChecker = new SkeltonObjectChecker(this, Vector3(0, -30, 0), Vector3(20, 1, 20), Tag::ThinGroundFloor);
 	headRoofChecker = new SkeltonObjectChecker(this, Vector3(0, 30, 0), Vector3(20, 1, 20), Tag::GroundTag);
 
+	//Hpの数まで体力UIを生成する
 	for (int num = 0; num < HitPointMax; num++)
 	{
 		new UserInterfaceBase(HitPointUIPos + Vector3(HitPointUIWidth * num, 0, 0), "Assets/Image/UI/HpCase.png", Vector3(HitPointUISize, HitPointUISize, HitPointUISize), 1000);
@@ -85,6 +88,9 @@ PlayerCharacter::~PlayerCharacter()
 {
 }
 
+/*
+@fn アクション状態ごとにアクションを行う
+*/
 void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
 	isThinGroundCollision = false;
@@ -108,11 +114,13 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		canNotActionTime--;
 	}
 	//空中なら重力を付与
-	if (noGround || (doSkeletonThinGround/*&& !noGround*/))
+	if (noGround || (doSkeletonThinGround))
 	{
 		Gravity(_deltaTime);
+		//ダブルジャンプへの待機カウントが一定値を超えたら
 		if (doubleJumpInterval >= 20)
 		{
+			//入力があったらダブルジャンプする
 			if (jumpBottonInput && !doubleJump)
 			{
 				Jump();
@@ -123,27 +131,30 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 		{
 			doubleJumpInterval++;
 		}
+		//下方向への入力
 		if (inputUnderDirection > 0)
 		{
 			doSkeletonThinGround = true;
 		}
+		//落下中か
 		if (velocity.y < 0)
 		{
+			//地面と接触していないなら落下アニメーションへ
 			if (noGround)
 			{
-
 				animationComponent->SetAnimation(PlayerAnimationState::Drop);
 			}
 		}
+		//浮上中ならジャンプアニメーションへ
 		else
 		{
 			animationComponent->SetAnimation(PlayerAnimationState::Jump);
 		}
 	}
+	//回避中なら回避アニメーションを再生
 	if (avoidancing)
 	{
 		animationComponent->SetAnimation(PlayerAnimationState::Avoidance);
-		//SetScale(50.0f);
 	}
 	else
 	{
@@ -168,6 +179,9 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 	DrawHitPointUI();
 }
 
+/*
+@fn 入力を管理
+*/
 void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 {
 	if (_keyState.Keyboard.GetKeyValue(SDL_SCANCODE_0) == 1)
@@ -181,7 +195,7 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 
 	//float i = _keyState.Controller.GetLAxisVec().y;
 
-	//コントローラーが接続された場合操作をコントローラーに変更
+	////コントローラーが接続された場合操作をコントローラーに変更
 	//if (InputSystem::GetConnectedController())
 	//{
 	//	inputDirection = _keyState.Controller.GetLAxisVec().x;
@@ -231,21 +245,11 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	{
 		Game::debug = 1;
 	}
-	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_5))
-	{
-		//new BombParticleEffect(position, Vector3(10, 16, 0),true);
-		//new BombParticleEffect(position, Vector3(10, 12, 0),true);
-		//new BombParticleEffect(position, Vector3(10, 9, 0),true);
-		//new BombParticleEffect(position, Vector3(10, 6, 0),true);
-		//new BombParticleEffect(position, Vector3(10, 3, 0),true);
-		//new BombParticleEffect(position, Vector3(-10, 16, 0),true);
-		//new BombParticleEffect(position, Vector3(-10, 12, 0),true);
-		//new BombParticleEffect(position, Vector3(-10, 9, 0),true);
-		//new BombParticleEffect(position, Vector3(-10, 6, 0),true);
-		//new BombParticleEffect(position, Vector3(-10, 3, 0),true);
-	}
 }
 
+/*
+@fn めり込み判定
+*/
 void PlayerCharacter::FixCollision(const AABB& myAABB, const AABB& pairAABB, const Tag& _pairTag)
 {
 	//浮上中でかつ薄い床にすでに接触している場合はめりこみ補正を行わない
@@ -261,6 +265,9 @@ void PlayerCharacter::FixCollision(const AABB& myAABB, const AABB& pairAABB, con
 	SetPosition(GetPosition() + (ment));
 }
 
+/*
+@fn オブジェクト全体が停止している状態で、死亡していた時処理を行う
+*/
 void PlayerCharacter::PausingUpdateGameObject()
 {
 	if (pauzingEvent == PauzingEvent::DeadPlayerEvent)
@@ -276,6 +283,9 @@ void PlayerCharacter::PausingUpdateGameObject()
 	}
 }
 
+/*
+@fn ゲームオーバーになったか
+*/
 bool PlayerCharacter::GetGameOver()
 {
 	if (hitPoint <= 0)
@@ -327,6 +337,9 @@ void PlayerCharacter::OnTriggerEnter(ColliderComponent* colliderPair)
 	}
 }
 
+/*
+@fn プレイヤーが行うアクション
+*/
 void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 {
 	bool actioned = false;
@@ -393,10 +406,6 @@ void PlayerCharacter::Actions(float _deltaTime, const bool& _noGround)
 	}
 }
 
-//void PlayerCharacter::Guard()
-//{
-	//canNotActionTime = guardComponent->Guard();
-//}
 
 void PlayerCharacter::Avoidance()
 {
@@ -496,7 +505,7 @@ void PlayerCharacter::Jump()
 
 void PlayerCharacter::Gravity(float _deltaTime)
 {
-	velocity.y += -GravityPower /** _deltaTime*/;
+	velocity.y += -GravityPower /* _deltaTime*/;
 
 	if (velocity.y <= -25)
 	{

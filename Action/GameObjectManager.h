@@ -11,30 +11,43 @@
 class GameObject;
 struct InputState;
 
+/*
+@file GameObjectManager.h
+@brief ゲームオブジェクトの更新を行う
+*/
 class GameObjectManager
 {
 public:
+	/*
+	@return 自身のインスタンスを返す
+	*/
 	static GameObjectManager* GetInstance() { return manager; }
+	/*
+	@fn インスタンスを生成
+	*/
 	static void CreateInstance();
+	/*
+	@fn インスタンスを削除
+	*/
 	static void DeleteInstance();
 
-	/**
+	/*
 	@brief  ゲームオブジェクトのアップデート処理
 	*/
 	void UpdateGameObject(float _deltaTime);
 
-	/**
+	/*
 	@brief  ゲームオブジェクトの入力処理
 	*/
 	void ProcessInput(const InputState& _state);
 
-	/**
+	/*
 	@brief  ゲームオブジェクトの追加
 	@param	追加するGameObjectクラスのポインタ
 	*/
 	void AddGameObject(GameObject* _object);
 
-	/**
+	/*
 	@brief  ゲームオブジェクトの削除
 	@param	削除するGameObjectクラスのポインタ
 	*/
@@ -63,8 +76,16 @@ private:
 	//Update中かどうか
 	bool updatingGameObject;
 
+	/*
+	@fn シーンを変更する この関数をSceneObjectに渡す
+	*/
 	void SetScene(SceneName _sceneName) { nextScene = _sceneName; }
+	//次シーン
 	SceneName nextScene;
+	//前シーン
 	SceneName beforeScene;
+	/*
+	@fn 次回シーンを参照しながらシーンを変更する
+	*/
 	void ChangeScene();
 };

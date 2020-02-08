@@ -1,6 +1,10 @@
 #include "WeaponRotationAnimationPlayer.h"
 #include "RotateComponent.h"
 
+/*
+@param _pos ¶¬‚·‚éÀ•W
+@param _moveDistance ˆÚ“®—ÊA”ÍˆÍ‚Í0~2
+*/
 WeaponRotationAnimationPlayer::WeaponRotationAnimationPlayer(const Vector3& _pos, const float& _direction, const int& _waitCount, const int& _lifeCount, const int& _moveDistanceStage) :
 	WeaponBase(_pos, _waitCount, _lifeCount, _direction,
 		Tag::PlayerWeaponTag, 2, Vector3(100, 100, 100), 0.02f, "Assets/Model/Weapon/SK_Blunt_SpikedClub.gpmesh", "Assets/Model/Weapon/SK_Blunt_SpikedClub.gpskel"),
@@ -52,6 +56,10 @@ void WeaponRotationAnimationPlayer::UpdateWeaponGameObject(float _deltaTime)
 	SetPosition(position + add);
 }
 
+/*
+@fn ‰ñ“]
+@brief ‰ñ“]‘¬“x‚ð­‚µ‚¸‚ÂŒ¸‚ç‚µ‚È‚ª‚ç‰ñ“]‚·‚é
+*/
 void WeaponRotationAnimationPlayer::Rotate()
 {
 	if (rotateSpeed >= 0)

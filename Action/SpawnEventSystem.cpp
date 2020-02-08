@@ -7,6 +7,11 @@
 #include "Renderer.h"
 #include "DebugBox.h"
 
+/*
+@param _pos 座標
+@param _wallPos プレイヤーが侵入してきたときにふさぐ壁の座標
+@param _goalPos MageEnemyが撃破されたときに削除する壁の座標
+*/
 SpawnEventSystem::SpawnEventSystem(const Vector3& _pos,const Vector3& _wallPos, const Vector3& _goalPos):
 	EventSystem(_pos),
 	startDirecting(false),
@@ -24,7 +29,9 @@ SpawnEventSystem::SpawnEventSystem(const Vector3& _pos,const Vector3& _wallPos, 
 SpawnEventSystem::~SpawnEventSystem()
 {
 }
-
+/*
+@brief プレイヤーの侵入を検知したときにフラグを建てる
+*/
 void SpawnEventSystem::OnTriggerEnter(ColliderComponent * _pair)
 {
 	if (_pair->GetObjectTag() == Tag::PlayerTag)

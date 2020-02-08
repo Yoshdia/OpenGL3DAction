@@ -11,6 +11,9 @@
 
 GameObjectManager* GameObjectManager::manager = nullptr;
 
+/*
+@fn インスタンスを生成
+*/
 void GameObjectManager::CreateInstance()
 {
 	if (manager == nullptr)
@@ -20,6 +23,9 @@ void GameObjectManager::CreateInstance()
 	}
 }
 
+/*
+@fn インスタンスを削除
+*/
 void GameObjectManager::DeleteInstance()
 {
 	if (manager != nullptr)
@@ -29,19 +35,20 @@ void GameObjectManager::DeleteInstance()
 	}
 }
 
-/**
+/*
 @brief  ゲームオブジェクトのアップデート処理
 */
 void GameObjectManager::UpdateGameObject(float _deltaTime)
 {
-	//_deltaTime /= 3;
 	updatingGameObject = true;
+	//オブジェクトを更新する
 	for (auto gameObject : gameObjects)
 	{
 		gameObject->Update(_deltaTime);
 	}
 	updatingGameObject = false;
 
+	//待機中のオブジェクトを更新中オブジェクトに追加
 	for (auto pending : pendingGameObjects)
 	{
 		pending->ComputeWorldTransform();
@@ -49,6 +56,7 @@ void GameObjectManager::UpdateGameObject(float _deltaTime)
 	}
 	pendingGameObjects.clear();
 
+	//シーンに変更が会った時
 	if (beforeScene != nextScene)
 	{
 		beforeScene = nextScene;
@@ -56,7 +64,9 @@ void GameObjectManager::UpdateGameObject(float _deltaTime)
 		ChangeScene();
 	}
 }
-
+/*
+@brief  ゲームオブジェクトの入力処理
+*/
 void GameObjectManager::ProcessInput(const InputState& _state)
 {
 	updatingGameObject = true;
@@ -67,7 +77,7 @@ void GameObjectManager::ProcessInput(const InputState& _state)
 	updatingGameObject = false;
 }
 
-/**
+/*
 @brief  ゲームオブジェクトの追加
 @param	追加するGameObjectクラスのポインタ
 */
@@ -83,7 +93,7 @@ void GameObjectManager::AddGameObject(GameObject* _object)
 	}
 }
 
-/**
+/*
 @brief  ゲームオブジェクトの削除
 @param	削除するGameObjectクラスのポインタ
 */
@@ -104,6 +114,10 @@ void GameObjectManager::RemoveGameObject(GameObject * _object)
 	}
 }
 
+/*
+@brief 使用したすべてのゲームオブジェクトを解放する
+@detail シーン遷移の際に使用される。GameObject内の再利用フラグが建っているオブジェクトは解放しない
+*/
 void GameObjectManager::RemoveAllUsedGameObject()
 {
 	std::vector<GameObject*> reUseObjects;
@@ -165,6 +179,9 @@ GameObjectManager::~GameObjectManager()
 	}
 }
 
+/*
+@fn 次回シーンを参照しながらシーンを変更する
+*/
 void GameObjectManager::ChangeScene()
 {
 	std::function<void(SceneName)> func = std::bind(&GameObjectManager::SetScene, this, std::placeholders::_1);

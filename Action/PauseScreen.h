@@ -1,5 +1,11 @@
 #pragma once
 #include "GameObject.h"
+
+/*
+@file PauseScreen.h
+@brief ポーズ画面
+@sa PlaySceneObject
+*/
 class PauseScreen :
 	public GameObject
 {
@@ -8,9 +14,17 @@ public:
 	~PauseScreen();
 
 	void PausingUpdateGameObject()override;
+	/*
+	@fn 指定の入力が会った時にフラグを建てる
+	*/
 	void GameObjectInput(const InputState& _keyState)override;
-	bool GetEndPause() { return endPause; }
+
 private:
 	bool endPause;
+public: //ゲッターセッター
+	/*
+@return ポーズ画面の終了フラグ
+*/
+	bool GetEndPause() { return endPause; }
 };
 

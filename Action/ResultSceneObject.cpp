@@ -4,9 +4,9 @@ ResultSceneObject::ResultSceneObject(std::function<void(SceneName)> _SetSceneFun
 	SceneObjectBase(_SetSceneFunc),
 	t(0)
 {
-	printf("/******/\n");
+	printf("/*****/\n");
 	printf("*Result*\n");
-	printf("/******/\n");
+	printf("/*****/\n");
 }
 
 ResultSceneObject::~ResultSceneObject()

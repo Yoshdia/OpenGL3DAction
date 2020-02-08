@@ -2,6 +2,11 @@
 #include "AnimationEnemyComponent.h"
 #include "RotateComponent.h"
 
+/*
+@param _pos À•W
+@param _enemyType “G‚Ìí—Ş
+@param _leftDirection ¶‚ğŒü‚¢‚Ä‚¢‚é‚©Bfalse=³–Ê‚ğŒü‚­
+*/
 NoActionEnemyForLoad::NoActionEnemyForLoad(const Vector3& _pos, const EnemyType& _enemyType, const bool& _leftDirection) :
 	EnemyBase(_pos, Vector3(0.4f, 0.4f, 0.4f), _enemyType)
 {

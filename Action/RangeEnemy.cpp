@@ -11,6 +11,9 @@ const float RangeEnemy::SearchRange = 500;
 const float RangeEnemy::AttackRange = 500;
 const int RangeEnemy::AttackIntervalCount = 20;
 
+/*
+@param _pos ç¿ïW
+*/
 RangeEnemy::RangeEnemy(Vector3 _pos):
 	LoiteringEnemyBase(_pos, Vector3(0.8f, 0.8f, 0.8f),EnemyType::RangeType)
 {
@@ -35,7 +38,6 @@ void RangeEnemy::UpdateLoiteringEnemyObject(float _deltaTime)
 
 void RangeEnemy::DeadEvent()
 {
-	int i = 0;
 }
 
 void RangeEnemy::Attack(float _deltaTime)

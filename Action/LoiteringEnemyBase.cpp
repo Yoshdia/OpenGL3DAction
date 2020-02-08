@@ -23,6 +23,12 @@ const Vector3 LoiteringEnemyBase::TrackingRange = Vector3(2000, 2000, 2000);
 const int LoiteringEnemyBase::TurnWaitCountMax = 2;
 const float LoiteringEnemyBase::ForwardDownY = -90;
 
+/*
+@param _pos 座標
+@param _scale サイズ
+@param _type エネミーの種類
+@sa　引数はすべてEnemyBaseに渡す
+*/
 LoiteringEnemyBase::LoiteringEnemyBase(Vector3 _pos, Vector3 _scale, EnemyType _type) :
 	EnemyBase(_pos, _scale, _type),
 	actionChangeCount(0),
@@ -49,6 +55,10 @@ LoiteringEnemyBase::LoiteringEnemyBase(Vector3 _pos, Vector3 _scale, EnemyType _
 	//InstantiateLoiteringEnemyBaseを派生クラスコンストラクタ内で呼ぶこと
 }
 
+/*
+@fn 初期化関数
+@brief 派生クラスごとに変更が行われた定数を別クラスに反映させるために別個に用意
+*/
 void LoiteringEnemyBase::InstantiateLoiteringEnemyBase()
 {
 	footChecker = new SkeltonObjectChecker(this, footPos, Vector3(10, 10, 10), Tag::GroundTag);
@@ -62,6 +72,9 @@ LoiteringEnemyBase::~LoiteringEnemyBase()
 {
 }
 
+/*
+@fn このオブジェクトが使いまわしされるときに呼ばれ、パラメータを初期化する。召喚。
+*/
 void LoiteringEnemyBase::SpawnSummoned(const Vector3& _pos, const int& _hitPoint)
 {
 	SetPosition(_pos);
@@ -93,6 +106,9 @@ void LoiteringEnemyBase::SpawnSummoned(const Vector3& _pos, const int& _hitPoint
 	}
 }
 
+/*
+@fn この徘徊エネミー共通の更新関数
+*/
 void LoiteringEnemyBase::UpdateEnemyObject(float _deltaTime)
 {
 	//地面と接触していないとき重力を働かせる
@@ -107,15 +123,23 @@ void LoiteringEnemyBase::UpdateEnemyObject(float _deltaTime)
 	UpdateLoiteringEnemyObject(_deltaTime);
 }
 
+/*
+@fn 派生クラスの更新関数
+*/
 void LoiteringEnemyBase::UpdateLoiteringEnemyObject(float _deltaTime)
 {
 }
 
 void LoiteringEnemyBase::PausingUpdateGameObject()
 {
-	//animComponent->UpdateAnimationComponent(0.6f);
 }
 
+/*
+@fn プレイヤーに攻撃された
+@brief 体力を減らし、非攻撃態勢だった場合攻撃態勢に移行、ノックバックし被弾中はアクション出来なくなる
+@param _pairPos 衝突相手の座標
+@param _power ダメージ
+*/
 void LoiteringEnemyBase::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 {
 	hitPoint -= _power;
@@ -131,10 +155,16 @@ void LoiteringEnemyBase::HitPlayerAttack(const Vector3& _pairPos, const int& _po
 	canNotActionTime = hittingTime;
 }
 
+/*
+@fn 撃破イベント
+*/
 void LoiteringEnemyBase::DeadEvent()
 {
 }
 
+/*
+@fn ノックバック
+*/
 void LoiteringEnemyBase::NockBack(float _deltaTime)
 {
 	//nockBackForceの最小数を設定
@@ -148,13 +178,15 @@ void LoiteringEnemyBase::NockBack(float _deltaTime)
 	nockBackForce = nockBackForce / 2.0f;
 }
 
+/*
+@fn アクション変更
+*/
 void LoiteringEnemyBase::ActionChange()
 {
 	if (actionChangeCount > actionChangeCountMax)
 	{
 		actionChangeCount = 0;
 		BranchActionChange();
-		ShuffleCountMax();
 	}
 	else
 	{
@@ -162,6 +194,9 @@ void LoiteringEnemyBase::ActionChange()
 	}
 }
 
+/*
+@fnアクションごとの処理
+*/
 void LoiteringEnemyBase::Action(float _deltaTime)
 {
 	if (canNotActionTime <= 0)
@@ -184,6 +219,9 @@ void LoiteringEnemyBase::Action(float _deltaTime)
 	attackIntervalCount--;
 }
 
+/*
+@fn 実行中アクションが変更される関数
+*/
 void LoiteringEnemyBase::BranchActionChange()
 {
 	//棒立ち、歩行を設定する乱数
@@ -214,10 +252,9 @@ void LoiteringEnemyBase::BranchActionChange()
 	findingPlayerCheck->SetOffset(Vector3((searchRange)*moveDirection, 0, 0));
 }
 
-void LoiteringEnemyBase::ShuffleCountMax()
-{
-}
-
+/*
+@fn 攻撃態勢の処理
+*/
 void LoiteringEnemyBase::Attacking(float _deltaTime)
 {
 	//追跡対象の座標を取得
@@ -280,11 +317,6 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 		}
 		else
 		{
-			//forwardDownGroundCheck->SetPosition(Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0) + position);
-			//forwardDownGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, ForwardDownY, 0));
-			//forwardGroundCheck->SetPosition(Vector3(GroundCheckPos * moveDirection, 0, 0) + position);
-			//forwardGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, 0, 0));
-
 			animComponent->SetMove(false);
 		}
 		//攻撃の射程距離まで接近したらアクションを変更する
@@ -325,11 +357,17 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 	}
 }
 
+/*
+@fn 攻撃を行う関数
+@sa EnemyWeapon.h
+*/
 void LoiteringEnemyBase::Attack(float _deltaTime)
 {
 
 }
-
+/*
+@fn 非攻撃態勢
+*/
 void LoiteringEnemyBase::NoAttacking(float _deltaTime)
 {
 	if (actionName == EnemyActions::walk)

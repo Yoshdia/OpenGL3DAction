@@ -4,17 +4,12 @@
 #include "Game.h"
 #include "MeshComponent.h"
 
-EnemyWeapon::EnemyWeapon() :
-	GameObject(),
-	lifeCount(100)
-{
-	tag = Tag::EnemyWeaponTag;
-	collisionComp = new ColliderComponent(this, 100, Vector3(1, 1, 1), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
-
-	meshComponent = new MeshComponent(this);
-	meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/collisionMask.gpmesh"));
-}
-
+/*
+@param _pos 座標
+@param _size サイズ
+@param _lifeCount 判定時間
+@param _waitTime 攻撃発生まで待機時間
+*/
 EnemyWeapon::EnemyWeapon(Vector3 _pos, Vector3 _size, int lifeCount, int _waitTime) :
 	GameObject(),
 	lifeCount(lifeCount),
@@ -30,11 +25,13 @@ EnemyWeapon::EnemyWeapon(Vector3 _pos, Vector3 _size, int lifeCount, int _waitTi
 	meshComponent->SetVisible(false);
 }
 
-
 EnemyWeapon::~EnemyWeapon()
 {
 }
 
+/*
+@fn 生存時間を減少させ続けゼロになった時このオブジェクトの更新を止める
+*/
 void EnemyWeapon::UpdateGameObject(float _deltaTime)
 {
 	if (Game::debug&&lifeCount > 0 && waitTime < 0)
@@ -44,10 +41,11 @@ void EnemyWeapon::UpdateGameObject(float _deltaTime)
 	else
 	{
 		meshComponent->SetVisible(false);
-
 	}
+	//待機時間を減らし続ける
 	if (waitTime < 0)
 	{
+		//生存時間を減らし続ける
 		if (lifeCount > 0)
 		{
 			lifeCount--;

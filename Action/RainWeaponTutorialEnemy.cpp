@@ -3,7 +3,9 @@
 #include "ColliderComponent.h"
 
 const int RainWeaponTutorialEnemy::Interval = 40;
-
+/*
+@param _pos ç¿ïW
+*/
 RainWeaponTutorialEnemy::RainWeaponTutorialEnemy(const Vector3 & _pos)
 {
 	SetPosition(_pos);

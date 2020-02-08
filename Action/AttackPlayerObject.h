@@ -10,6 +10,9 @@ class AttackPlayerObject :
 	public GameObject
 {
 public:
+	/*
+	@param _owner 親オブジェクト
+	*/
 	AttackPlayerObject(GameObject* _owner);
 	~AttackPlayerObject();
 	void UpdateGameObject(float _deltaTime)override;
@@ -23,17 +26,34 @@ public:
 	*/
 	float Attack(const float& _direction, const int& _slot, bool& _range);
 private:
+	/*
+	@fn アイテムと衝突しているときに入力があったら攻撃スロットを変更し元のアイテムをその場に落下させる
+	*/
 	void OnTriggerStay(ColliderComponent* _colliderPair) ;
+	/*
+	@fn 引数のオブジェクトを生成する
+	@param _name 生成したいアイテムの名前
+	*/
 	ComboItemObjectBase* DropComboItem(const ComboItemName& _name,const int& slot);
+
+	/*
+	@fn　スロットをリセットする
+	@param _slot 解放したいスロットナンバー
+	*/
 	void DeleteSlot(const int& _slot);
-
+	//スロット２のアイコン座標
 	static const Vector3 RightIconPos;
+	//ｽﾛｯﾄ１のアイコン座標
 	static const Vector3 LeftIconPos;
+	//アイコン座椅子
 	static const float IconSize;
+	//スロットアイコンにかぶせる操作ボタンのサイズ
 	static const float BottonSize;
-
+	//左スロットを変更するのに必要なボタン
 	bool inputLeftChange;
+	//右スロットを変更するのに必要なボタン
 	bool inputRightChange;
+	//親オブジェクト
 	GameObject* owner;
 	//つけ外しを行う攻撃スロット
 	class ComboMeanPlayerBase* firstSlotAttack;
@@ -42,13 +62,21 @@ private:
 	//近距離攻撃のコンボを次につなげる猶予時間。これが0になるとコンボ状態をリセットする
 	float waitTimeForNextAttack;
 
+	//攻撃の変更に用いるカウント
 	int changeCount;
+	//左スロットのアイコン
 	class UserInterfaceBase* leftIcon;
+	//右ｽﾛｯﾄのアイコン
 	class UserInterfaceBase* rightIcon;
+	//オブジェクト付近に表示するガイドボタン
 	class UserInterfaceBase* lButtonGuide;
+	//左スロットのアイテムを表示するアイコン
 	class UserInterfaceBase* lButtonIcon;
+	//オブジェクト付近に表示するガイドボタン
 	class UserInterfaceBase* rButtonGuide;
+	//右スロットのアイテムを表示するアイコン
 	class UserInterfaceBase* rButtonIcon;
+	//アイテムと衝突しているか。衝突しているときにGuideUIを表示させる
 	bool itemCollided;
 };
 

@@ -1,11 +1,17 @@
 #pragma once
 #include "LoiteringEnemyBase.h"
 
-
+/*
+@file MeleeEnemy.h
+@brief ‹ßÚUŒ‚‚ğs‚¤“G
+*/
 class MeleeEnemy :
 	public LoiteringEnemyBase
 {
 public:
+	/*
+	@param _pos À•W
+	*/
 	MeleeEnemy(Vector3 _pos);
 	~MeleeEnemy();
 private:

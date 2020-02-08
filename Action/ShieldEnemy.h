@@ -1,9 +1,16 @@
 #pragma once
 #include "LoiteringEnemyBase.h"
+/*
+@file ShieldEnemy.h
+@brief 正面からの攻撃をブロックする敵
+*/
 class ShieldEnemy :
 	public LoiteringEnemyBase
 {
 public:
+	/*
+@param _pos 座標
+*/
 	ShieldEnemy(const Vector3& _pos);
 	~ShieldEnemy();
 

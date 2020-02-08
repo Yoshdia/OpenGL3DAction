@@ -5,6 +5,9 @@
 #include "ColliderComponent.h"
 #include "RotateComponent.h"
 
+/*
+@param _pos À•W
+*/
 RainEnemyWeapon::RainEnemyWeapon(const Vector3 & _pos):
 	GameObject(),
 	activeCount(100)
@@ -14,7 +17,6 @@ RainEnemyWeapon::RainEnemyWeapon(const Vector3 & _pos):
 	mesh->SetMesh(RENDERER->GetMesh("Assets/Model/Weapon/SK_Blunt_CinderBlock.gpmesh"));
 	mesh->SetSkeleton(RENDERER->GetSkeleton("Assets/Model/Weapon/SK_Blunt_CinderBlock.gpskel"));
 	tag = Tag::EnemyWeaponTag;
-	//SetScale(30);
 	ColliderComponent* collider = new ColliderComponent(this, 100, Vector3(50, 50, 50), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 
 	RotateComponent* rot = new RotateComponent(this);

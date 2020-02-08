@@ -2,7 +2,11 @@
 #include "ColliderComponent.h"
 #include "MeshComponent.h"
 #include "Renderer.h"
-
+/*
+@param _p 座標
+@param _size サイズ
+@param _objectTag タグ
+*/
 Ground::Ground(const Vector3 & _p, const Vector3 & _size, const Tag& _objectTag)
 {
 	MeshComponent* meshComponent = new MeshComponent(this);
@@ -11,6 +15,7 @@ Ground::Ground(const Vector3 & _p, const Vector3 & _size, const Tag& _objectTag)
 	std::string fileName = "blueFloor1";
 
 	int random = rand() % 100;
+	//乱数で自分のメッシュを変更する
 	if (random <= 30)
 	{
 		fileName = "blueFloor1";

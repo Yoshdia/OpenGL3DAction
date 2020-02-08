@@ -176,9 +176,6 @@
     <ClCompile Include="DoSubActionMagesChild.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="SpawnEventSystem.cpp">
-      <Filter>GameObjects\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="WarpPointSearchEnemy.cpp">
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
@@ -326,6 +323,9 @@
     </ClCompile>
     <ClCompile Include="NoActionEnemyForLoad.cpp">
       <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnEventSystem.cpp">
+      <Filter>GameObjects\Event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -506,9 +506,6 @@
     <ClInclude Include="DoSubActionMagesChild.h">
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="SpawnEventSystem.h">
-      <Filter>GameObjects\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="WarpPointSearchEnemy.h">
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
@@ -656,6 +653,9 @@
     </ClInclude>
     <ClInclude Include="NoActionEnemyForLoad.h">
       <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnEventSystem.h">
+      <Filter>GameObjects\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@ int GameObject::gameObjectId = 0;
 MainCameraObject* GameObject::mainCamera = nullptr;
 PauzingEvent GameObject::pauzingEvent = PauzingEvent::NoneEvent;
 
-/**
+/*
 @param	ゲームクラスのポインタ
 */
 GameObject::GameObject(bool _reUseGameObject)
@@ -26,15 +26,13 @@ GameObject::GameObject(bool _reUseGameObject)
 	, reUseObject(_reUseGameObject)
 {
 	gameObjectId++;
+	//GameObjectManagerにポインタを渡す
 	GAME_OBJECT_MANAGER->AddGameObject(this);
-	//if (mainCamera == nullptr)
-	//{
-	//	mainCamera = new MainCameraObject();
-	//}
 }
 
 GameObject::~GameObject()
 {
+	//GameObjectManagerからポインタを削除する
 	GAME_OBJECT_MANAGER->RemoveGameObject(this);
 	while (!components.empty())
 	{
@@ -42,7 +40,7 @@ GameObject::~GameObject()
 	}
 }
 
-/**
+/*
 @brief	フレーム毎の処理
 @param	最後のフレームを完了するのに要した時間
 */
@@ -67,7 +65,7 @@ void GameObject::Update(float _deltaTime)
 	}
 }
 
-/**
+/*
 @brief	アタッチされてるコンポーネントのアップデート
 @param	最後のフレームを完了するのに要した時間
 */
@@ -108,7 +106,7 @@ void GameObject::GameObjectInput(const InputState & _keyState)
 {
 }
 
-/**
+/*
 @brief	コンポーネントを追加する
 @param	追加するコンポーネントのポインタ
 */
@@ -128,7 +126,7 @@ void GameObject::AddComponent(Component * _component)
 	components.insert(itr, _component);
 }
 
-/**
+/*
 @brief	コンポーネントを削除する
 @param	削除するコンポーネントのポインタ
 */
@@ -141,7 +139,7 @@ void GameObject::RemoveComponent(Component * _component)
 	}
 }
 
-/**
+/*
 @brief	Transformのワールド変換
 */
 void GameObject::ComputeWorldTransform()

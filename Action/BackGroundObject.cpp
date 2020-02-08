@@ -4,6 +4,11 @@
 #include "MainCameraObject.h"
 #include "ColliderComponent.h"
 
+/*
+@param _pos 座標
+@param _size サイズ
+@param _fileName メッシュデータのアドレス
+*/
 BackGroundObject::BackGroundObject(const Vector3 & _pos, const Vector3 & _size, const std::string & _fileName)
 {
 	SetPosition(_pos);

@@ -27,7 +27,7 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	endingCount(600),
 	endingDelay(150),
 	createdEventWordObject(false),
-	endEffectPos(Vector3(0,0,0))
+	endEffectPos(Vector3(0, 0, 0))
 {
 	// Setup lights
 	RENDERER->SetAmbientLight(Vector3(0.4f, 0.4f, 0.4f));
@@ -40,13 +40,18 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	//new TestModel;
 	StageCreater* stageCreater = new StageCreater();
 
+	//ステージ情報ファイルを開く
 	if (!stageCreater->OpenFile())
 	{
+		//プレイヤーを生成
 		player = stageCreater->CreatePlayer();
+		//ステージを生成する
 		stageCreater->CreateStage();
+		//衝突判定を行わない背景を生成
 		stageCreater->CreateBackGround();
-		//endSystem = stageCreater->GetEvent();
+		//ボスへのポインタを取得
 		bossEnemy = stageCreater->GetBossEnemy();
+		//ボスが生成された座標をそのままクリア時のエフェクト生成位置に
 		endEffectPos = bossEnemy->GetPosition();
 	}
 }
@@ -85,6 +90,7 @@ void PlaySceneObject::UpdateGameObject(float _deltaTime)
 
 void PlaySceneObject::GameObjectInput(const InputState& _keyState)
 {
+	//ポーズ画面へ
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_F1))
 	{
 		if (pausingScreen == nullptr)
@@ -114,6 +120,9 @@ void PlaySceneObject::PausingUpdateGameObject()
 	}
 }
 
+/*
+@fn ボスクラスが撃破されたときクリアフラグを建てる
+*/
 void PlaySceneObject::SceneChangeEvents()
 {
 	bool isChangedScene = false;
@@ -126,7 +135,9 @@ void PlaySceneObject::SceneChangeEvents()
 		}
 	}
 }
-
+/*
+@fn クリア、ゲームオーバー画面を表示するまでの待機時間を管理し画面を表示する
+*/
 bool PlaySceneObject::EventWordObjectDelay()
 {
 	if (createdEventWordObject)
@@ -143,18 +154,18 @@ bool PlaySceneObject::EventWordObjectDelay()
 		{
 			new UserInterfaceBase(EventWordObjectPos, "Assets/Image/Ui/GameOver.png", EventWordObjectSize);
 		}
-		new BombParticleEffect(endEffectPos, Vector3(10, 20, 0), true);
-		new BombParticleEffect(endEffectPos, Vector3(-10, 20, 0), true);
-		new BombParticleEffect(endEffectPos, Vector3(10, 18, 0), true);
-		new BombParticleEffect(endEffectPos, Vector3(10, 14, 0), true);
-		new BombParticleEffect(endEffectPos, Vector3(10, 11, 0), true);
-		new BombParticleEffect(endEffectPos, Vector3(10, 8, 0), true);
-		new BombParticleEffect(endEffectPos, Vector3(10, 5, 0), true);
-		new BombParticleEffect(endEffectPos, Vector3(-10, 18, 0), true);
-		new BombParticleEffect(endEffectPos, Vector3(-10, 14, 0), true);
-		new BombParticleEffect(endEffectPos, Vector3(-10, 1, 0), true);
-		new BombParticleEffect(endEffectPos, Vector3(-10, 8, 0), true);
-		new BombParticleEffect(endEffectPos, Vector3(-10, 5, 0), true);
+		new BombParticleEffect(endEffectPos, Vector3(10, 20, 0));
+		new BombParticleEffect(endEffectPos, Vector3(-10, 20, 0));
+		new BombParticleEffect(endEffectPos, Vector3(10, 18, 0));
+		new BombParticleEffect(endEffectPos, Vector3(10, 14, 0));
+		new BombParticleEffect(endEffectPos, Vector3(10, 11, 0));
+		new BombParticleEffect(endEffectPos, Vector3(10, 8, 0));
+		new BombParticleEffect(endEffectPos, Vector3(10, 5, 0));
+		new BombParticleEffect(endEffectPos, Vector3(-10, 18, 0));
+		new BombParticleEffect(endEffectPos, Vector3(-10, 14, 0));
+		new BombParticleEffect(endEffectPos, Vector3(-10, 1, 0));
+		new BombParticleEffect(endEffectPos, Vector3(-10, 8, 0));
+		new BombParticleEffect(endEffectPos, Vector3(-10, 5, 0));
 		createdEventWordObject = true;
 		return true;
 	}

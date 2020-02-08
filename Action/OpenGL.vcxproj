@@ -161,7 +161,10 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="BombParticleEffect.cpp" />
     <ClCompile Include="BoneAnimationBaseComponent.cpp" />
     <ClCompile Include="BoneTransform.cpp" />
-    <ClCompile Include="CameraObject.cpp" />
+    <ClCompile Include="CameraObject.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="CandleFireObject.cpp" />
     <ClCompile Include="CandleStick.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
@@ -287,7 +290,10 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="BombParticleEffect.h" />
     <ClInclude Include="BoneAnimationBaseComponent.h" />
     <ClInclude Include="BoneTransform.h" />
-    <ClInclude Include="CameraObject.h" />
+    <ClInclude Include="CameraObject.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="CandleFireObject.h" />
     <ClInclude Include="CandleStick.h" />
     <ClInclude Include="ColliderComponent.h" />

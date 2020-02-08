@@ -11,6 +11,11 @@
 
 const int EnemyBase::HitPointMax = 3;
 
+/*
+@param _pos 座標
+@param _size サイズ
+@param _enemyType 敵の種類　これを参照しメッシュデータを変更する
+*/
 EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale, EnemyType _type) :
 	GameObject(),
 	hitPoint(HitPointMax),
@@ -35,6 +40,9 @@ EnemyBase::~EnemyBase()
 {
 }
 
+/*
+@fn 派生クラスの更新関数を呼び、体力を管理し向きに対して回転を行う
+*/
 void EnemyBase::UpdateGameObject(float _deltaTime)
 {
 	if (hitPoint <= 0)
@@ -56,20 +64,24 @@ void EnemyBase::UpdateGameObject(float _deltaTime)
 	}
 }
 
+/*
+@fn プレイヤーに攻撃されたときに、メッシュを発光させその武器の攻撃力を検索し派生クラスの被弾関数へ渡す
+*/
 void EnemyBase::OnTriggerEnter(ColliderComponent* _colliderPair)
 {
 	//プレイヤーの攻撃に接触したとき
 	if (_colliderPair->GetObjectTag() == Tag::PlayerWeaponTag)
 	{
+		animComponent->SetStartFlash();
 		int weaponPower = WeaponBase::SearchWeaponPower(_colliderPair->GetId());
 		printf("WeaponPower :: %d \n", weaponPower);
-		Vector3 effectPos = (middlePos - _colliderPair->GetPosition()) / 2 + position;
-		//new DamageSquareEffect(Vector3(effectPos.x,position.y,position.z));
-		animComponent->SetStartFlash();
 		HitPlayerAttack(_colliderPair->GetPosition(), weaponPower);
 	}
 }
 
+/*
+@fn 死亡時のイベント
+*/
 void EnemyBase::DeadCommonEvent()
 {
 	if (attackObject != nullptr)
@@ -77,19 +89,20 @@ void EnemyBase::DeadCommonEvent()
 		attackObject->SetState(State::Dead);
 	}
 	SetState(Dead);
-	Vector3 effectPos = Vector3(position.x, position.y + 50, position.z);
-	new BombParticleEffect(effectPos, Vector3(10, 20, 0), true);
-	new BombParticleEffect(effectPos, Vector3(-10, 20, 0), true);
-	new BombParticleEffect(effectPos, Vector3(10, 18, 0), true);
-	new BombParticleEffect(effectPos, Vector3(10, 14, 0), true);
-	new BombParticleEffect(effectPos, Vector3(10,11, 0), true);
-	new BombParticleEffect(effectPos, Vector3(10, 8, 0), true);
-	new BombParticleEffect(effectPos, Vector3(10, 5, 0), true);
-	new BombParticleEffect(effectPos, Vector3(-10, 18, 0), true);
-	new BombParticleEffect(effectPos, Vector3(-10, 14, 0), true);
-	new BombParticleEffect(effectPos, Vector3(-10, 1, 0), true);
-	new BombParticleEffect(effectPos, Vector3(-10, 8, 0), true);
-	new BombParticleEffect(effectPos, Vector3(-10, 5, 0), true);
 	DeadEvent();
+	//爆発するようなエフェクトを生成
+	Vector3 effectPos = Vector3(position.x, position.y + 50, position.z);
+	new BombParticleEffect(effectPos, Vector3(10, 20, 0));
+	new BombParticleEffect(effectPos, Vector3(-10, 20, 0));
+	new BombParticleEffect(effectPos, Vector3(10, 18, 0));
+	new BombParticleEffect(effectPos, Vector3(10, 14, 0));
+	new BombParticleEffect(effectPos, Vector3(10,11, 0));
+	new BombParticleEffect(effectPos, Vector3(10, 8, 0));
+	new BombParticleEffect(effectPos, Vector3(10, 5, 0));
+	new BombParticleEffect(effectPos, Vector3(-10, 18, 0));
+	new BombParticleEffect(effectPos, Vector3(-10, 14, 0));
+	new BombParticleEffect(effectPos, Vector3(-10, 1, 0));
+	new BombParticleEffect(effectPos, Vector3(-10, 8, 0));
+	new BombParticleEffect(effectPos, Vector3(-10, 5, 0));
 }
 

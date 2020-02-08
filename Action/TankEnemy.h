@@ -1,10 +1,18 @@
 #pragma once
 #include "LoiteringEnemyBase.h"
+
+/*
+@file TankEnemy.h
+@brief ‘Ì—Í‚ª‘½‚¢“G
+*/
 class TankEnemy :
 	public LoiteringEnemyBase
 {
 public:
-	TankEnemy(Vector3 _pos = Vector3(0, 0, 0));
+	/*
+	@param _pos À•W
+	*/
+	TankEnemy(Vector3 _pos);
 	~TankEnemy();
 
 private:

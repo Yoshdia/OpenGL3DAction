@@ -9,7 +9,9 @@ const float TankEnemy::ApproachSpeedRatio = 0.4f;
 const float TankEnemy::SearchRange = 200;
 const float TankEnemy::AttackRange = 100;
 const int TankEnemy::AttackIntervalCount = 20;
-
+/*
+@param _pos ç¿ïW
+*/
 TankEnemy::TankEnemy(Vector3 _pos) :
 	LoiteringEnemyBase(_pos, Vector3(0.5f, 0.5f, 0.5f),EnemyType::TankType)
 {

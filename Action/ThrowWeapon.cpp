@@ -2,6 +2,10 @@
 #include "RotateComponent.h"
 #include "ColliderComponent.h"
 
+/*
+ @file ThrowWeapon.h
+ @brief ê∂ê¨Ç≥ÇÍÇÈÇ∆ñÓÇÃÇÊÇ§Ç…îÚÇÒÇ≈Ç¢Ç≠ÉvÉåÉCÉÑÅ[ÇÃçUåÇ
+	*/
 ThrowWeapon::ThrowWeapon(const Vector3& _pos, const float& _direction, const int& _waitTime, const Tag& _tag) :
 	WeaponBase(_pos, _waitTime, 150, _direction, _tag, 1, Vector3(100, 1, 5), 0.08f, "Assets/Model/Weapon/SK_Dual_Blade_Arrow.gpmesh", "Assets/Model/Weapon/SK_Dual_Blade_Arrow.gpskel"),
 	velocity(Vector3::Zero),

@@ -10,9 +10,9 @@
 TitleSceneObject::TitleSceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	SceneObjectBase(_SetSceneFunc)
 {
-	printf("/******/\n");
+	printf("/*****/\n");
 	printf("*Title*\n");
-	printf("/******/\n");
+	printf("/*****/\n");
 
 	RENDERER->GetMesh("Assets/Model/collisionMask.gpmesh");
 	RENDERER->GetMesh("Assets/Model/Weapon/SK_Blunt_CinderBlock.gpmesh");

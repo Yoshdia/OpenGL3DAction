@@ -31,6 +31,10 @@ void MainCameraObject::UpdateGameObject(float _deltaTime)
 	RENDERER->SetViewMatrix(v);
 }
 
+/*
+@param _offset　見たい座標との差
+@param _parentPos　見る座標
+*/
 void MainCameraObject::SetViewMatrixLerpObject(const Vector3 & _offset, const Vector3 & _parentPos)
 {
 	hasParentObject = true;

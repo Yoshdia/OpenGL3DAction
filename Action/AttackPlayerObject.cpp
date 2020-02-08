@@ -13,6 +13,9 @@ const Vector3 AttackPlayerObject::RightIconPos = Vector3(500, -400, 0);
 const float AttackPlayerObject::IconSize =0.7f;
 const float AttackPlayerObject::BottonSize = 0.4f;
 
+/*
+@param _owner 親オブジェクト
+*/
 AttackPlayerObject::AttackPlayerObject(GameObject* _owner) :
 	GameObject(),
 	owner(_owner),
@@ -75,6 +78,13 @@ void AttackPlayerObject::UpdateGameObject(float _deltaTime)
 	}
 }
 
+/*
+@fn 近距離攻撃
+@param _direction 攻撃時のプレイヤーの向き
+@param _slot 攻撃スロット
+@param _range このコンボが遠距離攻撃かどうか
+@return プレイヤーに付与する行動不可な時間
+*/
 float AttackPlayerObject::Attack(const float& _direction, const int& _slot, bool& _range)
 {
 	float playerCanNotMoveTime = 0.0f;

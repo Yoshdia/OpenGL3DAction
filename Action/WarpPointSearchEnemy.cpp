@@ -1,6 +1,9 @@
 #include "WarpPointSearchEnemy.h"
 #include "SkeltonObjectChecker.h"
 
+/*
+@param _pos 座標
+*/
 WarpPointSearchEnemy::WarpPointSearchEnemy(Vector3 _pos) :
 	GameObject(),
 	searchedPoint(true),
@@ -18,13 +21,15 @@ WarpPointSearchEnemy::~WarpPointSearchEnemy()
 
 void WarpPointSearchEnemy::UpdateGameObject(float _deltaTime)
 {
+	//検索が終了していないか
 	if (!searchedPoint)
 	{
-		printf("SearchingPosition :: %f , %f \n", position.x, position.y);
+		//地面を検索し終えたか
 		if (!footGroundChecker->GetNoTouchingFlag() || isGround)
 		{
-
+		
 			SetPosition(position + Vector3((float)(moveDirection * 5), 0, 0));
+			//進行方向に壁がある。又は進行方向の下に床が無いとき検索を終了する
 			if (forwardGroundChecker->GetNoTouchingFlag() || !forwardWallChecker->GetNoTouchingFlag())
 			{
 				searchedPoint = true;
@@ -42,7 +47,12 @@ void WarpPointSearchEnemy::UpdateGameObject(float _deltaTime)
 		SetPosition(Vector3::Zero);
 	}
 }
-
+/*
+@fn 座標の検索を開始する
+@brief 地面を検索した後に左右どちらかに進むか決定する
+@param _position 検索開始地点
+@param _enemyPosition このオブジェクトを使用しているエネミーの座標
+*/
 void WarpPointSearchEnemy::SetFirstPosition(Vector3 _position, Vector3 _enemyPosition)
 {
 	searchedPoint = false;
@@ -57,13 +67,10 @@ void WarpPointSearchEnemy::SetFirstPosition(Vector3 _position, Vector3 _enemyPos
 	{
 		moveDirection = MoveDirection::right;
 	}
-	//forwardGroundChecker->SetPosition(position+Vector3(moveDirection * 50, -75, 0));
-	//forwardWallChecker->SetPosition(position+Vector3(moveDirection * 50, 0, 0));
 	forwardGroundChecker->SetOffset(Vector3((float)moveDirection * 50.0f, -75, 0));
 	forwardGroundChecker->SetPosition(_position);
 	forwardWallChecker->SetOffset(Vector3((float)moveDirection * 50.0f, 30, 0));
 	forwardWallChecker->SetPosition(_position);
 	footGroundChecker->SetPosition(Vector3(0, 0, 0) + position);
 	printf("Search Start %f.%f\n", position.x, position.y);
-
-}
+	}

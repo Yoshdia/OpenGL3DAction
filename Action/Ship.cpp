@@ -1,7 +1,7 @@
 #include "Ship.h"
 #include "SpriteComponent.h"
 #include "Renderer.h"
-/**
+/*
 @param	ゲームクラスのポインタ
 */
 Ship::Ship()
@@ -17,7 +17,7 @@ Ship::~Ship()
 {
 }
 
-/**
+/*
 @brief	ゲームオブジェクトのアップデート
 @param	最後のフレームを完了するのに要した時間
 */

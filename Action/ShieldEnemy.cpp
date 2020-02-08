@@ -11,6 +11,9 @@ const float ShieldEnemy::SearchRange = 200;
 const float ShieldEnemy::AttackRange = 50;
 const int ShieldEnemy::AttackIntervalCount = 30;
 
+/*
+@param _pos 座標
+*/
 ShieldEnemy::ShieldEnemy(const Vector3& _pos) :
 	LoiteringEnemyBase(_pos, Vector3(0.6f, 0.6f, 0.6f), EnemyType::ShieldType)
 {
@@ -47,6 +50,7 @@ void ShieldEnemy::Attack(float _deltaTime)
 
 void ShieldEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 {
+	//衝突したオブジェクトの座標を基に自分から見て左右どちらかにあるかを計算しダメージを喰らうか決める
 	Vector3 direction = Vector3(0, 0, 0);
 	direction = _pairPos - position;
 	EnemyMoveDirection guardDirection = EnemyMoveDirection::left;
@@ -70,6 +74,7 @@ void ShieldEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 	}
 	else
 	{
+		//攻撃をブロックしたためエフェクトを再生し専用アニメーションを再生
 		new DamageSquareEffect(position + (Vector3(100 * (float)guardDirection, 80, 0)));
 		animComponent->SetAction(true);
 		animComponent->SetSubDuration(0.023f);

@@ -5,6 +5,11 @@
 #include "ParticleComponent.h"
 #include "Texture.h"
 
+/*
+@param _shotPosition 座標
+@param _targetPosition 目標座標
+@param _waitCount 待機時間
+*/
 StraightMagicBullet::StraightMagicBullet(const Vector3 & _shotPosition, const Vector3 & _targetPosition, const int & _waitCount) :
 	WeaponBase(_shotPosition, _waitCount, 150, 1, Tag::EnemyWeaponTag, 1, Vector3(10, 10, 10),1, "none", "none")
 {
@@ -19,6 +24,9 @@ StraightMagicBullet::~StraightMagicBullet()
 {
 }
 
+/*
+@fn 力の方向へ進行する
+*/
 void StraightMagicBullet::UpdateWeaponGameObject(float _deltaTime)
 {
 	SetPosition(position + (force * 4));

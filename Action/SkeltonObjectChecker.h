@@ -19,20 +19,6 @@ public:
 	~SkeltonObjectChecker();
 
 	void UpdateGameObject(float _deltaTime)override;
-	Vector3 GetColliderPairPosition() { return colliderPairPos; }
-
-	/*
-	@fn	ゲッター
-	*/
-	bool GetNoTouchingFlag() { return noTargetTouching; }
-	
-	/*
-	 @fn セッター
-	*/
-	/*
-	@exam 反転した際に呼ばれる
-	*/
-	void SetOffset(Vector3 _pos) { offset = _pos; }
 private:
 	void OnTriggerStay(ColliderComponent* colliderPair) override;
 	void OnTriggerEnter(ColliderComponent* colliderPair)override;
@@ -50,6 +36,22 @@ private:
 	//指定されたタグのオブジェクトと接触した際に建つ。これを参照してフラグのリセットを行うか決める
 	bool changed;
 	class MeshComponent* meshComponent;
+public://ゲッターセッター
+	/*
+	@return 衝突相手の座標
+	*/
+	Vector3 GetColliderPairPosition() { return colliderPairPos; }
+
+	/*
+	@fn 指定されたタグと衝突していない
+	*/
+	bool GetNoTouchingFlag() { return noTargetTouching; }
+
+	/*
+	 @fn セッター
+	@brief 反転した際に呼ばれる
+	*/
+	void SetOffset(Vector3 _pos) { offset = _pos; }
 };
 
 

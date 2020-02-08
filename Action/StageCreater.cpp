@@ -26,7 +26,10 @@ StageCreater::~StageCreater()
 {
 	mapData.clear();
 }
-
+/*
+@fn ファイルを開く
+@return 成功か否か
+*/
 bool StageCreater::OpenFile()
 {
 	// ステージデータ読み込み //DebugArea Stage 
@@ -47,7 +50,9 @@ bool StageCreater::OpenFile()
 	//}
 	return false;
 }
-
+/*
+@fn プレイヤーを生成する
+*/
 PlayerCharacter* StageCreater::CreatePlayer()
 {
 	Vector3 pos = Vector3(0, 0, 0);
@@ -66,7 +71,9 @@ PlayerCharacter* StageCreater::CreatePlayer()
 	}
 	return new PlayerCharacter(pos);
 }
-
+/*
+@fn ステージを生成する
+*/
 void StageCreater::CreateStage()
 {
 	Vector3 magePos = Vector3();
@@ -165,7 +172,9 @@ void StageCreater::CreateStage()
 	SpawnEventSystem* spawn= new SpawnEventSystem(magePos, gatePos, goalPos);
 	bossEnemy = spawn->GetMageEnemy();
 }
-
+/*
+@fn 衝突を行わない背景を生成する
+*/
 void StageCreater::CreateBackGround()
 {
 	if (!backData0.empty())
@@ -185,31 +194,15 @@ void StageCreater::CreateBackGround()
 			}
 		}
 	}
-	//if (!backData1.empty())
-	//{
-
-	//	for (float iy = 0; iy < sizeY; iy++)
-	//	{
-	//		for (float ix = 0; ix < sizeX; ix++)
-	//		{
-	//			const unsigned int name = backData1[(int)iy][(int)ix];
-	//			Vector3 objectPos = Vector3(offset * ix, -offset * iy, offset);
-	//			if (name != 0)
-	//			{
-	//				int i = 0;
-	//			}
-	//			switch (name)
-	//			{
-	//			case(32):
-	//				new BackGroundObject(objectPos, Vector3(50, 50, 50), "BlackFloor");
-	//				break;
-	//			}
-	//		}
-	//	}
-	//}
 }
 
-// Tiled形式のJsonファイルを読み込む
+/*
+@fn Jsonファイルを読み込みコンテナ型に格納する
+@param _mapDate 格納させたいコンテナへのアドレス
+@param _fileName Jsonファイルアドレス
+@param _layerName Jsonファイル内のレイヤーアドレス
+@return false=失敗
+*/
 bool StageCreater::readTiledJson(std::vector<std::vector<int>>& mapData, const char* filename, const char* layerName)
 {
 	//RapidJsonドキュメントとして開けるか？

@@ -1,6 +1,9 @@
 #include "GameEndEventSystem.h"
 #include "ColliderComponent.h"
 
+/*
+@param _pos 座標
+*/
 GameEndEventSystem::GameEndEventSystem(const Vector3 & _pos) :
 	EventSystem(_pos),
 	end(false)
@@ -12,7 +15,9 @@ GameEndEventSystem::GameEndEventSystem(const Vector3 & _pos) :
 GameEndEventSystem::~GameEndEventSystem()
 {
 }
-
+/*
+@fn プレイヤーと衝突したときにフラグを建てるクラス
+*/
 void GameEndEventSystem::OnTriggerEnter(ColliderComponent * _pair)
 {
 	if (_pair->GetObjectTag() == Tag::PlayerTag)

@@ -60,7 +60,7 @@ public://ゲッターセッター
 	*/
 	void SetVisible(bool _visible) { visible = _visible; }
 
-	/**
+	/*
 	@brief　描画をするかどうかを取得する
 	@return	true : 描画する , false : 描画しない
 	*/

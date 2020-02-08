@@ -39,13 +39,21 @@ class EnemyBase abstract :
 {
 public:
 	/*
-	@param meshName mesh名
+	@param _pos 座標
+	@param _size サイズ
+	@param _enemyType 敵の種類　これを参照しメッシュデータを変更する
 	*/
 	EnemyBase(Vector3 _pos=Vector3(0,0,0), Vector3 _scale=Vector3(1,1,1), EnemyType _type=EnemyType::MeleeType);
 
 	~EnemyBase();
+	/*
+	@fn 派生クラスの更新関数を呼び、体力を管理し向きに対して回転を行う
+	*/
 	void UpdateGameObject(float _deltaTime)override;
 protected:
+	/*
+	@fn プレイヤーに攻撃されたときに、メッシュを発光させその武器の攻撃力を検索し派生クラスの被弾関数へ渡す
+	*/
 	void OnTriggerEnter(ColliderComponent* _colliderPair)override;
 
 	//初期体力　ゼロになると撃破パーティクルと共に消える
@@ -54,7 +62,7 @@ protected:
 	EnemyMoveDirection moveDirection;
 	//前Fの進行方向、現Fと異なっていた場合RotateComponentを用いて回転する
 	EnemyMoveDirection beforeDirection;
-
+	//回転を手助けするクラス
 	class RotateComponent* rotate;
 	//アニメーションを管理するクラス
 	class AnimationEnemyComponent* animComponent;
@@ -74,20 +82,21 @@ protected:
 	*/
 	virtual void HitPlayerAttack(const Vector3& _pairPos,const int& _power) {};
 
-	/**
+	/*
 	~ 継承先で変更が行われなかった場合の最大体力 ~
 	**/
 	static const int HitPointMax;
 
+	//最も最新の、攻撃を行ったオブジェクトへのポインタ。撃破されたときに削除するために所有する
 	GameObject* attackObject;
 private:
-
+	//中心座標
 	Vector3 middlePos;
 };
 
 
 
-/**
+/*
 ~ コピペ用テンプレート ~
 **/
 //.h用

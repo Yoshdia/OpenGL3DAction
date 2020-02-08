@@ -3,20 +3,53 @@
 
 class SkeltonObjectChecker;
 
-
+/*
+@file LoiteringEnemyBase.h
+@brief 徘徊する敵。プレイヤーを発見し攻撃する状態やプレイヤーを探し続ける状態を持つ。
+*/
 class LoiteringEnemyBase :
 	public EnemyBase
 {
 public:
+	/*
+	@param _pos 座標
+	@param _scale サイズ
+	@param _type エネミーの種類
+	@sa　引数はすべてEnemyBaseに渡す
+	*/
 	LoiteringEnemyBase(Vector3 _pos = Vector3(0, 0, 0), Vector3 _scale = Vector3(1, 1, 1),  EnemyType _type=EnemyType::MeleeType);
 	~LoiteringEnemyBase();
-
+	/*
+	@fn このオブジェクトが使いまわしされるときに呼ばれ、パラメータを初期化する
+	@param _pos 座標
+	@param _hitPoint 体力
+	@brief 主にMageEnemyに召喚されるように使用される
+	@sa MageEnemy.h
+	*/
 	void SpawnSummoned(const Vector3& _pos, const int& _hitPoint);
 private:
+	/*
+	@fn プレイヤーに攻撃された
+	@brief 体力を減らし、非攻撃態勢だった場合攻撃態勢に移行、ノックバックし被弾中はアクション出来なくなる
+	@param _pairPos 衝突相手の座標
+	@param _power ダメージ
+	*/
 	void HitPlayerAttack(const Vector3& _pairPos,const int& _power)override;
+	/*
+	@fn 撃破イベント
+	*/
 	void DeadEvent()override;
+	/*
+	@fn この徘徊エネミー共通の更新関数
+	*/
 	void UpdateEnemyObject(float _deltaTime)override;
+	/*
+	@fn 派生クラスの更新関数
+	*/
 	virtual void UpdateLoiteringEnemyObject(float _deltaTime);
+	/*
+	@fn 2020/02/08時点で必要無し
+	*/
 	void PausingUpdateGameObject();
 
 	//足元の座標
@@ -25,9 +58,7 @@ private:
 	SkeltonObjectChecker* footChecker;
 	//エネミーに働く重力の力
 	static const float Gravity;
-
-
-
+	   
 	/*
 	@fn アクション変更
 	*/
@@ -46,15 +77,19 @@ private:
 	@fn 実行中アクションが変更される関数
 	*/
 	void BranchActionChange();
-	/*
-	@fn actionChangeCountMaxの変更を行う関数
-	*/
-	void ShuffleCountMax();
 
-	//攻撃態勢 追跡/攻撃
+	/*
+	@fn 攻撃態勢の処理
+	*/
 	void Attacking(float _deltaTime);
+	/*
+	@fn 攻撃を行う関数
+	@sa EnemyWeapon.h
+	*/
 	virtual void Attack(float _deltaTime);
-	//非攻撃態勢 歩行/棒立ち
+	/*
+	@fn 非攻撃態勢
+	*/
 	void NoAttacking(float _deltaTime);
 
 	//プレイヤーが離れすぎた場合にワープするためにワープ地点を指定するクラス
@@ -96,14 +131,21 @@ private:
 	static const float NockBackPower;
 	//ノックバックの方向、力
 	Vector3 nockBackForce;
-
+	//体力の最大値
 	static const int HitPointMax;
+	//攻撃時間
 	static const int AttackingTime;
+	//被弾時の硬直
 	static const int HittingTime;
+	//歩行速度
 	static const float WalkSpeed;
+	//追跡速度
 	static const float ApproachSpeedRatio;
+	//索敵範囲
 	static const float SearchRange;
+	//攻撃開始距離
 	static const float AttackRange;
+	//攻撃の待機時間
 	static const int AttackIntervalCount;
 protected:
 

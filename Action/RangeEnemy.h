@@ -1,9 +1,16 @@
 #pragma once
 #include "LoiteringEnemyBase.h"
+/*
+@file RangeEnemy.h
+@brief ‰“‹——£UŒ‚‚ğs‚¤“G
+*/
 class RangeEnemy :
 	public LoiteringEnemyBase
 {
 public:
+	/*
+@param _pos À•W
+*/
 	RangeEnemy(Vector3 _pos);
 	~RangeEnemy();
 

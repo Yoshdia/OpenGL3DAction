@@ -7,6 +7,10 @@
 
 std::unordered_map<int, ComboItemName> ComboItemObjectBase::comboItems;
 
+/*
+@param _pos 座標
+@param _name アイテムの種類
+*/
 ComboItemObjectBase::ComboItemObjectBase(const Vector3 & _pos, const ComboItemName& _name) :
 	GameObject()
 {
@@ -41,6 +45,9 @@ ComboItemObjectBase::~ComboItemObjectBase()
 {
 }
 
+/*
+@fn 跳躍して落下する
+*/
 void ComboItemObjectBase::UpdateGameObject(float _deltaTime)
 {
 	if (noGround->GetNoTouchingFlag())
@@ -58,6 +65,11 @@ void ComboItemObjectBase::UpdateGameObject(float _deltaTime)
 		SetPosition(velocity + position);
 }
 
+/*
+	@fn オブジェクトIDでそのオブジェクトのアイテムを検索する
+	@param _objectID オブジェクトID
+	@return 検索結果
+	*/
 ComboItemName ComboItemObjectBase::SearchComboId(const int & _objectId)
 {
 	auto iter = comboItems.find(_objectId);

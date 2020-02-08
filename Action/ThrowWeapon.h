@@ -18,8 +18,11 @@ public:
 private:
 	void UpdateWeaponGameObject(float _deltaTime);
 	void OnTriggerStay(ColliderComponent* _collider)override;
+	//ˆÚ“®—Ê
 	Vector3 velocity;
+	//Õ“Ë‚µ‚½‚©
 	bool collided;
+	//“Š‚Ä‚«Œã‚©B“Š‚Ä‚«‚µ‚Ä‚©‚çd—Í‚ª“­‚­
 	bool slow;
 };
 

@@ -5,6 +5,12 @@
 //debug
 #include "Game.h"
 
+	/*
+	@param _parent 親となるオブジェクト。このオブジェクトを追跡する
+	@param _pos _parentから離れる距離。offsetとも言う
+	@param _colliderSize 衝突を検知する範囲
+	@param _pairTag リアクションをするオブジェクトのTag
+*/
 SkeltonObjectChecker::SkeltonObjectChecker(GameObject* _parent, Vector3 _pos, Vector3 _colliderSize, Tag _pairTag) :
 	GameObject(),
 	offset(_pos),

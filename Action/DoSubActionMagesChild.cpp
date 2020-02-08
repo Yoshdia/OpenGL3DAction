@@ -5,6 +5,9 @@ const float DoSubActionMagesChild::FloatHeight = 150;
 const float DoSubActionMagesChild::FloatSpeed = 1;
 const float DoSubActionMagesChild::DroppingSpeed = -10;
 
+/*
+@param _owner 親となるオブジェクトクラス
+*/
 DoSubActionMagesChild::DoSubActionMagesChild(GameObject* _owner) :
 	GameObject(),
 	targetHeight(0),
@@ -24,6 +27,9 @@ DoSubActionMagesChild::~DoSubActionMagesChild()
 {
 }
 
+/*
+@fn どの行動を行うか判断し、行う
+*/
 void DoSubActionMagesChild::UpdateGameObject(float _deltaTime)
 {
 	//親オブジェクトを追跡
@@ -62,17 +68,27 @@ void DoSubActionMagesChild::UpdateGameObject(float _deltaTime)
 	}
 }
 
+/*
+@fn このクラス内の定数分の高さまで浮上する
+*/
 void DoSubActionMagesChild::StartFloating()
 {
 	floating = true;
 	targetHeight = owner->GetPosition().y + FloatHeight;
 }
 
+/*
+@fn サブクラスが地面を検知するまで落下する
+@sa SkeltonObjectChecker.h
+*/
 void DoSubActionMagesChild::StartDroppingDown()
 {
 	droppingDown = true;
 }
 
+/*
+@fn 水平を指定する変数をもとに移動する。壁に当たると変数を反転する
+*/
 void DoSubActionMagesChild::MoveHorizontal()
 {
 	if (moveDirection == EnemyMoveDirection::right)
@@ -94,6 +110,9 @@ void DoSubActionMagesChild::MoveHorizontal()
 	owner->SetPosition(owner->GetPosition() + Vector3((float)(2 * direction), 0, 0));
 }
 
+/*
+@fn 垂直を指定する変数をもとに移動する。一定間隔ごとに変数を反転する
+*/
 void DoSubActionMagesChild::HuwaHuwa()
 {
 	if (verticalInversionCount < 0)

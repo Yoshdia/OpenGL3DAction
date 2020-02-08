@@ -10,7 +10,10 @@
  const float MeleeEnemy::SearchRange=200;
  const float MeleeEnemy::AttackRange=50;
  const int MeleeEnemy::AttackIntervalCount=20;
- 
+
+ /*
+ @param _pos ç¿ïW
+ */
 MeleeEnemy::MeleeEnemy(Vector3 _pos) :
 	LoiteringEnemyBase(_pos,Vector3(0.5f, 0.5f, 0.5f))
 {

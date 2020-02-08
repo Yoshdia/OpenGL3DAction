@@ -4,6 +4,11 @@
 #include "InputSystem.h"
 #include "ColliderComponent.h"
 
+/*
+@param _p 座標
+@param _size サイズ
+@param _tag タグ
+*/
 DebugBox::DebugBox(Vector3 p, Vector3 _size, Tag _tag)
 {
 	MeshComponent* meshComponent = new MeshComponent(this);
