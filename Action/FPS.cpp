@@ -18,7 +18,7 @@ FPS::~FPS()
 {
 }
 
-/**
+/*
 @brief	ƒtƒŒ[ƒ€–ˆ‚Ìˆ—
 */
 void FPS::Update()
@@ -48,7 +48,7 @@ void FPS::Update()
 	}
 }
 
-/**
+/*
 @brief	FPS‚ªİ’è’l‚æ‚è‘å‚«‚­‚È‚ç‚È‚¢‚½‚ß‚Ì§Œä
 */
 void FPS::Wait()
