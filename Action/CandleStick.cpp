@@ -16,12 +16,14 @@ CandleStick::CandleStick(Vector3 _pos) :
 	tag = Tag::CandleStickTag;
 	collider = new ColliderComponent(this, 100, Vector3(3, 3, 3), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 
-	stickParticle = new ParticleComponent(this, 100);
+	stickParticle = new ParticleComponent(this);
 	Texture* noFire = RENDERER->GetTexture("Assets/image/Candle/CandleNoFire.png");
 	stickParticle->SetTextureID(noFire->GetTextureID());
+	stickParticle->SetDrawOrder(100);
 	stickParticle->SetScale(10);
 
-	lightParticle = new ParticleComponent(this, 70);
+	lightParticle = new ParticleComponent(this);
+	lightParticle->SetDrawOrder(70);
 	lightParticle->SetTextureID(RENDERER->GetTexture("Assets/Image/Candle/Candle.png")->GetTextureID());
 	lightParticle->SetScale(30);
 	lightParticle->SetVisible(false);

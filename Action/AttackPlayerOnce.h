@@ -4,6 +4,7 @@
 /*
  @file AttackPlayerOnce.h
  @brief プレイヤーのコンボ1段目
+ メイスを飛ばすクラス。twiceとThirdを統一すべき。
 	*/
 class AttackPlayerOnce :
 	public AttackBase

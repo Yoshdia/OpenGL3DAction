@@ -9,7 +9,7 @@ StraightMagicBullet::StraightMagicBullet(const Vector3 & _shotPosition, const Ve
 	WeaponBase(_shotPosition, _waitCount, 150, 1, Tag::EnemyWeaponTag, 1, Vector3(10, 10, 10),1, "none", "none")
 {
 	force = Vector3::Normalize(_targetPosition - _shotPosition);
-	ParticleComponent* particle= new ParticleComponent(this, 100);
+	ParticleComponent* particle= new ParticleComponent(this);
 	particle->SetTextureID(RENDERER->GetTexture("Assets/Image/EnemyShot.png")->GetTextureID());
 	particle->SetVisible(true);
 	particle->SetScale(30.0f);

@@ -1,7 +1,9 @@
 #include "FloatParticleEffect.h"
 
-
-
+/*
+@param _pos À•W
+@param _velocity ˆÚ“®—Ê
+*/
 FloatParticleEffect::FloatParticleEffect(const Vector3& _pos, const Vector3& _velocity):
 	ParticleEffectBase(_pos,_velocity,30,"Assets/Image/16.png")
 {

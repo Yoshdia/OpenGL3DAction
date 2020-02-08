@@ -236,7 +236,10 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShieldEnemy.cpp" />
     <ClCompile Include="ShieldWeapon.cpp" />
-    <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Ship.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="ShotSwordWeapon.cpp" />
     <ClCompile Include="SkeletalMeshComponent.cpp" />
     <ClCompile Include="Skeleton.cpp" />
@@ -249,7 +252,10 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="StraightMagicBullet.cpp" />
     <ClCompile Include="TakeItemEffectUI.cpp" />
     <ClCompile Include="TankEnemy.cpp" />
-    <ClCompile Include="TestModel.cpp" />
+    <ClCompile Include="TestModel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ThrowWeapon.cpp" />
     <ClCompile Include="ThrowWeaponCombo.cpp" />
@@ -356,7 +362,10 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShieldEnemy.h" />
     <ClInclude Include="ShieldWeapon.h" />
-    <ClInclude Include="Ship.h" />
+    <ClInclude Include="Ship.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="ShotSwordWeapon.h" />
     <ClInclude Include="SkeletalMeshComponent.h" />
     <ClInclude Include="Skeleton.h" />
@@ -369,7 +378,10 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="StraightMagicBullet.h" />
     <ClInclude Include="TakeItemEffectUI.h" />
     <ClInclude Include="TankEnemy.h" />
-    <ClInclude Include="TestModel.h" />
+    <ClInclude Include="TestModel.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Texture.h" />
     <ClInclude Include="ThrowWeapon.h" />
     <ClInclude Include="ThrowWeaponCombo.h" />

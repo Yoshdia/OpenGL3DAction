@@ -7,7 +7,8 @@ ParticleObject::ParticleObject(const Vector3& _pos, const std::string& _fileName
 	GameObject()
 {
 	SetPosition(_pos);
-	particle = new ParticleComponent(this, drawOrder);
+	particle = new ParticleComponent(this);
+	particle->SetDrawOrder(drawOrder);
 	particle->SetTextureID(RENDERER->GetTexture(_fileName)->GetTextureID());
 	particle->SetScale(_scale);
 }

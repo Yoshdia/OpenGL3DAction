@@ -41,11 +41,11 @@ public:
 	@fn 全てのアニメーションフラグを倒す
 	*/
 	void AllFlagReset();
-private:
 	/*
      @fn animationNameと各フラグを参照しどのアニメーションを再生するかを決定し再生する
 	*/
 	void UpdateAnimationComponent(float _deltaTime)override;
+private:
 
 	//移動
 	const Animation* moveAnim;

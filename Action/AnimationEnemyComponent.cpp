@@ -91,11 +91,11 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 	moveAnim = RENDERER->GetAnimation(moveName);
 	idleAnim = RENDERER->GetAnimation(idleName);
 	attackAnim = RENDERER->GetAnimation(attackName);
-	mMeshComp->SetMesh(RENDERER->GetMesh(meshName + ".gpmesh"));
-	mMeshComp->SetSkeleton(RENDERER->GetSkeleton(skeletalName));
+	skeltalMeshComponent->SetMesh(RENDERER->GetMesh(meshName + ".gpmesh"));
+	skeltalMeshComponent->SetSkeleton(RENDERER->GetSkeleton(skeletalName));
 
 	//デフォルト、Idleとなるアニメーションを最初に再生すること
-	mMeshComp->PlayAnimation(idleAnim, 0.125f);
+	skeltalMeshComponent->PlayAnimation(idleAnim, 0.125f);
 }
 
 AnimationEnemyComponent::~AnimationEnemyComponent()
@@ -114,31 +114,31 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		if (move)
 		{
 			animationName = EnemyAnimationName::Move;
-			animDuration = mMeshComp->PlayAnimation(moveAnim, 0.5f);
+			animDuration = skeltalMeshComponent->PlayAnimation(moveAnim, 0.5f);
 		}
 		if (attack)
 		{
 			animationName = EnemyAnimationName::Attack;
-			animDuration = mMeshComp->PlayAnimation(attackAnim, 1.0f);
+			animDuration = skeltalMeshComponent->PlayAnimation(attackAnim, 1.0f);
 		}
 		if (spawn)
 		{
 			animationName = EnemyAnimationName::Spawn;
-			animDuration = mMeshComp->PlayAnimation(spawnAnim, 0.6f);
+			animDuration = skeltalMeshComponent->PlayAnimation(spawnAnim, 0.6f);
 		}
 		if (stan)
 		{
 			animationName = EnemyAnimationName::Stan;
-			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.3f);
+			animDuration = skeltalMeshComponent->PlayAnimation(stanAnim, 0.3f);
 		}
 		if (action)
 		{
 			animationName = EnemyAnimationName::Action;
-			animDuration = mMeshComp->PlayAnimation(actionAnim, actionAnimationSpeed);
+			animDuration = skeltalMeshComponent->PlayAnimation(actionAnim, actionAnimationSpeed);
 		}
 		if (animDuration < 0)
 		{
-			animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
+			animDuration = skeltalMeshComponent->PlayAnimation(idleAnim, 0.5f);
 		}
 		break;
 		//移動アニメーション。攻撃やスタン、アクションに派生
@@ -146,22 +146,22 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		if (!move)
 		{
 			animationName = EnemyAnimationName::Idle;
-			animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
+			animDuration = skeltalMeshComponent->PlayAnimation(idleAnim, 0.5f);
 		}
 		if (attack)
 		{
 			animationName = EnemyAnimationName::Attack;
-			animDuration = mMeshComp->PlayAnimation(attackAnim, 1.0f);
+			animDuration = skeltalMeshComponent->PlayAnimation(attackAnim, 1.0f);
 		}
 		if (stan)
 		{
 			animationName = EnemyAnimationName::Stan;
-			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.1f);
+			animDuration = skeltalMeshComponent->PlayAnimation(stanAnim, 0.1f);
 		}
 		if (action)
 		{
 			animationName = EnemyAnimationName::Action;
-			animDuration = mMeshComp->PlayAnimation(actionAnim, actionAnimationSpeed);
+			animDuration = skeltalMeshComponent->PlayAnimation(actionAnim, actionAnimationSpeed);
 		}
 		//再生が終了したとき
 		if (animDuration <= 0)
@@ -169,7 +169,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			if (!move)
 			{
 				animationName = EnemyAnimationName::Idle;
-				animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
+				animDuration = skeltalMeshComponent->PlayAnimation(idleAnim, 0.5f);
 			}
 			else
 			{
@@ -184,18 +184,18 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			if (!move)
 			{
 				animationName = EnemyAnimationName::Idle;
-				animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
+				animDuration = skeltalMeshComponent->PlayAnimation(idleAnim, 0.5f);
 			}
 			else
 			{
 				animationName = EnemyAnimationName::Move;
-				animDuration = mMeshComp->PlayAnimation(moveAnim, 0.5f);
+				animDuration = skeltalMeshComponent->PlayAnimation(moveAnim, 0.5f);
 			}
 		}
 		if (stan)
 		{
 			animationName = EnemyAnimationName::Stan;
-			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.3f);
+			animDuration = skeltalMeshComponent->PlayAnimation(stanAnim, 0.3f);
 		}
 		break;
 		//生成時のアニメーション
@@ -205,11 +205,11 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			animationName = EnemyAnimationName::Idle;
 			if (actionAnim != nullptr)
 			{
-				animDuration = mMeshComp->PlayAnimation(actionAnim, actionAnimationSpeed);
+				animDuration = skeltalMeshComponent->PlayAnimation(actionAnim, actionAnimationSpeed);
 			}
 			else
 			{
-				animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
+				animDuration = skeltalMeshComponent->PlayAnimation(idleAnim, 0.5f);
 			}
 			spawn = false;
 		}
@@ -220,13 +220,13 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		{
 			if (stan)
 			{
-				animDuration = mMeshComp->PlayAnimation(idleAnim, 0.1f);
+				animDuration = skeltalMeshComponent->PlayAnimation(idleAnim, 0.1f);
 			}
 		}
 		if (!stan)
 		{
 			animationName = EnemyAnimationName::Idle;
-			animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
+			animDuration = skeltalMeshComponent->PlayAnimation(idleAnim, 0.5f);
 		}
 		break;
 		//アクションアニメーション
@@ -235,12 +235,12 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		{
 			action = false;
 			animationName = EnemyAnimationName::Idle;
-			animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
+			animDuration = skeltalMeshComponent->PlayAnimation(idleAnim, 0.5f);
 		}
 		if (stan)
 		{
 			animationName = EnemyAnimationName::Stan;
-			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.3f);
+			animDuration = skeltalMeshComponent->PlayAnimation(stanAnim, 0.3f);
 		}
 	}
 	animDuration -= subAnimDuration;
@@ -258,6 +258,6 @@ void AnimationEnemyComponent::AllFlagReset()
 void AnimationEnemyComponent::SetAction(bool _action)
 {
 	action = _action; 
-	animDuration = mMeshComp->PlayAnimation(actionAnim, actionAnimationSpeed);
+	animDuration = skeltalMeshComponent->PlayAnimation(actionAnim, actionAnimationSpeed);
 
 }
