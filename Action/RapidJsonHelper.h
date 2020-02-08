@@ -8,16 +8,36 @@
 #include <algorithm>
 
 
-//JSONファイルのオープン
-bool openJsonFile(rapidjson::Document& inoutDoc, const char* inFileName);
+/*
+@fn  jsonファイルのオープン
+@param _inputDocument rapidJsonオブジェクト
+@param _inFileName オープンしたいJsonファイルパス
+return ファイルを開くことができたか
+*/
+bool openJsonFile(rapidjson::Document& _inputDocument, const char* inFileName);
 
-// Doc内にそのメンバーは存在するか？
+/*
+@fn  Doc内にそのメンバーは存在するか？
+@param _inDocument rapidJsonオブジェクト
+@param _memberName メンバ名
+@return Documentにメンバ名が含まれていたかどうか
+*/
 bool IsExistMember(const rapidjson::Document& inDoc, const char* memberName);
 
-// そのメンバーが存在し、かつ値が一致するか？
+/*
+@fn そのメンバーが存在し、かつ値が一致するか？
+@param _inDocument ドキュメント
+@param _menberName メンバー名
+@param _matchValue 調べたいメンバー名にマッチする値
+@return  memberNameに対応する値がmatchValueだったときのみtrueを返す
+*/
 bool IsExistMemberAndValue(const rapidjson::Document& inDoc, const char* memberName, const char* matchValue);
 
-// Doc中に memberNameという名前の配列はあるか？
+/*
+@param _inDocument
+@param _menberName
+@return Document内にメンバ名が含まれるか
+*/
 bool IsExistArrayName(const rapidjson::Document& inDoc, const char* memberName);
 
 

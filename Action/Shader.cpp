@@ -15,10 +15,10 @@ Shader::~Shader()
 {
 }
 
-/**
+/*
 @brief	頂点シェーダーとフラグメントシェーダーのロード
-@param	頂点シェーダーのファイル名
-@param	頂点シェーダーのファイル名
+@param	_vertName 頂点シェーダーのファイル名
+@param	_fragName 頂点シェーダーのファイル名
 @return	true : 成功 , false : 失敗
 */
 bool Shader::Load(const std::string & _vertName, const std::string & _fragName)
@@ -42,7 +42,7 @@ bool Shader::Load(const std::string & _vertName, const std::string & _fragName)
 	return true;
 }
 
-/**
+/*
 @brief	ロードしたシェーダーの解放
 */
 void Shader::Unload()
@@ -52,7 +52,7 @@ void Shader::Unload()
 	glDeleteShader(fragShader);
 }
 
-/**
+/*
 @brief	シェーダープログラムをアクティブにする
 */
 void Shader::SetActive()
@@ -60,10 +60,10 @@ void Shader::SetActive()
 	glUseProgram(shaderProgram);
 }
 
-/**
-@brief	行列のUniform変数を設定する
-@param	設定するUniform変数名
-@param	設定する行列
+/*
+	@brief	行列のUniform変数を設定する
+	@param	_name 設定するUniform変数名
+	@param	_matrix 設定する行列
 */
 void Shader::SetMatrixUniform(const char * _name, const Matrix4 & _matrix)
 {
@@ -79,10 +79,10 @@ void Shader::SetMatrixUniforms(const char* _name, Matrix4* _matrices, unsigned _
 	glUniformMatrix4fv(loc, _count, GL_TRUE, _matrices->GetAsFloatPtr());
 }
 
-/**
-@brief	ベクトルのUniform変数を設定する
-@param	設定するUniform変数名
-@param	設定するベクトル
+/*
+@brief	Vector3のUniform変数を設定する
+@param	_name 設定するUniform変数名
+@param	_vector 設定するVector3
 */
 void Shader::SetVectorUniform(const char * _name, const Vector3 & _vector)
 {
@@ -91,10 +91,10 @@ void Shader::SetVectorUniform(const char * _name, const Vector3 & _vector)
     glUniform3fv(loc, 1, _vector.GetAsFloatPtr());
 }
 
-/**
+/*
 @brief	floatのUniform変数を設定する
-@param	設定するUniform変数名
-@param	設定するfloat
+@param	_name 設定するUniform変数名
+@param	_value 設定するfloat
 */
 void Shader::SetFloatUniform(const char * _name, const float & _value)
 {
@@ -103,11 +103,11 @@ void Shader::SetFloatUniform(const char * _name, const float & _value)
     glUniform1f(loc, _value);
 }
 
-/**
+/*
 @brief	シェーダーをコンパイルする
-@param	コンパイルするシェーダーのファイル名
-@param	シェーダーの種類
-@param	シェーダーのID用の参照変数
+@param	_fileName コンパイルするシェーダーのファイル名
+@param	_shaderType シェーダーの種類
+@param	_outShader シェーダーのID用の参照変数
 @return	true : 成功 , false : 失敗
 */
 bool Shader::CompileShader(const std::string & _fileName, GLenum _shaderType, GLuint & _outShader)
@@ -141,9 +141,9 @@ bool Shader::CompileShader(const std::string & _fileName, GLenum _shaderType, GL
 	return true;
 }
 
-/**
+/*
 @brief	シェーダーがコンパイル出来ているか確認
-@param	シェーダーのID
+@param	_shader シェーダーのID
 @return	true : 成功 , false : 失敗
 */
 bool Shader::IsCompiled(GLuint _shader)
@@ -163,7 +163,7 @@ bool Shader::IsCompiled(GLuint _shader)
 	return true;
 }
 
-/**
+/*
 @brief	シェーダーがリンク出来ているか確認
 @param	シェーダーのID
 @return	true : 成功 , false : 失敗

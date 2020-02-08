@@ -15,9 +15,9 @@ Texture::~Texture()
 {
 }
 
-/**
+/*
 @brief	テクスチャのロード
-@param	テクスチャのファイル名
+@param	_fileName テクスチャのファイル名
 @return	true : 成功 , false : 失敗
 */
 bool Texture::Load(const std::string& _fileName)
@@ -83,7 +83,7 @@ bool Texture::Load(const std::string& _fileName)
 	return true;
 }
 
-/**
+/*
 @brief	ロードしたテクスチャの解放
 */
 void Texture::Unload()
@@ -91,23 +91,23 @@ void Texture::Unload()
 	glDeleteTextures(1, &textureID);
 }
 
-void Texture::CreateFromSurface(SDL_Surface * surface)
+void Texture::CreateFromSurface(SDL_Surface * _surface)
 {
-	width = surface->w;
-	height = surface->h;
+	width = _surface->w;
+	height = _surface->h;
 
 	// Generate a GL texture
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA,
-		GL_UNSIGNED_BYTE, surface->pixels);
+		GL_UNSIGNED_BYTE, _surface->pixels);
 
 	// Use linear filtering
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
-/**
+/*
 @brief	レンダリング用のテクスチャを作成
 @param	テクスチャの横幅
 @param	テクスチャの縦幅
@@ -129,7 +129,7 @@ void Texture::CreateForRendering(int _width, int _height, unsigned int _format)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 }
 
-/**
+/*
 @brief	テクスチャをアクティブにする
 */
 void Texture::SetActive()

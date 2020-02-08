@@ -8,40 +8,39 @@ class Texture
 public:
     Texture();
     ~Texture();
-	/**
+	/*
 	@brief	テクスチャのロード
-	@param	テクスチャのファイル名
+	@param	_fileName テクスチャのファイル名
 	@return	true : 成功 , false : 失敗
 	*/
-
 	bool Load(const std::string& _fileName);
-	/**
+	/*
 	@brief	ロードしたテクスチャの解放
 	*/
 	void Unload();
 
-	void CreateFromSurface(struct SDL_Surface* surface);
+	void CreateFromSurface(struct SDL_Surface* _surface);
 
-	/**
+	/*
 	@brief	レンダリング用のテクスチャを作成
 	@param	テクスチャの横幅
 	@param	テクスチャの縦幅
 	@param	ピクセルデータのフォーマット
 	*/
-	void CreateForRendering(int width, int height, unsigned int format);
+	void CreateForRendering(int _width, int height, unsigned int _format);
 
-	/**
+	/*
 	@brief	テクスチャをアクティブにする
 	*/
 	void SetActive();
 
-	/**
+	/*
 	@brief	テクスチャの横幅を取得する
 	@return 横幅
 	*/
 	int GetWidth() const { return width; }
 
-	/**
+	/*
 	@brief	テクスチャの縦幅を取得する
 	@return 縦幅
 	*/

@@ -42,7 +42,7 @@ Renderer::~Renderer()
 {
 }
 
-/**
+/*
 @brief  インスタンスを作成する
 */
 void Renderer::CreateInstance()
@@ -53,7 +53,7 @@ void Renderer::CreateInstance()
 	}
 }
 
-/**
+/*
 @brief  インスタンスを削除する
 */
 void Renderer::DeleteInstance()
@@ -65,7 +65,7 @@ void Renderer::DeleteInstance()
 	}
 }
 
-/**
+/*
 @brief  初期化処理
 @return true : 成功 , false : 失敗
 */
@@ -140,13 +140,10 @@ bool Renderer::Initialize(float _screenWidth, float _screenHeight, bool _fullScr
 
 	CreateParticleVerts();
 
-
-	//glFrontFace(GL_CCW);
-	//glEnable(GL_CULL_FACE);
 	return true;
 }
 
-/**
+/*
 @brief  終了処理
 */
 void Renderer::Shutdown()
@@ -162,7 +159,7 @@ void Renderer::Shutdown()
 	SDL_DestroyWindow(window);
 }
 
-/**
+/*
 @brief  ロードしたデータの解放
 */
 void Renderer::UnloadData()
@@ -195,7 +192,7 @@ void Renderer::UnloadData()
 	meshes.clear();
 }
 
-/**
+/*
 @brief  描画処理
 */
 void Renderer::Draw()
@@ -272,9 +269,9 @@ void Renderer::Draw()
 }
 
 
-/**
-@brief  スプライトの削除
-@param	削除するSpriteComponentクラスのポインタ
+/*
+@brief  スプライトの追加
+@param	_spriteComponent　追加するSpriteComponentクラスのポインタ
 */
 void Renderer::AddSprite(SpriteComponent* _spriteComponent)
 {
@@ -296,9 +293,9 @@ void Renderer::AddSprite(SpriteComponent* _spriteComponent)
 	sprites.insert(iter, _spriteComponent);
 }
 
-/**
-@brief  スプライトの削除
-@param	削除するSpriteComponentクラスのポインタ
+/*
+@brief スプライトの削除
+@param	_spriteComponent　削除するSpriteComponentクラスのポインタ
 */
 void Renderer::RemoveSprite(SpriteComponent* _spriteComponent)
 {
@@ -306,6 +303,10 @@ void Renderer::RemoveSprite(SpriteComponent* _spriteComponent)
 	sprites.erase(iter);
 }
 
+/*
+@brief  パーティクルの追加
+@param	_particleComponent　追加するParticleObjectクラスのポインタ
+*/
 void Renderer::AddParticle(ParticleComponent * _particleComponent)
 {
 	int myDrawOrder = _particleComponent->GetDrawOrder();
@@ -320,18 +321,21 @@ void Renderer::AddParticle(ParticleComponent * _particleComponent)
 		}
 	}
 	particles.insert(iter, _particleComponent);
-	//particles.push_back(_particleComponent);
 }
 
+/*
+@brief  スプライトの削除
+@param	削除するParticleObjectクラスのポインタ
+*/
 void Renderer::RemoveParticle(ParticleComponent * _particleComponent)
 {
 	auto iter = std::find(particles.begin(), particles.end(), _particleComponent);
 	particles.erase(iter);
 }
 
-/**
+/*
 @brief  メッシュコンポーネントの追加
-@param	追加するMeshComponentクラスのポインタ
+@param	_meshComponent　追加するMeshComponentクラスのポインタ
 */
 void Renderer::AddMeshComponent(MeshComponent* _meshComponent)
 {
@@ -346,9 +350,9 @@ void Renderer::AddMeshComponent(MeshComponent* _meshComponent)
 	}
 }
 
-/**
+/*
 @brief  メッシュコンポーネントの削除
-@param	削除するMeshComponentクラスのポインタ
+@param	_meshComponent　削除するMeshComponentクラスのポインタ
 */
 void Renderer::RemoveMeshComponent(MeshComponent* _meshComponent)
 {
@@ -365,6 +369,10 @@ void Renderer::RemoveMeshComponent(MeshComponent* _meshComponent)
 	}
 }
 
+/*
+@param _fileName モデルへのアドレス
+@return スケルトンモデルの取得
+*/
 const Skeleton * Renderer::GetSkeleton(const char * fileName)
 {
 	std::string file(fileName);
@@ -389,6 +397,10 @@ const Skeleton * Renderer::GetSkeleton(const char * fileName)
 	}
 }
 
+/*
+@param _fileName アニメーションへのアドレス
+@return スケルトンアニメーションの取得
+*/
 const Animation * Renderer::GetAnimation(const char * fileName)
 {
 	auto iter = mAnims.find(fileName);
@@ -412,9 +424,9 @@ const Animation * Renderer::GetAnimation(const char * fileName)
 	}
 }
 
-/**
+/*
 @brief  テクスチャの取得
-@param	取得したいテクスチャのファイル名
+@param	_fileName　取得したいテクスチャのファイル名
 @return Textureクラスのポインタ
 */
 Texture* Renderer::GetTexture(const std::string& _fileName)
@@ -444,9 +456,9 @@ Texture* Renderer::GetTexture(const std::string& _fileName)
 	return texture;
 }
 
-/**
+/*
 @brief  メッシュの取得
-@param	取得したいメッシュのファイル名
+@param	_fileName 取得したいメッシュのファイル名
 @return Meshクラスのポインタ
 */
 Mesh* Renderer::GetMesh(const std::string &_fileName)
@@ -475,7 +487,7 @@ Mesh* Renderer::GetMesh(const std::string &_fileName)
 	return m;
 }
 
-/**
+/*
 @brief  シェーダーの読み込み
 @return true : 成功 , false : 失敗
 */
@@ -532,7 +544,7 @@ bool Renderer::LoadShaders()
 	return true;
 }
 
-/**
+/*
 @brief  Sprite用の頂点バッファとインデックスバッファの作成
 */
 void Renderer::CreateSpriteVerts()
@@ -676,9 +688,9 @@ void Renderer::Draw3DScene(unsigned int framebuffer, const Matrix4 & view, const
 
 }
 
-/**
+/*
 @brief  光源情報をシェーダーの変数にセットする
-@param  セットするShaderクラスのポインタ
+@param _shader セットするShaderクラスのポインタ
 */
 void Renderer::SetLightUniforms(Shader* _shader, const Matrix4& _view)
 {

@@ -1,7 +1,7 @@
 ﻿#include "VertexArray.h"
 #include <glew.h>
 
-/**
+/*
 @param	頂点バッファの配列のポインタ
 @param	頂点数
 @param	インデックスバッファの配列のポインタ
@@ -128,7 +128,7 @@ VertexArray::~VertexArray()
 	glDeleteVertexArrays(1, &vertexArray);
 }
 
-/**
+/*
 @brief	頂点配列をアクティブにする
 */
 void VertexArray::SetActive()

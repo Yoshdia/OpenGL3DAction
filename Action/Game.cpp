@@ -1,13 +1,3 @@
-//=============================================================================
-//	@file	Game.cpp
-//	@brief	ゲーム全体の進行をまとめる
-//	@autor	居本 和哉
-//	@date	2019/10/3
-//=============================================================================
-
-//-----------------------------------------------------------------------------
-//	@brief	インクルード
-//-----------------------------------------------------------------------------
 #include "Game.h"
 #include "SDL.h"
 #include <glew.h>
@@ -20,7 +10,7 @@
 
 int Game::debug = 0;
 
-/**
+/*
 @brief  コンストラクタ
 */
 Game::Game()
@@ -29,14 +19,14 @@ Game::Game()
 {
 }
 
-/**
+/*
 @brief  デストラクタ
 */
 Game::~Game()
 {
 }
 
-/**
+/*
 @brief  初期化処理
 @return true : 成功 , false : 失敗
 */
@@ -82,7 +72,7 @@ bool Game::Initialize()
 	return true;
 }
 
-/**
+/*
 @brief  終了処理
 */
 void Game::Termination()
@@ -100,7 +90,7 @@ void Game::Termination()
 	SDL_Quit();
 }
 
-/**
+/*
 @brief  ゲームループ
 */
 void Game::GameLoop()
@@ -115,7 +105,7 @@ void Game::GameLoop()
 	}
 }
 
-/**
+/*
 @brief   ロードしたデータの解放
 */
 void Game::UnloadData()
@@ -127,7 +117,7 @@ void Game::UnloadData()
 	}
 }
 
-/**
+/*
 @brief  入力関連の処理
 */
 void Game::ProcessInput()
@@ -161,7 +151,7 @@ void Game::ProcessInput()
 	GAME_OBJECT_MANAGER->ProcessInput(state);
 }
 
-/**
+/*
 @brief  描画関連の処理
 */
 void Game::GenerateOutput()
@@ -169,7 +159,7 @@ void Game::GenerateOutput()
 	RENDERER->Draw();
 }
 
-/**
+/*
 @brief  ゲームのアップデート処理
 */
 void Game::UpdateGame()

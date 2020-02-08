@@ -1,15 +1,15 @@
 #include "RapidJsonHelper.h"
 
-//////////////////////////////////////////////////////////////////////////
-// jsonファイルのオープン 
-// in    : inFileName : オープンしたいjsonファイルパス
-// inout : inoutDoc   : rapidjson オブジェクト
-// オープンできた時は trueを返し、inoutDocに　rapidjsonDocumentを参照できる
-//////////////////////////////////////////////////////////////////////////
-bool openJsonFile(rapidjson::Document& inoutDoc, const char* inFileName)
+/*
+@fn  jsonファイルのオープン 
+@param _inputDocument rapidJsonオブジェクト
+@param _inFileName オープンしたいJsonファイルパス
+return ファイルを開くことができたか
+*/
+bool openJsonFile(rapidjson::Document& _inputDocument, const char* _inFileName)
 {
 	// jsonファイル開けるか？
-	std::ifstream file(inFileName);
+	std::ifstream file(_inFileName);
 	if (!file.is_open())
 	{
 		return false;
@@ -26,68 +26,70 @@ bool openJsonFile(rapidjson::Document& inoutDoc, const char* inFileName)
 	file.close();
 
 	// 解析オブジェクト作成
-	inoutDoc.ParseStream(jsonStr);
+	_inputDocument.ParseStream(jsonStr);
 
 	// JSonObjectとして読めたか？
-	if (!inoutDoc.IsObject())
+	if (!_inputDocument.IsObject())
 	{
 		return false;
 	}
 	return true;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Doc内にそのメンバーは存在するか？
-// in : inDoc      rapidjson Document
-//    : memberName メンバー名
-// 戻り値　Document内に memberNameが存在したときのみtrueを返す。
-///////////////////////////////////////////////////////////////////////////////
-bool IsExistMember(const rapidjson::Document& inDoc, const char* memberName)
+/*
+@fn  Doc内にそのメンバーは存在するか？
+@param _inDocument rapidJsonオブジェクト
+@param _memberName メンバ名
+@return Documentにメンバ名が含まれていたかどうか
+*/
+bool IsExistMember(const rapidjson::Document& _inDocument, const char* _memberName)
 {
 	rapidjson::Value::ConstMemberIterator iter;
-	iter = inDoc.FindMember(memberName);
+	iter = _inDocument.FindMember(_memberName);
 
-	if (iter == inDoc.MemberEnd())
+	if (iter == _inDocument.MemberEnd())
 	{
 		return false;
 	}
 	return true;
 }
 
-/////////////////////////////////////////////////////////////////////////////////
-// そのメンバーが存在し、かつ値が一致するか？
-// in    :  inDoc       rapidjsonドキュメント
-//          memberName  調べたいメンバー名
-//          matchValue   調べたいメンバー名にマッチする値
-// 戻り値 : memberNameに対応する値がmatchValueだったときのみtrueを返す 
-/////////////////////////////////////////////////////////////////////////////////
-bool IsExistMemberAndValue(const rapidjson::Document& inDoc, const char* memberName, const char* matchValue)
+/*
+@fn そのメンバーが存在し、かつ値が一致するか？
+@param _inDocument ドキュメント
+@param _menberName メンバー名
+@param _matchValue 調べたいメンバー名にマッチする値
+@return  memberNameに対応する値がmatchValueだったときのみtrueを返す 
+*/
+bool IsExistMemberAndValue(const rapidjson::Document& _inDocument, const char* _menberName, const char* _matchValue)
 {
-	if (!IsExistMember(inDoc, memberName))
+	if (!IsExistMember(_inDocument, _menberName))
 	{
 		return false;
 	}
 
 	std::string findValueString;
-	findValueString = std::string(matchValue);
+	findValueString = std::string(_matchValue);
 
-	if (findValueString != inDoc[memberName].GetString())
+	if (findValueString != _inDocument[_menberName].GetString())
 	{
 		return false;
 	}
 	return true;
 }
 
-///////////////////////////////////////////////////////////////////////////
-// Doc中に memberNameという名前の配列はあるか？
-//////////////////////////////////////////////////////////////////////////
-bool IsExistArrayName(const rapidjson::Document& inDoc, const char* memberName)
+/*
+@param _inDocument
+@param _menberName 
+@return Document内にメンバ名が含まれるか
+*/
+bool IsExistArrayName(const rapidjson::Document& _inDocument, const char* _menberName)
 {
 	rapidjson::Value::ConstMemberIterator iter;
-	iter = inDoc.FindMember(memberName);
-	if (iter == inDoc.MemberEnd())
+	iter = _inDocument.FindMember(_menberName);
+	if (iter == _inDocument.MemberEnd())
 	{
 		return false;
 	}
-	return inDoc[memberName].IsArray();
+	return _inDocument[_menberName].IsArray();
 }

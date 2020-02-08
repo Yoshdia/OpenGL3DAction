@@ -31,10 +31,10 @@ Mesh::~Mesh()
 }
 
 
-/**
+/*
 @brief  メッシュデータの読み込み
-@param	ロードしたいメッシュのファイル名
-@param	Rendererクラスのポインタ
+@param _fileName	ロードしたいメッシュのファイル名
+@param _renderer Rendererクラスのポインタ
 @return true : 成功 , false : 失敗
 */
 bool Mesh::Load(const std::string & _fileName, Renderer* _renderer)
@@ -212,7 +212,7 @@ bool Mesh::Load(const std::string & _fileName, Renderer* _renderer)
 	return true;
 }
 
-/**
+/*
 @brief  ロードしたメッシュデータの解放
 */
 void Mesh::Unload()
@@ -221,7 +221,7 @@ void Mesh::Unload()
 	vertexArray = nullptr;
 }
 
-/**
+/*
 @brief  テクスチャのGetter
 */
 Texture* Mesh::GetTexture(size_t _index)

@@ -9,7 +9,7 @@ public:
 		PosNormSkinTex  // 位置&法線& "スキン用の影響ボーン＆重み情報" & テクスチャUV 
 	};
 
-	/**
+	/*
 	@param	頂点バッファの配列のポインタ
 	@param	頂点数
 	@param	インデックスバッファの配列のポインタ
@@ -21,18 +21,18 @@ public:
 		const unsigned int* indices, unsigned int numIndices);
 	~VertexArray();
 
-	/**
+	/*
 	@brief	頂点配列をアクティブにする（描画に使用できるようにする）
 	*/
 	void SetActive();
 
-	/**
+	/*
 	@brief	インデックスバッファにあるインデックスの数を取得する
 	@return numIndices（インデックスの数）
 	*/
 	unsigned int GetNumIndices() const { return numIndices; }
 
-	/**
+	/*
 	@brief	頂点バッファにある頂点の数を取得する
 	@return numVerts（頂点の数）
 	*/
