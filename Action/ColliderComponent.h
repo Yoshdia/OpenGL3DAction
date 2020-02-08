@@ -91,15 +91,15 @@ private:
 
 public: //ゲッターセッター
 	/*
-	@fn 親Objectの座標を返す
+	@return 親Objectの座標を返す
 	*/
 	Vector3 GetPosition();
 	/*
-	@fn 親Objectの識別番号を返す
+	@return 親Objectの識別番号を返す
 	*/
 	int GetId();
 	/*
-	@fn 当たり判定のサイズ
+	@return 当たり判定のサイズ
 	*/
 	Vector3 GetCollisionSize() { return size; };
 	/*
@@ -108,17 +108,17 @@ public: //ゲッターセッター
 	void SetScale(Vector3 _scale) { size = _scale; }
 
 	/*
-	@fn 親オブジェクトのタグ
+	@return 親オブジェクトのタグ
 	*/
 	Tag GetObjectTag();
 
 	/*
-	@fn 親オブジェクトの状態
+	@return 親オブジェクトの状態
 	*/
 	State GetState();
 
 	/*
-	@fn 衝突を行うか
+	@return 衝突を行うか
 	*/
 	bool GetDoCollision() { return doCollision; }
 	/*

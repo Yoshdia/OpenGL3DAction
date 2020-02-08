@@ -5,10 +5,6 @@
 #include "Game.h"
 #include "Renderer.h"
 
-/**
-@param	アタッチするゲームオブジェクトのポインタ
-@param	コンポーネントの更新順番（数値が小さいほど早く更新される）
-*/
 SpriteComponent::SpriteComponent(GameObject * _owner, int _drawOrder)
     :Component(_owner)
     ,texture(nullptr)
@@ -17,20 +13,23 @@ SpriteComponent::SpriteComponent(GameObject * _owner, int _drawOrder)
     ,textureHeight(0)
 	, visible(true)
 {
+	//レンダラーにポインターを送る
 	RENDERER->AddSprite(this);
 }
 
 SpriteComponent::~SpriteComponent()
 {
+	//レンダラーからポインタを削除する
 	RENDERER->RemoveSprite(this);
 }
 
-/**
+/*
 @brief	描画処理
-@param	使用するシェーダークラスのポインタ
+@param _shader 使用するシェーダークラスのポインタ
 */
 void SpriteComponent::Draw(Shader * _shader)
 {
+	//画像情報が空でないか、親オブジェクトが未更新状態でないか
 	if (texture&&owner->GetState()!=State::Dead)
 	{
 		Matrix4 scaleMatrix = Matrix4::CreateScale(
@@ -49,9 +48,9 @@ void SpriteComponent::Draw(Shader * _shader)
 	}
 }
 
-/**
-@brief	使用するテクスチャの設定
-@param	使用するテクスチャのポインタ
+/*
+@fn テクスチャをセットし縦横の長さを計算する
+@param _texture 使用するテクスチャのポインタ
 */
 void SpriteComponent::SetTexture(Texture * _texture)
 {

@@ -28,6 +28,7 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 	const char* attackName = "";
 	const char* spawnName = "";
 
+	//エネミーの種類によって読み込むメッシュやアニメーションデータを変更
 	switch (_type)
 	{
 	case EnemyType::MeleeType:
@@ -85,10 +86,11 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 	default:
 		break;
 	}
+	
+	//全てのエネミーが用いるアニメーションを読み込む
 	moveAnim = RENDERER->GetAnimation(moveName);
 	idleAnim = RENDERER->GetAnimation(idleName);
 	attackAnim = RENDERER->GetAnimation(attackName);
-
 	mMeshComp->SetMesh(RENDERER->GetMesh(meshName + ".gpmesh"));
 	mMeshComp->SetSkeleton(RENDERER->GetSkeleton(skeletalName));
 
@@ -107,6 +109,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 {
 	switch (animationName)
 	{
+		//待機状態。何らかのアニメーションフラグが建つとそのアニメーションに切り替える
 	case(EnemyAnimationName::Idle):
 		if (move)
 		{
@@ -138,6 +141,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
 		}
 		break;
+		//移動アニメーション。攻撃やスタン、アクションに派生
 	case(EnemyAnimationName::Move):
 		if (!move)
 		{
@@ -159,6 +163,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			animationName = EnemyAnimationName::Action;
 			animDuration = mMeshComp->PlayAnimation(actionAnim, actionAnimationSpeed);
 		}
+		//再生が終了したとき
 		if (animDuration <= 0)
 		{
 			if (!move)
@@ -169,10 +174,10 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			else
 			{
 				animationName = EnemyAnimationName::Move;
-				//animDuration = mMeshComp->PlayAnimation(moveAnim, 0.5f);
 			}
 		}
 		break;
+		//攻撃アニメーション
 	case(EnemyAnimationName::Attack):
 		if (animDuration <= 0)
 		{
@@ -193,6 +198,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			animDuration = mMeshComp->PlayAnimation(stanAnim, 0.3f);
 		}
 		break;
+		//生成時のアニメーション
 	case(EnemyAnimationName::Spawn):
 		if (animDuration < 0)
 		{
@@ -208,6 +214,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			spawn = false;
 		}
 		break;
+		//スタン中のアニメーション
 	case(EnemyAnimationName::Stan):
 		if (animDuration < 0)
 		{
@@ -222,6 +229,7 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			animDuration = mMeshComp->PlayAnimation(idleAnim, 0.5f);
 		}
 		break;
+		//アクションアニメーション
 	case(EnemyAnimationName::Action):
 		if (animDuration < 0)
 		{
@@ -236,8 +244,6 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		}
 	}
 	animDuration -= subAnimDuration;
-	//animDuration -= 0.0175f;
-
 }
 
 void AnimationEnemyComponent::AllFlagReset()

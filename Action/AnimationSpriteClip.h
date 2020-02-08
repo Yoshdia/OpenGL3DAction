@@ -16,6 +16,7 @@ struct AnimationKeyFrame
 /*
  @file AnimationSpriteClip.h
  @fn Spriteのアニメーションクリップ基底クラス
+ @brief プレイヤーのアニメーションクリップの基底クラス。派生クラスのコンストラクタでanimationを設定する。
 */
 class AnimationSpriteClip abstract
 {
@@ -39,7 +40,7 @@ public:
 	*/
 	void ResetAnimation();
 protected:
-	//アニメーション
+	//アニメーション アニメーションの終了時はspriteにnullptrを
 	AnimationKeyFrame* animation;
 	//現在のテクスチャの表示時間
 	int nowAnimationTime;

@@ -9,13 +9,23 @@ class Animation;
 */
 enum EnemyType
 {
+	//近接攻撃を行う敵
 	MeleeType,
+	//遠距離攻撃を行う敵
 	RangeType,
+	//体力が多い敵
 	TankType,
+	//ボス
 	MageType,
+	//盾を所持した敵
 	ShieldType
 };
 
+/*
+ @file AnimationEnemyComponent.h
+ @brief 基本的な敵全てに対応する、メッシュデータを所持しアニメーションの再生関係の処理を行うクラス
+ 修正する余地アリ
+*/
 class AnimationEnemyComponent :
 	public BoneAnimationBaseComponent
 {
@@ -28,12 +38,15 @@ public:
 	~AnimationEnemyComponent();
 
 	/*
-	@fn animationNameと各フラグを参照しどのアニメーションを再生するかを決定し再生する
+	@fn 全てのアニメーションフラグを倒す
+	*/
+	void AllFlagReset();
+private:
+	/*
+     @fn animationNameと各フラグを参照しどのアニメーションを再生するかを決定し再生する
 	*/
 	void UpdateAnimationComponent(float _deltaTime)override;
 
-	void AllFlagReset();
-private:
 	//移動
 	const Animation* moveAnim;
 	//待機
@@ -84,11 +97,11 @@ private:
 	float animDuration;
 	//アニメーションの減少量
 	float subAnimDuration;
-
+	//アクションアニメーションの減少量。敵によって減少量が変わるため変数で管理
 	float actionAnimationSpeed;
 public:	//ゲッターセッター
 	/*
-	@fn アニメーションの残り時間を返す
+	@return アニメーションの残り時間
 	*/
 	float GetAnimDuration() { return animDuration; }
 	/*
@@ -108,7 +121,7 @@ public:	//ゲッターセッター
 	*/
 	void SetStan(bool _stan) { stan = _stan; }
 	/*
-	@fn アニメーションフラグをセット
+	@fn アニメーションフラグをセットしアクションアニメーションを再生
 	*/
 	void SetAction(bool _action);
 	/*

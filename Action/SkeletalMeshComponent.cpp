@@ -12,37 +12,42 @@
 
 SkeletalMeshComponent::SkeletalMeshComponent(GameObject* owner)
 	:MeshComponent(owner, true)
-	, mSkeleton(nullptr)
-	, mColor(Vector3(0,0,0))
+	, skeleton(nullptr)
+	, color(Vector3(0,0,0))
 {
 }
 
-void SkeletalMeshComponent::Draw(Shader* shader)                         // 描画
+/*
+@brief　描画処理
+@param	_shader 使用するシェーダークラスのポインタ
+*/
+void SkeletalMeshComponent::Draw(Shader* shader)                 
 {
+	//親オブジェクトが未更新状態でないか
 	if (owner->GetState() != State::Dead)
 	{
-		if (mMesh)
+		if (mesh)
 		{
-			// Set the world transform                                        ワールド変換をセット
+			//ワールド変換をセット
 			shader->SetMatrixUniform("uWorldTransform",
 				owner->GetWorldTransform());
-			// Set the matrix palette                                         行列パレットをセット    
-			shader->SetMatrixUniforms("uMatrixPalette", &mPalette.mEntry[0],
+			// 行列パレットをセット    
+			shader->SetMatrixUniforms("uMatrixPalette", &palette.mEntry[0],
 				MAX_SKELETON_BONES);
-			// Set specular power                                             スペキュラー強度をセット
+			//スペキュラー強度をセット
 			shader->SetFloatUniform("uSpecPower", 100);
 
-			shader->SetVectorUniform("uColor", mColor);
-			// Set the active texture                                         テクスチャをセット 
-			Texture* t = mMesh->GetTexture(mTextureIndex);
+			shader->SetVectorUniform("uColor", color);
+			//  テクスチャをセット 
+			Texture* t = mesh->GetTexture(textureIndex);
 			if (t)
 			{
 				t->SetActive();
 			}
-			// Set the mesh's vertex array as active                          メッシュの頂点配列をアクティブに
-			VertexArray* va = mMesh->GetVertexArray();
+			//メッシュの頂点配列をアクティブに
+			VertexArray* va = mesh->GetVertexArray();
 			va->SetActive();
-			// Draw                                                           描画
+			//描画
 			glDrawElements(GL_TRIANGLES, va->GetNumIndices(), GL_UNSIGNED_INT, nullptr);
 		}
 	}
@@ -50,47 +55,49 @@ void SkeletalMeshComponent::Draw(Shader* shader)                         // 描画
 
 void SkeletalMeshComponent::Update(float deltaTime)
 {
-		if (mAnimation && mSkeleton)
+		if (animation && skeleton)
 		{
-			mAnimTime += deltaTime * mAnimPlayRate;
-			// Wrap around anim time if past duration                         アニメを巻き戻して再生
-			while (mAnimTime > mAnimation->GetDuration())
+			animTime += deltaTime * animPlayRate;
+			//  アニメを巻き戻して再生
+			while (animTime > animation->GetDuration())
 			{
-				mAnimTime -= mAnimation->GetDuration();
+				animTime -= animation->GetDuration();
 			}
 
-			// Recompute matrix palette                                      行列パレットの再計算
+			// 行列パレットの再計算
 			ComputeMatrixPalette();
 		}
 	
 }
 
-float SkeletalMeshComponent::PlayAnimation(const Animation* anim, float playRate)  // アニメーションの再生
+float SkeletalMeshComponent::PlayAnimation(const Animation* _anim, float _playRate) 
 {
-	mAnimation = anim;
-	mAnimTime = 0.0f;
-	mAnimPlayRate = playRate;
+	animation = _anim;
+	animTime = 0.0f;
+	animPlayRate = _playRate;
 
-	if (!mAnimation)
+	if (!animation)
 	{
 		return 0.0f;
 	}
 
 	ComputeMatrixPalette();
 
-	return mAnimation->GetDuration();
+	return animation->GetDuration();
 }
 
-void SkeletalMeshComponent::ComputeMatrixPalette()                              // 行列パレットの計算
+void SkeletalMeshComponent::ComputeMatrixPalette()                             
 {
-	const std::vector<Matrix4>& globalInvBindPoses = mSkeleton->GetGlobalInvBindPoses();   // グローバル逆バインド行列配列の取得
-	std::vector<Matrix4> currentPoses;                                         // 現在のポーズ行列
-	mAnimation->GetGlobalPoseAtTime(currentPoses, mSkeleton, mAnimTime);       // アニメ時刻時点のグローバルポーズの取得
-
-	// Setup the palette for each bone                                        それぞれのボーンの行列パレットのセット
-	for (size_t i = 0; i < mSkeleton->GetNumBones(); i++)
+	// グローバル逆バインド行列配列の取得
+	const std::vector<Matrix4>& globalInvBindPoses = skeleton->GetGlobalInvBindPoses();   
+	// 現在のポーズ行列
+	std::vector<Matrix4> currentPoses;                                        
+	// アニメ時刻時点のグローバルポーズの取得
+	animation->GetGlobalPoseAtTime(currentPoses, skeleton, animTime);      
+	// それぞれのボーンの行列パレットのセット                                    
+	for (size_t i = 0; i < skeleton->GetNumBones(); i++)
 	{
-		// Global inverse bind pose matrix times current pose matrix 　　　　　行列パレット[i] = グローバル逆バインド行列[i]　×　現在のポーズ行列[i]  (iはボーンID)         
-		mPalette.mEntry[i] = globalInvBindPoses[i] * currentPoses[i];
+		//行列パレット[i] = グローバル逆バインド行列[i]　×　現在のポーズ行列[i]  (iはボーンID)         
+		palette.mEntry[i] = globalInvBindPoses[i] * currentPoses[i];
 	}
 }

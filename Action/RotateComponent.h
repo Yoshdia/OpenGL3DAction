@@ -5,7 +5,7 @@
 /*
  @file RotateComponent.h
  @brief 関数に回転させたい角度を渡すと親オブジェクトを回転させる
-	*/
+*/
 class RotateComponent :
 	public Component
 {

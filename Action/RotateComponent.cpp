@@ -11,6 +11,11 @@ RotateComponent::~RotateComponent()
 {
 }
 
+/*
+@brief ‰ñ“]‚ğs‚¤
+@param _rotate Šp“x
+@param _axis ‰ñ“]²
+*/
 void RotateComponent::SetRotation(const float& _rotate, const Vector3& _axis)
 {
 	//‰ñ“]

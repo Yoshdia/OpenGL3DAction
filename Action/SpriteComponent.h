@@ -6,50 +6,58 @@ class GameObject;
 class Shader;
 class Texture;
 
+/*
+@file SpriteComponent.h
+@brief 画像データクラスを管理し、スクリーン上に描画するクラス
+*/
 class SpriteComponent : public Component
 {
 public:
-	/**
-	@param	アタッチするゲームオブジェクトのポインタ
-	@param	コンポーネントの更新順番（数値が小さいほど早く更新される）
-	*/
     SpriteComponent(GameObject* _owner, int _drawOrder = 100);
     ~SpriteComponent();
 
-	/**
+	/*
 	@brief	描画処理
-	@param	使用するシェーダークラスのポインタ
+	@param _shader 使用するシェーダークラスのポインタ
 	*/
     virtual void Draw(Shader* _shader);
-
-	/**
-	@brief	使用するテクスチャの設定
-	@param	使用するテクスチャのポインタ
+protected:
+	//クラスのポインタ
+    Texture* texture;
+	//描画される順番（数値が少ないほど早く更新される）
+    int drawOrder;
+	//テクスチャの横幅
+    int textureWidth;
+	//テクスチャの縦幅
+    int textureHeight;
+	//描画を行うか
+	bool visible;
+public://ゲッターセッター
+	/*
+	@fn テクスチャをセットし縦横の長さを計算する
+	@param _texture 使用するテクスチャのポインタ
 	*/
-    virtual void SetTexture(Texture* _texture);
+	virtual void SetTexture(Texture* _texture);
 
-	/**
-	@brief	テクスチャの横幅を取得する
+	/*
 	@return テクスチャの横幅
 	*/
-    int GetTexWidth() const { return textureWidth; }
+	int GetTexWidth() const { return textureWidth; }
 
-	/**
-	@brief	テクスチャの縦幅を取得する
+	/*
 	@return テクスチャの縦幅
 	*/
-    int GetTexHeight() const { return textureHeight; }
+	int GetTexHeight() const { return textureHeight; }
 
-	/**
-	@brief	DrawOrderを取得する
-	@return DrawOrder（数値が少ないほど早く更新される）
+	/*
+	@return 描画順
 	*/
 	int GetDrawOrder() { return drawOrder; }
 
-	/**
-@brief　描画をするかどうかを設定
-@param	true : 描画する , false : 描画しない
-*/
+	/*
+	@brief　描画をするかどうかを設定
+	@param	true : 描画する , false : 描画しない
+	*/
 	void SetVisible(bool _visible) { visible = _visible; }
 
 	/**
@@ -57,19 +65,5 @@ public:
 	@return	true : 描画する , false : 描画しない
 	*/
 	bool GetVisible() const { return visible; }
-protected:
-
-	//クラスのポインタ
-
-    Texture* texture;
-
-	//描画される順番（数値が少ないほど早く更新される）
-    int drawOrder;
-	//テクスチャの横幅
-    int textureWidth;
-	//テクスチャの縦幅
-    int textureHeight;
-
-	bool visible;
 };
 

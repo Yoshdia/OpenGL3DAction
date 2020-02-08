@@ -6,58 +6,66 @@ class GameObject;
 class Shader;
 class Mesh;
 
+/*
+ @file MeshComponent.h
+ @brief メッシュデータの管理と描画を行う
+*/
 class MeshComponent : public Component
 {
 public:
-	/**
-	@param	アタッチするゲームオブジェクトのポインタ
+	/*
+	@param _skelton スケルトンデータを用いるか。
+	@sa SkeletalMeshComponent.h
 	*/
     MeshComponent(GameObject* _owner,bool _skelton=false);
     ~MeshComponent();
 
-	/**
+	/*
 	@brief　描画処理
-	@param	使用するシェーダークラスのポインタ
+	@param	_shader 使用するシェーダークラスのポインタ
 	*/
     virtual void Draw(Shader* _shader);
-
-	/**
+protected:
+	//メッシュデータクラスへのポインタ
+    Mesh* mesh;
+	//テクスチャサイズ
+    size_t textureIndex;
+	//描画をするかどうか
+	bool visible;
+	//スケルトンデータを用いるか
+	bool isSkelton;
+public: //ゲッターセッター
+	/*
 	@brief　メッシュコンポーネントが使うMeshの設定
-	@param	設定するMeshクラスのポインタ
+	@param	_mesh 設定するMeshクラスのポインタ
 	*/
-    virtual void SetMesh(Mesh* _mesh) { mMesh = _mesh; }
+	virtual void SetMesh(Mesh* _mesh) { mesh = _mesh; }
 
-	virtual Mesh* GetMesh() { return mMesh; }
+	/*
+	 　@return 設定されたMeshクラスのポインタ
+	*/
+	virtual Mesh* GetMesh() { return mesh; }
 
-	/**
+	/*
 	@brief　メッシュコンポーネントが使うTextureインデックスの設定
-	@param	設定するTextureインデックスの数
 	*/
-    void SetTextureIndex(size_t _index) { mTextureIndex = _index; }
+	void SetTextureIndex(size_t _index) { textureIndex = _index; }
 
-	/**
+	/*
 	@brief　描画をするかどうかを設定
 	@param	true : 描画する , false : 描画しない
 	*/
 	void SetVisible(bool _visible) { visible = _visible; }
 
-	/**
+	/*
 	@brief　描画をするかどうかを取得する
 	@return	true : 描画する , false : 描画しない
 	*/
 	bool GetVisible() const { return visible; }
 
+	/*
+	@return スケルトンデータを用いるか
+	*/
 	bool GetIsSkeltal()const { return isSkelton; }
-protected:
-
-	//クラスのポインタ
-
-    Mesh* mMesh;
-    size_t mTextureIndex;
-
-	//描画をするかどうか
-	bool visible;
-
-	bool isSkelton;
 };
 

@@ -3,89 +3,82 @@
 #include "Renderer.h"
 #include "GameObject.h"
 
+// ビルボード行列
 Matrix4 ParticleComponent::staticBillboardMat;
+// カメラのワールド座標
 Vector3 ParticleComponent::staticCameraWorldPos;
 
-ParticleComponent::ParticleComponent(GameObject* _owner, int _updateOrder)
-	:Component(_owner,_updateOrder)
-	, position(Vector3(0, 0, 0))
-	, scale(1)
-	, alpha(1.0f)
-	, visible(true)
-	, drawOrder(_updateOrder)
-	,color(Vector3(1,1,1))
-	, reverce(false)
-{
-	RENDERER->AddParticle(this);
-}
-
-ParticleComponent::ParticleComponent(GameObject* _owner, const Vector3& _pos, float _scale, int _updateOrder)
+/*
+ @param _offset 親オブジェクトクラスと画像を描画する位置の差
+ @param _scale 画像の描画サイズ
+*/
+ParticleComponent::ParticleComponent(GameObject* _owner, const Vector3& _offset, float _scale, int _updateOrder)
 	: Component(_owner, _updateOrder)
-	, position(_pos)
+	, offset(_offset)
 	, scale(_scale)
-	, alpha(1)
+	, alpha(1.0f)
 	, blendType(PARTICLE_BLEND_ENUM::PARTICLE_BLEND_ENUM_ALPHA)
 	, visible(true)
 	, drawOrder(_updateOrder)
 	, color(Vector3(1, 1, 1))
 	, reverce(false)
+	,textureID(0)
 
 {
+	//レンダラーにポインターを送る
 	RENDERER->AddParticle(this);
 }
 
 ParticleComponent::~ParticleComponent()
 {
+	//レンダラーからポインタを削除する
 	RENDERER->RemoveParticle(this);
 }
 
-void ParticleComponent::Update(float _deltaTime)
+/*
+@brief　描画処理
+@param	_shader 使用するシェーダークラスのポインタ
+*/
+void ParticleComponent::Draw(Shader* _shader)
 {
-}
-
-void ParticleComponent::Draw(Shader* shader)
-{
+	//親オブジェクトが未更新状態でないか
 	if (owner->GetState() == State::Dead)
 	{
 		return;
 	}
 	Matrix4 mat, matScale;
 	Vector3 reverceVec = Vector3(1, 1, 1);
+	//サイズを反転させる
 	if (reverce)
 	{
 		reverceVec.x *= -1;
 	}
 	matScale = Matrix4::CreateScale(scale*reverceVec* owner->GetScale());
-	//if (isFollowing)
-	//{
-	mat = Matrix4::CreateTranslation(position + owner->GetPosition());
-	//}
-	//else
-	//{
-		//mat = Matrix4::CreateTranslation(position);
-	//}
+	mat = Matrix4::CreateTranslation(offset + owner->GetPosition());
 
-	shader->SetMatrixUniform("uWorldTransform", matScale * staticBillboardMat * mat);
-	shader->SetFloatUniform("uAlpha", alpha);
-	shader->SetVectorUniform("uColor", color);
+	_shader->SetMatrixUniform("uWorldTransform", matScale * staticBillboardMat * mat);
+	_shader->SetFloatUniform("uAlpha", alpha);
+	_shader->SetVectorUniform("uColor", color);
 
 	RENDERER->SetParticleVertex();
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 }
 
+// カメラ距離でのソート用
 bool ParticleComponent::operator<(const ParticleComponent& rhs) const
 {
 	float lenThis, lenRhs;
-	lenThis = (staticCameraWorldPos - position).LengthSq();
-	lenRhs = (staticCameraWorldPos - rhs.position).LengthSq();
+	lenThis = (staticCameraWorldPos - offset).LengthSq();
+	lenRhs = (staticCameraWorldPos - rhs.offset).LengthSq();
 	return lenThis < lenRhs;
 }
 
+// カメラ距離でのソート用
 bool ParticleComponent::operator>(const ParticleComponent& rhs) const
 {
 	float lenThis, lenRhs;
-	lenThis = (staticCameraWorldPos - position).LengthSq();
-	lenRhs = (staticCameraWorldPos - rhs.position).LengthSq();
+	lenThis = (staticCameraWorldPos - offset).LengthSq();
+	lenRhs = (staticCameraWorldPos - rhs.offset).LengthSq();
 	return lenThis > lenRhs;
 }
 

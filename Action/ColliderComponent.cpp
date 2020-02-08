@@ -71,9 +71,6 @@ void ColliderComponent::Update(float deltaTime)
 	beforeCollisions.clear();
 	beforeCollisions = nowCollisions;
 	nowCollisions.clear();
-	//hadCollision.clear();
-	//hadCollision = isCollision;
-	//isCollision.clear();
 	//è’ìÀÇçsÇ§Ç©
 	if (doCollision)
 	{
