@@ -3,7 +3,7 @@
 #include "DamageSquareEffect.h"
 
 const int ShieldEnemy::HitPointMax = 6;
-const float ShieldEnemy::AttackingTime = 300;
+const float ShieldEnemy::AttackingTime = 160.0f;
 const float ShieldEnemy::HittingTime = 30.0f;
 const float ShieldEnemy::WalkSpeed = 80;
 const float ShieldEnemy::ApproachSpeedRatio = 0.8f;
@@ -45,7 +45,7 @@ void ShieldEnemy::Attack(float _deltaTime)
 	Vector3 ataPos = Vector3::Zero;
 	ataPos.x = (float)(moveDirection * 60);
 	ataPos.y += 40;
-	attackObject= new EnemyWeapon(position + ataPos, Vector3(60, 80, 20), 30, 40);
+	attackObject= new EnemyWeapon(position + ataPos, Vector3(40, 40, 20), 5, 25);
 }
 
 void ShieldEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
@@ -78,6 +78,6 @@ void ShieldEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 		new DamageSquareEffect(position + (Vector3(100 * (float)guardDirection, 80.0f, 0)));
 		animComponent->SetAction(true);
 		animComponent->SetSubDuration(0.023f);
-		canNotActionTime = 150;
+		canNotActionTime = 100;
 	}
 }
