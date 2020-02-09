@@ -233,11 +233,8 @@ void LoiteringEnemyBase::BranchActionChange()
 	}
 	else
 	{
-		//actionName = EnemyActions::noActive;
-		//animComponent->SetMove(false);
-		actionName = EnemyActions::walk;
-
-
+		actionName = EnemyActions::noActive;
+		animComponent->SetMove(false);
 	}
 	//Œü‚«‚ðƒ‰ƒ“ƒ_ƒ€‚ÅŒˆ’è
 	if ((rand() % 100) < 50)

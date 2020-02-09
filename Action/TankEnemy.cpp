@@ -1,7 +1,7 @@
 #include "TankEnemy.h"
 #include "EnemyWeapon.h"
 
-const int TankEnemy::HitPointMax = 10;
+const int TankEnemy::HitPointMax = 12;
 const int TankEnemy::AttackingTime = 200;
 const int TankEnemy::HittingTime = 40;
 const float TankEnemy::WalkSpeed = 60;
@@ -43,5 +43,5 @@ void TankEnemy::Attack(float _deltaTime)
 	Vector3 ataPos = Vector3::Zero;
 	ataPos.x = (float)(moveDirection * 120);
 	ataPos.y += 40;
-	new EnemyWeapon(position + ataPos, Vector3(70, 40, 20), 20, 50);
+	attackObject=new EnemyWeapon(position + ataPos, Vector3(70, 40, 20), 20, 50);
 }

@@ -2,9 +2,9 @@
 #include "SkeltonObjectChecker.h"
 #include "EnemyWeapon.h"
 
- const int MeleeEnemy::HitPointMax=5;
- const float MeleeEnemy::AttackingTime=200.0f;
- const float MeleeEnemy::HittingTime=40.0f;
+ const int MeleeEnemy::HitPointMax=6;
+ const float MeleeEnemy::AttackingTime=180.0f;
+ const float MeleeEnemy::HittingTime=15.0f;
  const float MeleeEnemy::WalkSpeed=125.0f;
  const float MeleeEnemy::ApproachSpeedRatio=0.8f;
  const float MeleeEnemy::SearchRange=200.0f;
@@ -45,6 +45,6 @@ void MeleeEnemy::Attack(float _deltaTime)
 	Vector3 ataPos = Vector3::Zero;
 	ataPos.x = (float)(moveDirection * 60);
 	ataPos.y += 40;
-	new EnemyWeapon(position+ataPos, Vector3(60,80,20), 30,40);
+	new EnemyWeapon(position+ataPos, Vector3(60,80,20), 10,40);
 }
 

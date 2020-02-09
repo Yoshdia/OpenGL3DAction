@@ -242,6 +242,11 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 			animationName = EnemyAnimationName::Stan;
 			animDuration = skeltalMeshComponent->PlayAnimation(stanAnim, 0.3f);
 		}
+		if (attack)
+		{
+			animationName = EnemyAnimationName::Attack;
+			animDuration = skeltalMeshComponent->PlayAnimation(attackAnim, 1.0f);
+		}
 	}
 	animDuration -= subAnimDuration;
 }

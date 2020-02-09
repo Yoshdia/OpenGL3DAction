@@ -28,7 +28,7 @@ MageEnemy::MageEnemy(Vector3 _pos) :
 	popLoiteringEnemyPosition(Vector3::Zero),
 	shotInterval(0)
 {
-	hitPoint = 30;
+	hitPoint = 50;
 	goalWallObject = nullptr;
 	animComponent->SetMove(false);
 	moveDirection = EnemyMoveDirection::left;

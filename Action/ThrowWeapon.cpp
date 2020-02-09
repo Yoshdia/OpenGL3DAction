@@ -66,6 +66,7 @@ void ThrowWeapon::UpdateWeaponGameObject(float _deltaTime)
 			slow = false;
 		}
 	}
+
 }
 
 void ThrowWeapon::OnTriggerStay(ColliderComponent* _collider)
@@ -79,7 +80,7 @@ void ThrowWeapon::OnTriggerStay(ColliderComponent* _collider)
 		if (_collider->GetObjectTag() == Tag::EnemyTag)
 		{
 			SetState(State::Dead);
-		}	
+		}
 	}
 	else
 	{

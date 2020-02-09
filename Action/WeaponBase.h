@@ -48,6 +48,9 @@ protected:
 	virtual void UpdateWeaponGameObject(float _deltaTime) {};
 	//衝突を行うか
 	bool doCollision;
+protected:
+	//待機時間
+	int waitCount;
 private:
 	//オブジェクトIDごとの威力を記憶
 	static std::unordered_map<int,int> weapons;
@@ -55,8 +58,6 @@ private:
 	class ColliderComponent* colliderComponent;
 	//スケルトンクラス
 	class SkeletalMeshComponent* skeletalComponent;
-	//待機時間
-	int waitCount;
 	//生存時間
 	int lifeCount;
 	//現在の色

@@ -61,6 +61,7 @@ void WeaponBase::UpdateGameObject(float _deltaTime)
 	//待機時間のカウント
 	if (waitCount <= 0)
 	{
+		doCollision = true;
 		//色を変更
 		skeletalComponent->SetColor(Vector3(color, color, color));
 		//元の色に戻していく
@@ -88,6 +89,7 @@ void WeaponBase::UpdateGameObject(float _deltaTime)
 	}
 	else
 	{
+		doCollision = false;
 		waitCount--;
 	}
 	if (doCollision)

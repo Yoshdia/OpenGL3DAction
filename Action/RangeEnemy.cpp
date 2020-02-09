@@ -4,11 +4,11 @@
 
 const int RangeEnemy::HitPointMax = 5;
 const int RangeEnemy::AttackingTime = 300;
-const int RangeEnemy::HittingTime = 40;
-const float RangeEnemy::WalkSpeed = 50;
+const int RangeEnemy::HittingTime = 20;
+const float RangeEnemy::WalkSpeed = 100.0f;
 const float RangeEnemy::ApproachSpeedRatio = 0.4f;
-const float RangeEnemy::SearchRange = 500;
-const float RangeEnemy::AttackRange = 500;
+const float RangeEnemy::SearchRange = 500.0f;
+const float RangeEnemy::AttackRange = 500.0f;
 const int RangeEnemy::AttackIntervalCount = 20;
 
 /*
@@ -43,7 +43,7 @@ void RangeEnemy::DeadEvent()
 void RangeEnemy::Attack(float _deltaTime)
 {
 	Vector3 attackPos = Vector3::Zero;
-	attackPos.x = (float)(moveDirection * 60);
-	attackPos.y += 40;
+	attackPos.x = (float)(moveDirection * 60.0f);
+	attackPos.y += 40.0f;
 	attackObject= new ThrowWeapon(attackPos+position, (float)moveDirection,100,Tag::EnemyWeaponTag);
 }
