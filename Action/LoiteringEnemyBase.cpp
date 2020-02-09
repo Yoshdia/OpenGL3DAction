@@ -233,8 +233,10 @@ void LoiteringEnemyBase::BranchActionChange()
 	}
 	else
 	{
-		actionName = EnemyActions::noActive;
-		animComponent->SetMove(false);
+		//actionName = EnemyActions::noActive;
+		//animComponent->SetMove(false);
+		actionName = EnemyActions::walk;
+
 
 	}
 	//向きをランダムで決定
@@ -303,12 +305,13 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 			{
 				//ワープ地点にワープ
 				SetPosition(warpSearch->GetPosition());
+				canNotActionTime = 20;
 				warpPositonSearching = false;
 				teleportChargingTime = 0;
 			}
 		}
 		//進行方向に壁があるか||進行方向の足元に地面が無いか
-		if (forwardDownGroundCheck->GetNoTouchingFlag() || !forwardGroundCheck->GetNoTouchingFlag())
+		if (!forwardDownGroundCheck->GetNoTouchingFlag() && !forwardGroundCheck->GetNoTouchingFlag())
 		{
 			//攻撃対象に接近する 浮遊はできないためy方向には追跡しない
 			SetPosition(Vector3::Lerp(position, Vector3(target.x, position.y, target.z), _deltaTime * approachSpeedRatio));
@@ -376,7 +379,12 @@ void LoiteringEnemyBase::NoAttacking(float _deltaTime)
 		if (!footChecker->GetNoTouchingFlag())
 		{
 			//進行方向に壁があるか||進行方向の足元に地面が無いか
-			if (forwardDownGroundCheck->GetNoTouchingFlag() || !forwardGroundCheck->GetNoTouchingFlag())
+			//if (forwardDownGroundCheck->GetNoTouchingFlag() || !forwardGroundCheck->GetNoTouchingFlag())
+			if (!forwardDownGroundCheck->GetNoTouchingFlag() && !forwardGroundCheck->GetNoTouchingFlag())
+			{
+				turnWaitCount++;
+			}
+			else
 			{
 				if (turnWaitCount > TurnWaitCountMax)
 				{
@@ -387,10 +395,6 @@ void LoiteringEnemyBase::NoAttacking(float _deltaTime)
 					forwardDownGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, -90, 0));
 					forwardGroundCheck->SetOffset(Vector3(GroundCheckPos * moveDirection, 0, 0));
 				}
-			}
-			else
-			{
-				turnWaitCount++;
 			}
 		}
 		//歩行

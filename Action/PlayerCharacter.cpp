@@ -194,12 +194,12 @@ void PlayerCharacter::GameObjectInput(const InputState& _keyState)
 	inputUnderDirection = false;
 
 	////コントローラーが接続された場合操作をコントローラーに変更
-	if (InputSystem::GetConnectedController())
-	{
-		inputDirection = _keyState.Controller.GetLAxisVec().x;
-		inputUnderDirection = _keyState.Controller.GetLAxisVec().y >= 0.7f ? 1.0f : 0.0f;
-	}
-	else
+	//if (InputSystem::GetConnectedController())
+	//{
+	//	inputDirection = _keyState.Controller.GetLAxisVec().x;
+	//	inputUnderDirection = _keyState.Controller.GetLAxisVec().y >= 0.7f ? 1.0f : 0.0f;
+	//}
+	//else
 	{
 		if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_RIGHT))
 		{

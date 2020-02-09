@@ -33,17 +33,17 @@ StageCreater::~StageCreater()
 bool StageCreater::OpenFile()
 {
 	// ステージデータ読み込み //DebugArea Stage 
-	if (!readTiledJson(mapData, "Assets/Config/Stage.json", "Layer0"))
+	if (!readTiledJson(mapData, "Assets/Config/DebugArea.json", "Layer0"))
 	{
 		printf("mapData読み込み失敗\n");
 		return true;
 	}
 	sizeX = mapData[0].size();
 	sizeY = mapData.size();
-	if (!readTiledJson(backData0, "Assets/Config/Stage.json", "BackGround0"))
-	{
-		printf("do'nt have Layer/BackGround0\n");
-	}
+	//if (!readTiledJson(backData0, "Assets/Config/Stage.json", "BackGround0"))
+	//{
+	//	printf("do'nt have Layer/BackGround0\n");
+	//}
 	//if (!readTiledJson(backData1, "Assets/Config/Stage.json", "BackGround1"))
 	//{
 	//	printf("do'nt have Layer/BackGround0\n");

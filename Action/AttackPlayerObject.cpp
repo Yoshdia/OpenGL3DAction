@@ -26,7 +26,7 @@ AttackPlayerObject::AttackPlayerObject(GameObject* _owner) :
 	firstSlotAttack = new RotateTripleWeaponCombo();
 	leftIcon = new UserInterfaceBase(LeftIconPos, firstSlotAttack->GetComboIconFileName());
 	leftIcon->SetScale(IconSize);
-	secondSlotAttack = new ThrowWeaponCombo();
+	secondSlotAttack = new RotateTripleWeaponCombo();
 	rightIcon = new UserInterfaceBase(RightIconPos, secondSlotAttack->GetComboIconFileName());
 	rightIcon->SetScale(IconSize);
 
