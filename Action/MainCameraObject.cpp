@@ -7,7 +7,7 @@ MainCameraObject::MainCameraObject() :
 {
 	SetPosition(Vector3::Zero);
 	tag = Tag::Camera;
-	ColliderComponent* comp = new ColliderComponent(this, 100, Vector3(1500, 1000, 800), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag,Vector3(0,0,400));
+	ColliderComponent* comp = new ColliderComponent(this, 100, Vector3(1500, 900, 10000), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag,Vector3(0,0,400));
 	comp->SetCollidedCamera();
 }
 

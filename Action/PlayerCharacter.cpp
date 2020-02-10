@@ -95,7 +95,7 @@ void PlayerCharacter::UpdateGameObject(float _deltaTime)
 {
 	isThinGroundCollision = false;
 	//カメラの追跡先をセット
-	mainCamera->SetViewMatrixLerpObject(Vector3(0, 0, -500), position);
+	mainCamera->SetViewMatrixLerpObject(Vector3(0, 0, -5000), position);
 	//着地状態
 	bool noGround = footChecker->GetNoTouchingFlag() && (thinChecker->GetNoTouchingFlag());
 
