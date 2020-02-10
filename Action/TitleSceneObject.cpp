@@ -47,9 +47,11 @@ TitleSceneObject::TitleSceneObject(std::function<void(SceneName)> _SetSceneFunc)
 	new NoActionEnemyForLoad(Vector3(25,80,10),EnemyType::RangeType);
 	new NoActionEnemyForLoad(Vector3(-25,80,10),EnemyType::MageType);
 
-	Vector3 PressUiPos = Vector3(-100,-250,0);
-	new UserInterfaceBase(PressUiPos, "Assets/Image/UI/PressUi.png", Vector3(2.5f, 2.5f, 2.5f));
-	new UserInterfaceBase(PressUiPos+Vector3(250, 0, 0), "Assets/Image/UI/button_a.png", Vector3(1.1f, 1.1f, 1.1f));
+	Vector3 PressUiPos = Vector3(-0,-250,0);
+	new UserInterfaceBase(PressUiPos, "Assets/Image/UI/PressUi.png", Vector3(1.0f, 1.0f, 1.0f));
+	//new UserInterfaceBase(PressUiPos+Vector3(320, 0, 0), "Assets/Image/UI/button_a.png", Vector3(1.1f, 1.1f, 1.1f));
+
+	new UserInterfaceBase(Vector3(-0, 200, 0), "Assets/Image/UI/Title.png", Vector3(1, 1, 1));
 }
 
 TitleSceneObject::~TitleSceneObject()
