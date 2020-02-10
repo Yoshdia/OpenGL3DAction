@@ -40,10 +40,10 @@ bool StageCreater::OpenFile()
 	}
 	sizeX = mapData[0].size();
 	sizeY = mapData.size();
-	if (!readTiledJson(backData0, "Assets/Config/Stage.json", "BackGround0"))
-	{
-		printf("do'nt have Layer/BackGround0\n");
-	}
+	//if (!readTiledJson(backData0, "Assets/Config/Stage.json", "BackGround0"))
+	//{
+	//	printf("do'nt have Layer/BackGround0\n");
+	//}
 	//if (!readTiledJson(backData1, "Assets/Config/Stage.json", "BackGround1"))
 	//{
 	//	printf("do'nt have Layer/BackGround0\n");
