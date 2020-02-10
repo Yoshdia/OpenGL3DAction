@@ -107,6 +107,11 @@ public:
 	void ComputeWorldTransform();
 
 	/*
+	@fn 現在の仕様上行うことができない更新の処理を、外部から呼び出せるようにすることに	
+	*/
+	void ExceptionUpdate();
+
+	/*
 	@brief　オブジェクトのポジションを取得する
 	@return	position
 	*/

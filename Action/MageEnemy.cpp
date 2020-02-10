@@ -8,9 +8,10 @@
 #include "DoSubActionMagesChild.h"
 #include "StraightMagicBullet.h"
 #include "FloatParticleEffect.h"
+#include "DamageSquareEffect.h"
 
-const int MageEnemy::StanCount = 300;
-const int MageEnemy::ChargeCount = 10;
+const int MageEnemy::StanCount = 250;
+const int MageEnemy::ChargeCount = 5;
 const int MageEnemy::ShotInterval = 250;
 
 /*
@@ -56,21 +57,27 @@ void MageEnemy::PausingUpdateGameObject()
 		mainCamera->UpdateGameObject(0.06f);
 		animComponent->UpdateAnimationComponent(0.6f);
 		animComponent->SetSpawn(false);
-		if (directingCount == 320)//220
+		if (directingCount == 300)//220
 		{
 			rotate->SetRotation(90, Vector3::UnitY);
 			meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition, 5);
-			new FloatParticleEffect(Vector3(30,0,0)+ popLoiteringEnemyPosition, Vector3(0, 2, 0));
-			new FloatParticleEffect(Vector3(-30,0,0)+ popLoiteringEnemyPosition, Vector3(0, 2, 0));
+			new FloatParticleEffect(Vector3(45,0,0)+ popLoiteringEnemyPosition, Vector3(0, 2, 0));
+			new FloatParticleEffect(Vector3(-45,0,0)+ popLoiteringEnemyPosition, Vector3(0, 2, 0));
 			mainCamera->SetViewMatrixLerpObject(Vector3(0, 50, -350), meleeEnemy->GetPosition());
 			directingCount++;
 		}
-		else if (directingCount >= 600)//530
+		else if (directingCount >= 510)//530
 		{
 			//meleeEnemy->SetPosition(popLoiteringEnemyPosition);
 			pauzingEvent = PauzingEvent::NoneEvent;
 			actionName = MageActionName::FloatShot;
 			animComponent->SetSubDuration(0.017f);
+		}
+		else if (directingCount > 320)
+		{
+			meleeEnemy->ExceptionUpdate();
+			directingCount++;
+
 		}
 		else
 		{
@@ -147,6 +154,7 @@ void MageEnemy::UpdateEnemyObject(float _deltaTime)
 			}
 			break;
 		case(MageActionName::Skill):
+			barrier = true;
 			if (subActionClass->EndFloatDrop())
 			{
 				actionName = MageActionName::FloatShot;
@@ -209,6 +217,10 @@ void MageEnemy::HitPlayerAttack(const Vector3& _pairPos,const int& _power)
 	else
 	{
 		printf("Mages Guard HitPoint : %d \n",hitPoint);
+		//Vector3 effectPos = position - _pairPos;
+		//Vector3::Normalize(effectPos);
+		//effectPos *= 10;
+		new DamageSquareEffect(position+Vector3(0,50,0));
 	}
 }
 

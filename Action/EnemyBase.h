@@ -89,7 +89,6 @@ protected:
 
 	//最も最新の、攻撃を行ったオブジェクトへのポインタ。撃破されたときに削除するために所有する
 	GameObject* attackObject;
-private:
 	//中心座標
 	Vector3 middlePos;
 };

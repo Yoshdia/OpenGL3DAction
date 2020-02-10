@@ -4,6 +4,7 @@
 #include "RotateComponent.h"
 #include "AnimationEnemyComponent.h"
 #include "EnemyWeapon.h"
+#include "FloatParticleEffect.h"
 
 const int LoiteringEnemyBase::HitPointMax = 3;
 const int LoiteringEnemyBase::AttackingTime = 200;
@@ -301,7 +302,11 @@ void LoiteringEnemyBase::Attacking(float _deltaTime)
 			if (warpSearch->GetEndSearch())
 			{
 				//ワープ地点にワープ
+				new FloatParticleEffect(Vector3(45, 0, 0) + position, Vector3(0, 2, 0));
+				new FloatParticleEffect(Vector3(-45, 0, 0) + position, Vector3(0, 2, 0));
 				SetPosition(warpSearch->GetPosition());
+				new FloatParticleEffect(Vector3(45, 0, 0) + position, Vector3(0, 2, 0));
+				new FloatParticleEffect(Vector3(-45, 0, 0) + position, Vector3(0, 2, 0));
 				canNotActionTime = 20;
 				warpPositonSearching = false;
 				teleportChargingTime = 0;
