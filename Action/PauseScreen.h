@@ -20,11 +20,19 @@ public:
 	void GameObjectInput(const InputState& _keyState)override;
 
 private:
+	//ポーズ画面の終了
 	bool endPause;
+	//ポーズ画面でリプレイを選択された
+	bool rePlay;
 public: //ゲッターセッター
 	/*
 @return ポーズ画面の終了フラグ
 */
 	bool GetEndPause() { return endPause; }
+
+	/*
+@return ポーズ画面のやり直しフラグ
+*/
+	bool GetRePlayFlag() { return rePlay; }
 };
 

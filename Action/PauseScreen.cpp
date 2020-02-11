@@ -1,9 +1,11 @@
 #include "PauseScreen.h"
 #include "InputSystem.h"
 
-PauseScreen::PauseScreen():
+
+PauseScreen::PauseScreen() :
 	GameObject(),
-	endPause(false)
+	endPause(false),
+	rePlay(false)
 {
 	printf("\n /********/\n    É|Å[ÉYâÊñ     \n///********/ \n");
 }
@@ -25,4 +27,11 @@ void PauseScreen::GameObjectInput(const InputState& _keyState)
 	{
 		endPause = true;
 	}
+	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_F3)||
+		(_keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X))&&
+		_keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_START))
+	{
+		rePlay = true;
+	}
+
 }

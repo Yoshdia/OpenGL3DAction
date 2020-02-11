@@ -270,8 +270,8 @@ void PlayerCharacter::PausingUpdateGameObject()
 {
 	if (pauzingEvent == PauzingEvent::DeadPlayerEvent)
 	{
-		velocity.y = -1;
-		SetPosition(position + velocity);
+		//velocity.y = -1;
+		//SetPosition(position + velocity);
 		Friction(DownFriction);
 		animationComponent->SetAnimation(PlayerAnimationState::Down);
 		if (velocity.x >= -1 && velocity.x <= 1)

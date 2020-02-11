@@ -24,8 +24,8 @@ PlaySceneObject::PlaySceneObject(std::function<void(SceneName)> _SetSceneFunc) :
 	pausingScreen(nullptr),
 	gameClear(false),
 	gameOver(false),
-	endingCount(600),
-	endingDelay(150),
+	endingCount(400),
+	endingDelay(100),
 	createdEventWordObject(false),
 	endEffectPos(Vector3(0, 0, 0))
 {
@@ -91,7 +91,9 @@ void PlaySceneObject::UpdateGameObject(float _deltaTime)
 void PlaySceneObject::GameObjectInput(const InputState& _keyState)
 {
 	//ƒ|[ƒY‰æ–Ê‚Ö
-	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_F1))
+	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_F1) ||
+		(_keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X)) &&
+		_keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_START))
 	{
 		if (pausingScreen == nullptr)
 		{
@@ -103,13 +105,19 @@ void PlaySceneObject::GameObjectInput(const InputState& _keyState)
 
 void PlaySceneObject::PausingUpdateGameObject()
 {
-	if (pausingScreen != nullptr)
+	if (pausingScreen != nullptr) 
 	{
 		if (pausingScreen->GetEndPause())
 		{
 			pauzingEvent = PauzingEvent::NoneEvent;
 			delete pausingScreen;
 			pausingScreen = nullptr;
+		}
+		if (pausingScreen->GetRePlayFlag())
+		{
+			pauzingEvent = PauzingEvent::NoneEvent;
+			SetSceneFunc(SceneName::TitleScene);
+
 		}
 	}
 

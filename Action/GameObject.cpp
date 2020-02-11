@@ -72,8 +72,7 @@ void GameObject::Update(float _deltaTime)
 void GameObject::UpdateComponents(float _deltaTime)
 {
 	if (state != State::Dead)
-	{
-	
+	{	
 		for (auto itr : components)
 		{
 			itr->Update(_deltaTime);

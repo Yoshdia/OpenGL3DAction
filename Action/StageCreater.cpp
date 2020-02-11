@@ -40,10 +40,10 @@ bool StageCreater::OpenFile()
 	}
 	sizeX = mapData[0].size();
 	sizeY = mapData.size();
-	//if (!readTiledJson(backData0, "Assets/Config/Stage.json", "BackGround0"))
-	//{
-	//	printf("do'nt have Layer/BackGround0\n");
-	//}
+	if (!readTiledJson(backData0, "Assets/Config/Stage.json", "BackGround0"))
+	{
+		printf("do'nt have Layer/BackGround0\n");
+	}
 	//if (!readTiledJson(backData1, "Assets/Config/Stage.json", "BackGround1"))
 	//{
 	//	printf("do'nt have Layer/BackGround0\n");
@@ -189,6 +189,9 @@ void StageCreater::CreateBackGround()
 				{
 				case(31):
 					new BackGroundObject(objectPos, Vector3(50, 50, 50), "blueFloor1");
+					break; 
+				case(32):
+					new BackGroundObject(objectPos+Vector3(0,0,100), Vector3(50, 50, 50), "blueFloor1");
 					break; 
 				}
 			}
