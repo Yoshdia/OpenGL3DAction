@@ -70,6 +70,7 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 		spawnName = "Assets/Model/Mage/spawn.gpanim";
 		spawnAnim = RENDERER->GetAnimation(spawnName);
 		actionAnim = RENDERER->GetAnimation("Assets/Model/Mage/summon.gpanim");
+		actionAnimationSpeed=0.3f;
 		stanAnim = RENDERER->GetAnimation("Assets/Model/Mage/hitForward.gpanim");
 		break;
 	case EnemyType::ShieldType:
@@ -196,6 +197,11 @@ void AnimationEnemyComponent::UpdateAnimationComponent(float _deltaTime)
 		{
 			animationName = EnemyAnimationName::Stan;
 			animDuration = skeltalMeshComponent->PlayAnimation(stanAnim, 0.3f);
+		}
+		if (spawn)
+		{
+			animationName = EnemyAnimationName::Spawn;
+			animDuration = skeltalMeshComponent->PlayAnimation(spawnAnim, 0.6f);
 		}
 		break;
 		//生成時のアニメーション

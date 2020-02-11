@@ -327,6 +327,7 @@
     <ClCompile Include="SpawnEventSystem.cpp">
       <Filter>GameObjects\Event</Filter>
     </ClCompile>
+    <ClCompile Include="TakeItemUi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -657,6 +658,7 @@
     <ClInclude Include="SpawnEventSystem.h">
       <Filter>GameObjects\Event</Filter>
     </ClInclude>
+    <ClInclude Include="TakeItemUi.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

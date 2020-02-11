@@ -7,11 +7,12 @@
 #include "UserInterfaceBase.h"
 #include "TakeItemEffectUI.h"
 #include "TripleSlashSwordCombo.h"
+#include "TakeItemUi.h"
 
 const Vector3 AttackPlayerObject::LeftIconPos = Vector3(300, -400, 0);
 const Vector3 AttackPlayerObject::RightIconPos = Vector3(500, -400, 0);
-const float AttackPlayerObject::IconSize =0.7f;
-const float AttackPlayerObject::BottonSize = 0.4f;
+const float AttackPlayerObject::IconSize = 0.85;
+const float AttackPlayerObject::BottonSize = 0.3f;
 
 /*
 @param _owner 親オブジェクト
@@ -31,14 +32,14 @@ AttackPlayerObject::AttackPlayerObject(GameObject* _owner) :
 	rightIcon->SetScale(IconSize);
 
 
-	UserInterfaceBase* xButton = new UserInterfaceBase(LeftIconPos, "Assets/Image/UI/button_x.png", Vector3(BottonSize,BottonSize,BottonSize), 1000);
-	UserInterfaceBase* yButton = new UserInterfaceBase(RightIconPos, "Assets/Image/UI/button_y.png", Vector3(BottonSize,BottonSize,BottonSize), 1000);
+	UserInterfaceBase* xButton = new UserInterfaceBase(LeftIconPos, "Assets/Image/UI/button_x.png", Vector3(BottonSize, BottonSize, BottonSize), 1000);
+	UserInterfaceBase* yButton = new UserInterfaceBase(RightIconPos, "Assets/Image/UI/button_y.png", Vector3(BottonSize, BottonSize, BottonSize), 1000);
 	tag = SubPlayerObject;
 
 	lButtonIcon = new   UserInterfaceBase(LeftIconPos + Vector3(0, 50, 0), "Assets/Image/UI/bumper1_l1.png", Vector3(BottonSize, BottonSize, BottonSize), 550);
 	lButtonGuide = new   UserInterfaceBase(Vector3(-25, 50, 0), "Assets/Image/UI/bumper1_l1.png", Vector3(BottonSize, BottonSize, BottonSize), 500);
 	lButtonGuide->SetState(State::Dead);
-	rButtonIcon = new   UserInterfaceBase(RightIconPos+Vector3(0,50,0), "Assets/Image/UI/bumper1_r1.png", Vector3(BottonSize, BottonSize, BottonSize), 550);
+	rButtonIcon = new   UserInterfaceBase(RightIconPos + Vector3(0, 50, 0), "Assets/Image/UI/bumper1_r1.png", Vector3(BottonSize, BottonSize, BottonSize), 550);
 	rButtonGuide = new   UserInterfaceBase(Vector3(25, 50, 0), "Assets/Image/UI/bumper1_r1.png", Vector3(BottonSize, BottonSize, BottonSize), 500);
 	rButtonGuide->SetState(State::Dead);
 	ColliderComponent* colliderPair = new ColliderComponent(this, 100, Vector3(30, 30, 30), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
@@ -126,7 +127,7 @@ void AttackPlayerObject::OnTriggerStay(ColliderComponent* _colliderPair)
 					firstSlotAttack->DropMyItem(position);
 					//変更先クラスを取得する
 					DropComboItem(name, 1);
-
+					new TakeItemUi(Vector3(0, 0, 0), LeftIconPos, firstSlotAttack->GetComboIconFileName(), Vector3(0.8f, 0.8f, 0.8f));
 				}
 				else if (inputRightChange)
 				{
@@ -136,7 +137,9 @@ void AttackPlayerObject::OnTriggerStay(ColliderComponent* _colliderPair)
 					secondSlotAttack->DropMyItem(position);
 					//変更先クラスを取得する
 					DropComboItem(name, 2);
+					new TakeItemUi(Vector3(0, 0, 0), RightIconPos, secondSlotAttack->GetComboIconFileName(), Vector3(0.8f, 0.8f, 0.8f));
 				}
+
 			}
 		}
 		itemCollided = true;

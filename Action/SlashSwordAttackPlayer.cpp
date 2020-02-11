@@ -6,8 +6,17 @@ SlashSwordAttackPlayer::SlashSwordAttackPlayer(const float& _number) :
 	AttackBase(),
 	number(_number)
 {
-	canNotActionTime = 20;
-	waitTimeForNextAttack = 40;
+	if (_number > 2)
+	{
+		canNotActionTime = 50;
+		waitTimeForNextAttack = 10;
+	}
+	else
+	{
+
+	canNotActionTime = 30;
+	waitTimeForNextAttack = 50;
+	}
 }
 
 SlashSwordAttackPlayer::~SlashSwordAttackPlayer()

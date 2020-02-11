@@ -29,7 +29,7 @@ MageEnemy::MageEnemy(Vector3 _pos) :
 	popLoiteringEnemyPosition(Vector3::Zero),
 	shotInterval(0)
 {
-	hitPoint = 50;
+	hitPoint = 40 ;
 	goalWallObject = nullptr;
 	animComponent->SetMove(false);
 	moveDirection = EnemyMoveDirection::left;
@@ -40,7 +40,7 @@ MageEnemy::MageEnemy(Vector3 _pos) :
 	rangeEnemy = new RangeEnemy(popLoiteringEnemyPosition);
 	rangeEnemy->SetState(State::Dead);
 	subActionClass = new DoSubActionMagesChild(this);
-	animComponent->SetSubDuration(0.005f);
+	animComponent->SetSubDuration(0.006f);
 }
 
 MageEnemy::~MageEnemy()

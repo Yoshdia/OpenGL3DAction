@@ -2,7 +2,7 @@
 #include "RangeAttackPlayer.h"
 
 ThrowWeaponCombo::ThrowWeaponCombo():
-	ComboMeanPlayerBase(AttackState::AttackFourth,true)
+	ComboMeanPlayerBase(AttackState::AttackThird,true)
 {
 }
 

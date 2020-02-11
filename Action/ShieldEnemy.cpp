@@ -34,6 +34,10 @@ ShieldEnemy::~ShieldEnemy()
 
 void ShieldEnemy::UpdateLoiteringEnemyObject(float _deltaTime)
 {
+	if (beforeDirection!=moveDirection)
+	{
+		canNotActionTime = 150;
+	}
 }
 
 void ShieldEnemy::DeadEvent()
@@ -43,9 +47,9 @@ void ShieldEnemy::DeadEvent()
 void ShieldEnemy::Attack(float _deltaTime)
 {
 	Vector3 ataPos = Vector3::Zero;
-	ataPos.x = (float)(moveDirection * 60);
+	ataPos.x = (float)(moveDirection * 55);
 	ataPos.y += 40;
-	attackObject= new EnemyWeapon(position + ataPos, Vector3(40, 40, 20), 5, 25);
+	attackObject= new EnemyWeapon(position + ataPos, Vector3(50, 40, 20), 5, 25);
 }
 
 void ShieldEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
@@ -77,7 +81,12 @@ void ShieldEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 		//攻撃をブロックしたためエフェクトを再生し専用アニメーションを再生
 		new DamageSquareEffect(position + (Vector3(100 * (float)guardDirection, 80.0f, 0)));
 		animComponent->SetAction(true);
+		animComponent->SetMove(false);
 		animComponent->SetSubDuration(0.023f);
-		canNotActionTime = 100;
+		canNotActionTime = 150;
+		if (attackObject != nullptr)
+		{
+		attackObject->SetState(State::Dead);
+		}
 	}
 }

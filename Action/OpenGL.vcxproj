@@ -254,6 +254,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="StageCreater.cpp" />
     <ClCompile Include="StraightMagicBullet.cpp" />
     <ClCompile Include="TakeItemEffectUI.cpp" />
+    <ClCompile Include="TakeItemUi.cpp" />
     <ClCompile Include="TankEnemy.cpp" />
     <ClCompile Include="TestModel.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -383,6 +384,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="StageCreater.h" />
     <ClInclude Include="StraightMagicBullet.h" />
     <ClInclude Include="TakeItemEffectUI.h" />
+    <ClInclude Include="TakeItemUi.h" />
     <ClInclude Include="TankEnemy.h" />
     <ClInclude Include="TestModel.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

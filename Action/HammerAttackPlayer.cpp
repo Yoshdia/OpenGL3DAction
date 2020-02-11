@@ -6,8 +6,17 @@ HammerAttackPlayer::HammerAttackPlayer(const float& _number):
 	AttackBase(),
 	number(_number)
 {
+	if (_number>1.0f)
+	{
+		canNotActionTime = 40;
+		waitTimeForNextAttack = 10;
+	}
+	else
+	{
+
 	canNotActionTime = 40;
-	waitTimeForNextAttack = 70;
+	waitTimeForNextAttack = 60;
+	}
 }
 
 
