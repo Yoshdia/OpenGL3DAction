@@ -6,7 +6,7 @@ AttackPlayerOnce::AttackPlayerOnce() :
 	AttackBase()
 {
 	canNotActionTime = 20;
-	waitTimeForNextAttack = 30;
+	waitTimeForNextAttack = 50;
 }
 
 
