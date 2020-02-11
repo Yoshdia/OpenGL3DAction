@@ -75,7 +75,10 @@ void ShieldEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 		//プレイヤーの攻撃の方向を計算しnockBackForceに計算
 		double distance = Math::Sqrt((_pairPos.x - position.x) * (_pairPos.x - position.x) + (_pairPos.y - position.y) * (_pairPos.y - position.y));
 		Vector3 force = Vector3::Normalize(Vector3((position.x - _pairPos.x), 0, (position.z - _pairPos.z)));
-		canNotActionTime = hittingTime;
+		if (canNotActionTime < hittingTime)
+		{
+			canNotActionTime = hittingTime;
+		}
 	}
 	else
 	{

@@ -9,6 +9,8 @@
 #include "StraightMagicBullet.h"
 #include "FloatParticleEffect.h"
 #include "DamageSquareEffect.h"
+#include "ParticleObject.h"
+#include "BombParticleEffect.h"
 
 const int MageEnemy::StanCount = 250;
 const int MageEnemy::ChargeCount = 5;
@@ -29,7 +31,7 @@ MageEnemy::MageEnemy(Vector3 _pos) :
 	popLoiteringEnemyPosition(Vector3::Zero),
 	shotInterval(0)
 {
-	hitPoint = 40 ;
+	hitPoint = 40;
 	goalWallObject = nullptr;
 	animComponent->SetMove(false);
 	moveDirection = EnemyMoveDirection::left;
@@ -41,6 +43,8 @@ MageEnemy::MageEnemy(Vector3 _pos) :
 	rangeEnemy->SetState(State::Dead);
 	subActionClass = new DoSubActionMagesChild(this);
 	animComponent->SetSubDuration(0.006f);
+	guardParticle = new ParticleObject(Vector3(0, 0, 100), "Assets/Image/Effect/damageSquare.png", 70.0f, 100);
+	guardParticle->SetState(State::Dead);
 }
 
 MageEnemy::~MageEnemy()
@@ -57,16 +61,16 @@ void MageEnemy::PausingUpdateGameObject()
 		mainCamera->UpdateGameObject(0.06f);
 		animComponent->UpdateAnimationComponent(0.6f);
 		animComponent->SetSpawn(false);
-		if (directingCount == 300)//220
+		if (directingCount == 290)//220
 		{
 			rotate->SetRotation(90, Vector3::UnitY);
 			meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition, 5);
-			new FloatParticleEffect(Vector3(45,0,0)+ popLoiteringEnemyPosition, Vector3(0, 2, 0));
-			new FloatParticleEffect(Vector3(-45,0,0)+ popLoiteringEnemyPosition, Vector3(0, 2, 0));
+			new FloatParticleEffect(Vector3(45, 0, 0) + popLoiteringEnemyPosition, Vector3(0, 2, 0));
+			new FloatParticleEffect(Vector3(-45, 0, 0) + popLoiteringEnemyPosition, Vector3(0, 2, 0));
 			mainCamera->SetViewMatrixLerpObject(Vector3(0, 50, -350), meleeEnemy->GetPosition());
 			directingCount++;
 		}
-		else if (directingCount >= 510)//530
+		else if (directingCount >= 460)//530
 		{
 			//meleeEnemy->SetPosition(popLoiteringEnemyPosition);
 			pauzingEvent = PauzingEvent::NoneEvent;
@@ -109,6 +113,7 @@ void MageEnemy::UpdateEnemyObject(float _deltaTime)
 		{
 			return;
 		}
+		guardParticle->SetPosition(position+Vector3(0,80,-35));
 		//追跡対象の座標を取得
 		Vector3 target = playerObject->GetPosition();
 		//プレイヤーとのx座標間の距離を計算
@@ -117,6 +122,7 @@ void MageEnemy::UpdateEnemyObject(float _deltaTime)
 		switch (actionName)
 		{
 		case(MageActionName::FloatShot):
+			guardParticle->SetState(State::Active);
 			//プレイヤーの位置で向きを変更
 			if (playerDistance >= 0)
 			{
@@ -139,10 +145,10 @@ void MageEnemy::UpdateEnemyObject(float _deltaTime)
 			if (chargeCount <= 0)
 			{
 				animComponent->SetAction(true);
-				meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition + Vector3(100, 0, 0), 5);
-				new FloatParticleEffect(Vector3(30, 0, 0) + popLoiteringEnemyPosition + Vector3(100, 0, 0), Vector3(0,2,0));
-				new FloatParticleEffect(Vector3(-30, 0, 0) + popLoiteringEnemyPosition + Vector3(100, 0, 0), Vector3(0,2,0));
-				rangeEnemy->SpawnSummoned(popLoiteringEnemyPosition + Vector3(-100, 0, 0), 5);
+				meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition + Vector3(100, 0, 0), 9);
+				new FloatParticleEffect(Vector3(30, 0, 0) + popLoiteringEnemyPosition + Vector3(100, 0, 0), Vector3(0, 2, 0));
+				new FloatParticleEffect(Vector3(-30, 0, 0) + popLoiteringEnemyPosition + Vector3(100, 0, 0), Vector3(0, 2, 0));
+				rangeEnemy->SpawnSummoned(popLoiteringEnemyPosition + Vector3(-100, 0, 0), 9);
 				new FloatParticleEffect(Vector3(30, 0, 0) + popLoiteringEnemyPosition + Vector3(-100, 0, 0), Vector3(0, 2, 0));
 				new FloatParticleEffect(Vector3(-30, 0, 0) + popLoiteringEnemyPosition + Vector3(-100, 0, 0), Vector3(0, 2, 0));
 				subActionClass->StartFloating();
@@ -154,6 +160,8 @@ void MageEnemy::UpdateEnemyObject(float _deltaTime)
 			}
 			break;
 		case(MageActionName::Skill):
+			animComponent->SetSubDuration(0.018f);
+			guardParticle->SetState(State::Active);
 			barrier = true;
 			if (subActionClass->EndFloatDrop())
 			{
@@ -179,14 +187,28 @@ void MageEnemy::UpdateEnemyObject(float _deltaTime)
 */
 void MageEnemy::AliveLoiteringEnemyCheck()
 {
-	if ((meleeEnemy->GetState() == State::Dead&&rangeEnemy->GetState() == State::Dead) && attackState)
+	if ((meleeEnemy->GetState() == State::Dead && rangeEnemy->GetState() == State::Dead) && attackState)
 	{
 		subActionClass->StartDroppingDown();
 		barrier = false;
 		actionName = MageActionName::Stanning;
+		guardParticle->SetState(State::Dead);
+		Vector3 effectPos = Vector3(position.x, position.y + 50, position.z);
+		new BombParticleEffect(effectPos, Vector3(10, 20, 0));
+		new BombParticleEffect(effectPos, Vector3(-10, 20, 0));
+		new BombParticleEffect(effectPos, Vector3(10, 18, 0));
+		new BombParticleEffect(effectPos, Vector3(10, 14, 0));
+		new BombParticleEffect(effectPos, Vector3(10, 11, 0));
+		new BombParticleEffect(effectPos, Vector3(10, 8, 0));
+		new BombParticleEffect(effectPos, Vector3(10, 5, 0));
+		new BombParticleEffect(effectPos, Vector3(-10, 18, 0));
+		new BombParticleEffect(effectPos, Vector3(-10, 14, 0));
+		new BombParticleEffect(effectPos, Vector3(-10, 1, 0));
+		new BombParticleEffect(effectPos, Vector3(-10, 8, 0));
+		new BombParticleEffect(effectPos, Vector3(-10, 5, 0));
 		if (attackObject != nullptr)
 		{
-		attackObject->SetState(State::Dead);
+			attackObject->SetState(State::Dead);
 		}
 		stanCount = StanCount;
 		animComponent->SetStan(true);
@@ -208,19 +230,16 @@ void MageEnemy::DeadEvent()
 /*
 @fn 攻撃されたとき。召喚した敵が生存しているとき攻撃を喰らわない
 */
-void MageEnemy::HitPlayerAttack(const Vector3& _pairPos,const int& _power)
+void MageEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 {
 	if (!barrier)
 	{
-		hitPoint-=_power;
+		hitPoint -= _power;
 	}
 	else
 	{
-		printf("Mages Guard HitPoint : %d \n",hitPoint);
-		//Vector3 effectPos = position - _pairPos;
-		//Vector3::Normalize(effectPos);
-		//effectPos *= 10;
-		new DamageSquareEffect(position+Vector3(0,50,0));
+		printf("Mages Guard HitPoint : %d \n", hitPoint);
+		new DamageSquareEffect(position + Vector3(0, 50, 0));
 	}
 }
 
@@ -233,7 +252,7 @@ void MageEnemy::Shot(const Vector3& target)
 	if (shotInterval <= 0)
 	{
 		shotInterval = ShotInterval;
-		attackObject=new StraightMagicBullet(position, target, 100);
+		attackObject = new StraightMagicBullet(position, target, 100);
 		animComponent->SetAttack(true);
 	}
 	else

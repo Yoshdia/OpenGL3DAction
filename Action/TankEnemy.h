@@ -20,6 +20,8 @@ private:
 	void DeadEvent()override;
 	void Attack(float _deltaTime)override;
 
+	void HitPlayerAttack(const Vector3& _pairPos, const int& _power)override;
+
 	//初期体力　ゼロになると撃破アニメーションと共に消える
 	static const int HitPointMax;
 	//攻撃時間

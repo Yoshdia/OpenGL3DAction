@@ -5,10 +5,10 @@
  const int MeleeEnemy::HitPointMax=6;
  const float MeleeEnemy::AttackingTime=180.0f;
  const float MeleeEnemy::HittingTime=15.0f;
- const float MeleeEnemy::WalkSpeed=125.0f;
+ const float MeleeEnemy::WalkSpeed=200.0f;
  const float MeleeEnemy::ApproachSpeedRatio=0.8f;
  const float MeleeEnemy::SearchRange=200.0f;
- const float MeleeEnemy::AttackRange=50.0f;
+ const float MeleeEnemy::AttackRange=100.0f;
  const int MeleeEnemy::AttackIntervalCount=20;
 
  /*

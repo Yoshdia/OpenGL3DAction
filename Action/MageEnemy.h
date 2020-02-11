@@ -92,6 +92,8 @@ private:
 	int shotInterval;
 	//弾の待機カウント最大数
 	static const int ShotInterval;
+	//ボスにダメージが通らないことをアピールするためのシールド画像
+	class ParticleObject* guardParticle;
 public://ゲッターセッター
 	/*
 @brief 待機状態から戦闘状態に入る関数　初期化に

@@ -153,7 +153,10 @@ void LoiteringEnemyBase::HitPlayerAttack(const Vector3& _pairPos, const int& _po
 	double distance = Math::Sqrt((_pairPos.x - position.x) * (_pairPos.x - position.x) + (_pairPos.y - position.y) * (_pairPos.y - position.y));
 	Vector3 force = Vector3::Normalize(Vector3((position.x - _pairPos.x), 0, (position.z - _pairPos.z)));
 	nockBackForce = force * NockBackPower;
-	canNotActionTime = hittingTime;
+	if (canNotActionTime < hittingTime)
+	{
+		canNotActionTime = hittingTime;
+	}
 }
 
 /*
@@ -174,7 +177,7 @@ void LoiteringEnemyBase::NockBack(float _deltaTime)
 		nockBackForce = Vector3::Zero;
 		return;
 	}
-	SetPosition(position + (nockBackForce*_deltaTime));
+	SetPosition(position + (nockBackForce * _deltaTime));
 	//nockBackForce‚ð”¼Œ¸
 	nockBackForce = nockBackForce / 2.0f;
 }

@@ -96,7 +96,7 @@ void EnemyBase::DeadCommonEvent()
 	new BombParticleEffect(effectPos, Vector3(-10, 20, 0));
 	new BombParticleEffect(effectPos, Vector3(10, 18, 0));
 	new BombParticleEffect(effectPos, Vector3(10, 14, 0));
-	new BombParticleEffect(effectPos, Vector3(10,11, 0));
+	new BombParticleEffect(effectPos, Vector3(10, 11, 0));
 	new BombParticleEffect(effectPos, Vector3(10, 8, 0));
 	new BombParticleEffect(effectPos, Vector3(10, 5, 0));
 	new BombParticleEffect(effectPos, Vector3(-10, 18, 0));

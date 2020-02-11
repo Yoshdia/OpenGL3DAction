@@ -70,7 +70,7 @@ AnimationEnemyComponent::AnimationEnemyComponent(GameObject * _owner, EnemyType 
 		spawnName = "Assets/Model/Mage/spawn.gpanim";
 		spawnAnim = RENDERER->GetAnimation(spawnName);
 		actionAnim = RENDERER->GetAnimation("Assets/Model/Mage/summon.gpanim");
-		actionAnimationSpeed=0.3f;
+		actionAnimationSpeed=1.0f;
 		stanAnim = RENDERER->GetAnimation("Assets/Model/Mage/hitForward.gpanim");
 		break;
 	case EnemyType::ShieldType:
