@@ -8,8 +8,8 @@ const float ShieldEnemy::HittingTime = 30.0f;
 const float ShieldEnemy::WalkSpeed = 80;
 const float ShieldEnemy::ApproachSpeedRatio = 0.8f;
 const float ShieldEnemy::SearchRange = 200.0f;
-const float ShieldEnemy::AttackRange = 50.0f;
-const int ShieldEnemy::AttackIntervalCount = 60;
+const float ShieldEnemy::AttackRange = 60.0f;
+const int ShieldEnemy::AttackIntervalCount = 90.0f;
 
 /*
 @param _pos À•W
@@ -36,7 +36,8 @@ void ShieldEnemy::UpdateLoiteringEnemyObject(float _deltaTime)
 {
 	if (beforeDirection!=moveDirection)
 	{
-		canNotActionTime = 150;
+		canNotActionTime = 180;
+		animComponent->SetMove(false);
 	}
 }
 

@@ -266,6 +266,11 @@ void AnimationEnemyComponent::AllFlagReset()
 	action = false;
 }
 
+void AnimationEnemyComponent::SetAttack(bool _attack)
+{
+	attack = _attack;
+}
+
 void AnimationEnemyComponent::SetAction(bool _action)
 {
 	action = _action; 

@@ -111,7 +111,7 @@ public:	//ゲッターセッター
 	/*
 	@fn アニメーションフラグをセット
 	*/
-	void SetAttack(bool _attack) { attack = _attack; }
+	void SetAttack(bool _attack);
 	/*
 	@fn アニメーションフラグをセット
 	*/
