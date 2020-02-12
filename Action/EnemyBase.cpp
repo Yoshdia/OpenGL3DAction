@@ -72,7 +72,6 @@ void EnemyBase::OnTriggerEnter(ColliderComponent* _colliderPair)
 	//ƒvƒŒƒCƒ„[‚ÌUŒ‚‚ÉÚG‚µ‚½‚Æ‚«
 	if (_colliderPair->GetObjectTag() == Tag::PlayerWeaponTag)
 	{
-		animComponent->SetStartFlash();
 		int weaponPower = WeaponBase::SearchWeaponPower(_colliderPair->GetId());
 		printf("WeaponPower :: %d \n", weaponPower);
 		HitPlayerAttack(_colliderPair->GetPosition(), weaponPower);

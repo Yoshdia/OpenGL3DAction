@@ -25,6 +25,8 @@ public:
 	@fn 派生クラスの更新関数を呼び座標に移動量を足し続ける
 	*/
 	void UpdateGameObject(float _deltaTime)override;
+
+
 private:
 	/*
 	@fn 派生クラスごとに決定する更新関数
@@ -41,5 +43,7 @@ protected:
 	Vector3 velocity;
 	//生存時間
 	int lifeCount;
+public:
+	void SetReverve(float _flag);
 };
 

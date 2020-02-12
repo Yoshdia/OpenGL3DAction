@@ -28,5 +28,6 @@ private:
 	@fn d—Í‚ğ”½‰f‚³‚¹‚é
 	*/
 	void UpdateParticleObject(float _deltaTime)override;
+	ColliderComponent* col;
 };
 

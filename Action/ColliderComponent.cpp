@@ -81,7 +81,7 @@ void ColliderComponent::Update(float deltaTime)
 			PhysicsWorld::GetInstance()->Collision(this);
 		}
 		//PhysicsWorld::Collision()‚ÅƒJƒƒ‰‚ÌÕ“Ë”ÍˆÍ‚ÉÚG‚µ‚½‚©;
-		if (!collidedCamera)
+		if (!collidedCamera&&ownerTag!=Tag::ParticleEffectTag)
 		{
 			//ÚG‚µ‚Ä‚¢‚È‚¢‰æ–ÊŠO‚Æ‚È‚èXV‚ª’â~‚·‚é
 			owner->SetState(State::Paused);

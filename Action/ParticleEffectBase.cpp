@@ -30,6 +30,7 @@ ParticleEffectBase::~ParticleEffectBase()
 */
 void ParticleEffectBase::UpdateGameObject(float _deltaTime)
 {
+	
 	UpdateParticleObject(_deltaTime);
 	SetPosition(position + velocity);
 }
@@ -58,4 +59,9 @@ void ParticleEffectBase::LifeCountDown()
 		particleComponent->SetVisible(true);
 		lifeCount--;
 	}
+}
+
+void ParticleEffectBase::SetReverve(float _flag)
+{
+	particleComponent->SetReverce(_flag);
 }

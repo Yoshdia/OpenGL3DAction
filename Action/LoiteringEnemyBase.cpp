@@ -143,6 +143,7 @@ void LoiteringEnemyBase::PausingUpdateGameObject()
 */
 void LoiteringEnemyBase::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 {
+	animComponent->SetStartFlash();
 	hitPoint -= _power;
 	if (!attackingState)
 	{

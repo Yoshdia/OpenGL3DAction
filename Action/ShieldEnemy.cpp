@@ -1,6 +1,7 @@
 #include "ShieldEnemy.h"
 #include "EnemyWeapon.h"
 #include "DamageSquareEffect.h"
+#include "BombParticleEffect.h"
 
 const int ShieldEnemy::HitPointMax = 6;
 const float ShieldEnemy::AttackingTime = 160.0f;
@@ -66,6 +67,7 @@ void ShieldEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 
 	if (guardDirection != moveDirection)
 	{
+		animComponent->SetStartFlash();
 		hitPoint -= _power;
 		if (!attackingState)
 		{
@@ -82,8 +84,17 @@ void ShieldEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 	}
 	else
 	{
+		Vector3 effectPos = Vector3(100 * (float)guardDirection, 80.0f, 0) + position;
+		DamageSquareEffect*effect=new DamageSquareEffect(effectPos);
 		//攻撃をブロックしたためエフェクトを再生し専用アニメーションを再生
-		new DamageSquareEffect(position + (Vector3(100 * (float)guardDirection, 80.0f, 0)));
+		if (guardDirection == EnemyMoveDirection::right)
+		{
+			effect->SetReverve(false);
+					}
+		else
+		{		
+			effect->SetReverve(true);
+		}
 		animComponent->SetAction(true);
 		animComponent->SetMove(false);
 		animComponent->SetSubDuration(0.023f);

@@ -7,10 +7,10 @@
 @param _velocity ˆÚ“®—Ê
 */
 BombParticleEffect::BombParticleEffect(const Vector3& _pos, const Vector3& _velocity) :
-	ParticleEffectBase(_pos, _velocity, 75, "Assets/Image/16.png")
+	ParticleEffectBase(_pos, _velocity, 70, "Assets/Image/16.png")
 {
 	tag = (Tag::ParticleEffectTag);
-	ColliderComponent* col = new ColliderComponent(this, 100, Vector3(40, 40, 40), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
+	 col = new ColliderComponent(this, 100, Vector3(40, 40, 40), gameObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag);
 
 }
 
@@ -25,6 +25,7 @@ BombParticleEffect::~BombParticleEffect()
 void BombParticleEffect::PausingUpdateGameObject()
 {
 	LifeCountDown();
+	col->SetCollidedCamera();
 }
 
 /*

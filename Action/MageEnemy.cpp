@@ -235,6 +235,8 @@ void MageEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 	if (!barrier)
 	{
 		hitPoint -= _power;
+		animComponent->SetStartFlash();
+
 	}
 	else
 	{
