@@ -17,6 +17,7 @@ ColliderComponent::ColliderComponent(GameObject * owner, int updateOrder, Vector
 	, colliderPos(colliderPos)
 	, doCollision(true)
 	, collidedCamera(false)
+	, ownerTag(tag)
 {
 	OnTriggerEnter = TriggerEnter;
 	OnTriggerStay = TriggerStay;
@@ -139,7 +140,7 @@ int ColliderComponent::GetId()
 */
 Tag ColliderComponent::GetObjectTag()
 {
-	return owner->GetTag();
+	return ownerTag;
 }
 
 /*

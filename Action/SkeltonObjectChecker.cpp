@@ -22,12 +22,12 @@ SkeltonObjectChecker::SkeltonObjectChecker(GameObject* _parent, Vector3 _pos, Ve
 {
 	SetPosition(offset + parent->GetPosition());
 
+	tag = Tag::SkeletalObjectTag;
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, _colliderSize, myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, Vector3(0, 0, 0));
 
 		meshComponent = new MeshComponent(this);
 		meshComponent->SetMesh(RENDERER->GetMesh("Assets/Model/collisionMask.gpmesh"));
 	SetScale(_colliderSize);
-	tag = Tag::SkeletalObjectTag;
 }
 
 SkeltonObjectChecker::~SkeltonObjectChecker()

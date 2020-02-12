@@ -60,6 +60,10 @@ void PhysicsWorld::Collision(ColliderComponent* _collider)
 		//オブジェクトごとの列挙型を比較し衝突の優先順位ごとに衝突を行う
 		if (obj1Tag < obj2Tag)
 		{
+			if (obj2Tag == Tag::null)
+			{
+				int i=0;
+			}
 			if (_collider->GetObjectTag() != Tag::Camera)
 			{
 				if (collider2->GetState() == State::Paused)

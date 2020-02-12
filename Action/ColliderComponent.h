@@ -49,6 +49,10 @@ public:
 	void Update(float deltaTime) override;
 private:
 	/*
+	@fn 親のタグ 生成時に決定
+	*/
+	Tag ownerTag;
+	/*
 	@fn 衝突のリアクション関数
 	@sa GameObject.h
 	*/
