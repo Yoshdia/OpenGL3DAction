@@ -14,7 +14,7 @@ HammerAttackPlayer::HammerAttackPlayer(const float& _number):
 	else
 	{
 
-	canNotActionTime = 40;
+	canNotActionTime = 25.0f;
 	waitTimeForNextAttack = 60;
 	}
 }
