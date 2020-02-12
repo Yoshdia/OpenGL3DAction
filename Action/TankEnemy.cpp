@@ -41,9 +41,9 @@ void TankEnemy::DeadEvent()
 void TankEnemy::Attack(float _deltaTime)
 {
 	Vector3 ataPos = Vector3::Zero;
-	ataPos.x = (float)(moveDirection * 90);
+	ataPos.x = (float)(moveDirection * 80);
 	ataPos.y += 40;
-	attackObject=new EnemyWeapon(position + ataPos, Vector3(90, 40, 20), 20, 50);
+	attackObject=new EnemyWeapon(position + ataPos, Vector3(100, 40, 20), 20, 50);
 }
 
 void TankEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)

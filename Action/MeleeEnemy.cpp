@@ -43,8 +43,8 @@ void MeleeEnemy::DeadEvent()
 void MeleeEnemy::Attack(float _deltaTime)
 {
 	Vector3 ataPos = Vector3::Zero;
-	ataPos.x = (float)(moveDirection * 60);
+	ataPos.x = (float)(moveDirection * 50);
 	ataPos.y += 40;
-	attackObject= new EnemyWeapon(position+ataPos, Vector3(60,80,20), 10,40);
+	attackObject= new EnemyWeapon(position+ataPos, Vector3(70,80,20), 10,40);
 }
 

@@ -48,9 +48,9 @@ void ShieldEnemy::DeadEvent()
 void ShieldEnemy::Attack(float _deltaTime)
 {
 	Vector3 ataPos = Vector3::Zero;
-	ataPos.x = (float)(moveDirection * 55);
+	ataPos.x = (float)(moveDirection * 45);
 	ataPos.y += 40;
-	attackObject= new EnemyWeapon(position + ataPos, Vector3(50, 40, 20), 5, 25);
+	attackObject= new EnemyWeapon(position + ataPos, Vector3(60, 40, 20), 5, 25);
 }
 
 void ShieldEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
