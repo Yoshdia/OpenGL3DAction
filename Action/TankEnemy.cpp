@@ -48,6 +48,7 @@ void TankEnemy::Attack(float _deltaTime)
 
 void TankEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 {
+	animComponent->SetStartFlash();
 	hitPoint -= _power;
 	if (!attackingState)
 	{

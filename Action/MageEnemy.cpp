@@ -43,7 +43,7 @@ MageEnemy::MageEnemy(Vector3 _pos) :
 	rangeEnemy->SetState(State::Dead);
 	subActionClass = new DoSubActionMagesChild(this);
 	animComponent->SetSubDuration(0.006f);
-	guardParticle = new ParticleObject(Vector3(0, 0, 100), "Assets/Image/Effect/damageSquare.png", 70.0f, 100);
+	guardParticle = new ParticleObject(Vector3(0, 0, 100), "Assets/Image/Effect/shieldEffect.png", 90.0f, 100);
 	guardParticle->SetState(State::Dead);
 }
 
@@ -113,7 +113,7 @@ void MageEnemy::UpdateEnemyObject(float _deltaTime)
 		{
 			return;
 		}
-		guardParticle->SetPosition(position+Vector3(0,80,-35));
+		guardParticle->SetPosition(position+Vector3(0,80,-40));
 		//追跡対象の座標を取得
 		Vector3 target = playerObject->GetPosition();
 		//プレイヤーとのx座標間の距離を計算

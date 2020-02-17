@@ -7,7 +7,7 @@
 */
 DamageSquareEffect::DamageSquareEffect(const Vector3 & _pos) :
 	ParticleEffectBase(_pos, Vector3(0, 0, 0), 30, "Assets/Image/Effect/damageSquare.png"),
-	particleScale(0.1f),
+	particleScale(0.2f),
 	particleAlfa(1.0f)
 {
 	particleComponent->SetScale(particleScale);
