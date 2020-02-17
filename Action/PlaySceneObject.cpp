@@ -2,7 +2,6 @@
 #include "Renderer.h"
 #include "StageCreater.h"
 
-#include "TestModel.h"
 #include "PlayerCharacter.h"
 #include "GameEndEventSystem.h"
 #include "InputSystem.h"
