@@ -52,15 +52,15 @@ protected:
 	bool loop;
 public: //ゲッターセッター
 	/*
-	 @fn 現在再生中のテクスチャを返す
+	 @return 現在再生中のテクスチャを返す
 	*/
 	Texture* GetSprite() { return animation[nowAnimationCount].sprite; }
 	/*
-	 @fn アニメーションが終了したか
+	 @return アニメーションが終了したか
 	*/
 	bool GetAnimationEnd() { return animationEnd; }
 	/*
-	 @fn ループを行うかどうかのフラグ
+	 @return ループを行うかどうかのフラグ
 	*/
 	bool GetLoopFlag() { return loop; }
 };

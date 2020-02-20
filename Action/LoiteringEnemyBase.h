@@ -34,7 +34,7 @@ private:
 	@param _pairPos 衝突相手の座標
 	@param _power ダメージ
 	*/
-	void HitPlayerAttack(const Vector3& _pairPos,const int& _power)override;
+	virtual void HitPlayerAttack(const Vector3& _pairPos,const int& _power)override;
 	/*
 	@fn 撃破イベント
 	*/
@@ -131,24 +131,26 @@ private:
 	static const float NockBackPower;
 	//ノックバックの方向、力
 	Vector3 nockBackForce;
+	/*
+	以下エネミークラスごとに決定すべき値のデフォルト値
+	*/
 	//体力の最大値
-	static const int HitPointMax;
+	static const int HitPointMaxDefault;
 	//攻撃時間
-	static const int AttackingTime;
+	static const int AttackingTimeDefault;
 	//被弾時の硬直
-	static const int HittingTime;
+	static const int HittingTimeDefault;
 	//歩行速度
-	static const float WalkSpeed;
+	static const float WalkSpeedDefault;
 	//追跡速度
-	static const float ApproachSpeedRatio;
+	static const float ApproachSpeedRatioDefault;
 	//索敵範囲
-	static const float SearchRange;
+	static const float SearchRangeDefault;
 	//攻撃開始距離
-	static const float AttackRange;
+	static const float AttackRangeDefault;
 	//攻撃の待機時間
-	static const int AttackIntervalCount;
+	static const int AttackIntervalCountDefault;
 protected:
-
 	//このカウントが0以下でないと行動ができない。攻撃時や被弾時にカウントが増える
 	int canNotActionTime;
 	/*

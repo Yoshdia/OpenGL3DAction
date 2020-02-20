@@ -80,7 +80,7 @@ void Game::Termination()
 {
     //データのアンロード
 	UnloadData();
-    //シングルトンクラスの解放処理
+    //スタティッククラスの解放処理
     GameObjectManager::DeleteInstance();
 	Renderer::DeleteInstance();
 	PhysicsWorld::DeleteInstance();

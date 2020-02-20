@@ -3,7 +3,10 @@
 #include <vector>
 #include <map>
 
-
+/*
+@file Collision.h
+@brief 正方形や線、三角形等のオブジェクト宣言
+*/
 
 //線分
 struct LineSegment

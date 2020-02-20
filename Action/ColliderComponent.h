@@ -66,14 +66,12 @@ private:
 	@fn 接触したオブジェクト達との接触状態をもとに親GameObjectのリアクション関数に接触相手のTagを渡す
 	*/
 	void CollisionReaction(float deltaTime);
-
 	//衝突を行うか
 	bool doCollision;
 	//カメラと衝突していたか(画面内に在るか)
 	bool collidedCamera;
 	//衝突判定が存在する中心座標　親GameObjectの座標に足して使用する
 	Vector3 colliderPos;
-	
 	/*
 	@enum 接触状態、ObjectTagIdとともにmapで管理され、この接触状態を基に親Objectのリアクション関数を選択する
 	*/
@@ -87,12 +85,9 @@ private:
 	// 当たり判定のサイズ(GameObjectのScaleとは異なる)
 	Vector3 size;
 	//現在Fで親Objectと接触している相手Objectと接触状態
-	std::vector<std::pair<ColliderComponent* ,CollisionState>> nowCollisions;
-	//std::map< ColliderComponent*, CollisionState> isCollision;
+	std::vector<std::pair<ColliderComponent*, CollisionState>> nowCollisions;
 	//前Fで親Objectと接触していた相手Objectの識別子
-	std::vector<std::pair<ColliderComponent* ,CollisionState>> beforeCollisions;
-	//std::map< ColliderComponent*, CollisionState> hadCollision;
-
+	std::vector<std::pair<ColliderComponent*, CollisionState>> beforeCollisions;
 public: //ゲッターセッター
 	/*
 	@return 親Objectの座標を返す
@@ -107,32 +102,29 @@ public: //ゲッターセッター
 	*/
 	Vector3 GetCollisionSize() { return size; };
 	/*
-	@fn 当たり判定のサイズ
-	*/
-	void SetScale(Vector3 _scale) { size = _scale; }
-
-	/*
 	@return 親オブジェクトのタグ
 	*/
-	Tag GetObjectTag();
-
+	Tag GetObjectTag() { return ownerTag; };
 	/*
 	@return 親オブジェクトの状態
 	*/
 	State GetState();
-
 	/*
 	@return 衝突を行うか
 	*/
 	bool GetDoCollision() { return doCollision; }
+
 	/*
 	@fn 衝突を行うか
 	*/
 	void SetDoCollision(bool _flag) { doCollision = _flag; }
-
+	/*
+	@fn 当たり判定のサイズ
+	*/
+	void SetScale(Vector3 _scale) { size = _scale; }
 	/*
 	@fn カメラと衝突していたか
-	@fn カメラと衝突していない状態でも更新したい場合使用
+	@brief カメラと衝突していない状態でも更新したい場合使用
 	*/
 	void SetCollidedCamera() { collidedCamera = true; }
 };

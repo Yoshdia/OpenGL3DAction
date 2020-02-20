@@ -85,12 +85,11 @@ protected:
 	/*
 	~ 継承先で変更が行われなかった場合の最大体力 ~
 	**/
-	static const int HitPointMax;
+	static const int HitPointMaxDefault;
 
 	//最も最新の、攻撃を行ったオブジェクトへのポインタ。撃破されたときに削除するために所有する
 	GameObject* attackObject;
-	//中心座標
-	Vector3 middlePos;
+
 };
 
 

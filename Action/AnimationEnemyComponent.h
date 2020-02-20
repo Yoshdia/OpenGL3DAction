@@ -34,7 +34,7 @@ public:
 	@fn　アニメーションやモデルをロードする
 	@param _type 敵の種類　ロードするモデルやロードするアニメーションが変わる
 	*/
-	AnimationEnemyComponent(GameObject * _owner, EnemyType _type, int updateOrder = 100);
+	AnimationEnemyComponent(GameObject* _owner, EnemyType _type, int updateOrder = 100);
 	~AnimationEnemyComponent();
 
 	/*
@@ -42,7 +42,7 @@ public:
 	*/
 	void AllFlagReset();
 	/*
-     @fn animationNameと各フラグを参照しどのアニメーションを再生するかを決定し再生する
+	 @fn animationNameと各フラグを参照しどのアニメーションを再生するかを決定し再生する
 	*/
 	void UpdateAnimationComponent(float _deltaTime)override;
 private:
@@ -61,7 +61,7 @@ private:
 	const Animation* actionAnim;
 
 	/*
-	@enum EnemyAnimationName 
+	@enum EnemyAnimationName
 	@brief エネミーの共通アクション名
 	*/
 	enum EnemyAnimationName
@@ -111,7 +111,7 @@ public:	//ゲッターセッター
 	/*
 	@fn アニメーションフラグをセット
 	*/
-	void SetAttack(bool _attack);
+	void SetAttack(bool _attack) { attack = _attack; }
 	/*
 	@fn アニメーションフラグをセット
 	*/

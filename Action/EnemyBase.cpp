@@ -9,7 +9,7 @@
 #include "WeaponBase.h"
 #include "DamageSquareEffect.h"
 
-const int EnemyBase::HitPointMax = 3;
+const int EnemyBase::HitPointMaxDefault = 3;
 
 /*
 @param _pos 座標
@@ -18,22 +18,23 @@ const int EnemyBase::HitPointMax = 3;
 */
 EnemyBase::EnemyBase(Vector3 _pos, Vector3 _scale, EnemyType _type) :
 	GameObject(),
-	hitPoint(HitPointMax),
+	hitPoint(HitPointMaxDefault),
 	moveDirection(EnemyMoveDirection::right),
-	beforeDirection(moveDirection)
+	beforeDirection(moveDirection),
+	attackObject(nullptr)
 {
 	SetScale(_scale);
 	SetPosition(_pos);
 	tag = Tag::EnemyTag;
+	//衝突判定を置く中心座標(ゼロは足元)
 	Vector3  collisionPos = Vector3(20, 80, 0);
 	ColliderComponent* colliderComponent = new ColliderComponent(this, 100, Vector3(120, 160, 70), myObjectId, GetTriggerEnterFunc(), GetTriggerStayFunc(), tag, collisionPos);
-	middlePos = position + collisionPos;
+	//モデルの向きを変更(デフォルトは正面)
 	rotate = new RotateComponent(this);
 	rotate->SetRotation(-90, Vector3::UnitX);
-
+	//エネミーごとの識別子を基にアニメーションクラスを生成
 	animComponent = new AnimationEnemyComponent(this, _type);
 	animComponent->SetMove(true);
-	attackObject = nullptr;
 }
 
 EnemyBase::~EnemyBase()

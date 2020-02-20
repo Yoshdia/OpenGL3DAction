@@ -319,7 +319,7 @@
       <Filter>GameObjects\Event</Filter>
     </ClCompile>
     <ClCompile Include="TakeItemUi.cpp">
-      <Filter>GameObjects</Filter>
+      <Filter>GameObjects\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -643,7 +643,7 @@
       <Filter>GameObjects\Event</Filter>
     </ClInclude>
     <ClInclude Include="TakeItemUi.h">
-      <Filter>GameObjects</Filter>
+      <Filter>GameObjects\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

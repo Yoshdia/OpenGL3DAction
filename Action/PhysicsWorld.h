@@ -22,11 +22,11 @@ class PhysicsWorld
 public:
 	static PhysicsWorld* GetInstance() { return physicsWorld; }
 	/*
-	@fn PhysicsWorldシングルトンの生成
+	@fn PhysicsWorld生成
 	*/
 	static void CreateInstance();
 	/*
-	@fn PhysicsWorldシングルトンの解放
+	@fn PhysicsWorld解放
 	*/
 	static void DeleteInstance();
 

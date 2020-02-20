@@ -5,7 +5,7 @@
 PhysicsWorld* PhysicsWorld::physicsWorld = nullptr;
 
 /*
-@fn PhysicsWorldシングルトンの生成
+@fn PhysicsWorld生成
 */
 void PhysicsWorld::CreateInstance()
 {
@@ -16,7 +16,7 @@ void PhysicsWorld::CreateInstance()
 }
 
 /*
-@fn PhysicsWorldシングルトンの解放
+@fn PhysicsWorld解放
 */
 void PhysicsWorld::DeleteInstance()
 {

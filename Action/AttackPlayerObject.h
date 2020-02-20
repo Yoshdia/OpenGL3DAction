@@ -31,13 +31,14 @@ private:
 	*/
 	void OnTriggerStay(ColliderComponent* _colliderPair) ;
 	/*
-	@fn 引数のオブジェクトを生成する
-	@param _name 生成したいアイテムの名前
+	@fn 現在所持している攻撃クラスを開放しその攻撃クラスのアイテムをその場に設置して引数の攻撃を取得する
+	@param _name 取得したアイテム名
+	@param _slot 変更を行う攻撃スロットナンバー
 	*/
 	ComboItemObjectBase* DropComboItem(const ComboItemName& _name,const int& slot);
 
 	/*
-	@fn　スロットをリセットする
+	@fn　スロットを解放する
 	@param _slot 解放したいスロットナンバー
 	*/
 	void DeleteSlot(const int& _slot);
@@ -62,8 +63,8 @@ private:
 	//近距離攻撃のコンボを次につなげる猶予時間。これが0になるとコンボ状態をリセットする
 	float waitTimeForNextAttack;
 
-	//攻撃の変更に用いるカウント
-	int changeCount;
+	//攻撃の変更に用いる、アイテムの取得インターバルカウント
+	int itemChangeWaitCount;
 	//左スロットのアイコン
 	class UserInterfaceBase* leftIcon;
 	//右ｽﾛｯﾄのアイコン

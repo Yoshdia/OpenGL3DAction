@@ -51,14 +51,8 @@ void ColliderComponent::OnCollision(ColliderComponent* colliderParter)
 			break;
 		}
 	}
-	//auto iter = hadCollision.find(colliderParter);
-	//if (iter != hadCollision.end())
-	//{
-	//	state = CollisionState::Stay;
-	//}
 	//現Fで接触しているリストに挿入
 	nowCollisions.emplace_back(std::make_pair(colliderParter, state));
-	//isCollision.emplace(colliderParter, state);
 }
 
 /*
@@ -67,10 +61,13 @@ void ColliderComponent::OnCollision(ColliderComponent* colliderParter)
 */
 void ColliderComponent::Update(float deltaTime)
 {
+	//衝突状態を基にリアクションさせる
 	CollisionReaction(deltaTime);
-
+	//前フレームまで衝突していたリストを開放
 	beforeCollisions.clear();
+	//前フレームの衝突リストを更新
 	beforeCollisions = nowCollisions;
+	//現フレームで衝突していたリストを開放
 	nowCollisions.clear();
 	//衝突を行うか
 	if (doCollision)
@@ -113,7 +110,6 @@ void ColliderComponent::CollisionReaction(float deltaTime)
 			break;
 		case(CollisionState::Stay):
 			OnTriggerStay(obj.first);
-
 			break;
 		}
 	}
@@ -133,14 +129,6 @@ Vector3 ColliderComponent::GetPosition()
 int ColliderComponent::GetId()
 {
 	return owner->GetObjectId();
-}
-
-/*
-@fn 親オブジェクトのタグ
-*/
-Tag ColliderComponent::GetObjectTag()
-{
-	return ownerTag;
 }
 
 /*
