@@ -24,6 +24,11 @@ private:
 	bool endPause;
 	//ポーズ画面でリプレイを選択された
 	bool rePlay;
+
+	GameObject* replayButton;
+	GameObject* returnButton;
+
+
 public: //ゲッターセッター
 	/*
 @return ポーズ画面の終了フラグ

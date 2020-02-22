@@ -148,9 +148,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="AnimationSpriteClip.cpp" />
     <ClCompile Include="AttackBase.cpp" />
     <ClCompile Include="AttackPlayerAnimationClip.cpp" />
-    <ClCompile Include="AttackPlayerComponent.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="AttackPlayerObject.cpp" />
     <ClCompile Include="AttackPlayerOnce.cpp" />
     <ClCompile Include="AttackPlayerThird.cpp" />
@@ -168,10 +165,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="ComboItemObjectBase.cpp" />
     <ClCompile Include="ComboMeanPlayerBase.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="DamageSquareEffect.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="DebugBox.cpp" />
     <ClCompile Include="DoSubActionMagesChild.cpp" />
     <ClCompile Include="DoubleHammerCombo.cpp" />
@@ -205,18 +198,10 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="MeleeEnemy.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
-    <ClCompile Include="MoveComponent.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="MovePlayerAnimationClip.cpp" />
     <ClCompile Include="NoActionEnemyForLoad.cpp" />
     <ClCompile Include="NockBackPlayerAnimationClip.cpp" />
     <ClCompile Include="ParticleComponent.cpp" />
-    <ClCompile Include="ParticleEffect.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="ParticleEffectBase.cpp" />
     <ClCompile Include="ParticleObject.cpp" />
     <ClCompile Include="PauseScreen.cpp" />
@@ -270,9 +255,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="AnimationSpriteClip.h" />
     <ClInclude Include="AttackBase.h" />
     <ClInclude Include="AttackPlayerAnimationClip.h" />
-    <ClInclude Include="AttackPlayerComponent.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="AttackPlayerObject.h" />
     <ClInclude Include="AttackPlayerOnce.h" />
     <ClInclude Include="AttackPlayerThird.h" />
@@ -290,10 +272,6 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="ComboItemObjectBase.h" />
     <ClInclude Include="ComboMeanPlayerBase.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="DamageSquareEffect.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="DebugBox.h" />
     <ClInclude Include="DoSubActionMagesChild.h" />
     <ClInclude Include="DoubleHammerCombo.h" />
@@ -327,18 +305,10 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="MeleeEnemy.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshComponent.h" />
-    <ClInclude Include="MoveComponent.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="MovePlayerAnimationClip.h" />
     <ClInclude Include="NoActionEnemyForLoad.h" />
     <ClInclude Include="NockBackPlayerAnimationClip.h" />
     <ClInclude Include="ParticleComponent.h" />
-    <ClInclude Include="ParticleEffect.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="ParticleEffectBase.h" />
     <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="PauseScreen.h" />

@@ -1,6 +1,6 @@
 #include "PauseScreen.h"
 #include "InputSystem.h"
-
+#include "UserInterfaceBase.h"
 
 PauseScreen::PauseScreen() :
 	GameObject(),
@@ -8,6 +8,9 @@ PauseScreen::PauseScreen() :
 	rePlay(false)
 {
 	printf("\n /********/\n    É|Å[ÉYâÊñ     \n///********/ \n");
+
+	replayButton = new UserInterfaceBase(Vector3(100, 0, 0), "Assets/Image/", Vector3(10, 10, 10));
+	returnButton = new UserInterfaceBase(Vector3(-100, 0, 0), "", Vector3(10, 10, 10));
 }
 
 PauseScreen::~PauseScreen()

@@ -8,9 +8,6 @@
     <ClCompile Include="Component.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="MoveComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -203,9 +200,6 @@
     <ClCompile Include="FloatParticleEffect.cpp">
       <Filter>GameObjects\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleEffect.cpp">
-      <Filter>GameObjects\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="ComboMeanPlayerBase.cpp">
       <Filter>PlayerAction\Combo</Filter>
     </ClCompile>
@@ -214,9 +208,6 @@
     </ClCompile>
     <ClCompile Include="ThrowWeaponCombo.cpp">
       <Filter>PlayerAction\Combo</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackPlayerComponent.cpp">
-      <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="AttackPlayerObject.cpp">
       <Filter>GameObjects</Filter>
@@ -278,9 +269,6 @@
     <ClCompile Include="ParticleObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="DamageSquareEffect.cpp">
-      <Filter>GameObjects\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="PauseScreen.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
@@ -321,16 +309,15 @@
     <ClCompile Include="TakeItemUi.cpp">
       <Filter>GameObjects\UI</Filter>
     </ClCompile>
-    <ClCompile Include="ZoomingTransparencyEffect.cpp" />
+    <ClCompile Include="ZoomingTransparencyEffect.cpp">
+      <Filter>GameObjects\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="SpriteComponent.h">
@@ -528,9 +515,6 @@
     <ClInclude Include="FloatParticleEffect.h">
       <Filter>GameObjects\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleEffect.h">
-      <Filter>GameObjects\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="ComboMeanPlayerBase.h">
       <Filter>PlayerAction\Combo</Filter>
     </ClInclude>
@@ -539,9 +523,6 @@
     </ClInclude>
     <ClInclude Include="ThrowWeaponCombo.h">
       <Filter>PlayerAction\Combo</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackPlayerComponent.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="AttackPlayerObject.h">
       <Filter>GameObjects</Filter>
@@ -603,9 +584,6 @@
     <ClInclude Include="ParticleObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="DamageSquareEffect.h">
-      <Filter>GameObjects\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="PauseScreen.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
@@ -646,7 +624,9 @@
     <ClInclude Include="TakeItemUi.h">
       <Filter>GameObjects\UI</Filter>
     </ClInclude>
-    <ClInclude Include="ZoomingTransparencyEffect.h" />
+    <ClInclude Include="ZoomingTransparencyEffect.h">
+      <Filter>GameObjects\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">
