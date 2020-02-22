@@ -321,6 +321,7 @@
     <ClCompile Include="TakeItemUi.cpp">
       <Filter>GameObjects\UI</Filter>
     </ClCompile>
+    <ClCompile Include="ZoomingTransparencyEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -645,6 +646,7 @@
     <ClInclude Include="TakeItemUi.h">
       <Filter>GameObjects\UI</Filter>
     </ClInclude>
+    <ClInclude Include="ZoomingTransparencyEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObjects">

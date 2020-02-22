@@ -7,7 +7,7 @@
 #include "BombParticleEffect.h"
 #include "MainCameraObject.h"
 #include "WeaponBase.h"
-#include "DamageSquareEffect.h"
+#include "ZoomingTransparencyEffect.h"
 
 const int EnemyBase::HitPointMaxDefault = 3;
 

@@ -1,6 +1,6 @@
 #include "ShieldEnemy.h"
 #include "EnemyWeapon.h"
-#include "DamageSquareEffect.h"
+#include "ZoomingTransparencyEffect.h"
 #include "BombParticleEffect.h"
 
 const int ShieldEnemy::HitPointMax = 6;
@@ -85,7 +85,7 @@ void ShieldEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 	else
 	{
 		Vector3 effectPos = Vector3(100 * (float)guardDirection, 80.0f, 0) + position;
-		DamageSquareEffect*effect=new DamageSquareEffect(effectPos);
+		ZoomingTransparencyEffect*effect=new ZoomingTransparencyEffect(effectPos);
 		//攻撃をブロックしたためエフェクトを再生し専用アニメーションを再生
 		if (guardDirection == EnemyMoveDirection::right)
 		{

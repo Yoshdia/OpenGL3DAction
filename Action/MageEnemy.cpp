@@ -8,7 +8,7 @@
 #include "DoSubActionMagesChild.h"
 #include "StraightMagicBullet.h"
 #include "FloatParticleEffect.h"
-#include "DamageSquareEffect.h"
+#include "ZoomingTransparencyEffect.h"
 #include "ParticleObject.h"
 #include "BombParticleEffect.h"
 
@@ -241,7 +241,7 @@ void MageEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 	else
 	{
 		printf("Mages Guard HitPoint : %d \n", hitPoint);
-		new DamageSquareEffect(position + Vector3(0, 50, 0));
+		new ZoomingTransparencyEffect(position + Vector3(0, 50, 0));
 	}
 }
 

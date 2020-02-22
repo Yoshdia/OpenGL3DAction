@@ -168,7 +168,10 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="ComboItemObjectBase.cpp" />
     <ClCompile Include="ComboMeanPlayerBase.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="DamageSquareEffect.cpp" />
+    <ClCompile Include="DamageSquareEffect.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="DebugBox.cpp" />
     <ClCompile Include="DoSubActionMagesChild.cpp" />
     <ClCompile Include="DoubleHammerCombo.cpp" />
@@ -258,6 +261,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClCompile Include="WarpPointSearchEnemy.cpp" />
     <ClCompile Include="WeaponBase.cpp" />
     <ClCompile Include="WeaponRotationAnimationPlayer.cpp" />
+    <ClCompile Include="ZoomingTransparencyEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -286,7 +290,10 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="ComboItemObjectBase.h" />
     <ClInclude Include="ComboMeanPlayerBase.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="DamageSquareEffect.h" />
+    <ClInclude Include="DamageSquareEffect.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="DebugBox.h" />
     <ClInclude Include="DoSubActionMagesChild.h" />
     <ClInclude Include="DoubleHammerCombo.h" />
@@ -376,6 +383,7 @@ xcopy "$(ProjectDir)\..\external\GLEW\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</C
     <ClInclude Include="WarpPointSearchEnemy.h" />
     <ClInclude Include="WeaponBase.h" />
     <ClInclude Include="WeaponRotationAnimationPlayer.h" />
+    <ClInclude Include="ZoomingTransparencyEffect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
