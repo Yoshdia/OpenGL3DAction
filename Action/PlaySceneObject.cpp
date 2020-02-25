@@ -91,7 +91,6 @@ void PlaySceneObject::GameObjectInput(const InputState& _keyState)
 {
 	//ƒ|[ƒY‰æ–Ê‚Ö
 	if (_keyState.Keyboard.GetKeyState(SDL_SCANCODE_F1) ||
-		(_keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_X)) &&
 		_keyState.Controller.GetButtonState(SDL_CONTROLLER_BUTTON_START))
 	{
 		if (pausingScreen == nullptr)
@@ -104,7 +103,7 @@ void PlaySceneObject::GameObjectInput(const InputState& _keyState)
 
 void PlaySceneObject::PausingUpdateGameObject()
 {
-	if (pausingScreen != nullptr) 
+	if (pausingScreen != nullptr)
 	{
 		if (pausingScreen->GetEndPause())
 		{
@@ -112,11 +111,13 @@ void PlaySceneObject::PausingUpdateGameObject()
 			delete pausingScreen;
 			pausingScreen = nullptr;
 		}
-		if (pausingScreen->GetRePlayFlag())
+		if (pausingScreen != nullptr)
 		{
-			pauzingEvent = PauzingEvent::NoneEvent;
-			SetSceneFunc(SceneName::TitleScene);
-
+			if (pausingScreen->GetRePlayFlag())
+			{
+				pauzingEvent = PauzingEvent::NoneEvent;
+				SetSceneFunc(SceneName::TitleScene);
+			}
 		}
 	}
 
