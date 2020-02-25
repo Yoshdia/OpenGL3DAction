@@ -58,6 +58,11 @@ void GameObject::Update(float _deltaTime)
 			ComputeWorldTransform();
 		}
 	}
+	else if(pauzingEvent== PauzingEvent::PausingEvent)
+	{
+		PausingUpdateGameObject();
+
+	}
 	else
 	{
 		PausingUpdateGameObject();
