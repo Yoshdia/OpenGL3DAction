@@ -28,9 +28,9 @@ private:
 	class UserInterfaceBase* playButton;
 	//タイトルへ戻るUI
 	class UserInterfaceBase* backTitleButton;
-	//casolによって選択されているUIの位置を表示するための半透明の黒い板
+	//左側(タイトルへ戻る)に表示する、UIの位置を表示するための半透明の黒い板
 	class UserInterfaceBase* selectedButtonLeft;
-	//casolによって選択されているUIの位置を表示するための半透明の黒い板
+	//右側(ゲームを再開する)casolによって選択されているUIの位置を表示するための半透明の黒い板
 	class UserInterfaceBase* selectedButtonRight;
 	//playButton、backTitleButtonのサイズ
 	static const float UiSize;
