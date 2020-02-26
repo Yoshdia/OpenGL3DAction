@@ -3,7 +3,7 @@
 
 /*
 @file NoActionEnemyForLoad.h
-@brief 何もアクションを行わない敵のクラス。タイトル画面やロード画面に
+@brief 何もアクションを行わないアニメーションを行うだけの敵のクラス。タイトル画面やロード画面に
 */
 class NoActionEnemyForLoad :
 	public EnemyBase

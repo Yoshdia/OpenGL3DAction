@@ -46,6 +46,10 @@ void TankEnemy::Attack(float _deltaTime)
 	attackObject=new EnemyWeapon(position + ataPos, Vector3(100, 40, 20), 20, 50);
 }
 
+/*
+@fn ノックバックしない被弾処理
+@sa LoiteringEnemyBase::HitPlayerAttack()
+*/
 void TankEnemy::HitPlayerAttack(const Vector3& _pairPos, const int& _power)
 {
 	animComponent->SetStartFlash();

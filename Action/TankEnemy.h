@@ -20,6 +20,10 @@ private:
 	void DeadEvent()override;
 	void Attack(float _deltaTime)override;
 
+	/*
+	@fn ノックバックしない被弾処理
+	@sa LoiteringEnemyBase::HitPlayerAttack()
+	*/
 	void HitPlayerAttack(const Vector3& _pairPos, const int& _power)override;
 
 	//初期体力　ゼロになると撃破アニメーションと共に消える
