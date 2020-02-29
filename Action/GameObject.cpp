@@ -46,22 +46,26 @@ GameObject::~GameObject()
 */
 void GameObject::Update(float _deltaTime)
 {
+	//更新停止のイベント中でないか(ポーズ画面など)
 	if (pauzingEvent == PauzingEvent::NoneEvent)
 	{
+		//更新状態がアクティブ
 		if (state == Active)
 		{
+			//Transformのワールド変換
 			ComputeWorldTransform();
-			
+			//ゲームオブジェクトの更新
 			UpdateGameObject(_deltaTime);
+			//このゲームオブジェクトに付属するコンポーネントの更新
 			UpdateComponents(_deltaTime);
-
+			//Transformのワールド変換
 			ComputeWorldTransform();
 		}
 	}
+	//ポーズ画面のときコンポーネントを更新させない(アニメーションなども止めるため)
 	else if(pauzingEvent== PauzingEvent::PausingEvent)
 	{
 		PausingUpdateGameObject();
-
 	}
 	else
 	{
@@ -84,28 +88,42 @@ void GameObject::UpdateComponents(float _deltaTime)
 		}
 	}
 }
-
+/*
+@brief	ゲームオブジェクトのアップデート
+@param	最後のフレームを完了するのに要した時間
+*/
 void GameObject::UpdateGameObject(float _deltaTime)
 {
 }
-
+/*
+@fn ゲームオブジェクトが静止中に更新されるアップデート関数
+@brief pauzingUpdateがtrueのときだけ呼ばれる更新関数
+*/
 void GameObject::PausingUpdateGameObject()
 {
 }
 
+/*
+@fn 入力状態を受け取りGameObjectとComponentの入力更新関数を呼び出す
+*/
 void GameObject::ProcessInput(const InputState& _keyState)
 {
 	if (state == Active)
 	{
-		// First process input for components
+		//コンポーネントの入力関数にコントローラーの入力状態を
 		for (auto comp : components)
 		{
 			comp->ProcessInput(_keyState);
 		}
+		//ゲームオブジェクトの入力関数にコントローラーの入力状態を
 		GameObjectInput(_keyState);
 	}
 }
 
+/*
+@fn 入力を引数で受け取る更新関数
+@brief 基本的にここで入力情報を変数に保存しUpdateGameObjectで更新を行う
+*/
 void GameObject::GameObjectInput(const InputState & _keyState)
 {
 }
@@ -160,16 +178,6 @@ void GameObject::ComputeWorldTransform()
 			itr->OnUpdateWorldTransform();
 		}
 	}
-}
-
-void GameObject::ExceptionUpdate()
-{
-	ComputeWorldTransform();
-
-	UpdateGameObject(0.016f);
-	UpdateComponents(0.016f);
-
-	ComputeWorldTransform();
 }
 
 void GameObject::FixCollision(const AABB & myAABB, const AABB & pairAABB, const Tag& _pairTag)

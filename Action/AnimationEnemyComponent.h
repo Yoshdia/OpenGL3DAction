@@ -125,7 +125,7 @@ public:	//ゲッターセッター
 	*/
 	void SetAction(bool _action);
 	/*
-	@fn アニメーションフラグをセット
+	@fn アニメーション再生速度をセット
 	*/
 	void SetSubDuration(float _sub) { subAnimDuration = _sub; }
 };

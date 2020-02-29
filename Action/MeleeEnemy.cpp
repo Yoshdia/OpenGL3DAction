@@ -48,3 +48,15 @@ void MeleeEnemy::Attack(float _deltaTime)
 	attackObject= new EnemyWeapon(position+ataPos, Vector3(70,80,20), 10,40);
 }
 
+void MeleeEnemy::PausingUpdateGameObject()
+{
+	//ボスの演出中に状態が変化しアニメーションを再生、更新を開始するため手動で更新関数を呼ぶ
+	if (pauzingEvent == PauzingEvent::SummonMageEvent)
+	{
+		ComputeWorldTransform();
+		UpdateGameObject(0.016f);
+		UpdateComponents(0.016f);
+		ComputeWorldTransform();
+	}
+}
+

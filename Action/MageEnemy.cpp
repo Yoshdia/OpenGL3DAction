@@ -56,30 +56,36 @@ MageEnemy::~MageEnemy()
 */
 void MageEnemy::PausingUpdateGameObject()
 {
+	//ボス(このオブジェクト)の演出中
 	if (pauzingEvent == PauzingEvent::SummonMageEvent)
 	{
+		//カメラを自身に向ける
 		mainCamera->UpdateGameObject(0.06f);
+		//アニメーションを手動で更新させる
 		animComponent->UpdateAnimationComponent(0.6f);
 		animComponent->SetSpawn(false);
-		if (directingCount == 290)//220
+		//演出カウントごとの処理
+		if (directingCount == 290)
 		{
+			//左右を向く
 			rotate->SetRotation(90, Vector3::UnitY);
+			//演出中に敵を一体召喚
 			meleeEnemy->SpawnSummoned(popLoiteringEnemyPosition, 5);
+			//エフェクトを生成
 			new FloatParticleEffect(Vector3(45, 0, 0) + popLoiteringEnemyPosition, Vector3(0, 2, 0));
 			new FloatParticleEffect(Vector3(-45, 0, 0) + popLoiteringEnemyPosition, Vector3(0, 2, 0));
+			//カメラを今召喚した敵に向ける
 			mainCamera->SetViewMatrixLerpObject(Vector3(0, 50, -350), meleeEnemy->GetPosition());
 			directingCount++;
 		}
-		else if (directingCount >= 460)//530
+		else if (directingCount >= 460)
 		{
-			//meleeEnemy->SetPosition(popLoiteringEnemyPosition);
 			pauzingEvent = PauzingEvent::NoneEvent;
 			actionName = MageActionName::FloatShot;
 			animComponent->SetSubDuration(0.017f);
 		}
 		else if (directingCount > 320)
 		{
-			meleeEnemy->ExceptionUpdate();
 			directingCount++;
 
 		}

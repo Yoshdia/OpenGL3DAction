@@ -17,8 +17,11 @@ class ColliderComponent;
 */
 enum State
 {
+	//アクティブ
 	Active,
+	//更新が停止している
 	Paused,
+	//オブジェクトの更新が終了(外部からのみActiveに変更可能)
 	Dead
 };
 
@@ -44,12 +47,20 @@ enum Tag
 	null = 14,
 };
 
+/*
+@enum ゲームオブジェクトの更新を停止するイベント名
+*/
 enum PauzingEvent
 {
+	//ボスの特殊演出
 	SummonMageEvent,
-	DeadPlayerEvent,
+	//ポーズ画面中
 	PausingEvent,
+	//プレイヤーが撃破されてしまった際の演出
+	DeadPlayerEvent,
+	//ゲームオーバー時の演出 DeadPlayerEventと関連
 	GameOverEvent,
+	//ゲームオブジェクトの更新が行われている。
 	NoneEvent
 };
 
@@ -86,7 +97,15 @@ public:
 	*/
 	virtual void PausingUpdateGameObject();
 
+	/*
+	@fn 入力状態を受け取りGameObjectとComponentの入力更新関数を呼び出す
+	*/
 	void ProcessInput(const InputState& _keyState);
+
+	/*
+	@fn 入力を引数で受け取る更新関数
+	@brief 基本的にここで入力情報を変数に保存しUpdateGameObjectで更新を行う
+	*/
 	virtual void GameObjectInput(const InputState& _keyState);
 
 	/*
@@ -105,11 +124,6 @@ public:
 	@brief	Transformのワールド変換
 	*/
 	void ComputeWorldTransform();
-
-	/*
-	@fn 現在の仕様上行うことができない更新の処理を、外部から呼び出せるようにすることに	
-	*/
-	void ExceptionUpdate();
 
 	/*
 	@brief　オブジェクトのポジションを取得する
