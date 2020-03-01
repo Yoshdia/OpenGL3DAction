@@ -160,6 +160,20 @@ void GameObject::RemoveComponent(Component * _component)
 		components.erase(itr);
 	}
 }
+/*
+@fn 現在の仕様上行うことができない処理を外部から強引に行うための関数
+@exsample ゲームオブジェクト全体の更新が停止中に対象のゲームオブジェクトを更新する
+*/
+void GameObject::ExceptionUpdate()
+{
+	ComputeWorldTransform();
+
+	UpdateGameObject(0.016f);
+	UpdateComponents(0.016f);
+
+	ComputeWorldTransform();
+}
+
 
 /*
 @brief	Transformのワールド変換

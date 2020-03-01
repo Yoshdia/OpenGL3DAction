@@ -86,8 +86,8 @@ void MageEnemy::PausingUpdateGameObject()
 		}
 		else if (directingCount > 320)
 		{
+			meleeEnemy->ExceptionUpdate();
 			directingCount++;
-
 		}
 		else
 		{

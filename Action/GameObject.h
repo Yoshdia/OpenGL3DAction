@@ -121,6 +121,11 @@ public:
 	void RemoveComponent(Component* _component);
 
 	/*
+	@fn 現在の仕様上行うことができない処理を外部から強引に行うための関数
+	@exsample ゲームオブジェクト全体の更新が停止中に対象のゲームオブジェクトを更新する
+	*/
+	void ExceptionUpdate();
+	/*
 	@brief	Transformのワールド変換
 	*/
 	void ComputeWorldTransform();
@@ -218,19 +223,20 @@ protected:
 
 	//メインカメラ　生成はGameObjectManager生成時に行われる
 	static class MainCameraObject* mainCamera;
-
-
+	//ゲームオブジェクトの更新を止めるイベント状態
 	static PauzingEvent pauzingEvent;
-
+	//衝突時のリアクション関数(ColliderComponentにこの関数のアドレスを渡す) Enter...衝突した Stay...衝突している
 	virtual void OnTriggerEnter(ColliderComponent* colliderPair) {};
+	//衝突時のリアクション関数(ColliderComponentにこの関数のアドレスを渡す) Enter...衝突した Stay...衝突している
 	virtual void OnTriggerStay(ColliderComponent* colliderPair) {};
 
 	//ゲームオブジェクトの状態
 	State state;
 	//ゲームオブジェクトのタグ
 	Tag tag;
-	//ゲームオブジェクトのID
+	//ゲームオブジェクトのID、カウント用
 	static int gameObjectId;
+	//このゲームオブジェクトのID
 	int myObjectId;
 
 	//Transform
